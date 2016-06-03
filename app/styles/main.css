@@ -5093,3 +5093,130 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+body {
+  overflow-x: hidden; }
+
+.navbar-default {
+  border: none;
+  background-color: #293c55;
+  z-index: 13;
+  transition: background-color 0.5s linear; }
+  .navbar-default .nav-title {
+    margin-left: 10px;
+    display: inline-block;
+    padding: 16px 10px;
+    color: #f9f9f9;
+    text-decoration: none; }
+  .navbar-default .navbar-nav {
+    margin: 0 -15px;
+    transition: background-color 0.5s linear; }
+  .navbar-default .navbar-nav li {
+    position: relative; }
+    .navbar-default .navbar-nav li a {
+      color: #eee;
+      background-color: none !important; }
+      .navbar-default .navbar-nav li a:hover, .navbar-default .navbar-nav li a:focus {
+        color: #f9f9f9;
+        background-color: #162436; }
+      .navbar-default .navbar-nav li a .iconfont {
+        font-size: 12px; }
+    .navbar-default .navbar-nav li.open {
+      background-color: #162436;
+      color: #fff; }
+      .navbar-default .navbar-nav li.open > a:focus, .navbar-default .navbar-nav li.open > a:hover {
+        color: #eee;
+        background-color: #162436; }
+    .navbar-default .navbar-nav li.active > a {
+      padding-top: 11px;
+      border-top: 4px solid #a9334c;
+      color: #fff;
+      background-color: transparent;
+      font-family: noto-light; }
+      .navbar-default .navbar-nav li.active > a:hover, .navbar-default .navbar-nav li.active > a:focus {
+        color: #f9f9f9;
+        background-color: #162436; }
+    .navbar-default .navbar-nav li .dropdown-menu {
+      width: 100%;
+      padding: 0;
+      background-color: #162436;
+      box-shadow: none;
+      border: none; }
+      .navbar-default .navbar-nav li .dropdown-menu li {
+        background-color: #162436;
+        border-top: none;
+        padding: 5px 0; }
+        .navbar-default .navbar-nav li .dropdown-menu li:hover, .navbar-default .navbar-nav li .dropdown-menu li:focus {
+          background-color: #a9334c; }
+          .navbar-default .navbar-nav li .dropdown-menu li:hover a, .navbar-default .navbar-nav li .dropdown-menu li:focus a {
+            background-color: #a9334c; }
+  .navbar-default .navbar-logo {
+    height: 32px;
+    margin-top: -6px;
+    margin-left: -2px; }
+  .navbar-default .navbar-collapse {
+    border-top: none; }
+  .navbar-default .navbar-toggle {
+    padding: 1px 5px;
+    margin: 7px 16px 0 0;
+    border-color: #384E6B;
+    background-color: #384E6B; }
+    .navbar-default .navbar-toggle .icon-bar {
+      margin: 7px 0 !important;
+      height: 1px;
+      background-color: #fff; }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+      border-color: #384E6B;
+      background-color: #384E6B; }
+
+#menu-btn {
+  display: none;
+  float: right;
+  height: 45px;
+  line-height: 45px;
+  margin: 5px 20px 0 0;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer; }
+
+.navbar-bg {
+  background-color: transparent; }
+  .navbar-bg .navbar-nav li a {
+    color: #fff; }
+  .navbar-bg .navbar-nav li.active a {
+    color: #fff;
+    background-color: transparent; }
+  .navbar-bg .navbar-toggle {
+    border-color: #517A94;
+    background-color: #517A94; }
+    .navbar-bg .navbar-toggle:hover {
+      border-color: #384E6B;
+      background-color: #384E6B; }
+
+@media (max-width: 768px) {
+  .navbar-default .navbar-nav {
+    background-color: #293c55;
+    transition: background-color 0.5s linear; }
+    .navbar-default .navbar-nav .open .dropdown-menu {
+      padding: 0; }
+      .navbar-default .navbar-nav .open .dropdown-menu li a {
+        color: #fff; }
+    .navbar-default .navbar-nav li.active > a {
+      border-left: 4px solid #a9334c;
+      border-top: none;
+      padding: 10px 15px 10px 11px; }
+  .navbar-bg .navbar-nav {
+    background-color: #4B7995; }
+  .navbar-bg .navbar-toggle {
+    background-color: transparent;
+    border: none; }
+    .navbar-bg .navbar-toggle:focus {
+      border-color: #5A88A2 !important;
+      background-color: #5A88A2 !important; }
+    .navbar-bg .navbar-toggle:hover {
+      border-color: #5A88A2;
+      background-color: #5A88A2; }
+  #menu-btn {
+    display: block; }
+  #nav-download {
+    display: none; } }

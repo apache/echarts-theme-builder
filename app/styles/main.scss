@@ -3,3 +3,11 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/vendor/assets/font
 // bower:scss
 @import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
+
+@import "configs.color";
+
+@import "settings.global";
+
+@import "components.navbar";
+
+

@@ -1,0 +1,12 @@
+{
+  "name": "echarts-theme-builder",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass-official": "~3.1.1",
+    "jquery": "~1.11.0"
+  },
+  "devDependencies": {
+    "chai": "~3.5.0",
+    "mocha": "~2.5.3"
+  }
+}

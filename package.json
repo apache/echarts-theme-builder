@@ -1,7 +1,9 @@
 {
   "name": "echarts-theme-builder",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap-colorpicker": "^2.3.3"
+  },
   "devDependencies": {
     "browser-sync": "^2.12.10",
     "gulp": "^3.6.2",

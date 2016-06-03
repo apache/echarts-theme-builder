@@ -9,6 +9,7 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -62,13 +63,28 @@
         </div>
       </div><!-- end of navbar -->
 
-      <div class="row">
+      <div class="container-fluid">
+      <div class="row"><!-- select theme -->
         <div class="col-md-3 col-sm-4">
-          left
+          <div id="accordion" class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#acc-theme-color">主题色</a>
+                </h4>
+              </div>
+              <div id="acc-theme-color" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <a v-for="color in colors" v-on:click="selectColor($index)" class="color" :style="{'background-color': color}"></a>
+                </div>
+              </div>
+            </div>
+        </div>
         </div>
         <div class="col-md-9 col-sm-8">
           right
         </div>
+      </div>
       </div>
 
     </div>
@@ -76,6 +92,9 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+    <script src="bower_components/vue/dist/vue.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

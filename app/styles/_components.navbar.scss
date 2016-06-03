@@ -5,6 +5,7 @@ $nav-height: 51px;
   background-color: $clr-primary;
   z-index: 13;
   transition: background-color 0.5s linear;
+  padding-top: 0;
 
   .nav-title {
     margin-left: 10px;

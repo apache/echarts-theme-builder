@@ -47,8 +47,21 @@ var vm = new Vue({
 
 
 function getOptions() {
-  var dataLength = 7;
-  var getSeriesRandomValue = function(typeName, groupCnt) {
+  var groupCnt = vm ? vm.theme.color.length : 4;
+  var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  var dataLength = axisCat.length;
+  var getLegend = function(groupCnt) {
+    var data = [];
+    for (var i = 0; i < groupCnt; ++i) {
+      data.push('第' + (i + 1) + '组');
+    }
+    return data;
+  };
+  var legend = {
+    show: true,
+    data: getLegend(groupCnt)
+  };
+  var getSeriesRandomValue = function(typeName) {
     var data = [];
     for (var i = 0; i < groupCnt; ++i) {
       var group = [];
@@ -57,19 +70,40 @@ function getOptions() {
       }
       data.push({
         type: typeName,
-        data: group
+        data: group,
+        name: '第' + (i + 1) + '组'
       });
     }
     return data;
-  }
-  var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  };
+  var getSeriesRandomStack = function(typeName) {
+    var data = getSeriesRandomValue(typeName);
+    for (var i = 0; i < data.length; ++i) {
+      data[i].areaStyle = {normal: {}};
+      data[i].stack = 'total';
+    }
+    return data;
+  };
+  var getSeriesRandomGroup = function(typeName) {
+    var data = [];
+    for (var i = 0; i < groupCnt; ++i) {
+      data.push({
+        name: legend.data[i],
+        value: Math.floor(Math.random() * 1000)
+      });
+    }
+    return {
+      type: typeName,
+      data: data
+    };
+  };
 
-  return [{
+  var options = [{
     title: {
       text: '折线图',
       subtext: '副标题样式'
     },
-    series: getSeriesRandomValue('line', 4),
+    series: getSeriesRandomValue('line'),
     xAxis: {
       type: 'category',
       data: axisCat
@@ -81,7 +115,32 @@ function getOptions() {
     title: {
       text: '柱状图'
     },
-    series: getSeriesRandomValue('bar', 4),
+    series: getSeriesRandomValue('bar'),
+    xAxis: {
+      type: 'category',
+      data: axisCat
+    },
+    yAxis: {
+      type: 'value'
+    }
+  }, {
+    title: {
+      text: '折线堆积面积图',
+      subtext: '副标题样式'
+    },
+    series: getSeriesRandomStack('line'),
+    xAxis: {
+      type: 'category',
+      data: axisCat
+    },
+    yAxis: {
+      type: 'value'
+    }
+  }, {
+    title: {
+      text: '柱状堆积图'
+    },
+    series: getSeriesRandomStack('bar'),
     xAxis: {
       type: 'category',
       data: axisCat
@@ -92,8 +151,14 @@ function getOptions() {
   }, {
     title: {
       text: '饼图'
-    }
+    },
+    series: getSeriesRandomGroup('pie')
   }];
+  for (var i = 0; i < options.length; ++i) {
+    options[i].legend = legend;
+    options[i].animation = false;
+  }
+  return options;
 }
 
 function getTheme() {

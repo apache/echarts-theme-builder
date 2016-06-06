@@ -77,19 +77,37 @@
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">背景色</label>
+                        <label class="col-sm-3 control-label">背景</label>
                         <div class="col-sm-9">
                           <div class="input-group colorpicker-component">
-                            <input type="text" value="#00AABB" class="form-control" />
+                            <input type="text" v-model="theme.backgroundColor" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">主题色</label>
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.textColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">标题</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.titleColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">主题</label>
                         <div v-for="color in theme.color" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
                           <div class="input-group colorpicker-component">
-                            <input type="text" v-model="color" v-on:change="aaa" class="form-control" />
+                            <input type="text" v-model="color" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
                           </div>
                         </div>
@@ -104,7 +122,11 @@
             </div><!-- end of acc-theme -->
           </div><!-- end of left -->
           <div class="col-md-9 col-sm-8">
-            right
+            <div class="row">
+              <div v-for="chart in charts" class="col-md-6">
+                <div class="ec-panel" ec-option="{{ chart.option }}"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -121,7 +143,7 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/plugins.js -->
-    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
+    <!--script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/affix.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/alert.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tooltip.js"></script>
@@ -132,8 +154,9 @@
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/carousel.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script>
+    <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script-->
     <!-- endbuild -->
+    <script src="vendors/echarts.js"></script>
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>

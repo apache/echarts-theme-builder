@@ -5233,3 +5233,9 @@ body {
 
 .colorpicker {
   padding: 10px; }
+
+.ec-panel {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px; }

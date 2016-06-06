@@ -22,7 +22,7 @@ var vm = new Vue({
 
   data: {
     theme: {
-      backgroundColor: '#ccc',
+      backgroundColor: '#f3f3f3',
       titleColor: '#333',
       textColor: '#999',
       color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff']
@@ -47,13 +47,47 @@ var vm = new Vue({
 
 
 function getOptions() {
+  var dataLength = 7;
+  var getSeriesRandomValue = function(typeName, groupCnt) {
+    var data = [];
+    for (var i = 0; i < groupCnt; ++i) {
+      var group = [];
+      for (var j = 0; j < dataLength; ++j) {
+        group.push(Math.floor(Math.random() * 1000));
+      }
+      data.push({
+        type: typeName,
+        data: group
+      });
+    }
+    return data;
+  }
+  var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+
   return [{
     title: {
-      text: '折线图'
+      text: '折线图',
+      subtext: '副标题样式'
+    },
+    series: getSeriesRandomValue('line', 4),
+    xAxis: {
+      type: 'category',
+      data: axisCat
+    },
+    yAxis: {
+      type: 'value'
     }
   }, {
     title: {
       text: '柱状图'
+    },
+    series: getSeriesRandomValue('bar', 4),
+    xAxis: {
+      type: 'category',
+      data: axisCat
+    },
+    yAxis: {
+      type: 'value'
     }
   }, {
     title: {

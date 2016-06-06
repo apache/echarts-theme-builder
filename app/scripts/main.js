@@ -1,30 +1,31 @@
 $(document).ready(function() {
-  $('.color').colorpicker({
-    align: 'left'
-  }).on('changeColor', function(e) {
-    console.log(vm);
-    var rgba = e.color.toRGB();
-    var rgbaStr = 'rgba(' + rgba.r + ', ' + rgba.g + ', ' + rgba.b + ', '
-      + rgba.a + ')';
-    vm.changeColor(rgbaStr);
-  });
+  // prevent from calling onchange recursively
+  var isRootEvent = true;
+  $('.colorpicker-component').colorpicker()
+    .on('changeColor', function(e) {
+      if (isRootEvent) {
+        isRootEvent = false;
+        $(e.currentTarget).children('input').trigger('change', false);
+        isRootEvent = true;
+      }
+    });
 });
 
+
+
 var vm = new Vue({
-  el: '#acc-theme-color',
+  el: '#content',
 
   data: {
-    colors: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
-    selectedColorId: null
+    theme: {
+      backgroundColor: '#ccc',
+      color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff']
+    }
   },
 
   methods: {
-    changeColor: function(color) {
-      this.$set('colors[' + this.selectedColorId + ']', color);
-    },
-
-    selectColor: function(id) {
-      this.$set('selectedColorId', id);
+    aaa: function() {
+      console.log(arguments);
     }
   }
 });

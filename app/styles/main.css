@@ -5103,6 +5103,9 @@ body {
 .panel-group .panel {
   border-radius: 0; }
 
+.input-group {
+  margin: 5px; }
+
 .navbar-default {
   border: none;
   background-color: #293c55;
@@ -5230,14 +5233,3 @@ body {
 
 .colorpicker {
   padding: 10px; }
-
-.color {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  margin-right: 5px;
-  cursor: pointer; }
-  .color:hover {
-    box-shadow: 0 0 5px #eee; }

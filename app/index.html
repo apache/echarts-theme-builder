@@ -63,28 +63,50 @@
         </div>
       </div><!-- end of navbar -->
 
-      <div class="container-fluid">
-      <div class="row"><!-- select theme -->
-        <div class="col-md-3 col-sm-4">
-          <div id="accordion" class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#acc-theme-color">主题色</a>
-                </h4>
-              </div>
-              <div id="acc-theme-color" class="panel-collapse collapse in">
-                <div class="panel-body">
-                  <a v-for="color in colors" v-on:click="selectColor($index)" class="color" :style="{'background-color': color}"></a>
+      <div class="container-fluid" id="content">
+        <div class="row">
+          <div class="col-md-3 col-sm-4">
+            <div id="acc-theme" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-color">配色方案</a>
+                  </h4>
+                </div>
+                <div id="acc-theme-color" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">背景色</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" value="#00AABB" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">主题色</label>
+                        <div v-for="color in theme.color" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="color" v-on:change="aaa" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+
+                    <!-- <input v-for="color in colors" v-on:click="selectColor($index)" v-model="color" :style="{'background-color': color}" class="form-control color-input" /> -->
+                  </div>
                 </div>
               </div>
-            </div>
+            </div><!-- end of acc-theme -->
+          </div><!-- end of left -->
+          <div class="col-md-9 col-sm-8">
+            right
+          </div>
         </div>
-        </div>
-        <div class="col-md-9 col-sm-8">
-          right
-        </div>
-      </div>
       </div>
 
     </div>

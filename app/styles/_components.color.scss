@@ -4,16 +4,14 @@ $color-size: 20px;
   padding: 10px;
 }
 
-.color {
-  display: inline-block;
-  width: $color-size;
-  height: $color-size;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  margin-right: 5px;
-  cursor: pointer;
+// .color-input {
+//   display: inline-block;
+//   border-radius: 4px;
+//   border: 0;
+//   margin-right: 5px;
+//   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0 0 5px $clr-lighter;
-  }
-}
+//   &:hover {
+//     box-shadow: 0 0 5px $clr-light;
+//   }
+// }

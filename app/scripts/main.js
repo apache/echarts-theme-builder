@@ -1,17 +1,8 @@
 $(document).ready(function() {
-  // prevent from calling onchange recursively
-  var isRootEvent = true;
-  $('.colorpicker-component').colorpicker()
-    .on('changeColor', function(e) {
-      if (isRootEvent) {
-        isRootEvent = false;
-        $(e.currentTarget).children('input').trigger('change', false);
-        updateCharts();
-        isRootEvent = true;
-      }
-    });
+  initColorPicker();
 
   // init charts
+  updateChartOptions();
   updateCharts();
 });
 
@@ -27,27 +18,31 @@ var vm = new Vue({
       textColor: '#999',
       color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff']
     },
-    charts: (function() {
-      var options = getOptions();
-      var charts = [];
-      // init charts object
-      for (var cid = 0; cid < options.length; ++cid) {
-        charts.push({
-          option: JSON.stringify(options[cid]),
-          chart: null
-        });
-      }
-      return charts;
-    })()
+    charts: []
   },
 
-  methods: {}
+  methods: {
+    addThemeColor: function() {
+      this.theme.color.push('#ccc');
+      initColorPicker();
+      updateChartOptions();
+      updateCharts();
+    },
+
+    removeThemeColor: function() {
+      // remove the last theme color
+      this.theme.color.splice(-1, 1);
+      updateChartOptions();
+      updateCharts();
+    }
+  }
 });
 
 
 
 function getOptions() {
   var groupCnt = vm ? vm.theme.color.length : 4;
+  console.log('groupCnt', groupCnt);
   var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   var dataLength = axisCat.length;
   var getLegend = function(groupCnt) {
@@ -161,6 +156,22 @@ function getOptions() {
   return options;
 }
 
+function initColorPicker() {
+  setTimeout(function() {
+    // prevent from calling onchange recursively
+    var isRootEvent = true;
+    $('.colorpicker-component').colorpicker()
+      .on('changeColor', function(e) {
+        if (isRootEvent) {
+          isRootEvent = false;
+          $(e.currentTarget).children('input').trigger('change', false);
+          updateCharts();
+          isRootEvent = true;
+        }
+      });
+  });
+}
+
 function getTheme() {
   return {
     color: vm.theme.color,
@@ -177,13 +188,28 @@ function getTheme() {
 }
 
 function updateCharts() {
-  console.log('updateCharts');
-  echarts.registerTheme('customed', getTheme());
+  setTimeout(function() {
+    console.log('updateCharts');
+    echarts.registerTheme('customed', getTheme());
 
-  // re-draw charts
-  $('.ec-panel').each(function() {
-    var chart = echarts.init(this, 'customed');
-    var option = JSON.parse($(this).attr('ec-option'));
-    chart.setOption(option);
+    // re-draw charts
+    $('.ec-panel').each(function() {
+      var chart = echarts.init(this, 'customed');
+      var option = JSON.parse($(this).attr('ec-option'));
+      chart.setOption(option);
+    });
   });
+}
+
+function updateChartOptions() {
+  var options = getOptions();
+  var charts = [];
+  // init charts object
+  for (var cid = 0; cid < options.length; ++cid) {
+    charts.push({
+      option: JSON.stringify(options[cid]),
+      chart: null
+    });
+  }
+  vm.$set('charts', charts);
 }

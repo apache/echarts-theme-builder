@@ -105,17 +105,18 @@
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">主题</label>
-                        <div v-for="color in theme.color" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
+                        <div v-for="color in theme.color" track-by="$index" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="color" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
                           </div>
                         </div>
+                        <div class="theme-color-control col-sm-9 col-sm-offset-3">
+                          <a v-on:click="addThemeColor()">增加</a>
+                          <a v-on:click="removeThemeColor()">减少</a>
+                        </div>
                       </div>
                     </form>
-
-
-                    <!-- <input v-for="color in colors" v-on:click="selectColor($index)" v-model="color" :style="{'background-color': color}" class="form-control color-input" /> -->
                   </div>
                 </div>
               </div>
@@ -156,6 +157,7 @@
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/tab.js"></script-->
     <!-- endbuild -->
+
     <script src="vendors/echarts.js"></script>
 
     <!-- build:js scripts/main.js -->

@@ -4,14 +4,10 @@ $color-size: 20px;
   padding: 10px;
 }
 
-// .color-input {
-//   display: inline-block;
-//   border-radius: 4px;
-//   border: 0;
-//   margin-right: 5px;
-//   cursor: pointer;
+.theme-color-control {
+  padding-top: 5px;
 
-//   &:hover {
-//     box-shadow: 0 0 5px $clr-light;
-//   }
-// }
+  a {
+    margin: 0px 0 5px 5px;
+  }
+}

@@ -4,14 +4,22 @@ body {
 
 
 
+a {
+  cursor: pointer;
+}
+
+
+
 .container-fluid {
   padding-top: 20px;
 }
 
 
+
 .panel-group .panel {
   border-radius: 0;
 }
+
 
 
 .input-group {

@@ -231,8 +231,8 @@ th {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url("../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
-  src: url("../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+  src: url("../vendors/fonts/glyphicons-halflings-regular.eot");
+  src: url("../vendors/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../vendors/fonts/glyphicons-halflings-regular.woff") format("woff"), url("../vendors/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../vendors/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
 
 .glyphicon {
   position: relative;

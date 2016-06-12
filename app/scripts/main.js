@@ -84,6 +84,8 @@ var vm = new Vue({
 
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
+      initColorPicker();
+      updateChartOptions();
       updateCharts();
     },
 

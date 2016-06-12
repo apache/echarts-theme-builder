@@ -15,6 +15,14 @@ var defaultTheme = {
   textColor: '#999',
   color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
 
+  gridShow: false,
+  gridColor: '#fff',
+  gridBorderColor: '#999',
+  gridLeft: 50,
+  gridRight: 20,
+  gridTop: 70,
+  gridBottom: 40,
+
   axisLineShow: true,
   axisLineColor: '#666',
   axisTickShow: true,
@@ -24,7 +32,19 @@ var defaultTheme = {
   splitLineShow: true,
   splitLineColor: '#efefef',
   splitAreaShow: false,
-  splitAreaColor: '#fff'
+  splitAreaColor: '#fff',
+
+  toolboxShow: false,
+  toolboxColor: '#999',
+  toolboxEmpasisColor: '#666',
+
+  tooltipShow: true,
+  tooltipAxisColor: '#999',
+  tooltipAxisWidth: 1,
+
+  legendShow: true,
+  legendLeft: 'right',
+  legendTop: 'top'
 };
 
 
@@ -90,13 +110,27 @@ var vm = new Vue({
         try {
           var obj = JSON.parse(this.result);
           that.$set('theme', obj);
-          updateCharts();
+          setTimeout(function() {
+            initColorPicker();
+            updateChartOptions();
+            updateCharts();
+          });
         } catch(e) {
           alert('非法 JSON 格式！请使用本网站导出的 *.etd 文件。');
           console.error(e);
         }
       }
       reader.readAsText(file);
+    },
+
+    setLegendLeft(left) {
+      vm.theme.legendLeft = left;
+      updateCharts();
+    },
+
+    setLegendTop(top) {
+      vm.theme.legendTop = top;
+      updateCharts();
     }
   }
 });
@@ -115,7 +149,6 @@ function getOptions() {
     return data;
   };
   var legend = {
-    show: true,
     data: getLegend(groupCnt)
   };
   var getSeriesRandomValue = function(typeName) {
@@ -155,6 +188,27 @@ function getOptions() {
     };
   };
 
+  var toolbox = {
+    feature: {
+      restore: {
+        show: true
+      },
+      saveAsImage: {
+        show: true
+      },
+      dataView: {
+        show: true
+      },
+      dataZoom: {
+        show: true
+      }
+    }
+  };
+
+  var tooltip = {
+    trigger: 'axis'
+  };
+
   var options = [{
     title: {
       text: '折线图',
@@ -167,7 +221,9 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    }
+    },
+    toolbox: toolbox,
+    tooltip: tooltip
   }, {
     title: {
       text: '柱状图'
@@ -179,7 +235,9 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    }
+    },
+    toolbox: toolbox,
+    tooltip: tooltip
   }, {
     title: {
       text: '折线堆积面积图',
@@ -192,7 +250,9 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    }
+    },
+    toolbox: toolbox,
+    tooltip: tooltip
   }, {
     title: {
       text: '柱状堆积图'
@@ -204,12 +264,18 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    }
+    },
+    toolbox: toolbox,
+    tooltip: tooltip
   }, {
     title: {
       text: '饼图'
     },
-    series: getSeriesRandomGroup('pie')
+    series: getSeriesRandomGroup('pie'),
+    toolbox: toolbox,
+    tooltip: {
+      trigger: 'item'
+    }
   }];
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = legend;
@@ -222,6 +288,7 @@ function initColorPicker() {
   setTimeout(function() {
     // prevent from calling onchange recursively
     var isRootEvent = true;
+    // console.log(vm.theme.col)
     $('.colorpicker-component').colorpicker()
       .on('changeColor', function(e) {
         if (isRootEvent) {
@@ -231,6 +298,10 @@ function initColorPicker() {
           isRootEvent = true;
         }
       });
+
+    $('.theme-group .colorpicker-component').each(function(id) {
+      $(this).colorpicker('setValue', vm.theme.color[id]);
+    });
   });
 }
 
@@ -267,6 +338,7 @@ function getTheme() {
       }
     }
   };
+
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
@@ -281,25 +353,74 @@ function getTheme() {
         color: vm.theme.subtitleColor
       }
     },
+    grid: {
+      show: vm.theme.gridShow,
+      backgroundColor: vm.theme.gridColor,
+      borderColor: vm.theme.gridBorderColor,
+      left: vm.theme.gridLeft,
+      right: vm.theme.gridRight,
+      top: vm.theme.gridTop,
+      bottom: vm.theme.gridBottom
+    },
     timeAxis: axis,
     logAxis: axis,
     valueAxis: axis,
-    categoryAxis: axis
+    categoryAxis: axis,
+    toolbox: {
+      show: vm.theme.toolboxShow,
+      iconStyle: {
+        normal: {
+          borderColor: vm.theme.toolboxColor
+        },
+        emphasis: {
+          borderColor: vm.theme.toolboxEmpasisColor
+        }
+      }
+    },
+    tooltip: {
+      show: vm.theme.tooltipShow,
+      axisPointer: {
+        lineStyle: {
+          color: vm.theme.tooltipAxisColor,
+          width: vm.theme.tooltipAxisWidth
+        },
+        crossStyle: {
+          color: vm.theme.tooltipAxisColor,
+          width: vm.theme.tooltipAxisWidth
+        }
+      }
+    },
+    legend: {
+      show: vm.theme.legendShow,
+      left: vm.theme.legendLeft,
+      top: vm.theme.legendTop,
+      textStyle: {
+        color: vm.theme.textColor
+      }
+    }
   };
+  console.log(vm.theme.tooltipAxisWidth);
 }
 
-function updateCharts() {
-  setTimeout(function() {
-    console.log('updateCharts');
-    echarts.registerTheme('customed', getTheme());
+var lastUpdate = null;
+function updateCharts(isForceUpdate) {
+  var now = new Date();
+  if (isForceUpdate || now - lastUpdate > 100) {
+    setTimeout(function() {
+      console.log('updateCharts');
+      echarts.registerTheme('customed', getTheme());
 
-    // re-draw charts
-    $('.ec-panel').each(function() {
-      var chart = echarts.init(this, 'customed');
-      var option = JSON.parse($(this).attr('ec-option'));
-      chart.setOption(option);
+      // re-draw charts
+      $('.ec-panel').each(function() {
+        var chart = echarts.init(this, 'customed');
+        var option = JSON.parse($(this).attr('ec-option'));
+        chart.setOption(option);
+      });
     });
-  });
+    lastUpdate = now;
+  } else {
+    console.warn('Ignored too frequent refresh.');
+  }
 }
 
 function updateChartOptions() {
@@ -325,12 +446,5 @@ function saveJsonFile(json, name) {
 }
 
 function cloneObject(obj) {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-  var temp = obj.constructor();
-  for (var key in obj) {
-      temp[key] = cloneObject(obj[key]);
-  }
-  return temp;
+  return $.extend(true, {}, obj);
 }

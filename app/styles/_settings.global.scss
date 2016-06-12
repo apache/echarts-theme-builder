@@ -2,10 +2,6 @@ body {
   overflow-x: hidden;
 }
 
-* {
-  transition: 0.5s;
-}
-
 
 
 a {
@@ -16,12 +12,13 @@ a {
 
 .btn {
   border-radius: 0;
+  transition: 0.5s;
 }
 
 .btn-default {
   border-color: $clr-border;
 
-  &:hover {
+  &:hover, &:active, &:focus, &.active {
     border-color: $clr-border-dark;
     background-color: $clr-lighter;
   }
@@ -31,8 +28,8 @@ a {
   border-color: $clr-primary;
   background-color: lighten($clr-primary, 10%);
 
-  &:hover {
-  border-color: $clr-primary;
-  background-color: lighten($clr-primary, 20%);
+  &:hover, &:active, &:focus, &.active {
+    border-color: $clr-primary;
+    background-color: lighten($clr-primary, 20%);
   }
 }

@@ -78,9 +78,15 @@
                   <div class="panel-body">
                     <form class="form">
                       <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <a class="btn btn-primary" @click="useTheme()">使用主题</a>
+                      <a class="btn btn-primary" @click="useTheme()">生成主题</a>
                       <a class="btn btn-default" @click="importJson()">导入</a>
                       <a class="btn btn-default" @click="exportJson()">导出</a>
+                      <a data-toggle="modal" data-target="#download-modal">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                      </a>
+                    </form>
+                    <form class="form">
+                      <a class="btn btn-default" @click="updateCharts(true)">刷新</a>
                       <a class="btn btn-default" @click="newTheme()">复原</a>
                     </form>
                   </div>
@@ -125,7 +131,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
+                      <div class="form-group theme-group">
                         <label class="col-sm-3 control-label">主题</label>
                         <div v-for="color in theme.color" track-by="$index" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
                           <div class="input-group colorpicker-component">
@@ -153,6 +159,90 @@
               </div>
             </div><!-- end of acc-theme -->
 
+            <div id="acc-grid" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-grid" href="#acc-grid-body" title="grid">绘图区</a>
+                  </h4>
+                </div>
+                <div id="acc-grid-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.gridShow" v-on:change="updateCharts()" id="gridShow" />
+                          <label for="gridShow" class="control-label">显示绘图区</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">填充</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.gridColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">边框</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.gridBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">左</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridLeft" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">右</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridRight" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">上</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridTop" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">下</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridBottom" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-tooltip -->
+
             <div id="acc-axis" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -160,7 +250,7 @@
                     <a data-toggle="collapse" data-parent="#acc-axis" href="#acc-axis-body">坐标轴</a>
                   </h4>
                 </div>
-                <div id="acc-axis-body" class="panel-collapse collapse in">
+                <div id="acc-axis-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -228,15 +318,186 @@
                 </div>
               </div>
             </div><!-- end of acc-axis -->
+
+            <div id="acc-tooltip" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-toolbox" href="#acc-toolbox-body" title="toolbox">工具箱</a>
+                  </h4>
+                </div>
+                <div id="acc-toolbox-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.toolboxShow" v-on:change="updateCharts()" id="toolboxShow" />
+                          <label for="toolboxShow" class="control-label">显示工具箱</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label for="toolboxColor" class="control-label">图标</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.toolboxColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label for="toolboxEmpasisColor" class="control-label">悬停</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.toolboxEmpasisColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-toolbox -->
+
+            <div id="acc-tooltip" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-tooltip" href="#acc-tooltip-body" title="tooltip">提示框</a>
+                  </h4>
+                </div>
+                <div id="acc-tooltip-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.tooltipShow" v-on:change="updateCharts()" id="tooltipShow" />
+                          <label for="tooltipShow" class="control-label">显示提示框</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">指示线</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.tooltipAxisColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.tooltipAxisWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-tooltip -->
+
+            <div id="acc-tooltip" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-legend" href="#acc-legend-body" title="tooltip">图例</a>
+                  </h4>
+                </div>
+                <div id="acc-legend-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.legendShow" v-on:change="updateCharts()" id="legendShow" />
+                          <label for="legendShow" class="control-label">显示图例</label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">横向位置</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <div class="btn-group" role="group">
+                              <button type="button" class="btn btn-default" @click="setLegendLeft('left')" v-bind:class="{'active': theme.legendLeft=='left'}">左</button>
+                              <button type="button" class="btn btn-default" @click="setLegendLeft('center')" v-bind:class="{'active': theme.legendLeft=='center'}">中</button>
+                              <button type="button" class="btn btn-default" @click="setLegendLeft('right')" v-bind:class="{'active': theme.legendLeft=='right'}">右</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">纵向位置</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <div class="btn-group" role="group">
+                              <button type="button" class="btn btn-default" @click="setLegendTop('top')" v-bind:class="{'active': theme.legendTop=='top'}">上</button>
+                              <button type="button" class="btn btn-default" @click="setLegendTop('center')" v-bind:class="{'active': theme.legendTop=='center'}">中</button>
+                              <button type="button" class="btn btn-default" @click="setLegendTop('bottom')" v-bind:class="{'active': theme.legendTop=='bottom'}">下</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-tooltip -->
+
           </div><!-- end of left -->
+
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
               <div v-for="chart in charts" class="col-md-6">
                 <div class="ec-panel" ec-option="{{ chart.option }}"></div>
               </div>
             </div>
-          </div>
+          </div><!-- end of chart panel -->
+
         </div>
+
+        <div class="modal fade" id="download-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">帮助</h4>
+              </div>
+              <div class="modal-body">
+                <h4>主题在线构建工具是什么？</h4>
+                <p>“主题”是 ECharts 图表的风格抽象，用于统一多个图表的风格样式。使用主题在线构建工具，可以快速直观地生成主题配置文件，并在 ECharts 中使用自定义的主题样式。</p>
+                <p>ECharts 内置了 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可直接使用，无需下载并注册。</p>
+
+                <h4>开始使用新主题</h4>
+                <ol>
+                  <li><a @click="useTheme()">点此生成</a>刚刚创建主题的 JSON 文件；</li>
+                  <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
+                  <li>调用 <code>echarts.registerTheme('customed', obj)</code> 注册主题，其中 <code>'customed'</code> 是你给该主题起的名字；</li>
+                  <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
+                </ol>
+                <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
+
+                <h4>导入、导出</h4>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 <code>*.edt</code> 仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- end of modal -->
       </div>
 
     </div>

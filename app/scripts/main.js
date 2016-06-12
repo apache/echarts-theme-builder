@@ -8,16 +8,32 @@ $(document).ready(function() {
 
 
 
+var defaultTheme = {
+  backgroundColor: '#fff',
+  titleColor: '#333',
+  subtitleColor: '#666',
+  textColor: '#999',
+  color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
+
+  axisLineShow: true,
+  axisLineColor: '#666',
+  axisTickShow: true,
+  axisTickColor: '#666',
+  axisLabelShow: true,
+  axisLabelColor: '#333',
+  splitLineShow: true,
+  splitLineColor: '#efefef',
+  splitAreaShow: false,
+  splitAreaColor: '#fff'
+};
+
+
+
 var vm = new Vue({
   el: '#content',
 
   data: {
-    theme: {
-      backgroundColor: '#f3f3f3',
-      titleColor: '#333',
-      textColor: '#999',
-      color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff']
-    },
+    theme: cloneObject(defaultTheme),
     charts: []
   },
 
@@ -34,6 +50,53 @@ var vm = new Vue({
       this.theme.color.splice(-1, 1);
       updateChartOptions();
       updateCharts();
+    },
+
+    updateCharts: updateCharts,
+
+    exportJson: function() {
+      saveJsonFile(this.theme, 'theme.etd');
+    },
+
+    useTheme: function() {
+      saveJsonFile(getTheme(), 'theme.json');
+    },
+
+    newTheme: function() {
+      this.$set('theme', cloneObject(defaultTheme));
+      updateCharts();
+    },
+
+    importJson: function() {
+      $('#input-file').trigger('click');
+    },
+
+    importFileChanged: function(e) {
+      if (!e.target.files) {
+        // cancelled selecting, do nothing
+        return;
+      }
+      var file = e.target.files[0];
+
+      var extension = file.name.slice(file.name.lastIndexOf('.'));
+      if (extension !== '.etd') {
+        alert('非法后缀！请使用本网站导出的 *.etd 文件。');
+        return;
+      }
+
+      var that = this;
+      var reader = new FileReader();
+      reader.onload = function() {
+        try {
+          var obj = JSON.parse(this.result);
+          that.$set('theme', obj);
+          updateCharts();
+        } catch(e) {
+          alert('非法 JSON 格式！请使用本网站导出的 *.etd 文件。');
+          console.error(e);
+        }
+      }
+      reader.readAsText(file);
     }
   }
 });
@@ -42,7 +105,6 @@ var vm = new Vue({
 
 function getOptions() {
   var groupCnt = vm ? vm.theme.color.length : 4;
-  console.log('groupCnt', groupCnt);
   var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   var dataLength = axisCat.length;
   var getLegend = function(groupCnt) {
@@ -61,7 +123,7 @@ function getOptions() {
     for (var i = 0; i < groupCnt; ++i) {
       var group = [];
       for (var j = 0; j < dataLength; ++j) {
-        group.push(Math.floor(Math.random() * 1000));
+        group.push(Math.floor(Math.random() * 1000) + 10);
       }
       data.push({
         type: typeName,
@@ -173,6 +235,38 @@ function initColorPicker() {
 }
 
 function getTheme() {
+  var axis = {
+    axisLine: {
+      show: vm.theme.axisLineShow,
+      lineStyle: {
+        color: vm.theme.axisLineColor
+      }
+    },
+    axisTick: {
+      show: vm.theme.axisTickShow,
+      lineStyle: {
+        color: vm.theme.axisTickColor
+      }
+    },
+    axisLabel: {
+      show: vm.theme.axisLabelShow,
+      textStyle: {
+        color: vm.theme.axisLabelColor
+      }
+    },
+    splitLine: {
+      show: vm.theme.splitLineShow,
+      lineStyle: {
+        color: vm.theme.splitLineColor
+      }
+    },
+    splitArea: {
+      show: vm.theme.splitAreaShow,
+      areaStyle: {
+        color: vm.theme.splitAreaColor
+      }
+    }
+  };
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
@@ -182,8 +276,15 @@ function getTheme() {
     title: {
       textStyle: {
         color: vm.theme.titleColor
+      },
+      subtextStyle: {
+        color: vm.theme.subtitleColor
       }
-    }
+    },
+    timeAxis: axis,
+    logAxis: axis,
+    valueAxis: axis,
+    categoryAxis: axis
   };
 }
 
@@ -212,4 +313,24 @@ function updateChartOptions() {
     });
   }
   vm.$set('charts', charts);
+}
+
+function saveJsonFile(json, name) {
+  var data = JSON.stringify(json);
+  var a = document.createElement('a');
+  var file = new Blob([data], {type: 'json'});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+  a.click();
+}
+
+function cloneObject(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  var temp = obj.constructor();
+  for (var key in obj) {
+      temp[key] = cloneObject(obj[key]);
+  }
+  return temp;
 }

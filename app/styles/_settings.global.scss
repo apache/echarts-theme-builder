@@ -2,6 +2,10 @@ body {
   overflow-x: hidden;
 }
 
+* {
+  transition: 0.5s;
+}
+
 
 
 a {
@@ -10,18 +14,25 @@ a {
 
 
 
-.container-fluid {
-  padding-top: 20px;
-}
-
-
-
-.panel-group .panel {
+.btn {
   border-radius: 0;
 }
 
+.btn-default {
+  border-color: $clr-border;
 
+  &:hover {
+    border-color: $clr-border-dark;
+    background-color: $clr-lighter;
+  }
+}
 
-.input-group {
-  margin: 5px;
+.btn-primary {
+  border-color: $clr-primary;
+  background-color: lighten($clr-primary, 10%);
+
+  &:hover {
+  border-color: $clr-primary;
+  background-color: lighten($clr-primary, 20%);
+  }
 }

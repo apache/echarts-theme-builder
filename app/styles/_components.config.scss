@@ -1,0 +1,74 @@
+.theme-config {
+  padding: 0;
+  border-right: 1px solid $clr-border-dark;
+  border-bottom: 1px solid $clr-border-dark;
+
+  .form-group .col-sm-3 {
+    padding-right: 0;
+    text-align: right;
+
+    input {
+      margin-top: 0;
+    }
+  }
+
+  label {
+    padding-right: 0;
+  }
+
+  .form-control, .input-group-addon {
+    border-color: $clr-border;
+    box-shadow: none;
+    border-radius: 0;
+
+    &:hover {
+      border-color: $clr-border-dark;
+    }
+  }
+
+  .colorpicker-element {
+    margin-bottom: 5px;
+    border-radius: 0;
+  }
+
+    .input-group-addon {
+      background-color: #fff;
+
+      i {
+        border: 1px solid $clr-border;
+      }
+    }
+
+
+
+  .panel-group {
+    margin-bottom: 0;
+  }
+
+    .panel {
+      border: none;
+    }
+
+      .panel-heading {
+        border: none;
+        border-top: 1px solid $clr-border-dark;
+        border-radius: 0;
+        color: $clr-primary;
+        padding: 0;
+
+        &:hover {
+          background-color: $clr-lighter;
+        }
+      }
+
+        .panel-title a {
+          display: block;
+          padding: 10px;
+          text-decoration: none !important;
+        }
+
+      .panel-body {
+        border-top: none !important;
+      }
+
+}

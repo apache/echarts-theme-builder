@@ -65,15 +65,37 @@
 
       <div class="container-fluid" id="content">
         <div class="row">
-          <div class="col-md-3 col-sm-4">
+          <div class="col-md-3 col-sm-4 theme-config">
+
+            <div id="acc-axis" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-port" href="#acc-port-body">导入导出</a>
+                  </h4>
+                </div>
+                <div id="acc-port-body" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <form class="form">
+                      <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
+                      <a class="btn btn-primary" @click="useTheme()">使用主题</a>
+                      <a class="btn btn-default" @click="importJson()">导入</a>
+                      <a class="btn btn-default" @click="exportJson()">导出</a>
+                      <a class="btn btn-default" @click="newTheme()">复原</a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-port -->
+
             <div id="acc-theme" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-color">配色方案</a>
+                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">配色方案</a>
                   </h4>
                 </div>
-                <div id="acc-theme-color" class="panel-collapse collapse in">
+                <div id="acc-theme-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -81,15 +103,6 @@
                         <div class="col-sm-9">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="theme.backgroundColor" class="form-control" />
-                            <span class="input-group-addon"><i></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">文字</label>
-                        <div class="col-sm-9">
-                          <div class="input-group colorpicker-component">
-                            <input type="text" v-model="theme.textColor" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
                           </div>
                         </div>
@@ -104,6 +117,15 @@
                         </div>
                       </div>
                       <div class="form-group">
+                        <label class="col-sm-3 control-label">副标题</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.subtitleColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
                         <label class="col-sm-3 control-label">主题</label>
                         <div v-for="color in theme.color" track-by="$index" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
                           <div class="input-group colorpicker-component">
@@ -113,7 +135,16 @@
                         </div>
                         <div class="theme-color-control col-sm-9 col-sm-offset-3">
                           <a v-on:click="addThemeColor()">增加</a>
-                          <a v-on:click="removeThemeColor()">减少</a>
+                          <a v-on:click="removeThemeColor()" v-show="theme.color.length > 1">减少</a>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.textColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
                         </div>
                       </div>
                     </form>
@@ -121,8 +152,84 @@
                 </div>
               </div>
             </div><!-- end of acc-theme -->
+
+            <div id="acc-axis" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-axis" href="#acc-axis-body">坐标轴</a>
+                  </h4>
+                </div>
+                <div id="acc-axis-body" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <input type="checkbox" v-model="theme.axisLineShow" v-on:change="updateCharts()" id="axisLineShow" />
+                          <label for="axisLineShow" class="control-label" title="axisLine">轴线</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.axisLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <input type="checkbox" v-model="theme.axisTickShow" v-on:change="updateCharts()" id="axisTickShow" />
+                          <label for="axisTickShow" class="control-label" title="axisTick">刻度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.axisTickColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <input type="checkbox" v-model="theme.splitLineShow" v-on:change="updateCharts()" id="splitLineShow" />
+                          <label for="splitLineShow" class="control-label" title="splitLine">网格</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.splitLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <input type="checkbox" v-model="theme.splitAreaShow" v-on:change="updateCharts()" id="splitAreaShow" />
+                          <label for="splitAreaShow" class="control-label" title="splitArea">填充</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.splitAreaColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <input type="checkbox" v-model="theme.axisLabelShow" v-on:change="updateCharts()" id="axisLabelShow" />
+                          <label for="axisLabelShow" class="control-label">文字</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.axisLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-axis -->
           </div><!-- end of left -->
-          <div class="col-md-9 col-sm-8">
+          <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
               <div v-for="chart in charts" class="col-md-6">
                 <div class="ec-panel" ec-option="{{ chart.option }}"></div>

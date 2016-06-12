@@ -5097,14 +5097,25 @@ button.close {
 body {
   overflow-x: hidden; }
 
-.container-fluid {
-  padding-top: 20px; }
+a {
+  cursor: pointer; }
 
-.panel-group .panel {
-  border-radius: 0; }
+.btn {
+  border-radius: 0;
+  transition: 0.5s; }
 
-.input-group {
-  margin: 5px; }
+.btn-default {
+  border-color: #eee; }
+  .btn-default:hover, .btn-default:active, .btn-default:focus, .btn-default.active {
+    border-color: #ddd;
+    background-color: #eee; }
+
+.btn-primary {
+  border-color: #293c55;
+  background-color: #3a5477; }
+  .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary.active {
+    border-color: #293c55;
+    background-color: #4a6d9a; }
 
 .navbar-default {
   border: none;
@@ -5231,11 +5242,65 @@ body {
   #nav-download {
     display: none; } }
 
-.colorpicker {
-  padding: 10px; }
+.chart-container {
+  margin-bottom: 20px; }
 
 .ec-panel {
   width: 100%;
   height: 300px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px; }
+  border: 1px solid #eee;
+  margin-top: 15px; }
+
+.theme-config {
+  padding: 0;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd; }
+  .theme-config .form-group .col-sm-3 {
+    padding-right: 0;
+    text-align: right; }
+    .theme-config .form-group .col-sm-3 input {
+      margin-top: 0; }
+  .theme-config form + form {
+    margin-top: 10px; }
+  .theme-config label {
+    padding-right: 0; }
+  .theme-config .form-control, .theme-config .input-group-addon {
+    border-color: #eee;
+    box-shadow: none;
+    border-radius: 0; }
+    .theme-config .form-control:hover, .theme-config .input-group-addon:hover {
+      border-color: #ddd; }
+  .theme-config .colorpicker-element {
+    margin-bottom: 5px;
+    border-radius: 0; }
+  .theme-config .input-group-addon {
+    background-color: #fff; }
+    .theme-config .input-group-addon i {
+      border: 1px solid #eee; }
+  .theme-config .panel-group {
+    margin-bottom: 0; }
+  .theme-config .panel {
+    border: none; }
+  .theme-config .panel-heading {
+    border: none;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+    color: #293c55;
+    padding: 0;
+    transition: 0.5s; }
+    .theme-config .panel-heading:hover {
+      background-color: #eee; }
+  .theme-config .panel-title a {
+    display: block;
+    padding: 10px;
+    text-decoration: none !important; }
+  .theme-config .panel-body {
+    border-top: none !important; }
+
+.colorpicker {
+  padding: 10px; }
+
+.theme-color-control {
+  padding-top: 5px; }
+  .theme-color-control a {
+    margin: 0px 0 5px 5px; }

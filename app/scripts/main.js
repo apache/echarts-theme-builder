@@ -14,6 +14,8 @@ var defaultTheme = {
   subtitleColor: '#666',
   textColor: '#999',
   color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
+  visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
+  visualMapUseTheme: true,
 
   lineWidth: 2,
   symbolSize: 6,
@@ -72,6 +74,20 @@ var vm = new Vue({
     removeThemeColor: function() {
       // remove the last theme color
       this.theme.color.splice(-1, 1);
+      updateChartOptions();
+      updateCharts();
+    },
+
+    addVisualMapColor: function() {
+      this.theme.visualMapColor.push('#ccc');
+      initColorPicker();
+      updateChartOptions();
+      updateCharts();
+    },
+
+    removeVisualMapColor: function() {
+      // remove the last theme color
+      this.theme.visualMapColor.splice(-1, 1);
       updateChartOptions();
       updateCharts();
     },
@@ -318,29 +334,6 @@ function getOptions() {
     }
   }, {
     title: {
-      text: '雷达面积图'
-    },
-    legend: (function() {
-      var leg = cloneObject(legend);
-      leg.selectedMode = 'single';
-      return leg;
-    })(),
-    series: (function() {
-      var series = getSeriesRandomValue('radar');
-      for (var sid = 0; sid < series.length; ++sid) {
-        series[sid].areaStyle = {
-          normal: {
-            opacity: 0.2
-          }
-        };
-      }
-      return series;
-    })(),
-    radar: {
-      indicator: getIndicator()
-    }
-  }, {
-    title: {
       text: '视觉映射'
     },
     visualMap: {
@@ -516,7 +509,8 @@ function getTheme() {
       top: vm.theme.legendTop
     },
     visualMap: {
-      color: vm.theme.color
+      color: vm.theme.visualMapUseTheme ? vm.theme.color :
+        vm.theme.visualMapColor
     }
   };
 }

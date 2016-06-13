@@ -89,7 +89,7 @@
                     <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">配色方案</a>
                   </h4>
                 </div>
-                <div id="acc-theme-body" class="panel-collapse collapse">
+                <div id="acc-theme-body" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -119,6 +119,15 @@
                           </div>
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.textColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group theme-group">
                         <label class="col-sm-3 control-label">主题</label>
                         <div v-for="color in theme.color" track-by="$index" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
@@ -133,12 +142,22 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-3">
+                          <label class="control-label" title="visualMap">视觉映射</label>
+                        </div>
                         <div class="col-sm-9">
+                          <input type="checkbox" v-model="theme.visualMapUseTheme" v-on:change="updateCharts()" id="visualMapUseTheme" />
+                          <label for="visualMapUseTheme" class="control-label">使用主题色</label>
+                        </div>
+                        <div v-show="!theme.visualMapUseTheme" v-for="color in theme.visualMapColor" track-by="$index" class="col-sm-9 col-sm-offset-3">
                           <div class="input-group colorpicker-component">
-                            <input type="text" v-model="theme.textColor" class="form-control" />
+                            <input type="text" v-model="color" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
                           </div>
+                        </div>
+                        <div v-show="!theme.visualMapUseTheme" class="theme-color-control col-sm-9 col-sm-offset-3">
+                          <a v-on:click="addVisualMapColor()">增加</a>
+                          <a v-on:click="removeVisualMapColor()" v-show="theme.visualMapColor.length > 2">减少</a>
                         </div>
                       </div>
                     </form>
@@ -154,7 +173,7 @@
                     <a data-toggle="collapse" data-parent="#acc-shape" href="#acc-shape-body" title="shape">形状样式</a>
                   </h4>
                 </div>
-                <div id="acc-shape-body" class="panel-collapse collapse in">
+                <div id="acc-shape-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">

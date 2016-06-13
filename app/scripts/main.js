@@ -22,10 +22,10 @@ var defaultTheme = {
   gridShow: false,
   gridColor: '#fff',
   gridBorderColor: '#999',
-  gridLeft: 50,
+  gridLeft: 60,
   gridRight: 20,
-  gridTop: 70,
-  gridBottom: 40,
+  gridTop: 60,
+  gridBottom: 50,
 
   axisLineShow: true,
   axisLineColor: '#aaa',
@@ -179,7 +179,6 @@ function getOptions() {
         name: '第' + (i + 1) + '组'
       });
     }
-    console.log(typeName, data);
     return data;
   };
   var getSeriesRandomStack = function(typeName) {
@@ -247,9 +246,7 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
+    }
   }, {
     title: {
       text: '折线堆积面积图',
@@ -263,9 +260,7 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
+    }
   }, {
     title: {
       text: '柱状图'
@@ -277,9 +272,7 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
+    }
   }, {
     title: {
       text: '柱状堆积图'
@@ -291,9 +284,7 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
+    }
   }, {
     title: {
       text: '散点图'
@@ -314,7 +305,6 @@ function getOptions() {
       text: '饼图'
     },
     series: getSeriesRandomGroup('pie'),
-    toolbox: toolbox,
     tooltip: {
       trigger: 'item'
     }
@@ -349,9 +339,46 @@ function getOptions() {
     radar: {
       indicator: getIndicator()
     }
+  }, {
+    title: {
+      text: '视觉映射'
+    },
+    visualMap: {
+      max: 1000,
+      min: 0
+    },
+    legend: {
+      show: false
+    },
+    series: {
+      type: 'bar',
+      data: (function() {
+        var data = [];
+        for (var i = 0; i < 100; ++i) {
+          data.push(Math.floor(Math.random() * 1000));
+        }
+        return data;
+      })()
+    },
+    xAxis: {
+      type: 'category',
+      data: (function() {
+        var data = [];
+        for (var i = 0; i < 100; ++i) {
+          data.push(i + 1);
+        }
+        return data;
+      })()
+    },
+    yAxis: {
+      type: 'value'
+    }
   }];
+
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = options[i].legend || legend;
+    options[i].tooltip = tooltip;
+    options[i].toolbox = toolbox;
     options[i].animation = false;
   }
   return options;
@@ -487,6 +514,9 @@ function getTheme() {
       },
       left: vm.theme.legendLeft,
       top: vm.theme.legendTop
+    },
+    visualMap: {
+      color: vm.theme.color
     }
   };
 }

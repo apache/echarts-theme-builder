@@ -13,12 +13,12 @@ var defaultTheme = {
   titleColor: '#333',
   subtitleColor: '#666',
   textColor: '#999',
-  color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
+  color: ['#293c55', '#a9334c', '#3095c6'],
   visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
   visualMapUseTheme: true,
 
   lineWidth: 2,
-  symbolSize: 6,
+  symbolSize: 8,
   lineSmooth: false,
 
   gridShow: false,
@@ -30,7 +30,7 @@ var defaultTheme = {
   gridBottom: 50,
 
   axisLineShow: true,
-  axisLineColor: '#aaa',
+  axisLineColor: '#ccc',
   axisTickShow: false,
   axisTickColor: '#666',
   axisLabelShow: true,
@@ -347,7 +347,7 @@ function getOptions() {
       type: 'bar',
       data: (function() {
         var data = [];
-        for (var i = 0; i < 100; ++i) {
+        for (var i = 0; i < 50; ++i) {
           data.push(Math.floor(Math.random() * 1000));
         }
         return data;
@@ -357,7 +357,7 @@ function getOptions() {
       type: 'category',
       data: (function() {
         var data = [];
-        for (var i = 0; i < 100; ++i) {
+        for (var i = 0; i < 50; ++i) {
           data.push(i + 1);
         }
         return data;

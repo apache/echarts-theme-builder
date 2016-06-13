@@ -95,7 +95,7 @@ var vm = new Vue({
     updateCharts: updateCharts,
 
     exportJson: function() {
-      saveJsonFile(this.theme, 'theme.etd');
+      saveJsonFile(this.theme, 'theme.etb');
     },
 
     useTheme: function() {
@@ -121,8 +121,8 @@ var vm = new Vue({
       var file = e.target.files[0];
 
       var extension = file.name.slice(file.name.lastIndexOf('.'));
-      if (extension !== '.etd') {
-        alert('非法后缀！请使用本网站导出的 *.etd 文件。');
+      if (extension !== '.etb') {
+        alert('非法后缀！请使用本网站导出的 *.etb 文件。');
         return;
       }
 
@@ -138,7 +138,7 @@ var vm = new Vue({
             updateCharts();
           });
         } catch(e) {
-          alert('非法 JSON 格式！请使用本网站导出的 *.etd 文件。');
+          alert('非法 JSON 格式！请使用本网站导出的 *.etb 文件。');
           console.error(e);
         }
       }

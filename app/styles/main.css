@@ -1,5 +1,6 @@
 @charset "UTF-8";
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+@import url(../bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

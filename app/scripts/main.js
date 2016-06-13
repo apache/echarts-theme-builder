@@ -13,22 +13,28 @@ var defaultTheme = {
   titleColor: '#333',
   subtitleColor: '#666',
   textColor: '#999',
-  color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
+  color: ['#293c55', '#a9334c', '#3095c6'],
+  visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
+  visualMapUseTheme: true,
+
+  lineWidth: 2,
+  symbolSize: 8,
+  lineSmooth: false,
 
   gridShow: false,
   gridColor: '#fff',
   gridBorderColor: '#999',
-  gridLeft: 50,
+  gridLeft: 60,
   gridRight: 20,
-  gridTop: 70,
-  gridBottom: 40,
+  gridTop: 60,
+  gridBottom: 50,
 
   axisLineShow: true,
-  axisLineColor: '#666',
-  axisTickShow: true,
+  axisLineColor: '#ccc',
+  axisTickShow: false,
   axisTickColor: '#666',
   axisLabelShow: true,
-  axisLabelColor: '#333',
+  axisLabelColor: '#999',
   splitLineShow: true,
   splitLineColor: '#efefef',
   splitAreaShow: false,
@@ -43,8 +49,8 @@ var defaultTheme = {
   tooltipAxisWidth: 1,
 
   legendShow: true,
-  legendLeft: 'right',
-  legendTop: 'top'
+  legendLeft: 'center',
+  legendTop: 'bottom'
 };
 
 
@@ -72,6 +78,20 @@ var vm = new Vue({
       updateCharts();
     },
 
+    addVisualMapColor: function() {
+      this.theme.visualMapColor.push('#ccc');
+      initColorPicker();
+      updateChartOptions();
+      updateCharts();
+    },
+
+    removeVisualMapColor: function() {
+      // remove the last theme color
+      this.theme.visualMapColor.splice(-1, 1);
+      updateChartOptions();
+      updateCharts();
+    },
+
     updateCharts: updateCharts,
 
     exportJson: function() {
@@ -84,6 +104,8 @@ var vm = new Vue({
 
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
+      initColorPicker();
+      updateChartOptions();
       updateCharts();
     },
 
@@ -156,7 +178,16 @@ function getOptions() {
     for (var i = 0; i < groupCnt; ++i) {
       var group = [];
       for (var j = 0; j < dataLength; ++j) {
-        group.push(Math.floor(Math.random() * 1000) + 10);
+        if (typeName === 'scatter') {
+          var v = [Math.floor(Math.random() * 1000),
+            Math.floor(Math.random() * 1000)];
+        } else {
+          var v = Math.floor(Math.random() * 1000) + 10;
+        }
+        group.push(v);
+      }
+      if (typeName === 'radar') {
+        group = [group];
       }
       data.push({
         type: typeName,
@@ -187,6 +218,16 @@ function getOptions() {
       data: data
     };
   };
+  var getIndicator = function() {
+    var res = [];
+    for (var i = 0; i < axisCat.length; ++i) {
+      res.push({
+        name: axisCat[i],
+        max: 1000
+      });
+    }
+    return res;
+  }
 
   var toolbox = {
     feature: {
@@ -221,9 +262,21 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
+    }
+  }, {
+    title: {
+      text: '折线堆积面积图',
+      subtext: '副标题样式'
     },
-    toolbox: toolbox,
-    tooltip: tooltip
+    series: getSeriesRandomStack('line'),
+    xAxis: {
+      type: 'category',
+      data: axisCat,
+      boundaryGap: false
+    },
+    yAxis: {
+      type: 'value'
+    }
   }, {
     title: {
       text: '柱状图'
@@ -235,24 +288,7 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
-  }, {
-    title: {
-      text: '折线堆积面积图',
-      subtext: '副标题样式'
-    },
-    series: getSeriesRandomStack('line'),
-    xAxis: {
-      type: 'category',
-      data: axisCat
-    },
-    yAxis: {
-      type: 'value'
-    },
-    toolbox: toolbox,
-    tooltip: tooltip
+    }
   }, {
     title: {
       text: '柱状堆积图'
@@ -264,21 +300,78 @@ function getOptions() {
     },
     yAxis: {
       type: 'value'
+    }
+  }, {
+    title: {
+      text: '散点图'
     },
+    series: getSeriesRandomValue('scatter'),
     toolbox: toolbox,
-    tooltip: tooltip
+    tooltip: {
+      trigger: 'item'
+    },
+    xAxis: {
+      type: 'value'
+    },
+    yAxis: {
+      type: 'value'
+    }
   }, {
     title: {
       text: '饼图'
     },
     series: getSeriesRandomGroup('pie'),
-    toolbox: toolbox,
     tooltip: {
       trigger: 'item'
     }
+  }, {
+    title: {
+      text: '雷达图'
+    },
+    series: getSeriesRandomValue('radar'),
+    radar: {
+      indicator: getIndicator()
+    }
+  }, {
+    title: {
+      text: '视觉映射'
+    },
+    visualMap: {
+      max: 1000,
+      min: 0
+    },
+    legend: {
+      show: false
+    },
+    series: {
+      type: 'bar',
+      data: (function() {
+        var data = [];
+        for (var i = 0; i < 50; ++i) {
+          data.push(Math.floor(Math.random() * 1000));
+        }
+        return data;
+      })()
+    },
+    xAxis: {
+      type: 'category',
+      data: (function() {
+        var data = [];
+        for (var i = 0; i < 50; ++i) {
+          data.push(i + 1);
+        }
+        return data;
+      })()
+    },
+    yAxis: {
+      type: 'value'
+    }
   }];
+
   for (var i = 0; i < options.length; ++i) {
-    options[i].legend = legend;
+    options[i].legend = options[i].legend || legend;
+    options[i].tooltip = tooltip;
+    options[i].toolbox = toolbox;
     options[i].animation = false;
   }
   return options;
@@ -339,6 +432,21 @@ function getTheme() {
     }
   };
 
+  var seriesStyle = {
+    itemStyle: {
+      normal: {
+        borderWidth: vm.theme.lineWidth
+      }
+    },
+    lineStyle: {
+      normal: {
+        width: vm.theme.lineWidth
+      }
+    },
+    symbolSize: vm.theme.symbolSize,
+    smooth: vm.theme.lineSmooth
+  };
+
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
@@ -353,6 +461,8 @@ function getTheme() {
         color: vm.theme.subtitleColor
       }
     },
+    line: seriesStyle,
+    radar: seriesStyle,
     grid: {
       show: vm.theme.gridShow,
       backgroundColor: vm.theme.gridColor,
@@ -392,14 +502,17 @@ function getTheme() {
     },
     legend: {
       show: vm.theme.legendShow,
-      left: vm.theme.legendLeft,
-      top: vm.theme.legendTop,
       textStyle: {
         color: vm.theme.textColor
-      }
+      },
+      left: vm.theme.legendLeft,
+      top: vm.theme.legendTop
+    },
+    visualMap: {
+      color: vm.theme.visualMapUseTheme ? vm.theme.color :
+        vm.theme.visualMapColor
     }
   };
-  console.log(vm.theme.tooltipAxisWidth);
 }
 
 var lastUpdate = null;

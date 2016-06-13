@@ -15,6 +15,10 @@ var defaultTheme = {
   textColor: '#999',
   color: ['#ffcc00', '#ccff00', '#00ffcc', '#00ccff'],
 
+  lineWidth: 2,
+  symbolSize: 6,
+  lineSmooth: false,
+
   gridShow: false,
   gridColor: '#fff',
   gridBorderColor: '#999',
@@ -24,11 +28,11 @@ var defaultTheme = {
   gridBottom: 40,
 
   axisLineShow: true,
-  axisLineColor: '#666',
-  axisTickShow: true,
+  axisLineColor: '#aaa',
+  axisTickShow: false,
   axisTickColor: '#666',
   axisLabelShow: true,
-  axisLabelColor: '#333',
+  axisLabelColor: '#999',
   splitLineShow: true,
   splitLineColor: '#efefef',
   splitAreaShow: false,
@@ -43,8 +47,8 @@ var defaultTheme = {
   tooltipAxisWidth: 1,
 
   legendShow: true,
-  legendLeft: 'right',
-  legendTop: 'top'
+  legendLeft: 'center',
+  legendTop: 'bottom'
 };
 
 
@@ -158,7 +162,16 @@ function getOptions() {
     for (var i = 0; i < groupCnt; ++i) {
       var group = [];
       for (var j = 0; j < dataLength; ++j) {
-        group.push(Math.floor(Math.random() * 1000) + 10);
+        if (typeName === 'scatter') {
+          var v = [Math.floor(Math.random() * 1000),
+            Math.floor(Math.random() * 1000)];
+        } else {
+          var v = Math.floor(Math.random() * 1000) + 10;
+        }
+        group.push(v);
+      }
+      if (typeName === 'radar') {
+        group = [group];
       }
       data.push({
         type: typeName,
@@ -166,6 +179,7 @@ function getOptions() {
         name: '第' + (i + 1) + '组'
       });
     }
+    console.log(typeName, data);
     return data;
   };
   var getSeriesRandomStack = function(typeName) {
@@ -189,6 +203,16 @@ function getOptions() {
       data: data
     };
   };
+  var getIndicator = function() {
+    var res = [];
+    for (var i = 0; i < axisCat.length; ++i) {
+      res.push({
+        name: axisCat[i],
+        max: 1000
+      });
+    }
+    return res;
+  }
 
   var toolbox = {
     feature: {
@@ -228,12 +252,14 @@ function getOptions() {
     tooltip: tooltip
   }, {
     title: {
-      text: '柱状图'
+      text: '折线堆积面积图',
+      subtext: '副标题样式'
     },
-    series: getSeriesRandomValue('bar'),
+    series: getSeriesRandomStack('line'),
     xAxis: {
       type: 'category',
-      data: axisCat
+      data: axisCat,
+      boundaryGap: false
     },
     yAxis: {
       type: 'value'
@@ -242,10 +268,9 @@ function getOptions() {
     tooltip: tooltip
   }, {
     title: {
-      text: '折线堆积面积图',
-      subtext: '副标题样式'
+      text: '柱状图'
     },
-    series: getSeriesRandomStack('line'),
+    series: getSeriesRandomValue('bar'),
     xAxis: {
       type: 'category',
       data: axisCat
@@ -271,6 +296,21 @@ function getOptions() {
     tooltip: tooltip
   }, {
     title: {
+      text: '散点图'
+    },
+    series: getSeriesRandomValue('scatter'),
+    toolbox: toolbox,
+    tooltip: {
+      trigger: 'item'
+    },
+    xAxis: {
+      type: 'value'
+    },
+    yAxis: {
+      type: 'value'
+    }
+  }, {
+    title: {
       text: '饼图'
     },
     series: getSeriesRandomGroup('pie'),
@@ -278,9 +318,40 @@ function getOptions() {
     tooltip: {
       trigger: 'item'
     }
+  }, {
+    title: {
+      text: '雷达图'
+    },
+    series: getSeriesRandomValue('radar'),
+    radar: {
+      indicator: getIndicator()
+    }
+  }, {
+    title: {
+      text: '雷达面积图'
+    },
+    legend: (function() {
+      var leg = cloneObject(legend);
+      leg.selectedMode = 'single';
+      return leg;
+    })(),
+    series: (function() {
+      var series = getSeriesRandomValue('radar');
+      for (var sid = 0; sid < series.length; ++sid) {
+        series[sid].areaStyle = {
+          normal: {
+            opacity: 0.2
+          }
+        };
+      }
+      return series;
+    })(),
+    radar: {
+      indicator: getIndicator()
+    }
   }];
   for (var i = 0; i < options.length; ++i) {
-    options[i].legend = legend;
+    options[i].legend = options[i].legend || legend;
     options[i].animation = false;
   }
   return options;
@@ -341,6 +412,21 @@ function getTheme() {
     }
   };
 
+  var seriesStyle = {
+    itemStyle: {
+      normal: {
+        borderWidth: vm.theme.lineWidth
+      }
+    },
+    lineStyle: {
+      normal: {
+        width: vm.theme.lineWidth
+      }
+    },
+    symbolSize: vm.theme.symbolSize,
+    smooth: vm.theme.lineSmooth
+  };
+
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
@@ -355,6 +441,8 @@ function getTheme() {
         color: vm.theme.subtitleColor
       }
     },
+    line: seriesStyle,
+    radar: seriesStyle,
     grid: {
       show: vm.theme.gridShow,
       backgroundColor: vm.theme.gridColor,
@@ -394,14 +482,13 @@ function getTheme() {
     },
     legend: {
       show: vm.theme.legendShow,
-      left: vm.theme.legendLeft,
-      top: vm.theme.legendTop,
       textStyle: {
         color: vm.theme.textColor
-      }
+      },
+      left: vm.theme.legendLeft,
+      top: vm.theme.legendTop
     }
   };
-  console.log(vm.theme.tooltipAxisWidth);
 }
 
 var lastUpdate = null;

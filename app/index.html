@@ -147,6 +147,48 @@
               </div>
             </div><!-- end of acc-theme -->
 
+            <div id="acc-shape" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-shape" href="#acc-shape-body" title="shape">形状样式</a>
+                  </h4>
+                </div>
+                <div id="acc-shape-body" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">线条宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.lineWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">图形大小</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.symbolSize" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.lineSmooth" v-on:change="updateCharts()" id="lineSmooth" />
+                          <label for="lineSmooth" class="control-label" title="smooth">平滑曲线</label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-shape -->
+
             <div id="acc-grid" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -229,7 +271,7 @@
                   </div>
                 </div>
               </div>
-            </div><!-- end of acc-tooltip -->
+            </div><!-- end of acc-grid -->
 
             <div id="acc-axis" class="panel-group">
               <div class="panel panel-default">
@@ -432,7 +474,6 @@
                           <div class="input-group">
                             <div class="btn-group" role="group">
                               <button type="button" class="btn btn-default" @click="setLegendTop('top')" v-bind:class="{'active': theme.legendTop=='top'}">上</button>
-                              <button type="button" class="btn btn-default" @click="setLegendTop('center')" v-bind:class="{'active': theme.legendTop=='center'}">中</button>
                               <button type="button" class="btn btn-default" @click="setLegendTop('bottom')" v-bind:class="{'active': theme.legendTop=='bottom'}">下</button>
                             </div>
                           </div>

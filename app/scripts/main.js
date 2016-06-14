@@ -29,16 +29,31 @@ var defaultTheme = {
   gridTop: 60,
   gridBottom: 50,
 
-  axisLineShow: true,
-  axisLineColor: '#ccc',
-  axisTickShow: false,
-  axisTickColor: '#666',
-  axisLabelShow: true,
-  axisLabelColor: '#999',
-  splitLineShow: true,
-  splitLineColor: '#efefef',
-  splitAreaShow: false,
-  splitAreaColor: '#fff',
+  axes: (function() {
+    var types = ['all', 'category', 'value', 'log', 'time'];
+    var names = ['通用', '类目', '数值', '对数', '时间'];
+    var axis = [];
+    for (var i = 0; i < types.length; ++i) {
+      axis.push({
+        type: types[i],
+        name: names[i] + '坐标轴',
+        axisLineShow: true,
+        axisLineColor: '#ccc',
+        axisTickShow: false,
+        axisTickColor: '#666',
+        axisLabelShow: true,
+        axisLabelColor: '#999',
+        splitLineShow: true,
+        splitLineColor: '#efefef',
+        splitAreaShow: false,
+        splitAreaColor: '#fff'
+      });
+    }
+    return axis;
+  })(),
+  axisAll: null,
+  axisSeperateSetting: false,
+  axis: null,
 
   toolboxShow: false,
   toolboxColor: '#999',
@@ -52,6 +67,7 @@ var defaultTheme = {
   legendLeft: 'center',
   legendTop: 'bottom'
 };
+defaultTheme.axis = [defaultTheme.axes[0]];
 
 
 
@@ -131,6 +147,7 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
+          console.log(obj);
           that.$set('theme', obj);
           setTimeout(function() {
             initColorPicker();
@@ -145,17 +162,27 @@ var vm = new Vue({
       reader.readAsText(file);
     },
 
-    setLegendLeft(left) {
-      vm.theme.legendLeft = left;
+    axisSeperateSettingChanges: function() {
+      // change axis settings to display
+      if (vm.theme.axisSeperateSetting) {
+        vm.theme.axis = vm.theme.axes;
+      } else {
+        vm.theme.axis = [vm.theme.axes[0]];
+      }
+
+      initColorPicker();
+      updateChartOptions();
       updateCharts();
     },
 
-    setLegendTop(top) {
-      vm.theme.legendTop = top;
-      updateCharts();
+    log: function() {
+      console.log(getAxis(1).axisLine);
     }
   }
 });
+
+// init axis setting
+vm.axisSeperateSettingChanges();
 
 
 
@@ -399,39 +426,6 @@ function initColorPicker() {
 }
 
 function getTheme() {
-  var axis = {
-    axisLine: {
-      show: vm.theme.axisLineShow,
-      lineStyle: {
-        color: vm.theme.axisLineColor
-      }
-    },
-    axisTick: {
-      show: vm.theme.axisTickShow,
-      lineStyle: {
-        color: vm.theme.axisTickColor
-      }
-    },
-    axisLabel: {
-      show: vm.theme.axisLabelShow,
-      textStyle: {
-        color: vm.theme.axisLabelColor
-      }
-    },
-    splitLine: {
-      show: vm.theme.splitLineShow,
-      lineStyle: {
-        color: vm.theme.splitLineColor
-      }
-    },
-    splitArea: {
-      show: vm.theme.splitAreaShow,
-      areaStyle: {
-        color: vm.theme.splitAreaColor
-      }
-    }
-  };
-
   var seriesStyle = {
     itemStyle: {
       normal: {
@@ -472,10 +466,10 @@ function getTheme() {
       top: vm.theme.gridTop,
       bottom: vm.theme.gridBottom
     },
-    timeAxis: axis,
-    logAxis: axis,
-    valueAxis: axis,
-    categoryAxis: axis,
+    categoryAxis: getAxis(1),
+    valueAxis: getAxis(2),
+    logAxis: getAxis(3),
+    timeAxis: getAxis(4),
     toolbox: {
       show: vm.theme.toolboxShow,
       iconStyle: {
@@ -513,6 +507,44 @@ function getTheme() {
         vm.theme.visualMapColor
     }
   };
+
+  function getAxis(id) {
+    if (!vm.theme.axisSeperateSetting) {
+      id = 0;
+    }
+    return {
+      axisLine: {
+        show: vm.theme.axes[id].axisLineShow,
+        lineStyle: {
+          color: vm.theme.axes[id].axisLineColor
+        }
+      },
+      axisTick: {
+        show: vm.theme.axes[id].axisTickShow,
+        lineStyle: {
+          color: vm.theme.axes[id].axisTickColor
+        }
+      },
+      axisLabel: {
+        show: vm.theme.axes[id].axisLabelShow,
+        textStyle: {
+          color: vm.theme.axes[id].axisLabelColor
+        }
+      },
+      splitLine: {
+        show: vm.theme.axes[id].splitLineShow,
+        lineStyle: {
+          color: vm.theme.axes[id].splitLineColor
+        }
+      },
+      splitArea: {
+        show: vm.theme.axes[id].splitAreaShow,
+        areaStyle: {
+          color: vm.theme.axes[id].splitAreaColor
+        }
+      }
+    };
+  }
 }
 
 var lastUpdate = null;

@@ -249,6 +249,11 @@ function getTheme() {
         }
       }
     },
+    graph: (function() {
+      var style = cloneObject(seriesStyle);
+      style.color = vm.theme.color;
+      return style;
+    })(),
     categoryAxis: getAxis(1),
     valueAxis: getAxis(2),
     logAxis: getAxis(3),

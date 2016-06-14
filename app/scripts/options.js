@@ -2,15 +2,24 @@ function getOptions(vm) {
   var groupCnt = vm ? vm.theme.seriesCnt : 4;
   var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   var dataLength = axisCat.length;
-  var getLegend = function(groupCnt) {
+  var getLegend = function() {
     var data = [];
     for (var i = 0; i < groupCnt; ++i) {
       data.push('第' + (i + 1) + '组');
     }
     return data;
   };
+  var getLegendWithName = function() {
+    var data = [];
+    for (var i = 0; i < groupCnt; ++i) {
+      data.push({
+        name: '第' + (i + 1) + '组'
+      });
+    }
+    return data;
+  };
   var legend = {
-    data: getLegend(groupCnt)
+    data: getLegend()
   };
   var getSeriesRandomValue = function(typeName) {
     var data = [];
@@ -396,15 +405,45 @@ function getOptions(vm) {
         [2190.1,2148.35,2126.22,2190.1]
       ]
     }]
-  }/*, {
+  }, {
     title: {
       text: '图'
     },
     series: [{
       type: 'graph',
-      data:
+      data: (function() {
+        var data = [];
+        var nodeId = 0;
+        for (var sid = 0; sid < groupCnt; ++sid) {
+          for (var i = 0; i < 20; ++i) {
+            data.push({
+              name: '' + nodeId++,
+              value: Math.floor(Math.random() * 1000),
+              category: '第' + (sid + 1) + '组',
+              x: Math.floor(Math.random() * 1000 * (sid + 1) / groupCnt),
+              y: Math.floor(Math.random() * 1000 * (sid + 1) / groupCnt)
+            })
+          }
+        }
+        return data;
+      })(),
+      links: (function() {
+        var link = [];
+        var dataCnt = 20;
+        for (var i = 0; i < groupCnt; ++i) {
+          for (var j = 0; j < dataCnt; ++j) {
+            link.push({
+              source: '' + i * dataCnt,
+              target: '' + (i * dataCnt + j)
+            });
+          }
+        }
+        console.log(link);
+        return link;
+      })(),
+      categories: getLegendWithName()
     }]
-  }*/];
+  }];
 
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = options[i].legend || legend;

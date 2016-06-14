@@ -9,6 +9,8 @@ $(document).ready(function() {
 
 
 var defaultTheme = {
+  seriesCnt: 3,
+
   backgroundColor: '#fff',
   titleColor: '#333',
   subtitleColor: '#666',
@@ -76,6 +78,7 @@ var vm = new Vue({
   methods: {
     addThemeColor: function() {
       this.theme.color.push('#ccc');
+      this.theme.seriesCnt = this.theme.color.length;
       initColorPicker();
       updateChartOptions();
       updateCharts();
@@ -84,6 +87,7 @@ var vm = new Vue({
     removeThemeColor: function() {
       // remove the last theme color
       this.theme.color.splice(-1, 1);
+      this.theme.seriesCnt = this.theme.color.length;
       updateChartOptions();
       updateCharts();
     },
@@ -165,6 +169,11 @@ var vm = new Vue({
       }
 
       initColorPicker();
+      updateChartOptions();
+      updateCharts();
+    },
+
+    seriesCntChanges: function() {
       updateChartOptions();
       updateCharts();
     }

@@ -1,5 +1,5 @@
 function getOptions(vm) {
-  var groupCnt = vm ? vm.theme.color.length : 4;
+  var groupCnt = vm ? vm.theme.seriesCnt : 4;
   var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   var dataLength = axisCat.length;
   var getLegend = function(groupCnt) {
@@ -195,7 +195,8 @@ function getOptions(vm) {
     },
     series: getSeriesRandomValue('radar'),
     radar: {
-      indicator: getIndicator()
+      indicator: getIndicator(),
+      center: ['50%', '60%']
     }
   }, {
     title: {
@@ -395,7 +396,15 @@ function getOptions(vm) {
         [2190.1,2148.35,2126.22,2190.1]
       ]
     }]
-  }];
+  }/*, {
+    title: {
+      text: '图'
+    },
+    series: [{
+      type: 'graph',
+      data:
+    }]
+  }*/];
 
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = options[i].legend || legend;

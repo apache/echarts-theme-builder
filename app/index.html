@@ -214,90 +214,6 @@
               </div>
             </div><!-- end of acc-shape -->
 
-            <div id="acc-grid" class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-grid" href="#acc-grid-body" title="grid">绘图区</a>
-                  </h4>
-                </div>
-                <div id="acc-grid-body" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.gridShow" v-on:change="updateCharts()" id="gridShow" />
-                          <label for="gridShow" class="control-label">显示绘图区</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">填充</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group colorpicker-component">
-                            <input type="text" v-model="theme.gridColor" class="form-control" />
-                            <span class="input-group-addon"><i></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">边框</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group colorpicker-component">
-                            <input type="text" v-model="theme.gridBorderColor" class="form-control" />
-                            <span class="input-group-addon"><i></i></span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">左</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridLeft" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">右</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridRight" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">上</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridTop" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">下</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.gridBottom" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div><!-- end of acc-grid -->
-
             <div id="acc-axis" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -523,7 +439,7 @@
 
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
-              <div v-for="chart in charts" class="col-md-6">
+              <div v-for="chart in charts" class="ec-container col-md-6">
                 <div class="ec-panel" ec-option="{{ chart.option }}"></div>
               </div>
             </div>

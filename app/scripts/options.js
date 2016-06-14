@@ -95,6 +95,13 @@ function getOptions(vm) {
     trigger: 'axis'
   };
 
+  var grid = {
+    left: 60,
+    right: 20,
+    top: 40,
+    bottom: 50
+  };
+
   var options = [{
     title: {
       text: '折线图',
@@ -107,6 +114,12 @@ function getOptions(vm) {
     },
     yAxis: {
       type: 'value'
+    },
+    grid: {
+      left: 60,
+      right: 20,
+      top: 60,
+      bottom: 50
     }
   }, {
     title: {
@@ -121,6 +134,12 @@ function getOptions(vm) {
     },
     yAxis: {
       type: 'value'
+    },
+    grid: {
+      left: 60,
+      right: 20,
+      top: 60,
+      bottom: 50
     }
   }, {
     title: {
@@ -215,9 +234,9 @@ function getOptions(vm) {
 
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = options[i].legend || legend;
-    options[i].tooltip = tooltip;
-    options[i].toolbox = toolbox;
-    options[i].animation = false;
+    options[i].tooltip = options[i].tooltip || tooltip;
+    options[i].toolbox = options[i].toolbox || toolbox;
+    options[i].grid = options[i].grid || grid;
   }
   return options;
 }

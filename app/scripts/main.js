@@ -22,14 +22,6 @@ var defaultTheme = {
   symbolSize: 8,
   lineSmooth: false,
 
-  gridShow: false,
-  gridColor: '#fff',
-  gridBorderColor: '#999',
-  gridLeft: 60,
-  gridRight: 20,
-  gridTop: 60,
-  gridBottom: 50,
-
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
     var names = ['通用', '类目', '数值', '对数', '时间'];
@@ -39,7 +31,7 @@ var defaultTheme = {
         type: types[i],
         name: names[i] + '坐标轴',
         axisLineShow: true,
-        axisLineColor: '#ccc',
+        axisLineColor: '#ddd',
         axisTickShow: false,
         axisTickColor: '#666',
         axisLabelShow: true,
@@ -61,7 +53,7 @@ var defaultTheme = {
   toolboxEmpasisColor: '#666',
 
   tooltipShow: true,
-  tooltipAxisColor: '#999',
+  tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1,
 
   legendShow: true,
@@ -236,15 +228,6 @@ function getTheme() {
     },
     line: seriesStyle,
     radar: seriesStyle,
-    grid: {
-      show: vm.theme.gridShow,
-      backgroundColor: vm.theme.gridColor,
-      borderColor: vm.theme.gridBorderColor,
-      left: vm.theme.gridLeft,
-      right: vm.theme.gridRight,
-      top: vm.theme.gridTop,
-      bottom: vm.theme.gridBottom
-    },
     categoryAxis: getAxis(1),
     valueAxis: getAxis(2),
     logAxis: getAxis(3),
@@ -288,6 +271,11 @@ function getTheme() {
     markPoint: {
       label: {
         normal: {
+          textStyle: {
+            color: vm.theme.markTextColor
+          }
+        },
+        emphasis: {
           textStyle: {
             color: vm.theme.markTextColor
           }

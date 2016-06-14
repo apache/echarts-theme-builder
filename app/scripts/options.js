@@ -18,10 +18,10 @@ function getOptions(vm) {
       var group = [];
       for (var j = 0; j < dataLength; ++j) {
         if (typeName === 'scatter') {
-          var v = [Math.floor(Math.random() * 1000),
-            Math.floor(Math.random() * 1000)];
+          var v = [Math.floor(Math.random() * 1000 * (i + 1) / groupCnt),
+            Math.floor(Math.random() * 1000 * (i + 1) / groupCnt)];
         } else {
-          var v = Math.floor(Math.random() * 1000) + 10;
+          var v = Math.floor(Math.random() * 1000 * (i + 1) / groupCnt) + 10;
         }
         group.push(v);
       }
@@ -55,7 +55,7 @@ function getOptions(vm) {
     for (var i = 0; i < groupCnt; ++i) {
       data.push({
         name: legend.data[i],
-        value: Math.floor(Math.random() * 1000)
+        value: Math.floor(Math.random() * 1000 * (i + 1) / groupCnt)
       });
     }
     return {
@@ -212,7 +212,7 @@ function getOptions(vm) {
       data: (function() {
         var data = [];
         for (var i = 0; i < 50; ++i) {
-          data.push(Math.floor(Math.random() * 1000));
+          data.push(Math.floor(Math.random() * 1000 * (i + 1) / 50));
         }
         return data;
       })()

@@ -9,49 +9,61 @@ $(document).ready(function() {
 
 
 var defaultTheme = {
+  seriesCnt: 3,
+
   backgroundColor: '#fff',
   titleColor: '#333',
   subtitleColor: '#666',
   textColor: '#999',
+  markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
   visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
   visualMapUseTheme: true,
+  kColor: '#e43c59',
+  kColor0: '#fff',
+  kBorderColor: '#a9334c',
+  kBorderColor0: '#293c55',
+  kBorderWidth: 1,
 
   lineWidth: 2,
   symbolSize: 8,
   lineSmooth: false,
 
-  gridShow: false,
-  gridColor: '#fff',
-  gridBorderColor: '#999',
-  gridLeft: 60,
-  gridRight: 20,
-  gridTop: 60,
-  gridBottom: 50,
-
-  axisLineShow: true,
-  axisLineColor: '#ccc',
-  axisTickShow: false,
-  axisTickColor: '#666',
-  axisLabelShow: true,
-  axisLabelColor: '#999',
-  splitLineShow: true,
-  splitLineColor: '#efefef',
-  splitAreaShow: false,
-  splitAreaColor: '#fff',
+  axes: (function() {
+    var types = ['all', 'category', 'value', 'log', 'time'];
+    var names = ['通用', '类目', '数值', '对数', '时间'];
+    var axis = [];
+    for (var i = 0; i < types.length; ++i) {
+      axis.push({
+        type: types[i],
+        name: names[i] + '坐标轴',
+        axisLineShow: true,
+        axisLineColor: '#ddd',
+        axisTickShow: false,
+        axisTickColor: '#666',
+        axisLabelShow: true,
+        axisLabelColor: '#999',
+        splitLineShow: true,
+        splitLineColor: '#efefef',
+        splitAreaShow: false,
+        splitAreaColor: '#fff'
+      });
+    }
+    return axis;
+  })(),
+  axisAll: null,
+  axisSeperateSetting: false,
+  axis: null,
 
   toolboxShow: false,
   toolboxColor: '#999',
   toolboxEmpasisColor: '#666',
 
   tooltipShow: true,
-  tooltipAxisColor: '#999',
-  tooltipAxisWidth: 1,
-
-  legendShow: true,
-  legendLeft: 'center',
-  legendTop: 'bottom'
+  tooltipAxisColor: '#ccc',
+  tooltipAxisWidth: 1
 };
+defaultTheme.axis = [defaultTheme.axes[0]];
 
 
 
@@ -66,6 +78,7 @@ var vm = new Vue({
   methods: {
     addThemeColor: function() {
       this.theme.color.push('#ccc');
+      this.theme.seriesCnt = this.theme.color.length;
       initColorPicker();
       updateChartOptions();
       updateCharts();
@@ -74,6 +87,7 @@ var vm = new Vue({
     removeThemeColor: function() {
       // remove the last theme color
       this.theme.color.splice(-1, 1);
+      this.theme.seriesCnt = this.theme.color.length;
       updateChartOptions();
       updateCharts();
     },
@@ -131,6 +145,7 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
+          console.log(obj);
           that.$set('theme', obj);
           setTimeout(function() {
             initColorPicker();
@@ -145,237 +160,30 @@ var vm = new Vue({
       reader.readAsText(file);
     },
 
-    setLegendLeft(left) {
-      vm.theme.legendLeft = left;
+    axisSeperateSettingChanges: function() {
+      // change axis settings to display
+      if (vm.theme.axisSeperateSetting) {
+        vm.theme.axis = vm.theme.axes;
+      } else {
+        vm.theme.axis = [vm.theme.axes[0]];
+      }
+
+      initColorPicker();
+      updateChartOptions();
       updateCharts();
     },
 
-    setLegendTop(top) {
-      vm.theme.legendTop = top;
+    seriesCntChanges: function() {
+      updateChartOptions();
       updateCharts();
     }
   }
 });
 
+// init axis setting
+vm.axisSeperateSettingChanges();
 
 
-function getOptions() {
-  var groupCnt = vm ? vm.theme.color.length : 4;
-  var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-  var dataLength = axisCat.length;
-  var getLegend = function(groupCnt) {
-    var data = [];
-    for (var i = 0; i < groupCnt; ++i) {
-      data.push('第' + (i + 1) + '组');
-    }
-    return data;
-  };
-  var legend = {
-    data: getLegend(groupCnt)
-  };
-  var getSeriesRandomValue = function(typeName) {
-    var data = [];
-    for (var i = 0; i < groupCnt; ++i) {
-      var group = [];
-      for (var j = 0; j < dataLength; ++j) {
-        if (typeName === 'scatter') {
-          var v = [Math.floor(Math.random() * 1000),
-            Math.floor(Math.random() * 1000)];
-        } else {
-          var v = Math.floor(Math.random() * 1000) + 10;
-        }
-        group.push(v);
-      }
-      if (typeName === 'radar') {
-        group = [group];
-      }
-      data.push({
-        type: typeName,
-        data: group,
-        name: '第' + (i + 1) + '组'
-      });
-    }
-    return data;
-  };
-  var getSeriesRandomStack = function(typeName) {
-    var data = getSeriesRandomValue(typeName);
-    for (var i = 0; i < data.length; ++i) {
-      data[i].areaStyle = {normal: {}};
-      data[i].stack = 'total';
-    }
-    return data;
-  };
-  var getSeriesRandomGroup = function(typeName) {
-    var data = [];
-    for (var i = 0; i < groupCnt; ++i) {
-      data.push({
-        name: legend.data[i],
-        value: Math.floor(Math.random() * 1000)
-      });
-    }
-    return {
-      type: typeName,
-      data: data
-    };
-  };
-  var getIndicator = function() {
-    var res = [];
-    for (var i = 0; i < axisCat.length; ++i) {
-      res.push({
-        name: axisCat[i],
-        max: 1000
-      });
-    }
-    return res;
-  }
-
-  var toolbox = {
-    feature: {
-      restore: {
-        show: true
-      },
-      saveAsImage: {
-        show: true
-      },
-      dataView: {
-        show: true
-      },
-      dataZoom: {
-        show: true
-      }
-    }
-  };
-
-  var tooltip = {
-    trigger: 'axis'
-  };
-
-  var options = [{
-    title: {
-      text: '折线图',
-      subtext: '副标题样式'
-    },
-    series: getSeriesRandomValue('line'),
-    xAxis: {
-      type: 'category',
-      data: axisCat
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
-    title: {
-      text: '折线堆积面积图',
-      subtext: '副标题样式'
-    },
-    series: getSeriesRandomStack('line'),
-    xAxis: {
-      type: 'category',
-      data: axisCat,
-      boundaryGap: false
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
-    title: {
-      text: '柱状图'
-    },
-    series: getSeriesRandomValue('bar'),
-    xAxis: {
-      type: 'category',
-      data: axisCat
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
-    title: {
-      text: '柱状堆积图'
-    },
-    series: getSeriesRandomStack('bar'),
-    xAxis: {
-      type: 'category',
-      data: axisCat
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
-    title: {
-      text: '散点图'
-    },
-    series: getSeriesRandomValue('scatter'),
-    toolbox: toolbox,
-    tooltip: {
-      trigger: 'item'
-    },
-    xAxis: {
-      type: 'value'
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
-    title: {
-      text: '饼图'
-    },
-    series: getSeriesRandomGroup('pie'),
-    tooltip: {
-      trigger: 'item'
-    }
-  }, {
-    title: {
-      text: '雷达图'
-    },
-    series: getSeriesRandomValue('radar'),
-    radar: {
-      indicator: getIndicator()
-    }
-  }, {
-    title: {
-      text: '视觉映射'
-    },
-    visualMap: {
-      max: 1000,
-      min: 0
-    },
-    legend: {
-      show: false
-    },
-    series: {
-      type: 'bar',
-      data: (function() {
-        var data = [];
-        for (var i = 0; i < 50; ++i) {
-          data.push(Math.floor(Math.random() * 1000));
-        }
-        return data;
-      })()
-    },
-    xAxis: {
-      type: 'category',
-      data: (function() {
-        var data = [];
-        for (var i = 0; i < 50; ++i) {
-          data.push(i + 1);
-        }
-        return data;
-      })()
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }];
-
-  for (var i = 0; i < options.length; ++i) {
-    options[i].legend = options[i].legend || legend;
-    options[i].tooltip = tooltip;
-    options[i].toolbox = toolbox;
-    options[i].animation = false;
-  }
-  return options;
-}
 
 function initColorPicker() {
   setTimeout(function() {
@@ -399,39 +207,6 @@ function initColorPicker() {
 }
 
 function getTheme() {
-  var axis = {
-    axisLine: {
-      show: vm.theme.axisLineShow,
-      lineStyle: {
-        color: vm.theme.axisLineColor
-      }
-    },
-    axisTick: {
-      show: vm.theme.axisTickShow,
-      lineStyle: {
-        color: vm.theme.axisTickColor
-      }
-    },
-    axisLabel: {
-      show: vm.theme.axisLabelShow,
-      textStyle: {
-        color: vm.theme.axisLabelColor
-      }
-    },
-    splitLine: {
-      show: vm.theme.splitLineShow,
-      lineStyle: {
-        color: vm.theme.splitLineColor
-      }
-    },
-    splitArea: {
-      show: vm.theme.splitAreaShow,
-      areaStyle: {
-        color: vm.theme.splitAreaColor
-      }
-    }
-  };
-
   var seriesStyle = {
     itemStyle: {
       normal: {
@@ -463,19 +238,26 @@ function getTheme() {
     },
     line: seriesStyle,
     radar: seriesStyle,
-    grid: {
-      show: vm.theme.gridShow,
-      backgroundColor: vm.theme.gridColor,
-      borderColor: vm.theme.gridBorderColor,
-      left: vm.theme.gridLeft,
-      right: vm.theme.gridRight,
-      top: vm.theme.gridTop,
-      bottom: vm.theme.gridBottom
+    candlestick: {
+      itemStyle: {
+        normal: {
+          color: vm.theme.kColor,
+          color0: vm.theme.kColor0,
+          borderColor: vm.theme.kBorderColor,
+          borderColor0: vm.theme.kBorderColor0,
+          borderWidth: vm.theme.kBorderWidth
+        }
+      }
     },
-    timeAxis: axis,
-    logAxis: axis,
-    valueAxis: axis,
-    categoryAxis: axis,
+    graph: (function() {
+      var style = cloneObject(seriesStyle);
+      style.color = vm.theme.color;
+      return style;
+    })(),
+    categoryAxis: getAxis(1),
+    valueAxis: getAxis(2),
+    logAxis: getAxis(3),
+    timeAxis: getAxis(4),
     toolbox: {
       show: vm.theme.toolboxShow,
       iconStyle: {
@@ -500,19 +282,63 @@ function getTheme() {
         }
       }
     },
-    legend: {
-      show: vm.theme.legendShow,
-      textStyle: {
-        color: vm.theme.textColor
-      },
-      left: vm.theme.legendLeft,
-      top: vm.theme.legendTop
-    },
     visualMap: {
       color: vm.theme.visualMapUseTheme ? vm.theme.color :
         vm.theme.visualMapColor
+    },
+    markPoint: {
+      label: {
+        normal: {
+          textStyle: {
+            color: vm.theme.markTextColor
+          }
+        },
+        emphasis: {
+          textStyle: {
+            color: vm.theme.markTextColor
+          }
+        }
+      }
     }
   };
+
+  function getAxis(id) {
+    if (!vm.theme.axisSeperateSetting) {
+      id = 0;
+    }
+    return {
+      axisLine: {
+        show: vm.theme.axes[id].axisLineShow,
+        lineStyle: {
+          color: vm.theme.axes[id].axisLineColor
+        }
+      },
+      axisTick: {
+        show: vm.theme.axes[id].axisTickShow,
+        lineStyle: {
+          color: vm.theme.axes[id].axisTickColor
+        }
+      },
+      axisLabel: {
+        show: vm.theme.axes[id].axisLabelShow,
+        textStyle: {
+          color: vm.theme.axes[id].axisLabelColor
+        }
+      },
+      splitLine: {
+        show: vm.theme.axes[id].splitLineShow,
+        lineStyle: {
+          color: vm.theme.axes[id].splitLineColor
+        }
+      },
+      splitArea: {
+        show: vm.theme.axes[id].splitAreaShow,
+        areaStyle: {
+          color: vm.theme.axes[id].splitAreaColor
+        }
+      }
+    };
+  }
 }
 
 var lastUpdate = null;
@@ -537,7 +363,7 @@ function updateCharts(isForceUpdate) {
 }
 
 function updateChartOptions() {
-  var options = getOptions();
+  var options = getOptions(vm);
   var charts = [];
   // init charts object
   for (var cid = 0; cid < options.length; ++cid) {

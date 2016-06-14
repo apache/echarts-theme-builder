@@ -6,6 +6,7 @@ body {
 
 a {
   cursor: pointer;
+  color: $clr-thirdary;
 }
 
 
@@ -25,11 +26,11 @@ a {
 }
 
 .btn-primary {
-  border-color: $clr-primary;
-  background-color: lighten($clr-primary, 10%);
+  border-color: darken($clr-thirdary, 5%);
+  background-color: $clr-thirdary;
 
   &:hover, &:active, &:focus, &.active {
-    border-color: $clr-primary;
-    background-color: lighten($clr-primary, 20%);
+    border-color: darken($clr-thirdary, 10%);
+    background-color: darken($clr-thirdary, 5%);
   }
 }

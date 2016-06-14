@@ -17,6 +17,11 @@ var defaultTheme = {
   color: ['#293c55', '#a9334c', '#3095c6'],
   visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
   visualMapUseTheme: true,
+  kColor: '#e43c59',
+  kColor0: '#fff',
+  kBorderColor: '#a9334c',
+  kBorderColor0: '#293c55',
+  kBorderWidth: 1,
 
   lineWidth: 2,
   symbolSize: 8,
@@ -54,11 +59,7 @@ var defaultTheme = {
 
   tooltipShow: true,
   tooltipAxisColor: '#ccc',
-  tooltipAxisWidth: 1,
-
-  legendShow: true,
-  legendLeft: 'center',
-  legendTop: 'bottom'
+  tooltipAxisWidth: 1
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
@@ -228,6 +229,17 @@ function getTheme() {
     },
     line: seriesStyle,
     radar: seriesStyle,
+    candlestick: {
+      itemStyle: {
+        normal: {
+          color: vm.theme.kColor,
+          color0: vm.theme.kColor0,
+          borderColor: vm.theme.kBorderColor,
+          borderColor0: vm.theme.kBorderColor0,
+          borderWidth: vm.theme.kBorderWidth
+        }
+      }
+    },
     categoryAxis: getAxis(1),
     valueAxis: getAxis(2),
     logAxis: getAxis(3),
@@ -255,14 +267,6 @@ function getTheme() {
           width: vm.theme.tooltipAxisWidth
         }
       }
-    },
-    legend: {
-      show: vm.theme.legendShow,
-      textStyle: {
-        color: vm.theme.textColor
-      },
-      left: vm.theme.legendLeft,
-      top: vm.theme.legendTop
     },
     visualMap: {
       color: vm.theme.visualMapUseTheme ? vm.theme.color :

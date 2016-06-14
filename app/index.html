@@ -126,7 +126,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">标记</label>
+                        <label class="col-sm-3 control-label">标记文字</label>
                         <div class="col-sm-9">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="theme.markTextColor" class="form-control" />
@@ -171,48 +171,6 @@
                 </div>
               </div>
             </div><!-- end of acc-theme -->
-
-            <div id="acc-shape" class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-shape" href="#acc-shape-body" title="shape">形状样式</a>
-                  </h4>
-                </div>
-                <div id="acc-shape-body" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">线条宽度</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.lineWidth" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-3">
-                          <label class="control-label">图形大小</label>
-                        </div>
-                        <div class="col-sm-9">
-                          <div class="input-group">
-                            <input type="text" v-on:change="updateCharts()" v-model="theme.symbolSize" class="form-control" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.lineSmooth" v-on:change="updateCharts()" id="lineSmooth" />
-                          <label for="lineSmooth" class="control-label" title="smooth">平滑曲线</label>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div><!-- end of acc-shape -->
 
             <div id="acc-axis" class="panel-group">
               <div class="panel panel-default">
@@ -386,46 +344,101 @@
               </div>
             </div><!-- end of acc-tooltip -->
 
-            <div id="acc-tooltip" class="panel-group">
+            <div id="acc-line" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-legend" href="#acc-legend-body" title="tooltip">图例</a>
+                    <a data-toggle="collapse" data-parent="#acc-line" href="#acc-line-body" title="line">折线图</a>
                   </h4>
                 </div>
-                <div id="acc-legend-body" class="panel-collapse collapse">
+                <div id="acc-line-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.legendShow" v-on:change="updateCharts()" id="legendShow" />
-                          <label for="legendShow" class="control-label">显示图例</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <div class="col-sm-3">
-                          <label class="control-label">横向位置</label>
+                          <label class="control-label">线条宽度</label>
                         </div>
                         <div class="col-sm-9">
                           <div class="input-group">
-                            <div class="btn-group" role="group">
-                              <button type="button" class="btn btn-default" @click="setLegendLeft('left')" v-bind:class="{'active': theme.legendLeft=='left'}">左</button>
-                              <button type="button" class="btn btn-default" @click="setLegendLeft('center')" v-bind:class="{'active': theme.legendLeft=='center'}">中</button>
-                              <button type="button" class="btn btn-default" @click="setLegendLeft('right')" v-bind:class="{'active': theme.legendLeft=='right'}">右</button>
-                            </div>
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.lineWidth" class="form-control" />
                           </div>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="col-sm-3">
-                          <label class="control-label">纵向位置</label>
+                          <label class="control-label">图形大小</label>
                         </div>
                         <div class="col-sm-9">
                           <div class="input-group">
-                            <div class="btn-group" role="group">
-                              <button type="button" class="btn btn-default" @click="setLegendTop('top')" v-bind:class="{'active': theme.legendTop=='top'}">上</button>
-                              <button type="button" class="btn btn-default" @click="setLegendTop('bottom')" v-bind:class="{'active': theme.legendTop=='bottom'}">下</button>
-                            </div>
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.symbolSize" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.lineSmooth" v-on:change="updateCharts()" id="lineSmooth" />
+                          <label for="lineSmooth" class="control-label" title="smooth">平滑曲线</label>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-line -->
+
+            <div id="acc-k" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-k" href="#acc-k-body" title="k">K 线图</a>
+                  </h4>
+                </div>
+                <div id="acc-k-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">阳线填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.kColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">阴线填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.kColor0" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">阳线描边</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.kBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">阴线描边</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.kBorderColor0" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">描边宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.kBorderWidth" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -469,7 +482,7 @@
                 <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
 
                 <h4>导入、导出</h4>
-                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 <code>*.edt</code> 仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 <code>*.edb</code> 仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

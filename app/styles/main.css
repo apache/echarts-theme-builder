@@ -5314,7 +5314,8 @@ body {
   overflow-x: hidden; }
 
 a {
-  cursor: pointer; }
+  cursor: pointer;
+  color: #3095c6; }
 
 .btn {
   border-radius: 0;
@@ -5327,11 +5328,11 @@ a {
     background-color: #eee; }
 
 .btn-primary {
-  border-color: #293c55;
-  background-color: #3a5477; }
+  border-color: #2b86b1;
+  background-color: #3095c6; }
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary.active {
-    border-color: #293c55;
-    background-color: #4a6d9a; }
+    border-color: #26769d;
+    background-color: #2b86b1; }
 
 .navbar-default {
   border: none;
@@ -5344,7 +5345,8 @@ a {
     display: inline-block;
     padding: 16px 10px;
     color: #f9f9f9;
-    text-decoration: none; }
+    text-decoration: none;
+    position: absolute; }
   .navbar-default .navbar-nav {
     margin: 0 -15px;
     transition: background-color 0.5s linear; }
@@ -5459,13 +5461,19 @@ a {
     display: none; } }
 
 .chart-container {
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  padding: 15px; }
+
+.ec-container {
+  padding: 0 15px 30px 15px; }
 
 .ec-panel {
   width: 100%;
   height: 300px;
-  border: 1px solid #eee;
-  margin-top: 15px; }
+  box-sizing: border-box; }
+
+.port-row {
+  margin-bottom: 5px; }
 
 .theme-config {
   padding: 0;

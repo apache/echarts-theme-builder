@@ -125,6 +125,15 @@
                           </div>
                         </div>
                       </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">标记</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.markTextColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group theme-group">
                         <label class="col-sm-3 control-label">主题</label>
                         <div v-for="color in theme.color" track-by="$index" :class="{'col-sm-offset-3':$index>0}" class="col-sm-9">
@@ -296,7 +305,7 @@
                     <a data-toggle="collapse" data-parent="#acc-axis" href="#acc-axis-body">坐标轴</a>
                   </h4>
                 </div>
-                <div id="acc-axis-body" class="panel-collapse collapse in">
+                <div id="acc-axis-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -560,8 +569,9 @@
     <script src="vendors/bootstrap.min.js"></script>
     <script src="vendors/bootstrap-colorpicker.min.js"></script>
     <script src="vendors/vue.min.js"></script>
-    <script src="vendors/echarts.min.js"></script>
+    <script src="vendors/echarts.js"></script>
 
+    <script src="scripts/options.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>

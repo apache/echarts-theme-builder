@@ -19,15 +19,18 @@ var defaultTheme = {
   color: ['#293c55', '#a9334c', '#3095c6'],
   visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
   visualMapUseTheme: true,
+
   kColor: '#e43c59',
   kColor0: '#fff',
   kBorderColor: '#a9334c',
-  kBorderColor0: '#293c55',
+  kBorderColor0: '#3095c6',
   kBorderWidth: 1,
 
   lineWidth: 2,
   symbolSize: 8,
   lineSmooth: false,
+
+  graphLineWidth: 1,
 
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
@@ -252,6 +255,18 @@ function getTheme() {
     graph: (function() {
       var style = cloneObject(seriesStyle);
       style.color = vm.theme.color;
+      style.lineStyle = {
+        normal: {
+          width: vm.theme.graphLineWidth
+        }
+      };
+      style.label = {
+        normal: {
+          textStyle: {
+            color: vm.theme.markTextColor
+          }
+        }
+      };
       return style;
     })(),
     categoryAxis: getAxis(1),

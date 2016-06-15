@@ -438,7 +438,6 @@ function getOptions(vm) {
             });
           }
         }
-        console.log(link);
         return link;
       })(),
       categories: getLegendWithName(),

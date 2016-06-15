@@ -454,13 +454,140 @@
                   </div>
                 </div>
               </div>
-            </div><!-- end of acc-tooltip -->
+            </div><!-- end of acc-k -->
+
+            <div id="acc-graph" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-graph" href="#acc-graph-body" title="graph">图</a>
+                  </h4>
+                </div>
+                <div id="acc-graph-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">连线</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.graphLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">连线宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.graphLineWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-graph -->
+
+            <div id="acc-map" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-map" href="#acc-map-body" title="map">地图</a>
+                  </h4>
+                </div>
+                <div id="acc-graph-body" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <h5>默认状态</h5>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapAreaColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">边框</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">边框宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.mapBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <h5>高亮状态</h5>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapLabelColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapAreaColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">边框</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapBorderColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">边框宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.mapBorderWidthE" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-map -->
 
           </div><!-- end of left -->
 
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
-              <div v-for="i in [1,2,3,4,5,6,7,8]" class="ec-container col-md-6">
+              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12]" class="ec-container col-md-6">
                 <div class="ec-panel"></div>
               </div>
             </div>
@@ -506,7 +633,8 @@
     <script src="vendors/bootstrap.min.js"></script>
     <script src="vendors/bootstrap-colorpicker.min.js"></script>
     <script src="vendors/vue.min.js"></script>
-    <script src="vendors/echarts.min.js"></script>
+    <script src="vendors/echarts.js"></script>
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 
     <script src="scripts/options.js"></script>
     <script src="scripts/main.js"></script>

@@ -19,7 +19,8 @@ function getOptions(vm) {
     return data;
   };
   var legend = {
-    data: getLegend()
+    data: getLegend(),
+    right: 0
   };
   var getSeriesRandomValue = function(typeName) {
     var data = [];
@@ -442,6 +443,106 @@ function getOptions(vm) {
       })(),
       categories: getLegendWithName(),
       symbolSize: 15
+    }]
+  }, {
+    title: {
+      text: '地图'
+    },
+    geo: {
+      map: 'china'
+    },
+    series: (function() {
+      var s = [];
+      for (var g = 0; g < groupCnt; ++g) {
+        s.push({
+          type: 'scatter',
+          coordinateSystem: 'geo',
+          name: '第' + (g + 1) + '组',
+          symbolSize: function (val) {
+            return val[2];
+          },
+          data: (function() {
+            var geo = [[121.15,31.89], [109.781327,39.608266],
+              [120.38,37.35], [122.207216,29.985295], [123.97,47.33],
+              [120.13,33.38], [118.87,42.28], [120.33,36.07],
+              [121.52,36.89], [102.188043,38.520089], [118.58,24.93],
+              [120.53,36.86], [119.46,35.42], [119.97,35.88],
+              [121.05,32.08], [91.11,29.97], [112.02,22.93],
+              [116.1,24.55], [122.05,37.2], [121.48,31.22],
+              [101.718637,26.582347], [122.1,37.5], [117.93,40.97],
+              [118.1,24.46], [115.375279,22.786211], [116.63,23.68],
+              [124.37,40.13], [121.1,31.45], [103.79,25.51],
+              [121.39,37.52], [119.3,26.08], [121.979603,39.627114],
+              [112.44,34.7], [113.16,27.83], [112.91,27.87],
+              [113,28.21], [114.31,30.52], [125.03,46.58]];
+              var data = [];
+              for (var i = 0; i < 20; ++i) {
+                var gid = Math.floor(Math.random() * geo.length);
+                data.push(geo[gid].concat(Math.floor(Math.random() * 20)));
+              }
+              return data;
+          })()
+        });
+      }
+      return s;
+    })()
+  }, {
+    title: {
+      text: '地图视觉映射'
+    },
+    visualMap: {
+      show: true,
+      min: 0,
+      max: 1000,
+      right: 0,
+      top: 'middle',
+      text:['高','低']
+    },
+    series: [{
+      type: 'map',
+      map: 'china',
+      showLegendSymbol: false,
+      label: {
+        normal: {
+          show: true
+        }
+      },
+      data:[
+        {name: '北京', value: 980},
+        {name: '天津', value: 800},
+        {name: '上海', value: 900},
+        {name: '重庆', value: 860},
+        {name: '河北', value: 600},
+        {name: '河南', value: 650},
+        {name: '云南', value: 300},
+        {name: '辽宁', value: 200},
+        {name: '黑龙江', value: 220},
+        {name: '湖南', value: 630},
+        {name: '安徽', value: 570},
+        {name: '山东', value: 500},
+        {name: '新疆', value: 5},
+        {name: '江苏', value: 800},
+        {name: '浙江', value: 900},
+        {name: '江西', value: 500},
+        {name: '湖北', value: 500},
+        {name: '广西', value: 50},
+        {name: '甘肃', value: 500},
+        {name: '山西', value: 500},
+        {name: '内蒙古', value: 0},
+        {name: '陕西', value: 0},
+        {name: '吉林', value: 50},
+        {name: '福建', value: 500},
+        {name: '贵州', value: 500},
+        {name: '广东', value: 500},
+        {name: '青海', value: 50},
+        {name: '西藏', value: 100},
+        {name: '四川', value: 200},
+        {name: '宁夏', value: 300},
+        {name: '海南', value: 500},
+        {name: '台湾', value: 880},
+        {name: '香港', value: 900},
+        {name: '澳门', value: 800}
+      ]
     }]
   }];
 

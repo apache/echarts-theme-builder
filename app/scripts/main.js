@@ -7,8 +7,8 @@ var defaultTheme = {
   textColor: '#999',
   markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
-  visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
-  visualMapUseTheme: true,
+  visualMapColor: ['#a9334c', '#fed'],
+  visualMapUseTheme: false,
 
   kColor: '#e43c59',
   kColor0: '#fff',
@@ -21,6 +21,16 @@ var defaultTheme = {
   lineSmooth: false,
 
   graphLineWidth: 1,
+  graphLineColor: '#aaa',
+
+  mapLabelColor: '#333',
+  mapLabelColorE: '#333',
+  mapBorderColor: '#999',
+  mapBorderColorE: '#666',
+  mapBorderWidth: 1,
+  mapBorderWidthE: 1,
+  mapAreaColor: '#ececec',
+  mapAreaColorE: '#ddd',
 
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
@@ -214,6 +224,33 @@ function getTheme() {
     smooth: vm.theme.lineSmooth
   };
 
+  var map = {
+    itemStyle: {
+      normal: {
+        areaColor: vm.theme.mapAreaColor,
+        borderColor: vm.theme.mapBorderColor,
+        borderWidth: vm.theme.mapBorderWidth
+      },
+      emphasis: {
+        areaColor: vm.theme.mapAreaColorE,
+        borderColor: vm.theme.mapBorderColorE,
+        borderWidth: vm.theme.mapBorderWidthE
+      }
+    },
+    label: {
+      normal: {
+        textStyle: {
+          color: vm.theme.mapLabelColor
+        }
+      },
+      emphasis: {
+        textStyle: {
+          color: vm.theme.mapLabelColorE
+        }
+      }
+    }
+  };
+
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
@@ -246,7 +283,8 @@ function getTheme() {
       style.color = vm.theme.color;
       style.lineStyle = {
         normal: {
-          width: vm.theme.graphLineWidth
+          width: vm.theme.graphLineWidth,
+          color: vm.theme.graphLineColor
         }
       };
       style.label = {
@@ -258,6 +296,8 @@ function getTheme() {
       };
       return style;
     })(),
+    map: map,
+    geo: map,
     categoryAxis: getAxis(1),
     valueAxis: getAxis(2),
     logAxis: getAxis(3),

@@ -181,7 +181,11 @@ function getOptions(vm) {
       text: '散点图'
     },
     series: getSeriesRandomValue('scatter'),
-    toolbox: toolbox,
+    toolbox: (function() {
+      var t = toolbox;
+      t.left = 65;
+      return t;
+    })(),
     tooltip: {
       trigger: 'item'
     },
@@ -647,7 +651,6 @@ function getOptions(vm) {
   for (var i = 0; i < options.length; ++i) {
     options[i].legend = options[i].legend || legend;
     options[i].tooltip = options[i].tooltip || tooltip;
-    options[i].toolbox = options[i].toolbox || toolbox;
     options[i].grid = options[i].grid || grid;
   }
   return options;

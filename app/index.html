@@ -159,11 +159,7 @@
                         <div class="col-sm-3">
                           <label class="control-label" title="visualMap">视觉映射</label>
                         </div>
-                        <div class="col-sm-9">
-                          <input type="checkbox" v-model="theme.visualMapUseTheme" v-on:change="updateCharts()" id="visualMapUseTheme" />
-                          <label for="visualMapUseTheme" class="control-label">使用主题色</label>
-                        </div>
-                        <div v-show="!theme.visualMapUseTheme" v-for="color in theme.visualMapColor" track-by="$index" class="col-sm-9 col-sm-offset-3">
+                        <div v-show="!theme.visualMapUseTheme" v-for="color in theme.visualMapColor" track-by="$index" class="col-sm-9" :class="{'col-sm-offset-3':$index>0}">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="color" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
@@ -276,12 +272,6 @@
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.toolboxShow" v-on:change="updateCharts()" id="toolboxShow" />
-                          <label for="toolboxShow" class="control-label">显示工具箱</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <div class="col-sm-3">
                           <label for="toolboxColor" class="control-label">图标</label>
                         </div>
@@ -319,12 +309,6 @@
                 <div id="acc-tooltip-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
-                      <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.tooltipShow" v-on:change="updateCharts()" id="tooltipShow" />
-                          <label for="tooltipShow" class="control-label">显示提示框</label>
-                        </div>
-                      </div>
                       <div class="form-group">
                         <div class="col-sm-3">
                           <label class="control-label">指示线</label>

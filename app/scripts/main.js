@@ -7,8 +7,7 @@ var defaultTheme = {
   textColor: '#999',
   markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
-  visualMapColor: ['#a9334c', '#fed'],
-  visualMapUseTheme: false,
+  visualMapColor: ['#a9334c', '#eddcdf'],
 
   kColor: '#e43c59',
   kColor0: '#fff',
@@ -58,11 +57,9 @@ var defaultTheme = {
   axisSeperateSetting: false,
   axis: null,
 
-  toolboxShow: false,
   toolboxColor: '#999',
   toolboxEmpasisColor: '#666',
 
-  tooltipShow: true,
   tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1
 };
@@ -303,7 +300,6 @@ function getTheme() {
     logAxis: getAxis(3),
     timeAxis: getAxis(4),
     toolbox: {
-      show: vm.theme.toolboxShow,
       iconStyle: {
         normal: {
           borderColor: vm.theme.toolboxColor
@@ -314,7 +310,6 @@ function getTheme() {
       }
     },
     tooltip: {
-      show: vm.theme.tooltipShow,
       axisPointer: {
         lineStyle: {
           color: vm.theme.tooltipAxisColor,
@@ -327,8 +322,7 @@ function getTheme() {
       }
     },
     visualMap: {
-      color: vm.theme.visualMapUseTheme ? vm.theme.color :
-        vm.theme.visualMapColor
+      color: vm.theme.visualMapColor
     },
     markPoint: {
       label: {

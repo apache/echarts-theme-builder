@@ -447,7 +447,7 @@ function getOptions(vm) {
     ]
   }, {
     title: {
-      text: 'K 线图'
+      text: 'K 线图与数据缩放'
     },
     grid: {
       left: 60,

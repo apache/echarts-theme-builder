@@ -73,7 +73,14 @@ var defaultTheme = {
   timelineControlColor: '#293c55',
   timelineControlBorderColor: '#293c55',
   timelineControlBorderWidth: 0.5,
-  timelineLabelColor: '#293c55'
+  timelineLabelColor: '#293c55',
+
+  datazoomBackgroundColor: '#fff',
+  datazoomDataColor: '#ccc',
+  datazoomFillColor: 'rgba(194,53,49, 0.1)',
+  datazoomHandleColor: '#bbb',
+  datazoomHandleWidth: '100%',
+  datazoomLabelColor: '#999'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
@@ -368,6 +375,16 @@ function getTheme() {
     },
     visualMap: {
       color: vm.theme.visualMapColor
+    },
+    dataZoom: {
+      backgroundColor: vm.theme.datazoomBackgroundColor,
+      dataBackgroundColor: vm.theme.datazoomDataColor,
+      fillerColor: vm.theme.datazoomFillColor,
+      handleColor: vm.theme.datazoomHandleColor,
+      handleSize: vm.theme.datazoomHandleWidth,
+      textStyle: {
+        color: vm.theme.datazoomLabelColor
+      }
     },
     markPoint: {
       label: {

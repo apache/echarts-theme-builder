@@ -265,40 +265,6 @@ function getOptions(vm) {
       center: ['50%', '60%']
     }
   }, {
-    title: {
-      text: '视觉映射'
-    },
-    visualMap: {
-      max: 1000,
-      min: 0
-    },
-    legend: {
-      show: false
-    },
-    series: {
-      type: 'bar',
-      data: (function() {
-        var data = [];
-        for (var i = 0; i < 50; ++i) {
-          data.push(Math.floor(Math.random() * 1000 * (i + 1) / 50));
-        }
-        return data;
-      })()
-    },
-    xAxis: {
-      type: 'category',
-      data: (function() {
-        var data = [];
-        for (var i = 0; i < 50; ++i) {
-          data.push(i + 1);
-        }
-        return data;
-      })()
-    },
-    yAxis: {
-      type: 'value'
-    }
-  }, {
     baseOption: {
       timeline: {
         axisType: 'category',
@@ -632,8 +598,7 @@ function getOptions(vm) {
         }
         return link;
       })(),
-      categories: getLegendWithName(),
-      symbolSize: 15
+      categories: getLegendWithName()
     }]
   }, {
     title: {

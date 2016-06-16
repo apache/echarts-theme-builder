@@ -569,7 +569,7 @@
                     <a data-toggle="collapse" data-parent="#acc-line" href="#acc-line-body" title="line">折线图</a>
                   </h4>
                 </div>
-                <div id="acc-line-body" class="panel-collapse collapse">
+                <div id="acc-line-body" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -589,6 +589,71 @@
                         <div class="col-sm-9">
                           <div class="input-group">
                             <input type="text" v-on:change="updateCharts()" v-model="theme.symbolSize" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">图形形状</label>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircle" value="circle" @change="updateSymbol('circle')" />
+                              <label for="symbolCircle">圆形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircleE" value="circle" checked @change="updateSymbol('emptyCircle')" />
+                              <label for="symbolCircleE">空心圆形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRect" value="rect" @change="updateSymbol('rect')" />
+                              <label for="symbolRect">方形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRectE" value="rect" @change="updateSymbol('emptyRect')" />
+                              <label for="symbolRectE">空心方形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRoundRect" value="roundRect" @change="updateSymbol('roundRect')" />
+                              <label for="symbolRoundRect">圆角矩形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRoundRectE" value="roundRect" @change="updateSymbol('emptyRoundRect')" />
+                              <label for="symbolRoundRectE">空心圆角矩形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolTri" value="triangle" @change="updateSymbol('triangle')" />
+                              <label for="symbolTri">三角形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolTriE" value="triangle" @change="updateSymbol('emptyTriangle')" />
+                              <label for="symbolTriE">空心三角形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolDiamond" value="diamond" @change="updateSymbol('diamond')" />
+                              <label for="symbolDiamond">菱形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolDiamondE" value="diamond" @change="updateSymbol('emptyDiamond')" />
+                              <label for="symbolDiamondE">空心菱形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircle" value="pin" @change="updateSymbol('pin')" />
+                              <label for="symbolPin">水滴</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircleE" value="pin" @change="updateSymbol('emptyPin')" />
+                              <label for="symbolPinE">空心水滴</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolArrow" value="arrow" @change="updateSymbol('arrow')" />
+                              <label for="symbolArrowE">箭头</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolArrowE" value="arrow" @change="updateSymbol('emptyArrow')" />
+                              <label for="symbolArrowE">空心箭头</label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -797,7 +862,7 @@
 
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
-              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]" class="ec-container col-md-6">
+              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]" class="ec-container col-md-6">
                 <div class="ec-panel"></div>
               </div>
             </div>

@@ -17,6 +17,7 @@ var defaultTheme = {
 
   lineWidth: 2,
   symbolSize: 8,
+  symbol: 'emptyCircle',
   lineSmooth: false,
 
   graphLineWidth: 1,
@@ -123,6 +124,11 @@ var vm = new Vue({
     },
 
     updateCharts: updateCharts,
+
+    updateSymbol: function(symbol) {
+      vm.theme.symbol = symbol;
+      updateCharts();
+    },
 
     exportJson: function() {
       saveJsonFile(this.theme, 'theme.etb');
@@ -237,6 +243,7 @@ function getTheme() {
       }
     },
     symbolSize: vm.theme.symbolSize,
+    symbol: vm.theme.symbol,
     smooth: vm.theme.lineSmooth
   };
 

@@ -24,6 +24,10 @@
     padding-right: 0;
   }
 
+  .input-group {
+    width: 100%;
+  }
+
   .form-control, .input-group-addon {
     border-color: $clr-border;
     box-shadow: none;

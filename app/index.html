@@ -76,8 +76,6 @@
                     </div>
                     <form class="form form-horizontal">
                       <div class="form-group">
-                      </div>
-                      <div class="form-group">
                         <label class="col-sm-3 control-label">系列数量</label>
                         <div class="col-sm-9">
                           <input @change="seriesCntChanges()" type="number" class="form-control" v-model="theme.seriesCnt" />
@@ -136,7 +134,7 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">标记文字</label>
+                        <label class="col-sm-3 control-label">标签文字</label>
                         <div class="col-sm-9">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="theme.markTextColor" class="form-control" />
@@ -161,11 +159,7 @@
                         <div class="col-sm-3">
                           <label class="control-label" title="visualMap">视觉映射</label>
                         </div>
-                        <div class="col-sm-9">
-                          <input type="checkbox" v-model="theme.visualMapUseTheme" v-on:change="updateCharts()" id="visualMapUseTheme" />
-                          <label for="visualMapUseTheme" class="control-label">使用主题色</label>
-                        </div>
-                        <div v-show="!theme.visualMapUseTheme" v-for="color in theme.visualMapColor" track-by="$index" class="col-sm-9 col-sm-offset-3">
+                        <div v-show="!theme.visualMapUseTheme" v-for="color in theme.visualMapColor" track-by="$index" class="col-sm-9" :class="{'col-sm-offset-3':$index>0}">
                           <div class="input-group colorpicker-component">
                             <input type="text" v-model="color" class="form-control" />
                             <span class="input-group-addon"><i></i></span>
@@ -278,12 +272,6 @@
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.toolboxShow" v-on:change="updateCharts()" id="toolboxShow" />
-                          <label for="toolboxShow" class="control-label">显示工具箱</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <div class="col-sm-3">
                           <label for="toolboxColor" class="control-label">图标</label>
                         </div>
@@ -322,12 +310,6 @@
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.tooltipShow" v-on:change="updateCharts()" id="tooltipShow" />
-                          <label for="tooltipShow" class="control-label">显示提示框</label>
-                        </div>
-                      </div>
-                      <div class="form-group">
                         <div class="col-sm-3">
                           <label class="control-label">指示线</label>
                         </div>
@@ -354,6 +336,232 @@
               </div>
             </div><!-- end of acc-tooltip -->
 
+            <div id="acc-timeline" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-timeline" href="#acc-timeline-body" title="tooltip">时间轴</a>
+                  </h4>
+                </div>
+                <div id="acc-timeline-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记高亮</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记选中</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineCheckColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记选中描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineCheckBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineItemBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">主轴</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">主轴宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineLineWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件填充</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineControlColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineControlBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件描边宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineControlBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">文字</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-timeline -->
+
+            <div id="acc-datazoom" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-datazoom" href="#acc-datazoom-body" title="tooltip">数据缩放</a>
+                  </h4>
+                </div>
+                <div id="acc-datazoom-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">背景</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.datazoomBackgroundColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">数据背景</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.datazoomDataColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">填充</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.datazoomFillColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控制手柄</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.datazoomHandleColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控制手柄大小</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.datazoomHandleWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">文字</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.datazoomLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-datazoom -->
+
             <div id="acc-line" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -361,7 +569,7 @@
                     <a data-toggle="collapse" data-parent="#acc-line" href="#acc-line-body" title="line">折线图</a>
                   </h4>
                 </div>
-                <div id="acc-line-body" class="panel-collapse collapse">
+                <div id="acc-line-body" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">
@@ -381,6 +589,71 @@
                         <div class="col-sm-9">
                           <div class="input-group">
                             <input type="text" v-on:change="updateCharts()" v-model="theme.symbolSize" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">图形形状</label>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircle" value="circle" @change="updateSymbol('circle')" />
+                              <label for="symbolCircle">圆形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircleE" value="circle" checked @change="updateSymbol('emptyCircle')" />
+                              <label for="symbolCircleE">空心圆形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRect" value="rect" @change="updateSymbol('rect')" />
+                              <label for="symbolRect">方形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRectE" value="rect" @change="updateSymbol('emptyRect')" />
+                              <label for="symbolRectE">空心方形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRoundRect" value="roundRect" @change="updateSymbol('roundRect')" />
+                              <label for="symbolRoundRect">圆角矩形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolRoundRectE" value="roundRect" @change="updateSymbol('emptyRoundRect')" />
+                              <label for="symbolRoundRectE">空心圆角矩形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolTri" value="triangle" @change="updateSymbol('triangle')" />
+                              <label for="symbolTri">三角形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolTriE" value="triangle" @change="updateSymbol('emptyTriangle')" />
+                              <label for="symbolTriE">空心三角形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolDiamond" value="diamond" @change="updateSymbol('diamond')" />
+                              <label for="symbolDiamond">菱形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolDiamondE" value="diamond" @change="updateSymbol('emptyDiamond')" />
+                              <label for="symbolDiamondE">空心菱形</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircle" value="pin" @change="updateSymbol('pin')" />
+                              <label for="symbolPin">水滴</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolCircleE" value="pin" @change="updateSymbol('emptyPin')" />
+                              <label for="symbolPinE">空心水滴</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolArrow" value="arrow" @change="updateSymbol('arrow')" />
+                              <label for="symbolArrowE">箭头</label>
+                            </div>
+                            <div class="col-sm-6">
+                              <input type="radio" name="symbol" id="symbolArrowE" value="arrow" @change="updateSymbol('emptyArrow')" />
+                              <label for="symbolArrowE">空心箭头</label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -456,14 +729,141 @@
                   </div>
                 </div>
               </div>
-            </div><!-- end of acc-tooltip -->
+            </div><!-- end of acc-k -->
+
+            <div id="acc-graph" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-graph" href="#acc-graph-body" title="graph">图</a>
+                  </h4>
+                </div>
+                <div id="acc-graph-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">连线</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.graphLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">连线宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.graphLineWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-graph -->
+
+            <div id="acc-map" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-map" href="#acc-map-body" title="map">地图</a>
+                  </h4>
+                </div>
+                <div id="acc-map-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <h5>默认状态</h5>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapAreaColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">边框</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">边框宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.mapBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <h5>高亮状态</h5>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">文字</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapLabelColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">填充</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapAreaColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">边框</label>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.mapBorderColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">边框宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.mapBorderWidthE" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-map -->
 
           </div><!-- end of left -->
 
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
-              <div v-for="chart in charts" class="ec-container col-md-6">
-                <div class="ec-panel" ec-option="{{ chart.option }}"></div>
+              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]" class="ec-container col-md-6">
+                <div class="ec-panel"></div>
               </div>
             </div>
           </div><!-- end of chart panel -->
@@ -509,6 +909,7 @@
     <script src="vendors/bootstrap-colorpicker.min.js"></script>
     <script src="vendors/vue.min.js"></script>
     <script src="vendors/echarts.min.js"></script>
+    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 
     <script src="scripts/options.js"></script>
     <script src="scripts/main.js"></script>

@@ -1,13 +1,3 @@
-$(document).ready(function() {
-  initColorPicker();
-
-  // init charts
-  updateChartOptions();
-  updateCharts();
-});
-
-
-
 var defaultTheme = {
   seriesCnt: 3,
 
@@ -17,17 +7,30 @@ var defaultTheme = {
   textColor: '#999',
   markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
-  visualMapColor: ['#ff6633', '#ffff00', '#00cc00'],
-  visualMapUseTheme: true,
+  visualMapColor: ['#a9334c', '#eddcdf'],
+
   kColor: '#e43c59',
   kColor0: '#fff',
   kBorderColor: '#a9334c',
-  kBorderColor0: '#293c55',
+  kBorderColor0: '#3095c6',
   kBorderWidth: 1,
 
   lineWidth: 2,
   symbolSize: 8,
+  symbol: 'emptyCircle',
   lineSmooth: false,
+
+  graphLineWidth: 1,
+  graphLineColor: '#aaa',
+
+  mapLabelColor: '#333',
+  mapLabelColorE: '#333',
+  mapBorderColor: '#999',
+  mapBorderColorE: '#888',
+  mapBorderWidth: .5,
+  mapBorderWidthE: 1,
+  mapAreaColor: '#ececec',
+  mapAreaColorE: '#ddd',
 
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
@@ -55,13 +58,30 @@ var defaultTheme = {
   axisSeperateSetting: false,
   axis: null,
 
-  toolboxShow: false,
   toolboxColor: '#999',
   toolboxEmpasisColor: '#666',
 
-  tooltipShow: true,
   tooltipAxisColor: '#ccc',
-  tooltipAxisWidth: 1
+  tooltipAxisWidth: 1,
+
+  timelineLineColor: '#293c55',
+  timelineLineWidth: 1,
+  timelineItemColor: '#293c55',
+  timelineItemColorE: '#a9334c',
+  timelineCheckColor: '#e43c59',
+  timelineCheckBorderColor: 'rgba(194,53,49, 0.5)',
+  timelineItemBorderWidth: 1,
+  timelineControlColor: '#293c55',
+  timelineControlBorderColor: '#293c55',
+  timelineControlBorderWidth: 0.5,
+  timelineLabelColor: '#293c55',
+
+  datazoomBackgroundColor: '#fff',
+  datazoomDataColor: '#ccc',
+  datazoomFillColor: 'rgba(194,53,49, 0.1)',
+  datazoomHandleColor: '#bbb',
+  datazoomHandleWidth: '100%',
+  datazoomLabelColor: '#999'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
@@ -72,7 +92,8 @@ var vm = new Vue({
 
   data: {
     theme: cloneObject(defaultTheme),
-    charts: []
+    charts: [],
+    options: []
   },
 
   methods: {
@@ -80,7 +101,6 @@ var vm = new Vue({
       this.theme.color.push('#ccc');
       this.theme.seriesCnt = this.theme.color.length;
       initColorPicker();
-      updateChartOptions();
       updateCharts();
     },
 
@@ -88,25 +108,27 @@ var vm = new Vue({
       // remove the last theme color
       this.theme.color.splice(-1, 1);
       this.theme.seriesCnt = this.theme.color.length;
-      updateChartOptions();
       updateCharts();
     },
 
     addVisualMapColor: function() {
       this.theme.visualMapColor.push('#ccc');
       initColorPicker();
-      updateChartOptions();
       updateCharts();
     },
 
     removeVisualMapColor: function() {
       // remove the last theme color
       this.theme.visualMapColor.splice(-1, 1);
-      updateChartOptions();
       updateCharts();
     },
 
     updateCharts: updateCharts,
+
+    updateSymbol: function(symbol) {
+      vm.theme.symbol = symbol;
+      updateCharts();
+    },
 
     exportJson: function() {
       saveJsonFile(this.theme, 'theme.etb');
@@ -119,7 +141,6 @@ var vm = new Vue({
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
       initColorPicker();
-      updateChartOptions();
       updateCharts();
     },
 
@@ -145,11 +166,9 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
-          console.log(obj);
           that.$set('theme', obj);
           setTimeout(function() {
             initColorPicker();
-            updateChartOptions();
             updateCharts();
           });
         } catch(e) {
@@ -169,12 +188,10 @@ var vm = new Vue({
       }
 
       initColorPicker();
-      updateChartOptions();
       updateCharts();
     },
 
     seriesCntChanges: function() {
-      updateChartOptions();
       updateCharts();
     }
   }
@@ -185,11 +202,18 @@ vm.axisSeperateSettingChanges();
 
 
 
+$(document).ready(function() {
+  initColorPicker();
+  // init charts
+  updateCharts();
+});
+
+
+
 function initColorPicker() {
   setTimeout(function() {
     // prevent from calling onchange recursively
     var isRootEvent = true;
-    // console.log(vm.theme.col)
     $('.colorpicker-component').colorpicker()
       .on('changeColor', function(e) {
         if (isRootEvent) {
@@ -219,7 +243,35 @@ function getTheme() {
       }
     },
     symbolSize: vm.theme.symbolSize,
+    symbol: vm.theme.symbol,
     smooth: vm.theme.lineSmooth
+  };
+
+  var map = {
+    itemStyle: {
+      normal: {
+        areaColor: vm.theme.mapAreaColor,
+        borderColor: vm.theme.mapBorderColor,
+        borderWidth: vm.theme.mapBorderWidth
+      },
+      emphasis: {
+        areaColor: vm.theme.mapAreaColorE,
+        borderColor: vm.theme.mapBorderColorE,
+        borderWidth: vm.theme.mapBorderWidthE
+      }
+    },
+    label: {
+      normal: {
+        textStyle: {
+          color: vm.theme.mapLabelColor
+        }
+      },
+      emphasis: {
+        textStyle: {
+          color: vm.theme.mapLabelColorE
+        }
+      }
+    }
   };
 
   return {
@@ -252,14 +304,28 @@ function getTheme() {
     graph: (function() {
       var style = cloneObject(seriesStyle);
       style.color = vm.theme.color;
+      style.lineStyle = {
+        normal: {
+          width: vm.theme.graphLineWidth,
+          color: vm.theme.graphLineColor
+        }
+      };
+      style.label = {
+        normal: {
+          textStyle: {
+            color: vm.theme.markTextColor
+          }
+        }
+      };
       return style;
     })(),
+    map: map,
+    geo: map,
     categoryAxis: getAxis(1),
     valueAxis: getAxis(2),
     logAxis: getAxis(3),
     timeAxis: getAxis(4),
     toolbox: {
-      show: vm.theme.toolboxShow,
       iconStyle: {
         normal: {
           borderColor: vm.theme.toolboxColor
@@ -270,7 +336,6 @@ function getTheme() {
       }
     },
     tooltip: {
-      show: vm.theme.tooltipShow,
       axisPointer: {
         lineStyle: {
           color: vm.theme.tooltipAxisColor,
@@ -282,9 +347,51 @@ function getTheme() {
         }
       }
     },
+    timeline: {
+      lineStyle: {
+        color: vm.theme.timelineLineColor,
+        width: vm.theme.timelineLineWidth
+      },
+      itemStyle: {
+        normal: {
+          color: vm.theme.timelineItemColor,
+          borderWidth: vm.theme.timelineItemBorderWidth
+        },
+        emphasis: {
+          color: vm.theme.timelineItemColorE
+        }
+      },
+      controlStyle: {
+        normal: {
+          color: vm.theme.timelineControlColor,
+          borderColor: vm.theme.timelineControlBorderColor,
+          borderWidth: vm.theme.timelineControlBorderWidth
+        }
+      },
+      checkpointStyle: {
+        color: vm.theme.timelineCheckColor,
+        borderColor: vm.theme.timelineCheckBorderColor
+      },
+      label: {
+        normal: {
+          textStyle: {
+            color: vm.theme.timelineLabelColor
+          }
+        }
+      }
+    },
     visualMap: {
-      color: vm.theme.visualMapUseTheme ? vm.theme.color :
-        vm.theme.visualMapColor
+      color: vm.theme.visualMapColor
+    },
+    dataZoom: {
+      backgroundColor: vm.theme.datazoomBackgroundColor,
+      dataBackgroundColor: vm.theme.datazoomDataColor,
+      fillerColor: vm.theme.datazoomFillColor,
+      handleColor: vm.theme.datazoomHandleColor,
+      handleSize: vm.theme.datazoomHandleWidth,
+      textStyle: {
+        color: vm.theme.datazoomLabelColor
+      }
     },
     markPoint: {
       label: {
@@ -344,35 +451,20 @@ function getTheme() {
 var lastUpdate = null;
 function updateCharts(isForceUpdate) {
   var now = new Date();
-  if (isForceUpdate || now - lastUpdate > 100) {
+  if (isForceUpdate || now - lastUpdate > 200) {
     setTimeout(function() {
-      console.log('updateCharts');
       echarts.registerTheme('customed', getTheme());
-
+      var options = getOptions(vm);
       // re-draw charts
-      $('.ec-panel').each(function() {
+      $('.ec-panel').each(function(i) {
         var chart = echarts.init(this, 'customed');
-        var option = JSON.parse($(this).attr('ec-option'));
-        chart.setOption(option);
+        chart.setOption(options[i]);
       });
     });
     lastUpdate = now;
   } else {
-    console.warn('Ignored too frequent refresh.');
+    // console.warn('Ignored too frequent refresh.');
   }
-}
-
-function updateChartOptions() {
-  var options = getOptions(vm);
-  var charts = [];
-  // init charts object
-  for (var cid = 0; cid < options.length; ++cid) {
-    charts.push({
-      option: JSON.stringify(options[cid]),
-      chart: null
-    });
-  }
-  vm.$set('charts', charts);
 }
 
 function saveJsonFile(json, name) {

@@ -5488,6 +5488,8 @@ a {
     margin-top: 10px; }
   .theme-config label {
     padding-right: 0; }
+  .theme-config .input-group {
+    width: 100%; }
   .theme-config .form-control, .theme-config .input-group-addon {
     border-color: #eee;
     box-shadow: none;

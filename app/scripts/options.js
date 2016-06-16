@@ -113,6 +113,58 @@ function getOptions(vm) {
     bottom: 50
   };
 
+  var dataMap = {};
+  function dataFormatter(obj) {
+    var pList = ['北京','天津','河北','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏'];
+    var temp;
+    for (var year = 2002; year <= 2007; year++) {
+      var max = 0;
+      var sum = 0;
+      temp = obj[year];
+      for (var i = 0, l = temp.length; i < l; i++) {
+        max = Math.max(max, temp[i]);
+        sum += temp[i];
+        obj[year][i] = {
+          name: pList[i],
+          value: temp[i]
+        }
+      }
+      obj[year + 'max'] = Math.floor(max / 100) * 100;
+      obj[year + 'sum'] = sum;
+    }
+    return obj;
+  }
+
+  dataMap.dataPI = dataFormatter({
+    //max : 4000,
+    2007:[101.26,110.19,1804.72,311.97,762.1,1133.42,783.8,915.38,101.84,1816.31],
+    2006:[88.8,103.35,1461.81,276.77,634.94,939.43,672.76,750.14,93.81,1545.05,925.1],
+    2005:[88.68,112.38,1400,262.42,589.56,882.41,625.61,684.6,90.26,1461.51,892.83],
+    2004:[87.36,105.28,1370.43,276.3,522.8,798.43,568.69,605.79,83.45,1367.58,814.1],
+    2003:[84.11,89.91,1064.05,215.19,420.1,615.8,488.23,504.8,81.02,1162.45,717.85],
+    2002:[82.44,84.21,956.84,197.8,374.69,590.2,446.17,474.2,79.68,1110.44]
+  });
+
+  dataMap.dataSI = dataFormatter({
+    //max : 26600,
+    2007:[2509.4,2892.53,7201.88,3454.49,3193.67,5544.14,2475.45,3695.58,5571.06,14471.26],
+    2006:[2191.43,2457.08,6110.43,2755.66,2374.96,4566.83,1915.29,3365.31,4969.95,12282.89],
+    2005:[2026.51,2135.07,5271.57,2357.04,1773.21,3869.4,1580.83,2971.68,4381.2,10524.96],
+    2004:[1853.58,1685.93,4301.73,1919.4,1248.27,3061.62,1329.68,2487.04,3892.12,8437.99],
+    2003:[1487.15,1337.31,3417.56,1463.38,967.49,2898.89,1098.37,2084.7,3209.02,6787.11],
+    2002:[1249.99,1069.08,2911.69,1134.31,754.78,2609.85,943.49,1843.6,2622.45,5604.49]
+  });
+
+  dataMap.dataTI = dataFormatter({
+    //max : 25000,
+    2007:[7236.15,2250.04,4600.72,2257.99,2467.41,4486.74,2025.44,2493.04,6821.11,9730.91],
+    2006:[5837.55,1902.31,3895.36,1846.18,1934.35,3798.26,1687.07,2096.35,5508.48,7914.11],
+    2005:[4854.33,1658.19,3340.54,1611.07,1542.26,3295.45,1413.83,1857.42,4776.2,6612.22],
+    2004:[4092.27,1319.76,2805.47,1375.67,1270,2811.95,1223.64,1657.77,4097.26,5198.03],
+    2003:[3435.95,1150.81,2439.68,1176.65,1000.79,2487.85,1075.48,1467.9,3404.19,4493.31],
+    2002:[2982.57,997.47,2149.75,992.69,811.47,2258.17,958.88,1319.4,3038.9,3891.92]
+  });
+
   var options = [{
     title: {
       text: '折线图',
@@ -247,20 +299,155 @@ function getOptions(vm) {
       type: 'value'
     }
   }, {
-    title : {
-      text: 'K 线图'
+    baseOption: {
+      timeline: {
+        axisType: 'category',
+        autoPlay: false,
+        data: [
+          '2002-01-01','2003-01-01','2004-01-01',
+          {
+            value: '2005-01-01',
+            tooltip: {
+              formatter: '{b} GDP达到一个高度'
+            }
+          },
+          '2006-01-01', '2007-01-01','2008-01-01','2009-01-01','2010-01-01',
+          {
+            value: '2011-01-01',
+            tooltip: {
+              formatter: function (params) {
+                return params.name + 'GDP达到又一个高度';
+              }
+            }
+          },
+        ],
+        label: {
+          formatter : function(s) {
+            return (new Date(s)).getFullYear();
+          }
+        }
+      },
+      tooltip: {},
+      legend: {
+        x: 'right',
+        data: ['第一产业', '第二产业', '第三产业']
+      },
+      calculable : true,
+      grid: {
+        top: 60,
+        bottom: 75
+      },
+      xAxis: [
+        {
+          'type':'category',
+          'axisLabel':{'interval':0},
+          'data':[
+            '北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏'
+          ],
+          splitLine: {show: false}
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          name: 'GDP（亿元）'
+        }
+      ],
+      series: [
+        {name: '第一产业', type: 'bar'},
+        {name: '第二产业', type: 'bar'},
+        {name: '第三产业', type: 'bar'},
+        {
+          name: 'GDP占比',
+          type: 'pie',
+          center: ['30%', '35%'],
+          radius: '28%'
+        }
+      ]
     },
-    tooltip : {
-      trigger: 'axis',
-      formatter: function(params) {
-        var res = params[1][1];
-        res += '<br/>' + params[1][0];
-        res += '<br/>  开盘 : ' + params[1][2][0] + '  最高 : ' + params[1][2][3];
-        res += '<br/>  收盘 : ' + params[1][2][1] + '  最低 : ' + params[1][2][2];
-        res += '<br/>' + params[0][0];
-        res += ' : ' + params[0][2];
-        return res;
+    options: [
+      {
+        title: {text: '时间轴'},
+        series: [
+          {data: dataMap.dataPI['2002']},
+          {data: dataMap.dataSI['2002']},
+          {data: dataMap.dataTI['2002']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2002sum']},
+            {name: '第二产业', value: dataMap.dataSI['2002sum']},
+            {name: '第三产业', value: dataMap.dataTI['2002sum']}
+          ]}
+        ]
+      },
+      {
+        title : {text: '时间轴'},
+        series : [
+          {data: dataMap.dataPI['2003']},
+          {data: dataMap.dataSI['2003']},
+          {data: dataMap.dataTI['2003']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2003sum']},
+            {name: '第二产业', value: dataMap.dataSI['2003sum']},
+            {name: '第三产业', value: dataMap.dataTI['2003sum']}
+          ]}
+        ]
+      },
+      {
+        title : {text: '时间轴'},
+        series : [
+          {data: dataMap.dataPI['2004']},
+          {data: dataMap.dataSI['2004']},
+          {data: dataMap.dataTI['2004']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2004sum']},
+            {name: '第二产业', value: dataMap.dataSI['2004sum']},
+            {name: '第三产业', value: dataMap.dataTI['2004sum']}
+          ]}
+        ]
+      },
+      {
+        title : {text: '时间轴'},
+        series : [
+          {data: dataMap.dataPI['2005']},
+          {data: dataMap.dataSI['2005']},
+          {data: dataMap.dataTI['2005']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2005sum']},
+            {name: '第二产业', value: dataMap.dataSI['2005sum']},
+            {name: '第三产业', value: dataMap.dataTI['2005sum']}
+          ]}
+        ]
+      },
+      {
+        title : {text: '时间轴'},
+        series : [
+          {data: dataMap.dataPI['2006']},
+          {data: dataMap.dataSI['2006']},
+          {data: dataMap.dataTI['2006']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2006sum']},
+            {name: '第二产业', value: dataMap.dataSI['2006sum']},
+            {name: '第三产业', value: dataMap.dataTI['2006sum']}
+          ]}
+        ]
+      },
+      {
+        title : {text: '时间轴'},
+        series : [
+          {data: dataMap.dataPI['2007']},
+          {data: dataMap.dataSI['2007']},
+          {data: dataMap.dataTI['2007']},
+          {data: [
+            {name: '第一产业', value: dataMap.dataPI['2007sum']},
+            {name: '第二产业', value: dataMap.dataSI['2007sum']},
+            {name: '第三产业', value: dataMap.dataTI['2007sum']}
+          ]}
+        ]
       }
+    ]
+  }, {
+    title: {
+      text: 'K 线图'
     },
     grid: {
       left: 60,
@@ -609,6 +796,7 @@ function getOptions(vm) {
         show: true,
         formatter: '{b}'
       },
+      roam: false,
       data: (function() {
         var data = [];
         for (var i = 0; i < groupCnt; ++i) {

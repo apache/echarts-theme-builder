@@ -61,7 +61,19 @@ var defaultTheme = {
   toolboxEmpasisColor: '#666',
 
   tooltipAxisColor: '#ccc',
-  tooltipAxisWidth: 1
+  tooltipAxisWidth: 1,
+
+  timelineLineColor: '#293c55',
+  timelineLineWidth: 1,
+  timelineItemColor: '#293c55',
+  timelineItemColorE: '#a9334c',
+  timelineCheckColor: '#e43c59',
+  timelineCheckBorderColor: 'rgba(194,53,49, 0.5)',
+  timelineItemBorderWidth: 1,
+  timelineControlColor: '#293c55',
+  timelineControlBorderColor: '#293c55',
+  timelineControlBorderWidth: 0.5,
+  timelineLabelColor: '#293c55'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
@@ -318,6 +330,39 @@ function getTheme() {
         crossStyle: {
           color: vm.theme.tooltipAxisColor,
           width: vm.theme.tooltipAxisWidth
+        }
+      }
+    },
+    timeline: {
+      lineStyle: {
+        color: vm.theme.timelineLineColor,
+        width: vm.theme.timelineLineWidth
+      },
+      itemStyle: {
+        normal: {
+          color: vm.theme.timelineItemColor,
+          borderWidth: vm.theme.timelineItemBorderWidth
+        },
+        emphasis: {
+          color: vm.theme.timelineItemColorE
+        }
+      },
+      controlStyle: {
+        normal: {
+          color: vm.theme.timelineControlColor,
+          borderColor: vm.theme.timelineControlBorderColor,
+          borderWidth: vm.theme.timelineControlBorderWidth
+        }
+      },
+      checkpointStyle: {
+        color: vm.theme.timelineCheckColor,
+        borderColor: vm.theme.timelineCheckBorderColor
+      },
+      label: {
+        normal: {
+          textStyle: {
+            color: vm.theme.timelineLabelColor
+          }
         }
       }
     },

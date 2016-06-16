@@ -336,6 +336,151 @@
               </div>
             </div><!-- end of acc-tooltip -->
 
+            <div id="acc-timeline" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-timeline" href="#acc-timeline-body" title="tooltip">时间轴</a>
+                  </h4>
+                </div>
+                <div id="acc-timeline-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记高亮</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColorE" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记选中</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineCheckColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记选中描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineCheckBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">标记描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineItemBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">主轴</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineLineColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">主轴宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineLineWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineItemColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件填充</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineControlColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineControlBorderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">控件描边宽度</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.timelineControlBorderWidth" class="form-control" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">文字</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.timelineLabelColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-timeline -->
+
             <div id="acc-line" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -571,7 +716,7 @@
 
           <div class="col-md-9 col-sm-8 chart-container">
             <div class="row">
-              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]" class="ec-container col-md-6">
+              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]" class="ec-container col-md-6">
                 <div class="ec-panel"></div>
               </div>
             </div>

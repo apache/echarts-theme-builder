@@ -93,7 +93,8 @@ var vm = new Vue({
   data: {
     theme: cloneObject(defaultTheme),
     charts: [],
-    options: []
+    options: [],
+    isPauseChartUpdating: false
   },
 
   methods: {
@@ -224,9 +225,12 @@ function initColorPicker() {
         }
       });
 
+    // pause chart updating and set color picker
+    vm.isPauseChartUpdating = true;
     $('.theme-group .colorpicker-component').each(function(id) {
       $(this).colorpicker('setValue', vm.theme.color[id]);
     });
+    vm.isPauseChartUpdating = false;
   });
 }
 
@@ -450,8 +454,12 @@ function getTheme() {
 
 var lastUpdate = null;
 function updateCharts(isForceUpdate) {
+  if (vm.isPauseChartUpdating) {
+    // do nothing when paused
+    return;
+  }
   var now = new Date();
-  if (isForceUpdate || now - lastUpdate > 200) {
+  if (isForceUpdate || now - lastUpdate > 500) {
     setTimeout(function() {
       echarts.registerTheme('customed', getTheme());
       var options = getOptions(vm);
@@ -463,7 +471,7 @@ function updateCharts(isForceUpdate) {
     });
     lastUpdate = now;
   } else {
-    // console.warn('Ignored too frequent refresh.');
+    console.warn('Ignored too frequent refresh.');
   }
 }
 

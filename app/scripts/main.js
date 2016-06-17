@@ -1,3 +1,5 @@
+var VERSION = 1; // needs to upgrade when vm.theme changes
+
 var defaultTheme = {
   seriesCnt: 3,
 
@@ -134,7 +136,10 @@ var vm = new Vue({
     },
 
     exportJson: function() {
-      saveJsonFile(this.theme, 'theme.etb');
+      saveJsonFile({
+        version: VERSION,
+        theme: this.theme
+      }, 'theme.etb');
     },
 
     useThemeJson: function() {
@@ -173,7 +178,25 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
-          that.$set('theme', obj);
+          if (obj.version < VERSION) {
+            // out-dated, use as much attribute as possible
+            var unfound = [];
+            var newTheme = cloneObject(defaultTheme);
+            for (var attr in defaultTheme) {
+              if (typeof obj.theme[attr] !== 'undefined') {
+                newTheme.attr = obj.theme[attr];
+              } else {
+                // unfound attribute in theme file, use default
+                unfound.push(obj.theme.attr);
+              }
+            }
+            if (unfound.length > 0) {
+              alert('导入的主题版本较低，有' + unfound.length + '个属性未被设置，现已使用默认值。');
+            } else {
+              console.warn('导入的主题版本较低，可能有部分属性未生效。');
+            }
+          }
+          that.$set('theme', obj.theme);
           setTimeout(function() {
             initColorPicker();
             updateCharts();

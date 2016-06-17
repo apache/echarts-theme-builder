@@ -91,7 +91,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">配色方案</a>
+                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">整体配置</a>
                   </h4>
                 </div>
                 <div id="acc-theme-body" class="panel-collapse collapse in">
@@ -153,6 +153,27 @@
                         <div class="theme-color-control col-sm-9 col-sm-offset-3">
                           <a v-on:click="addThemeColor()">增加</a>
                           <a v-on:click="removeThemeColor()" v-show="theme.color.length > 1">减少</a>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">描边</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group colorpicker-component">
+                            <input type="text" v-model="theme.borderColor" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-3">
+                          <label class="control-label">描边粗细</label>
+                        </div>
+                        <div class="col-sm-9">
+                          <div class="input-group">
+                            <input type="text" v-on:change="updateCharts()" v-model="theme.borderWidth" class="form-control" />
+                          </div>
                         </div>
                       </div>
                       <div class="form-group">
@@ -569,7 +590,7 @@
                     <a data-toggle="collapse" data-parent="#acc-line" href="#acc-line-body" title="line">折线图</a>
                   </h4>
                 </div>
-                <div id="acc-line-body" class="panel-collapse collapse in">
+                <div id="acc-line-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <div class="form-group">

@@ -7,6 +7,8 @@ var defaultTheme = {
   textColor: '#999',
   markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
+  borderColor: '#ccc',
+  borderWidth: 0,
   visualMapColor: ['#a9334c', '#eddcdf'],
 
   kColor: '#e43c59',
@@ -93,7 +95,8 @@ var vm = new Vue({
   data: {
     theme: cloneObject(defaultTheme),
     charts: [],
-    options: []
+    options: [],
+    isPauseChartUpdating: false
   },
 
   methods: {
@@ -224,9 +227,12 @@ function initColorPicker() {
         }
       });
 
+    // pause chart updating and set color picker
+    vm.isPauseChartUpdating = true;
     $('.theme-group .colorpicker-component').each(function(id) {
       $(this).colorpicker('setValue', vm.theme.color[id]);
     });
+    vm.isPauseChartUpdating = false;
   });
 }
 
@@ -245,6 +251,14 @@ function getTheme() {
     symbolSize: vm.theme.symbolSize,
     symbol: vm.theme.symbol,
     smooth: vm.theme.lineSmooth
+  };
+  var border = {
+    itemStyle: {
+      normal: {
+        borderWidth: vm.theme.borderWidth,
+        borderColor: vm.theme.borderColor
+      }
+    }
   };
 
   var map = {
@@ -290,6 +304,21 @@ function getTheme() {
     },
     line: seriesStyle,
     radar: seriesStyle,
+    bar: {
+      itemStyle: {
+        normal: {
+          barBorderWidth: vm.theme.borderWidth,
+          barBorderColor: vm.theme.borderColor
+        }
+      }
+    },
+    pie: border,
+    scatter: border,
+    boxplot: border,
+    parallel: border,
+    sankey: border,
+    funnel: border,
+    gauge: border,
     candlestick: {
       itemStyle: {
         normal: {
@@ -317,6 +346,8 @@ function getTheme() {
           }
         }
       };
+      style.itemStyle.normal.borderWidth = vm.theme.borderWidth;
+      style.itemStyle.normal.borderColor = vm.theme.borderColor;
       return style;
     })(),
     map: map,
@@ -450,8 +481,12 @@ function getTheme() {
 
 var lastUpdate = null;
 function updateCharts(isForceUpdate) {
+  if (vm.isPauseChartUpdating) {
+    // do nothing when paused
+    return;
+  }
   var now = new Date();
-  if (isForceUpdate || now - lastUpdate > 200) {
+  if (isForceUpdate || now - lastUpdate > 500) {
     setTimeout(function() {
       echarts.registerTheme('customed', getTheme());
       var options = getOptions(vm);
@@ -463,7 +498,7 @@ function updateCharts(isForceUpdate) {
     });
     lastUpdate = now;
   } else {
-    // console.warn('Ignored too frequent refresh.');
+    console.warn('Ignored too frequent refresh.');
   }
 }
 

@@ -7,6 +7,8 @@ var defaultTheme = {
   textColor: '#999',
   markTextColor: '#eee',
   color: ['#293c55', '#a9334c', '#3095c6'],
+  borderColor: '#ccc',
+  borderWidth: 0,
   visualMapColor: ['#a9334c', '#eddcdf'],
 
   kColor: '#e43c59',
@@ -250,6 +252,14 @@ function getTheme() {
     symbol: vm.theme.symbol,
     smooth: vm.theme.lineSmooth
   };
+  var border = {
+    itemStyle: {
+      normal: {
+        borderWidth: vm.theme.borderWidth,
+        borderColor: vm.theme.borderColor
+      }
+    }
+  };
 
   var map = {
     itemStyle: {
@@ -294,6 +304,21 @@ function getTheme() {
     },
     line: seriesStyle,
     radar: seriesStyle,
+    bar: {
+      itemStyle: {
+        normal: {
+          barBorderWidth: vm.theme.borderWidth,
+          barBorderColor: vm.theme.borderColor
+        }
+      }
+    },
+    pie: border,
+    scatter: border,
+    boxplot: border,
+    parallel: border,
+    sankey: border,
+    funnel: border,
+    gauge: border,
     candlestick: {
       itemStyle: {
         normal: {
@@ -321,6 +346,8 @@ function getTheme() {
           }
         }
       };
+      style.itemStyle.normal.borderWidth = vm.theme.borderWidth;
+      style.itemStyle.normal.borderColor = vm.theme.borderColor;
       return style;
     })(),
     map: map,

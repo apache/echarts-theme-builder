@@ -137,8 +137,12 @@ var vm = new Vue({
       saveJsonFile(this.theme, 'theme.etb');
     },
 
-    useTheme: function() {
+    useThemeJson: function() {
       saveJsonFile(getTheme(), 'theme.json');
+    },
+
+    useThemeJs: function() {
+      saveJsFile(getExportJsFile(), 'theme.js');
     },
 
     newTheme: function() {
@@ -503,12 +507,51 @@ function updateCharts(isForceUpdate) {
 }
 
 function saveJsonFile(json, name) {
-  var data = JSON.stringify(json);
+  var data = JSON.stringify(json, null, '    ');
   var a = document.createElement('a');
   var file = new Blob([data], {type: 'json'});
   a.href = URL.createObjectURL(file);
   a.download = name;
   a.click();
+}
+
+function saveJsFile(data, name) {
+  var a = document.createElement('a');
+  var file = new Blob([data], {type: 'js'});
+  a.href = URL.createObjectURL(file);
+  a.download = name;
+  a.click();
+}
+
+function getExportJsFile() {
+  // format theme with 4 spaces
+  var theme = JSON.stringify(getTheme(), null, '    ');
+  // indent with 4 spaces
+  theme = theme.split('\n').join('\n    ');
+  return '(function (root, factory) {\n' +
+    '    if (typeof define === \'function\' && define.amd) {\n' +
+    '        // AMD. Register as an anonymous module.\n' +
+    '        define([\'exports\', \'echarts\'], factory);\n' +
+    '    } else if (typeof exports === \'object\' && typeof ' +
+    'exports.nodeName !== \'string\') {\n' +
+    '        // CommonJS\n' +
+    '        factory(exports, require(\'echarts\'));\n' +
+    '    } else {\n' +
+    '        // Browser globals\n' +
+    '        factory({}, root.echarts);\n' +
+    '    }\n' +
+    '}(this, function (exports, echarts) {\n' +
+    '    var log = function (msg) {\n' +
+    '        if (typeof console !== \'undefined\') {\n' +
+    '            console && console.error && console.error(msg);\n' +
+    '        }\n' +
+    '    };\n' +
+    '    if (!echarts) {\n' +
+    '        log(\'ECharts is not Loaded\');\n' +
+    '        return;\n' +
+    '    }\n' +
+    '    echarts.registerTheme(\'customed\', ' + theme + ');\n' +
+    '}));\n';
 }
 
 function cloneObject(obj) {

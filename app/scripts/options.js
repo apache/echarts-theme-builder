@@ -24,14 +24,22 @@ function getOptions(vm) {
   };
   var getSeriesRandomValue = function(typeName) {
     var data = [];
+    if (typeName === 'scatter') {
+      var dlen = 32;
+    } else {
+      var dlen = dataLength;
+    }
     for (var i = 0; i < groupCnt; ++i) {
       var group = [];
-      for (var j = 0; j < dataLength; ++j) {
+      for (var j = 0; j < dlen; ++j) {
         if (typeName === 'scatter') {
-          var v = [Math.floor(Math.random() * 1000 * (i + 1) / groupCnt),
-            Math.floor(Math.random() * 1000 * (i + 1) / groupCnt)];
+          var v = [Math.floor((Math.random() * 600 + 400) * (groupCnt - i) /
+            groupCnt),
+            Math.floor((Math.random() * 600 + 400) * (groupCnt - i) /
+            groupCnt)];
         } else {
-          var v = Math.floor(Math.random() * 1000 * (i + 1) / groupCnt) + 10;
+          var v = Math.floor((Math.random() * 600 + 400) * (groupCnt - i) /
+            groupCnt);
         }
         group.push(v);
       }
@@ -66,7 +74,8 @@ function getOptions(vm) {
     for (var i = 0; i < groupCnt; ++i) {
       data.push({
         name: legend.data[i],
-        value: Math.floor(Math.random() * 1000 * (i + 1) / groupCnt)
+        value: Math.floor((Math.random() * 800 + 200) * (groupCnt - i) /
+          groupCnt)
       });
     }
     return {

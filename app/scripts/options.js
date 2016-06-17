@@ -591,7 +591,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":28.685715,
+            "symbolSize":8.685715,
             "x":-266.82776,
             "y":299.6904,
             "attributes":{
@@ -789,7 +789,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":100,
+            "symbolSize":40,
             "x":-87.93029,
             "y":-6.8120565,
             "attributes":{
@@ -879,7 +879,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":25.942856,
+            "symbolSize":15.942856,
             "x":-385.2226,
             "y":-393.5572,
             "attributes":{
@@ -897,7 +897,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-516.55884,
             "y":-393.98975,
             "attributes":{
@@ -915,7 +915,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-464.79382,
             "y":-493.57944,
             "attributes":{
@@ -933,7 +933,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-515.1624,
             "y":-456.9891,
             "attributes":{
@@ -951,7 +951,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-408.12122,
             "y":-464.5048,
             "attributes":{
@@ -969,7 +969,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-456.44113,
             "y":-425.13303,
             "attributes":{
@@ -987,7 +987,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":20.457146,
+            "symbolSize":17.457146,
             "x":-459.1107,
             "y":-362.5133,
             "attributes":{
@@ -1005,7 +1005,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":42.4,
+            "symbolSize":22.4,
             "x":-313.42786,
             "y":-289.44803,
             "attributes":{
@@ -1023,7 +1023,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":31.428574,
+            "symbolSize":14.428574,
             "x":4.6313396,
             "y":-273.8517,
             "attributes":{
@@ -1041,7 +1041,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":45.142853,
+            "symbolSize":25.142853,
             "x":82.80825,
             "y":-203.1144,
             "attributes":{
@@ -1059,7 +1059,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":31.428574,
+            "symbolSize":21.428574,
             "x":78.64646,
             "y":-31.512747,
             "attributes":{
@@ -1077,7 +1077,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":47.88571,
+            "symbolSize":27.88571,
             "x":-81.46074,
             "y":-204.20204,
             "attributes":{
@@ -1455,7 +1455,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":61.600006,
+            "symbolSize":31.600006,
             "x":387.89572,
             "y":110.462326,
             "attributes":{
@@ -1581,7 +1581,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":53.37143,
+            "symbolSize":33.37143,
             "x":206.44687,
             "y":-13.805411,
             "attributes":{
@@ -1623,7 +1623,7 @@ function getOptions(vm) {
             "attributes":{
               "modularity_class":8
             },
-            "value":31.428574,
+            "value":21.428574,
             "category":8
           },
           {
@@ -1641,7 +1641,7 @@ function getOptions(vm) {
             "attributes":{
               "modularity_class":8
             },
-            "value":42.4,
+            "value":22.4,
             "category":8
           },
           {
@@ -1653,7 +1653,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":31.428574,
+            "symbolSize":21.428574,
             "x":515.2961,
             "y":-46.167564,
             "attributes":{
@@ -1671,7 +1671,7 @@ function getOptions(vm) {
                 "show":false
               }
             },
-            "symbolSize":25.942856,
+            "symbolSize":15.942856,
             "x":614.29285,
             "y":-69.3104,
             "attributes":{
@@ -1689,7 +1689,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":31.428574,
+            "symbolSize":21.428574,
             "x":550.1917,
             "y":-128.17537,
             "attributes":{
@@ -1707,7 +1707,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":36.91429,
+            "symbolSize":26.91429,
             "x":436.17184,
             "y":-12.7286825,
             "attributes":{
@@ -1725,7 +1725,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":34.17143,
+            "symbolSize":24.17143,
             "x":602.55225,
             "y":16.421427,
             "attributes":{
@@ -1743,7 +1743,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":36.91429,
+            "symbolSize":26.91429,
             "x":455.81955,
             "y":-115.45826,
             "attributes":{
@@ -1761,7 +1761,7 @@ function getOptions(vm) {
                 "show":  false
               }
             },
-            "symbolSize":34.17143,
+            "symbolSize":24.17143,
             "x":516.40784,
             "y":47.242233,
             "attributes":{

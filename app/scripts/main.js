@@ -1,38 +1,45 @@
 var defaultTheme = {
   seriesCnt: 3,
 
-  backgroundColor: '#fff',
+  backgroundColor: 'transparent',
   titleColor: '#333',
-  subtitleColor: '#666',
-  textColor: '#999',
+  subtitleColor: '#aaa',
+  textColorAuto: true,
+  textColor: '#333',
   markTextColor: '#eee',
-  color: ['#293c55', '#a9334c', '#3095c6'],
+  color: ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
   borderColor: '#ccc',
   borderWidth: 0,
-  visualMapColor: ['#a9334c', '#eddcdf'],
+  visualMapColor: ['#bf444c', '#d88273', '#f6efa6'],
 
-  kColor: '#e43c59',
-  kColor0: '#fff',
-  kBorderColor: '#a9334c',
-  kBorderColor0: '#3095c6',
+  // 这套还挺好看的
+  // kColor: '#e43c59',
+  // kColor0: '#fff',
+  // kBorderColor: '#a9334c',
+  // kBorderColor0: '#3095c6',
+  kColor: '#c23531',
+  kColor0: '#314656',
+  kBorderColor: '#c23531',
+  kBorderColor0: '#314656',
+
   kBorderWidth: 1,
 
   lineWidth: 2,
-  symbolSize: 8,
+  symbolSize: 10,
   symbol: 'emptyCircle',
   lineSmooth: false,
 
   graphLineWidth: 1,
   graphLineColor: '#aaa',
 
-  mapLabelColor: '#333',
-  mapLabelColorE: '#333',
-  mapBorderColor: '#999',
-  mapBorderColorE: '#888',
-  mapBorderWidth: .5,
+  mapLabelColor: '#000',
+  mapLabelColorE: 'rgb(100,0,0)',
+  mapBorderColor: '#444',
+  mapBorderColorE: '#444',
+  mapBorderWidth: 0.5,
   mapBorderWidthE: 1,
-  mapAreaColor: '#ececec',
-  mapAreaColorE: '#ddd',
+  mapAreaColor: '#eee',
+  mapAreaColorE: 'rgba(255,215,0,0.8)',
 
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
@@ -43,15 +50,15 @@ var defaultTheme = {
         type: types[i],
         name: names[i] + '坐标轴',
         axisLineShow: true,
-        axisLineColor: '#ddd',
-        axisTickShow: false,
-        axisTickColor: '#666',
+        axisLineColor: '#333',
+        axisTickShow: true,
+        axisTickColor: '#333',
         axisLabelShow: true,
-        axisLabelColor: '#999',
-        splitLineShow: true,
-        splitLineColor: '#efefef',
+        axisLabelColor: '#333',
+        splitLineShow: types[i] === 'category' ? false : true,
+        splitLineColor: ['#ccc'],
         splitAreaShow: false,
-        splitAreaColor: '#fff'
+        splitAreaColor: ['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']
       });
     }
     return axis;
@@ -82,50 +89,25 @@ var defaultTheme = {
   datazoomDataColor: '#ccc',
   datazoomFillColor: 'rgba(194,53,49, 0.1)',
   datazoomHandleColor: '#bbb',
-  datazoomHandleWidth: '100%',
+  datazoomHandleWidth: '100',
   datazoomLabelColor: '#999'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
 
+var updateChartsDebounced = _.debounce(updateCharts, 1000);
 
 var vm = new Vue({
   el: '#content',
 
   data: {
-    theme: cloneObject(defaultTheme),
+    theme: defaultTheme,
     charts: [],
     options: [],
     isPauseChartUpdating: false
   },
 
   methods: {
-    addThemeColor: function() {
-      this.theme.color.push('#ccc');
-      this.theme.seriesCnt = this.theme.color.length;
-      initColorPicker();
-      updateCharts();
-    },
-
-    removeThemeColor: function() {
-      // remove the last theme color
-      this.theme.color.splice(-1, 1);
-      this.theme.seriesCnt = this.theme.color.length;
-      updateCharts();
-    },
-
-    addVisualMapColor: function() {
-      this.theme.visualMapColor.push('#ccc');
-      initColorPicker();
-      updateCharts();
-    },
-
-    removeVisualMapColor: function() {
-      // remove the last theme color
-      this.theme.visualMapColor.splice(-1, 1);
-      updateCharts();
-    },
-
     updateCharts: updateCharts,
 
     updateSymbol: function(symbol) {
@@ -147,7 +129,6 @@ var vm = new Vue({
 
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
-      initColorPicker();
       updateCharts();
     },
 
@@ -175,7 +156,6 @@ var vm = new Vue({
           var obj = JSON.parse(this.result);
           that.$set('theme', obj);
           setTimeout(function() {
-            initColorPicker();
             updateCharts();
           });
         } catch(e) {
@@ -194,51 +174,18 @@ var vm = new Vue({
         vm.theme.axis = [vm.theme.axes[0]];
       }
 
-      initColorPicker();
-      updateCharts();
-    },
-
-    seriesCntChanges: function() {
       updateCharts();
     }
   }
 });
 
+vm.$watch('theme', updateChartsDebounced, {
+  deep: true
+});
+
 // init axis setting
 vm.axisSeperateSettingChanges();
 
-
-
-$(document).ready(function() {
-  initColorPicker();
-  // init charts
-  updateCharts();
-});
-
-
-
-function initColorPicker() {
-  setTimeout(function() {
-    // prevent from calling onchange recursively
-    var isRootEvent = true;
-    $('.colorpicker-component').colorpicker()
-      .on('changeColor', function(e) {
-        if (isRootEvent) {
-          isRootEvent = false;
-          $(e.currentTarget).children('input').trigger('change', false);
-          updateCharts();
-          isRootEvent = true;
-        }
-      });
-
-    // pause chart updating and set color picker
-    vm.isPauseChartUpdating = true;
-    $('.theme-group .colorpicker-component').each(function(id) {
-      $(this).colorpicker('setValue', vm.theme.color[id]);
-    });
-    vm.isPauseChartUpdating = false;
-  });
-}
 
 function getTheme() {
   var seriesStyle = {
@@ -423,7 +370,7 @@ function getTheme() {
       dataBackgroundColor: vm.theme.datazoomDataColor,
       fillerColor: vm.theme.datazoomFillColor,
       handleColor: vm.theme.datazoomHandleColor,
-      handleSize: vm.theme.datazoomHandleWidth,
+      handleSize: vm.theme.datazoomHandleWidth + '%',
       textStyle: {
         color: vm.theme.datazoomLabelColor
       }

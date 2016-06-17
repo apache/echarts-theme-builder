@@ -9,16 +9,12 @@ var defaultTheme = {
   textColorAuto: true,
   textColor: '#333',
   markTextColor: '#eee',
-  color: ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+  color: ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',
+    '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
   borderColor: '#ccc',
   borderWidth: 0,
   visualMapColor: ['#bf444c', '#d88273', '#f6efa6'],
 
-  // 这套还挺好看的
-  // kColor: '#e43c59',
-  // kColor0: '#fff',
-  // kBorderColor: '#a9334c',
-  // kBorderColor0: '#3095c6',
   kColor: '#c23531',
   kColor0: '#314656',
   kBorderColor: '#c23531',
@@ -66,7 +62,7 @@ var defaultTheme = {
     return axis;
   })(),
   axisAll: null,
-  axisSeperateSetting: false,
+  axisSeperateSetting: true,
   axis: null,
 
   toolboxColor: '#999',

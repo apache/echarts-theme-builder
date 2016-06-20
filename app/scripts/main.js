@@ -485,7 +485,7 @@ function saveFile(data, name, type) {
   var a = document.createElement('a');
   var file = new Blob([data], {type: type});
   if (isSafari()) {
-    window.open('data:text/plain;charset=utf-8,' + data);
+    window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
   } else {
     saveAs(file, name);
   }

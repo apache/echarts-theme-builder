@@ -476,17 +476,13 @@ function saveJsonFile(json, name) {
   var data = JSON.stringify(json, null, '    ');
   var a = document.createElement('a');
   var file = new Blob([data], {type: 'json'});
-  a.href = URL.createObjectURL(file);
-  a.download = name;
-  a.click();
+  saveAs(file, name);
 }
 
 function saveJsFile(data, name) {
   var a = document.createElement('a');
   var file = new Blob([data], {type: 'js'});
-  a.href = URL.createObjectURL(file);
-  a.download = name;
-  a.click();
+  saveAs(file, name);
 }
 
 function getExportJsFile() {

@@ -6,7 +6,7 @@ var defaultTheme = {
   backgroundColor: 'transparent',
   titleColor: '#333',
   subtitleColor: '#aaa',
-  textColorAuto: true,
+  textColorShow: false,
   textColor: '#333',
   markTextColor: '#eee',
   color: ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',
@@ -261,9 +261,9 @@ function getTheme() {
   return {
     color: vm.theme.color,
     backgroundColor: vm.theme.backgroundColor,
-    textStyle: {
+    textStyle: vm.theme.textColorShow ? {
       color: vm.theme.textColor
-    },
+    } : {},
     title: {
       textStyle: {
         color: vm.theme.titleColor

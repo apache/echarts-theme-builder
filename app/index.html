@@ -101,7 +101,7 @@
                       <config-color title="背景" :color.sync="theme.backgroundColor"></config-color>
                       <config-color title="标题" :color.sync="theme.titleColor"></config-color>
                       <config-color title="副标题" :color.sync="theme.subtitleColor"></config-color>
-                      <config-color title="文字" :color.sync="theme.textColor"></config-color>
+                      <config-color can-disable title="文字" :color.sync="theme.textColor" :enabled.sync="theme.textColorShow"></config-color>
                       <config-color title="标签文字" :color.sync="theme.markTextColor"></config-color>
                       <config-color-list title="主题" :colors.sync="theme.color"></config-color-list>
                       <config-color title="描边" :color.sync="theme.borderColor"></config-color>

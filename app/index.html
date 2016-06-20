@@ -131,11 +131,11 @@
                       </div>
                       <div v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
                         <h5 v-if="axis.type !== 'all'">{{ axis.name }}</h5>
-                        <config-color can-disable :enabled="axis.axisLineShow" title="轴线" :color.sync="axis.axisLineColor"></config-color>
-                        <config-color can-disable :enabled="axis.axisTickShow" title="刻度" :color.sync="axis.axisTickColor"></config-color>
-                        <config-color-list can-disable :enabled="axis.splitLineShow" title="网格" :colors.sync="axis.splitLineColor"></config-color-list>
-                        <config-color-list can-disable :enabled="axis.splitAreaShow" title="填充" :colors.sync="axis.splitAreaColor"></config-color-list>
-                        <config-color can-disable :enabled="axis.axisLabelShow" title="文字" :color.sync="axis.axisLabelColor"></config-color>
+                        <config-color can-disable :enabled.sync="axis.axisLineShow" title="轴线" :color.sync="axis.axisLineColor"></config-color>
+                        <config-color can-disable :enabled.sync="axis.axisTickShow" title="刻度" :color.sync="axis.axisTickColor"></config-color>
+                        <config-color-list can-disable :enabled.sync="axis.splitLineShow" title="网格" :colors.sync="axis.splitLineColor"></config-color-list>
+                        <config-color-list can-disable :enabled.sync="axis.splitAreaShow" title="填充" :colors.sync="axis.splitAreaColor"></config-color-list>
+                        <config-color can-disable :enabled.sync="axis.axisLabelShow" title="文字" :color.sync="axis.axisLabelColor"></config-color>
                       </div>
                     </form>
                   </div>

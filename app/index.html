@@ -405,19 +405,28 @@
               <div class="modal-body">
                 <h4>主题在线构建工具是什么？</h4>
                 <p>“主题”是 ECharts 图表的风格抽象，用于统一多个图表的风格样式。使用主题在线构建工具，可以快速直观地生成主题配置文件，并在 ECharts 中使用自定义的主题样式。</p>
-                <p>ECharts 内置了 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可直接使用，无需下载并注册。</p>
+                <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
+                <p>ECharts 内置了 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可直接使用。</p>
 
                 <h4>开始使用新主题</h4>
+                <h5>JS 版本</h5>
                 <ol>
-                  <li><a @click="useTheme()">点此生成</a>刚刚创建主题的 JSON 文件；</li>
+                  <li><a @click="useThemeJs()">点此生成</a>刚刚创建主题的 JS 文件；</li>
+                  <li>生成的主题默认命名为 <code>'customed'</code>，可自行修改下载的 JS 主题文件中 <code>registerTheme</code> 对应名称；</li>
+                  <li>将该 JS 在 HTML 中引用；</li>
+                  <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
+                </ol>
+
+                <h5>JSON 版本</h5>
+                <ol>
+                  <li><a @click="useThemeJson()">点此生成</a>刚刚创建主题的 JSON 文件；</li>
                   <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
                   <li>调用 <code>echarts.registerTheme('customed', obj)</code> 注册主题，其中 <code>'customed'</code> 是你给该主题起的名字；</li>
                   <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
                 </ol>
-                <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
 
                 <h4>导入、导出</h4>
-                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 <code>*.edb</code> 仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

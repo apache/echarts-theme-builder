@@ -117,7 +117,7 @@ var vm = new Vue({
       saveJsonFile({
         version: VERSION,
         theme: this.theme
-      }, 'theme.etb');
+      }, 'theme.json');
     },
 
     useThemeJson: function() {
@@ -145,8 +145,8 @@ var vm = new Vue({
       var file = e.target.files[0];
 
       var extension = file.name.slice(file.name.lastIndexOf('.'));
-      if (extension !== '.etb') {
-        alert('非法后缀！请使用本网站导出的 *.etb 文件。');
+      if (extension !== '.json') {
+        alert('非法后缀！请使用本网站导出的 *.json 文件。');
         return;
       }
 
@@ -178,7 +178,7 @@ var vm = new Vue({
             updateCharts();
           });
         } catch(e) {
-          alert('非法 JSON 格式！请使用本网站导出的 *.etb 文件。');
+          alert('非法 JSON 格式！请使用本网站导出的 *.json 文件。');
           console.error(e);
         }
       }
@@ -474,15 +474,26 @@ function updateCharts(isForceUpdate) {
 
 function saveJsonFile(json, name) {
   var data = JSON.stringify(json, null, '    ');
-  var a = document.createElement('a');
-  var file = new Blob([data], {type: 'json'});
-  saveAs(file, name);
+  saveFile(data, name, 'json');
 }
 
 function saveJsFile(data, name) {
+  saveFile(data, name, 'js');
+}
+
+function saveFile(data, name, type) {
   var a = document.createElement('a');
-  var file = new Blob([data], {type: 'js'});
-  saveAs(file, name);
+  var file = new Blob([data], {type: type});
+  if (isSafari()) {
+    window.open('data:text/plain;charset=utf-8,' + data);
+  } else {
+    saveAs(file, name);
+  }
+}
+
+function isSafari() {
+  return navigator.userAgent.indexOf('Safari') > 0 &&
+    navigator.userAgent.indexOf('Chrome') < 0;
 }
 
 function getExportJsFile() {

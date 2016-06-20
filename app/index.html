@@ -63,17 +63,35 @@
                   <div class="panel-body">
                     <div class="port-row">
                       <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <a class="btn btn-primary" @click="useThemeJs()">生成主题 .js</a>
-                      <a class="btn btn-primary" @click="useThemeJson()">生成主题 .json</a>
+                      <a class="btn btn-primary" @click="useThemeJs()">
+                        <span class="glyphicon glyphicon-download-alt"></span>
+                        生成主题 .js
+                      </a>
+                      <a class="btn btn-primary" @click="useThemeJson()">
+                        <span class="glyphicon glyphicon-download-alt"></span>
+                        生成主题 .json
+                      </a>
                       <a data-toggle="modal" data-target="#download-modal">
                         <span class="glyphicon glyphicon-question-sign"></span>
                       </a>
                     </div>
                     <div class="port-row">
-                      <a class="btn btn-default" @click="importJson()">导入</a>
-                      <a class="btn btn-default" @click="exportJson()">导出</a>
-                      <a class="btn btn-default" @click="updateCharts(true)">刷新</a>
-                      <a class="btn btn-default" @click="newTheme()">复原</a>
+                      <a class="btn btn-default" @click="importJson()">
+                        <span class="glyphicon glyphicon-import"></span>
+                        导入
+                      </a>
+                      <a class="btn btn-default" @click="exportJson()">
+                        <span class="glyphicon glyphicon-export"></span>
+                        导出
+                      </a>
+                      <a class="btn btn-default" @click="updateCharts(true)">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                        刷新
+                      </a>
+                      <a class="btn btn-default" @click="newTheme()">
+                        <span class="glyphicon glyphicon-repeat"></span>
+                        复原
+                      </a>
                     </div>
                     <form class="form form-horizontal">
                       <div class="form-group">

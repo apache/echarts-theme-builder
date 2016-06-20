@@ -1,5 +1,10 @@
 .port-row {
   margin-bottom: 5px;
+
+  .btn {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+  }
 }
 
 .theme-config {
@@ -10,6 +15,12 @@
   .form-group .col-sm-3 {
     padding-right: 0;
     text-align: right;
+
+    @media (max-width: 768px) {
+      & {
+        padding-right: 15px;
+      }
+    }
 
     input {
       margin-top: 0;

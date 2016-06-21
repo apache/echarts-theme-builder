@@ -5315,7 +5315,7 @@ body {
 
 a {
   cursor: pointer;
-  color: #3095c6; }
+  color: #293c55; }
 
 .btn {
   border-radius: 0;
@@ -5328,11 +5328,11 @@ a {
     background-color: #eee; }
 
 .btn-primary {
-  border-color: #2b86b1;
-  background-color: #3095c6; }
+  border-color: #4a6d9a;
+  background-color: #3a5477; }
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary.active {
-    border-color: #26769d;
-    background-color: #2b86b1; }
+    border-color: #6386b4;
+    background-color: #4a6d9a; }
 
 .navbar-default {
   border: none;
@@ -5476,6 +5476,9 @@ a {
 
 .port-row {
   margin-bottom: 5px; }
+  .port-row .btn {
+    margin-bottom: 5px;
+    font-size: 0.9em; }
 
 .theme-config {
   padding: 0;
@@ -5484,6 +5487,9 @@ a {
   .theme-config .form-group .col-sm-3 {
     padding-right: 0;
     text-align: right; }
+    @media (max-width: 768px) {
+      .theme-config .form-group .col-sm-3 {
+        padding-right: 15px; } }
     .theme-config .form-group .col-sm-3 input {
       margin-top: 0; }
   .theme-config form + form {

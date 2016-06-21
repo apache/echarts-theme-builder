@@ -63,35 +63,41 @@
                   <div class="panel-body">
                     <div class="port-row">
                       <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <a class="btn btn-primary" @click="useThemeJs()">
-                        <span class="glyphicon glyphicon-download-alt"></span>
-                        生成主题 .js
-                      </a>
-                      <a class="btn btn-primary" @click="useThemeJson()">
-                        <span class="glyphicon glyphicon-download-alt"></span>
-                        生成主题 .json
-                      </a>
+                      <div class='btn-group' role='group'>
+                        <button type='button' class='btn btn-primary' @click="useThemeJs()">
+                          <span class="glyphicon glyphicon-download-alt"></span>
+                          生成主题 .js
+                        </button>
+                        <button type='button' class='btn btn-primary' @click="useThemeJson()">
+                          <span class="glyphicon glyphicon-download-alt"></span>
+                          生成主题 .json
+                        </button>
+                      </div>
                       <a data-toggle="modal" data-target="#download-modal">
                         <span class="glyphicon glyphicon-question-sign"></span>
                       </a>
                     </div>
                     <div class="port-row">
-                      <a class="btn btn-default" @click="importJson()">
-                        <span class="glyphicon glyphicon-import"></span>
-                        导入
-                      </a>
-                      <a class="btn btn-default" @click="exportJson()">
-                        <span class="glyphicon glyphicon-export"></span>
-                        导出
-                      </a>
-                      <a class="btn btn-default" @click="updateCharts(true)">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                        刷新
-                      </a>
-                      <a class="btn btn-default" @click="newTheme()">
-                        <span class="glyphicon glyphicon-repeat"></span>
-                        复原
-                      </a>
+                      <div class='btn-group' role='group'>
+                        <button type='button' class='btn btn-default' @click="importJson()">
+                          <span class="glyphicon glyphicon-import"></span>
+                          导入配置
+                        </button>
+                        <button type='button' class='btn btn-default' @click="exportJson()">
+                          <span class="glyphicon glyphicon-export"></span>
+                          导出配置
+                        </button>
+                      </div>
+                      <div class='btn-group' role='group'>
+                        <button type='button' class='btn btn-default' @click="updateCharts(true)">
+                          <span class="glyphicon glyphicon-refresh"></span>
+                          刷新
+                        </button>
+                        <button type='button' class='btn btn-default' @click="newTheme()">
+                          <span class="glyphicon glyphicon-repeat"></span>
+                          复原
+                        </button>
+                      </div>
                     </div>
                     <form class="form form-horizontal">
                       <div class="form-group">
@@ -110,10 +116,10 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">整体配置</a>
+                    <a data-toggle="collapse" data-parent="#acc-theme" href="#acc-theme-body">基本配置</a>
                   </h4>
                 </div>
-                <div id="acc-theme-body" class="panel-collapse collapse in">
+                <div id="acc-theme-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <config-color title="背景" :color.sync="theme.backgroundColor"></config-color>
@@ -122,14 +128,30 @@
                       <config-color can-disable title="文字" :color.sync="theme.textColor" :enabled.sync="theme.textColorShow"></config-color>
                       <config-color title="标签文字" :color.sync="theme.markTextColor"></config-color>
                       <config-color-list title="主题" :colors.sync="theme.color"></config-color-list>
-                      <config-color title="描边" :color.sync="theme.borderColor"></config-color>
                       <config-number title="描边粗细" :value.sync="theme.borderWidth"></config-number>
-                      <config-color-list title="视觉映射" :colors.sync="theme.visualMapColor"></config-color-list>
+                      <config-color title="描边" :color.sync="theme.borderColor"></config-color>
                     </form>
                   </div>
                 </div>
               </div>
             </div><!-- end of acc-theme -->
+
+            <div id="acc-visualmap" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-visualmap" href="#acc-visualmap-body">视觉映射</a>
+                  </h4>
+                </div>
+                <div id="acc-visualmap-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <config-color-list title="视觉映射" :colors.sync="theme.visualMapColor"></config-color-list>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-visualmap -->
 
             <div id="acc-axis" class="panel-group">
               <div class="panel panel-default">
@@ -147,7 +169,7 @@
                           <label for="axisSeperateSetting" class="control-label">为不同类型坐标轴分别设置</label>
                         </div>
                       </div>
-                      <div v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
+                      <div class="axis-group" v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
                         <h5 v-if="axis.type !== 'all'">{{ axis.name }}</h5>
                         <config-color can-disable :enabled.sync="axis.axisLineShow" title="轴线" :color.sync="axis.axisLineColor"></config-color>
                         <config-color can-disable :enabled.sync="axis.axisTickShow" title="刻度" :color.sync="axis.axisTickColor"></config-color>
@@ -208,7 +230,7 @@
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <config-color title="标记" :color.sync="theme.timelineItemColor"></config-color>
-                      <config-color title="标记高亮" :color.sync="theme.timelineItemColorE"></config-color>
+                      <config-color title="标记悬停" :color.sync="theme.timelineItemColorE"></config-color>
                       <config-color title="标记选中" :color.sync="theme.timelineCheckColor"></config-color>
                       <config-color title="标记选中描边" :color.sync="theme.timelineCheckBorderColor"></config-color>
                       <config-number title="标记描边" :value.sync="theme.timelineItemBorderWidth"></config-number>
@@ -257,6 +279,12 @@
                 <div id="acc-line-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <input type="checkbox" v-model="theme.lineSmooth" id="lineSmooth" />
+                          <label for="lineSmooth" class="control-label" title="smooth">平滑曲线</label>
+                        </div>
+                      </div>
                       <config-number title="线条宽度" :value.sync="theme.lineWidth"></config-number>
                       <config-number title="图形大小" :value.sync="theme.symbolSize"></config-number>
                       <div class="form-group">
@@ -264,7 +292,7 @@
                           <label class="control-label">图形形状</label>
                         </div>
                         <div class="col-sm-12">
-                          <div class="row">
+                          <div class="row space-row">
                             <div class="col-sm-6">
                               <input type="radio" name="symbol" id="symbolCircle" value="circle" @change="updateSymbol('circle')" />
                               <label for="symbolCircle">圆形</label>
@@ -324,12 +352,6 @@
                           </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-sm-12">
-                          <input type="checkbox" v-model="theme.lineSmooth" id="lineSmooth" />
-                          <label for="lineSmooth" class="control-label" title="smooth">平滑曲线</label>
-                        </div>
-                      </div>
                     </form>
                   </div>
                 </div>
@@ -361,14 +383,14 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-graph" href="#acc-graph-body" title="graph">图</a>
+                    <a data-toggle="collapse" data-parent="#acc-graph" href="#acc-graph-body" title="graph">力导图</a>
                   </h4>
                 </div>
                 <div id="acc-graph-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
                       <config-color title="连线" :color.sync="theme.graphLineColor"></config-color>
-                      <config-number title="连线宽度" :color.sync="theme.graphLineWidth"></config-number>
+                      <config-number title="连线宽度" :value.sync="theme.graphLineWidth"></config-number>
                     </form>
                   </div>
                 </div>
@@ -390,7 +412,7 @@
                       <config-color title="填充" :color.sync="theme.mapAreaColor"></config-color>
                       <config-color title="边框" :color.sync="theme.mapBorderColor"></config-color>
                       <config-number title="边框宽度" :value.sync="theme.mapBorderWidth"></config-number>
-                      <h5>高亮状态</h5>
+                      <h5>悬停状态</h5>
                       <config-color title="文字" :color.sync="theme.mapLabelColorE"></config-color>
                       <config-color title="填充" :color.sync="theme.mapAreaColorE"></config-color>
                       <config-color title="边框" :color.sync="theme.mapBorderColorE"></config-color>

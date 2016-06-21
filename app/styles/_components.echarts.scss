@@ -1,14 +1,16 @@
 .chart-container {
   margin-bottom: 20px;
   padding: 15px;
+  padding-top: 0;
+
+  h3 {
+    margin-top: 20px;
+    font-size: 1.5em;
+  }
 }
 
   .ec-container {
-    padding: 0 0 30px 15px;
-
-    h3 {
-      margin-top: 20px;
-    }
+    padding: 0 15px 30px 15px;
   }
 
     .ec-panel {

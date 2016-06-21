@@ -27,6 +27,11 @@
     }
   }
 
+  h5 ~ h5, .axis-group h5 {
+    border-top: 1px solid $clr-border;
+    padding-top: 20px;
+  }
+
   form + form {
     margin-top: 10px;
   }
@@ -95,4 +100,8 @@
         border-top: none !important;
       }
 
+}
+
+.space-row {
+  margin-left: -4px;
 }

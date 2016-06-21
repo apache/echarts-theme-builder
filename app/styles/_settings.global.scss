@@ -12,7 +12,6 @@ a {
 
 
 .btn {
-  border-radius: 0;
   transition: 0.5s;
 }
 
@@ -26,11 +25,11 @@ a {
 }
 
 .btn-primary {
-  border-color: lighten($clr-primary, 20%);
+  border-color: lighten($clr-primary, 5%);
   background-color: lighten($clr-primary, 10%);
 
   &:hover, &:active, &:focus, &.active {
-    border-color: lighten($clr-primary, 30%);
+    border-color: lighten($clr-primary, 10%);
     background-color: lighten($clr-primary, 20%);
   }
 }

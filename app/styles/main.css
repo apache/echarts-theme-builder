@@ -5318,7 +5318,6 @@ a {
   color: #293c55; }
 
 .btn {
-  border-radius: 0;
   transition: 0.5s; }
 
 .btn-default {
@@ -5328,10 +5327,10 @@ a {
     background-color: #eee; }
 
 .btn-primary {
-  border-color: #4a6d9a;
+  border-color: #314866;
   background-color: #3a5477; }
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus, .btn-primary.active {
-    border-color: #6386b4;
+    border-color: #3a5477;
     background-color: #4a6d9a; }
 
 .navbar-default {
@@ -5462,12 +5461,14 @@ a {
 
 .chart-container {
   margin-bottom: 20px;
-  padding: 15px; }
+  padding: 15px;
+  padding-top: 0; }
+  .chart-container h3 {
+    margin-top: 20px;
+    font-size: 1.5em; }
 
 .ec-container {
-  padding: 0 0 30px 15px; }
-  .ec-container h3 {
-    margin-top: 20px; }
+  padding: 0 15px 30px 15px; }
 
 .ec-panel {
   width: 100%;
@@ -5492,6 +5493,9 @@ a {
         padding-right: 15px; } }
     .theme-config .form-group .col-sm-3 input {
       margin-top: 0; }
+  .theme-config h5 ~ h5, .theme-config .axis-group h5 {
+    border-top: 1px solid #eee;
+    padding-top: 20px; }
   .theme-config form + form {
     margin-top: 10px; }
   .theme-config label {
@@ -5530,6 +5534,9 @@ a {
     text-decoration: none !important; }
   .theme-config .panel-body {
     border-top: none !important; }
+
+.space-row {
+  margin-left: -4px; }
 
 .colorpicker {
   padding: 10px; }

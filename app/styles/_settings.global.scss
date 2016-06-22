@@ -51,21 +51,5 @@ a {
   > div {
     height: 100%;
     overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      width: 5px;
-      background-color: $clr-lightest;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: lighten($clr-light, 30%);
-      border-radius: 2.5px;
-    }
-
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: lighten($clr-light, 25%);
-      }
-    }
   }
 }

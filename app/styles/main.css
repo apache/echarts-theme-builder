@@ -5343,14 +5343,6 @@ a {
   .scroll-parent > div {
     height: 100%;
     overflow-y: auto; }
-    .scroll-parent > div::-webkit-scrollbar {
-      width: 5px;
-      background-color: #f9f9f9; }
-    .scroll-parent > div::-webkit-scrollbar-thumb {
-      background-color: #e6e6e6;
-      border-radius: 2.5px; }
-    .scroll-parent > div:hover::-webkit-scrollbar-thumb {
-      background-color: #d9d9d9; }
 
 .navbar-default {
   border: none;

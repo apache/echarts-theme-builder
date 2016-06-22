@@ -1,3 +1,7 @@
+$nav-height: 50px;
+
+
+
 body {
   overflow-x: hidden;
 }
@@ -31,5 +35,37 @@ a {
   &:hover, &:active, &:focus, &.active {
     border-color: lighten($clr-primary, 10%);
     background-color: lighten($clr-primary, 20%);
+  }
+}
+
+
+
+.scroll-parent {
+  position: absolute;
+  top: $nav-height;
+  bottom: 0;
+  left: 15px;
+  right: 15px;
+  overflow: hidden;
+
+  > div {
+    height: 100%;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: $clr-lightest;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: lighten($clr-light, 30%);
+      border-radius: 2.5px;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: lighten($clr-light, 25%);
+      }
+    }
   }
 }

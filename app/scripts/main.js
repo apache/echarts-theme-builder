@@ -23,8 +23,9 @@ var defaultTheme = {
   kBorderWidth: 1,
 
   lineWidth: 2,
-  symbolSize: 10,
+  symbolSize: 4,
   symbol: 'emptyCircle',
+  symbolBorderWidth: 1,
   lineSmooth: false,
 
   graphLineWidth: 1,
@@ -210,7 +211,7 @@ function getTheme() {
   var seriesStyle = {
     itemStyle: {
       normal: {
-        borderWidth: vm.theme.lineWidth
+        borderWidth: vm.theme.symbolBorderWidth
       }
     },
     lineStyle: {

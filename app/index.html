@@ -49,7 +49,7 @@
       </div><!-- end of navbar -->
 
       <div class="container-fluid" id="content">
-        <div class="row">
+        <div class="row scroll-parent">
           <div class="col-md-3 col-sm-4 theme-config">
 
             <div id="acc-axis" class="panel-group">
@@ -183,7 +183,7 @@
               </div>
             </div><!-- end of acc-axis -->
 
-            <div id="acc-tooltip" class="panel-group">
+            <div id="acc-toolbox" class="panel-group">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <h4 class="panel-title">
@@ -286,6 +286,7 @@
                         </div>
                       </div>
                       <config-number title="线条宽度" :value.sync="theme.lineWidth"></config-number>
+                      <config-number title="图形描边" :value.sync="theme.symbolBorderWidth"></config-number>
                       <config-number title="图形大小" :value.sync="theme.symbolSize"></config-number>
                       <div class="form-group">
                         <div class="col-sm-3">
@@ -425,7 +426,7 @@
 
           </div><!-- end of left -->
 
-          <div class="col-md-9 col-sm-8 chart-container">
+          <div class="col-md-9 col-sm-8 chart-container scroll-content">
 
             <h3>示例预览</h3>
 

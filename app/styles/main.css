@@ -5556,3 +5556,18 @@ a {
   padding-top: 5px; }
   .theme-color-control a {
     margin: 0px 0 5px 5px; }
+
+#download-js-modal pre {
+  max-height: 200px;
+  overflow-y: auto; }
+  #download-js-modal pre code {
+    position: relative;
+    top: -20px;
+    background: transparent; }
+
+#download-js-modal h4 ~ h4 {
+  margin-top: 20px; }
+
+@media (min-width: 960px) {
+  .modal-dialog {
+    width: 900px; } }

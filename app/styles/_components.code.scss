@@ -1,0 +1,22 @@
+#download-js-modal {
+  pre {
+    max-height: 200px;
+    overflow-y: auto;
+
+    code {
+      position: relative;
+      top: -20px;
+      background: transparent;
+    }
+  }
+
+  h4 ~ h4 {
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 960px) {
+  .modal-dialog {
+    width: 900px;
+  }
+}

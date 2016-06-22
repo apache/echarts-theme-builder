@@ -121,6 +121,14 @@ var vm = new Vue({
       }, 'theme.json');
     },
 
+    useTheme: function() {
+      $('#js-code').text(getExportJsFile());
+      $('#json-code').text(JSON.stringify(getTheme(), null, '    '));
+      // code highlighting
+      hljs.highlightBlock($('#js-code')[0]);
+      hljs.highlightBlock($('#json-code')[0]);
+    },
+
     useThemeJson: function() {
       saveJsonFile(getTheme(), 'theme.json');
     },

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" href="http://echarts.baidu.com/images/favicon.png">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/github.min.css">
     <link rel="stylesheet" href="styles/main.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -72,38 +73,26 @@
                 <div id="acc-port-body" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <div class="port-row">
-                      <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <div class='btn-group' role='group'>
-                        <button type='button' class='btn btn-primary' @click="useThemeJs()">
-                          <span class="glyphicon glyphicon-download-alt"></span>
-                          生成主题 .js
+                      <button type="button" class="btn btn-primary" data-target="#download-js-modal" data-toggle="modal" @click="useTheme()">下载主题</button>
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" @click="importJson()">
+                          <span class="glyphicon glyphicon-import"></span>
+                          导入配置
                         </button>
-                        <button type='button' class='btn btn-primary' @click="useThemeJson()">
-                          <span class="glyphicon glyphicon-download-alt"></span>
-                          生成主题 .json
+                        <button type="button" class="btn btn-default" @click="exportJson()">
+                          <span class="glyphicon glyphicon-export"></span>
+                          导出配置
                         </button>
                       </div>
                       <a data-toggle="modal" data-target="#download-modal">
                         <span class="glyphicon glyphicon-question-sign"></span>
                       </a>
-                    </div>
-                    <div class="port-row">
-                      <div class='btn-group' role='group'>
-                        <button type='button' class='btn btn-default' @click="importJson()">
-                          <span class="glyphicon glyphicon-import"></span>
-                          导入配置
-                        </button>
-                        <button type='button' class='btn btn-default' @click="exportJson()">
-                          <span class="glyphicon glyphicon-export"></span>
-                          导出配置
-                        </button>
-                      </div>
-                      <div class='btn-group' role='group'>
-                        <button type='button' class='btn btn-default' @click="updateCharts(true)">
+                      <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default" @click="updateCharts(true)">
                           <span class="glyphicon glyphicon-refresh"></span>
                           刷新
                         </button>
-                        <button type='button' class='btn btn-default' @click="newTheme()">
+                        <button type="button" class="btn btn-default" @click="newTheme()">
                           <span class="glyphicon glyphicon-repeat"></span>
                           复原
                         </button>
@@ -135,9 +124,9 @@
                       <config-color title="背景" :color.sync="theme.backgroundColor"></config-color>
                       <config-color title="标题" :color.sync="theme.titleColor"></config-color>
                       <config-color title="副标题" :color.sync="theme.subtitleColor"></config-color>
-                      <config-color can-disable title="文字" :color.sync="theme.textColor" :enabled.sync="theme.textColorShow"></config-color>
-                      <config-color title="标签文字" :color.sync="theme.markTextColor"></config-color>
                       <config-color-list title="主题" :colors.sync="theme.color"></config-color-list>
+                      <config-color can-disable title="全局文字" :color.sync="theme.textColor" :enabled.sync="theme.textColorShow"></config-color>
+                      <config-color title="标签文字" :color.sync="theme.markTextColor"></config-color>
                       <config-number title="描边粗细" :value.sync="theme.borderWidth"></config-number>
                       <config-color title="描边" :color.sync="theme.borderColor"></config-color>
                     </form>
@@ -462,25 +451,45 @@
                 <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
                 <p>ECharts 内置了 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可直接使用。</p>
 
-                <h4>开始使用新主题</h4>
-                <h5>JS 版本</h5>
-                <ol>
-                  <li><a @click="useThemeJs()">点此生成</a>刚刚创建主题的 JS 文件；</li>
+                <h4>导入、导出</h4>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+        </div><!-- end of modal -->
+
+        <div class="modal fade" id="download-js-modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">主题下载</h4>
+              </div>
+              <div class="modal-body">
+                <h4>JS 版本</h4>
+                <ol id="how-to-use-js">
+                  <li><a class="btn btn-primary" @click="useThemeJs()">下载</a>或复制以下的主题保存至 <code>.js</code> 文件；</li>
                   <li>生成的主题默认命名为 <code>'customed'</code>，可自行修改下载的 JS 主题文件中 <code>registerTheme</code> 对应名称；</li>
                   <li>将该 JS 在 HTML 中引用；</li>
                   <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
                 </ol>
+                <pre>
+                  <code class="javascript" id="js-code"></code>
+                </pre>
 
-                <h5>JSON 版本</h5>
-                <ol>
-                  <li><a @click="useThemeJson()">点此生成</a>刚刚创建主题的 JSON 文件；</li>
+                <h4>JSON 版本</h4>
+                <ol id="how-to-use-json">
+                  <li><a class="btn btn-primary" @click="useThemeJson()">下载</a>或复制以下的主题保存至 <code>.json</code> 文件；</li>
                   <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
                   <li>调用 <code>echarts.registerTheme('customed', obj)</code> 注册主题，其中 <code>'customed'</code> 是你给该主题起的名字；</li>
                   <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
                 </ol>
-
-                <h4>导入、导出</h4>
-                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+                <pre>
+                  <code class="json" id="json-code"></code>
+                </pre>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -499,6 +508,7 @@
     <script src="vendors/vue.min.js"></script>
     <script src="vendors/FileSaver.min.js"></script>
     <script src="vendors/echarts.min.js"></script>
+    <script src="vendors/highlight.pack.js"></script>
     <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 
     <script src="scripts/components.js"></script>

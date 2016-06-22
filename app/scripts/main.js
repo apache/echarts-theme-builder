@@ -483,18 +483,26 @@ function saveJsFile(data, name) {
 }
 
 function saveFile(data, name, type) {
-  var a = document.createElement('a');
-  var file = new Blob([data], {type: type});
-  if (isSafari()) {
+  if (isSafari() || isIe()) {
     window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
   } else {
-    saveAs(file, name);
+    try {
+      var file = new Blob([data], {type: type});
+      saveAs(file, name);
+    } catch(e) {
+      console.error(e);
+      window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+    }
   }
 }
 
 function isSafari() {
   return navigator.userAgent.indexOf('Safari') > 0 &&
     navigator.userAgent.indexOf('Chrome') < 0;
+}
+
+function isIe() {
+  return navigator.userAgent.indexOf('MSIE') > 0;
 }
 
 function getExportJsFile() {

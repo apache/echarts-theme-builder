@@ -106,7 +106,7 @@ var vm = new Vue({
     options: [],
     isPauseChartUpdating: false,
     copyKbd: isMac() ? 'cmd' : 'ctrl',
-    downloadable: !isIe()
+    downloadable: !isIe() && !isEdge()
   },
 
   methods: {
@@ -527,8 +527,12 @@ function isSafari() {
 }
 
 function isIe() {
-  return navigator.userAgent.indexOf('MSIE') > 0 ||
-    navigator.userAgent.indexOf('Trident') > 0;
+  return navigator.userAgent.indexOf('MSIE') > 0;
+    ;
+}
+
+function isEdge() {
+  return navigator.userAgent.indexOf('Trident') > 0;
 }
 
 function isMac() {
@@ -586,7 +590,8 @@ function copyToClipboard(jsOrJson) {
   $('.code-btn label').hide();
 
   // copy to clipboard
-  if (document.execCommand('copy')) {
+  // ie cannot copy, but edge can
+  if (!isIe() && document.execCommand('copy')) {
     // copy successfully
     showAndHide('copy-' + jsOrJson + '-success');
     // deselect code

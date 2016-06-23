@@ -590,8 +590,8 @@ function copyToClipboard(jsOrJson) {
   $('.code-btn label').hide();
 
   // copy to clipboard
-  // ie cannot copy, but edge can
-  if (!isIe() && document.execCommand('copy')) {
+  // ie and edge neigher can copy
+  if (!isIe() && !isEdge() && document.execCommand('copy')) {
     // copy successfully
     showAndHide('copy-' + jsOrJson + '-success');
     // deselect code

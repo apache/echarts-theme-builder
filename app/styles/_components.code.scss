@@ -2,6 +2,14 @@
   pre {
     max-height: 200px;
     overflow-y: auto;
+    border-radius: 0 4px 4px 4px;
+    background-color: $clr-lightest;
+    border-color: $clr-border;
+    transition: 0.5s;
+
+    &:hover {
+      box-shadow: inset 0 0 10px #ccc;
+    }
 
     code {
       position: relative;
@@ -12,6 +20,29 @@
 
   h4 ~ h4 {
     margin-top: 20px;
+  }
+
+  .tab-content {
+    margin-top: 10px;
+  }
+}
+
+.code-btn {
+  .btn {
+    border-radius: 4px 0 0 0;
+    border-bottom: 0;
+  }
+
+  .btn ~ .btn {
+    border-radius: 0 4px 0 0;
+  }
+
+  label {
+    font-size: 0.9em;
+    margin-left: 10px;
+    display: none;
+    background-color: #ffa;
+    padding: 1px 5px;
   }
 }
 

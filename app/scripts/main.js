@@ -101,9 +101,11 @@ var vm = new Vue({
 
   data: {
     theme: defaultTheme,
+    themeName: 'customed',
     charts: [],
     options: [],
-    isPauseChartUpdating: false
+    isPauseChartUpdating: false,
+    copyKbd: isMac() ? 'cmd' : 'ctrl'
   },
 
   methods: {
@@ -114,13 +116,6 @@ var vm = new Vue({
       updateCharts();
     },
 
-    exportJson: function() {
-      saveJsonFile({
-        version: VERSION,
-        theme: this.theme
-      }, 'theme.json');
-    },
-
     useTheme: function() {
       $('#js-code').text(getExportJsFile());
       $('#json-code').text(JSON.stringify(getTheme(), null, '    '));
@@ -129,17 +124,33 @@ var vm = new Vue({
       hljs.highlightBlock($('#json-code')[0]);
     },
 
-    useThemeJson: function() {
-      saveJsonFile(getTheme(), 'theme.json');
+    downloadThemeJson: function() {
+      saveJsonFile(getTheme(), (vm.themeName || 'customed') + '.json');
     },
 
-    useThemeJs: function() {
-      saveJsFile(getExportJsFile(), 'theme.js');
+    downloadThemeJs: function() {
+      saveJsFile(getExportJsFile(), (vm.themeName || 'customed') + '.js');
+    },
+
+    copyThemeJson: function() {
+      copyToClipboard('json');
+    },
+
+    copyThemeJs: function() {
+      copyToClipboard('js');
     },
 
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
       updateCharts();
+    },
+
+    exportJson: function() {
+      saveJsonFile({
+        version: VERSION,
+        themeName: this.themeName,
+        theme: this.theme
+      }, (vm.themeName || 'customed') + '.json');
     },
 
     importJson: function() {
@@ -164,6 +175,10 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
+
+          // theme name
+          that.$set('themeName', obj.themeName || 'customed');
+
           if (obj.version < VERSION) {
             // out-dated, use as much attribute as possible
             var unfound = [];
@@ -183,6 +198,7 @@ var vm = new Vue({
             }
           }
           that.$set('theme', obj.theme);
+
           setTimeout(function() {
             updateCharts();
           });
@@ -513,6 +529,10 @@ function isIe() {
   return navigator.userAgent.indexOf('MSIE') > 0;
 }
 
+function isMac() {
+  return navigator.userAgent.indexOf('Mac OS X') > 0;
+}
+
 function getExportJsFile() {
   // format theme with 4 spaces
   var theme = JSON.stringify(getTheme(), null, '    ');
@@ -540,8 +560,48 @@ function getExportJsFile() {
     '        log(\'ECharts is not Loaded\');\n' +
     '        return;\n' +
     '    }\n' +
-    '    echarts.registerTheme(\'customed\', ' + theme + ');\n' +
+    '    echarts.registerTheme(\'' + vm.themeName + '\', ' + theme + ');\n' +
     '}));\n';
+}
+
+function copyToClipboard(jsOrJson) {
+  // select code
+  if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText($('#' + jsOrJson + '-code')[0]);
+    range.select();
+  } else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode($('#' + jsOrJson + '-code')[0]);
+    var select = window.getSelection();
+    select.removeAllRanges();
+    select.addRange(range);
+  }
+
+  // hide previous information
+  $('.code-btn label').hide();
+
+  // copy to clipboard
+  if (document.execCommand('copy')) {
+    // copy successfully
+    showAndHide('copy-' + jsOrJson + '-success');
+    // deselect code
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+    } else {
+      document.selection.empty();
+    }
+  } else {
+    // fail to copy, tell user to copy using ctrl+s or cmd+s
+    showAndHide('copy-' + jsOrJson + '-fail');
+  }
+
+  function showAndHide(id) {
+    $('#' + id).fadeIn();
+    setTimeout(function() {
+      $('#' + id).fadeOut();
+    }, 10000);
+  }
 }
 
 function cloneObject(obj) {

@@ -5559,7 +5559,13 @@ a {
 
 #download-js-modal pre {
   max-height: 200px;
-  overflow-y: auto; }
+  overflow-y: auto;
+  border-radius: 0 4px 4px 4px;
+  background-color: #f9f9f9;
+  border-color: #eee;
+  transition: 0.5s; }
+  #download-js-modal pre:hover {
+    box-shadow: inset 0 0 10px #ccc; }
   #download-js-modal pre code {
     position: relative;
     top: -20px;
@@ -5567,6 +5573,23 @@ a {
 
 #download-js-modal h4 ~ h4 {
   margin-top: 20px; }
+
+#download-js-modal .tab-content {
+  margin-top: 10px; }
+
+.code-btn .btn {
+  border-radius: 4px 0 0 0;
+  border-bottom: 0; }
+
+.code-btn .btn ~ .btn {
+  border-radius: 0 4px 0 0; }
+
+.code-btn label {
+  font-size: 0.9em;
+  margin-left: 10px;
+  display: none;
+  background-color: #ffa;
+  padding: 1px 5px; }
 
 @media (min-width: 960px) {
   .modal-dialog {

@@ -73,8 +73,11 @@
                 <div id="acc-port-body" class="panel-collapse collapse in">
                   <div class="panel-body">
                     <div class="port-row">
-                      <button type="button" class="btn btn-primary" data-target="#download-js-modal" data-toggle="modal" @click="useTheme()">下载主题</button>
                       <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" data-target="#download-js-modal" data-toggle="modal" @click="useTheme()">
+                          <span class="glyphicon glyphicon-download-alt"></span>
+                          下载主题
+                        </button>
                         <button type="button" class="btn btn-default" @click="importJson()">
                           <span class="glyphicon glyphicon-import"></span>
                           导入配置
@@ -84,9 +87,8 @@
                           导出配置
                         </button>
                       </div>
-                      <a data-toggle="modal" data-target="#download-modal">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                      </a>
+                    </div>
+                    <div class="port-row">
                       <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default" @click="updateCharts(true)">
                           <span class="glyphicon glyphicon-refresh"></span>
@@ -96,9 +98,19 @@
                           <span class="glyphicon glyphicon-repeat"></span>
                           复原
                         </button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#download-modal">
+                          <span class="glyphicon glyphicon-question-sign"></span>
+                          帮助
+                        </button>
                       </div>
                     </div>
                     <form class="form form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">主题名称</label>
+                        <div class="col-sm-9">
+                          <input class="form-control" v-model="themeName" />
+                        </div>
+                      </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">系列数量</label>
                         <div class="col-sm-9">
@@ -469,27 +481,60 @@
                 <h4 class="modal-title">主题下载</h4>
               </div>
               <div class="modal-body">
-                <h4>JS 版本</h4>
-                <ol id="how-to-use-js">
-                  <li><a class="btn btn-primary" @click="useThemeJs()">下载</a>或复制以下的主题保存至 <code>.js</code> 文件；</li>
-                  <li>生成的主题默认命名为 <code>'customed'</code>，可自行修改下载的 JS 主题文件中 <code>registerTheme</code> 对应名称；</li>
-                  <li>将该 JS 在 HTML 中引用；</li>
-                  <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
-                </ol>
-                <pre>
-                  <code class="javascript" id="js-code"></code>
-                </pre>
+                <!-- tab nav -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active">
+                    <a href="#modal-js" role="tab" data-toggle="tab">
+                      JS 版本
+                    </a>
+                  </li>
+                  <li role="presentation">
+                    <a href="#modal-json" role="tab" data-toggle="tab">
+                      JSON 版本
+                    </a>
+                  </li>
+                </ul>
 
-                <h4>JSON 版本</h4>
-                <ol id="how-to-use-json">
-                  <li><a class="btn btn-primary" @click="useThemeJson()">下载</a>或复制以下的主题保存至 <code>.json</code> 文件；</li>
-                  <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
-                  <li>调用 <code>echarts.registerTheme('customed', obj)</code> 注册主题，其中 <code>'customed'</code> 是你给该主题起的名字；</li>
-                  <li>使用 <code>echarts.init(dom, 'customed')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
-                </ol>
-                <pre>
-                  <code class="json" id="json-code"></code>
-                </pre>
+                <!-- tab content -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="modal-js">
+                    <ol id="how-to-use-js">
+                      <li>下载或复制以下的主题保存至 <code>*.js</code> 文件；</li>
+                      <li>将该 JS 在 HTML 中引用；</li>
+                      <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为 <code>*.js</code> 文件中注册的主题名字。</li>
+                    </ol>
+                    <div class="code-btn">
+                      <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" @click="downloadThemeJs()">下载</a>
+                        <a class="btn btn-sm btn-default" @click="copyThemeJs()">复制</a>
+                      </div>
+                      <label id="copy-js-success">已复制到剪贴板，请保存至 <code>*.js</code> 文件</label>
+                      <label id="copy-js-fail">请使用<kbd>{{ copyKbd }}</kbd> + <kbd>s</kbd>复制，并保存至 <code>*.js</code> 文件</label>
+                    </div>
+                    <pre>
+                      <code class="javascript" id="js-code"></code>
+                    </pre>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="modal-json">
+                    <ol id="how-to-use-json">
+                      <li>下载或复制以下的主题保存至 <code>*.json</code> 文件；</li>
+                      <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
+                      <li>调用 <code>echarts.registerTheme('{{ themeName || 'customed' }}', obj)</code> 注册主题；</li>
+                      <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
+                    </ol>
+                    <div class="code-btn">
+                      <div class="btn-group" role="group">
+                        <a class="btn btn-sm btn-primary" @click="downloadThemeJson()">下载</a>
+                        <a class="btn btn-sm btn-default" @click="copyThemeJson()">复制</a>
+                      </div>
+                      <label id="copy-json-success">已复制到剪贴板，请保存至 <code>*.json</code> 文件</label>
+                      <label id="copy-json-fail">请使用<kbd>{{ copyKbd }}</kbd> + <kbd>s</kbd>复制，并保存至 <code>*.json</code> 文件</label>
+                    </div>
+                    <pre>
+                      <code class="json" id="json-code"></code>
+                    </pre>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -509,7 +554,7 @@
     <script src="vendors/FileSaver.min.js"></script>
     <script src="vendors/echarts.min.js"></script>
     <script src="vendors/highlight.pack.js"></script>
-    <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <!-- <script src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script> -->
 
     <script src="scripts/components.js"></script>
     <script src="scripts/options.js"></script>

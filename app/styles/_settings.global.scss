@@ -58,7 +58,15 @@ a {
 
 // hide content under ie8
 .lower-ie {
+  background-color: $clr-primary;
+
   #main {
     display: none;
+  }
+
+  #lowie-main {
+    img {
+      width: 60%;
+    }
   }
 }

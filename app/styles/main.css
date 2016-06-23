@@ -5344,8 +5344,12 @@ a {
     height: 100%;
     overflow-y: auto; }
 
-.lower-ie #main {
-  display: none; }
+.lower-ie {
+  background-color: #293c55; }
+  .lower-ie #main {
+    display: none; }
+  .lower-ie #lowie-main img {
+    width: 60%; }
 
 .navbar-default {
   border: none;

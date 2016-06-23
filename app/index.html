@@ -512,13 +512,13 @@
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="modal-js">
                     <ol id="how-to-use-js">
-                      <li>下载或复制以下的主题保存至 <code>*.js</code> 文件；</li>
+                      <li><span v-if="downloadable">下载或</span>复制以下的主题保存至 <code>*.js</code> 文件；</li>
                       <li>将该文件在 HTML 中引用；</li>
                       <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为 <code>*.js</code> 文件中注册的主题名字。</li>
                     </ol>
                     <div class="code-btn">
                       <div class="btn-group" role="group">
-                        <a class="btn btn-sm btn-primary" @click="downloadThemeJs()">下载</a>
+                        <a v-if="downloadable" class="btn btn-sm btn-primary" @click="downloadThemeJs()">下载</a>
                         <a class="btn btn-sm btn-default" @click="copyThemeJs()">复制</a>
                       </div>
                       <label id="copy-js-success">已复制到剪贴板，请保存至 <code>*.js</code> 文件</label>
@@ -530,14 +530,14 @@
                   </div>
                   <div role="tabpanel" class="tab-pane" id="modal-json">
                     <ol id="how-to-use-json">
-                      <li>下载或复制以下的主题保存至 <code>*.json</code> 文件；</li>
+                      <li><span v-if="downloadable">下载或</span>复制以下的主题保存至 <code>*.json</code> 文件；</li>
                       <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
                       <li>调用 <code>echarts.registerTheme('{{ themeName || 'customed' }}', obj)</code> 注册主题；</li>
                       <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
                     </ol>
                     <div class="code-btn">
                       <div class="btn-group" role="group">
-                        <a class="btn btn-sm btn-primary" @click="downloadThemeJson()">下载</a>
+                        <a v-if="downloadable" class="btn btn-sm btn-primary" @click="downloadThemeJson()">下载</a>
                         <a class="btn btn-sm btn-default" @click="copyThemeJson()">复制</a>
                       </div>
                       <label id="copy-json-success">已复制到剪贴板，请保存至 <code>*.json</code> 文件</label>

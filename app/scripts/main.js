@@ -105,7 +105,8 @@ var vm = new Vue({
     charts: [],
     options: [],
     isPauseChartUpdating: false,
-    copyKbd: isMac() ? 'cmd' : 'ctrl'
+    copyKbd: isMac() ? 'cmd' : 'ctrl',
+    downloadable: !isIe()
   },
 
   methods: {
@@ -507,7 +508,7 @@ function saveJsFile(data, name) {
 }
 
 function saveFile(data, name, type) {
-  if (isSafari() || isIe()) {
+  if (isSafari()) {
     window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
   } else {
     try {
@@ -527,7 +528,7 @@ function isSafari() {
 
 function isIe() {
   return navigator.userAgent.indexOf('MSIE') > 0 ||
-    navigator.userAgent.indexOf('Trident');
+    navigator.userAgent.indexOf('Trident') > 0;
 }
 
 function isMac() {
@@ -567,23 +568,25 @@ function getExportJsFile() {
 
 function copyToClipboard(jsOrJson) {
   // select code
-  if (document.selection) {
-    var range = document.body.createTextRange();
-    range.moveToElementText($('#' + jsOrJson + '-code')[0]);
-    range.select();
-  } else if (window.getSelection) {
+  // IE has both window.getSelection and document.selection, but works only
+  // with the former one
+  if (window.getSelection) {
     var range = document.createRange();
     range.selectNode($('#' + jsOrJson + '-code')[0]);
     var select = window.getSelection();
     select.removeAllRanges();
     select.addRange(range);
+  } else if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText($('#' + jsOrJson + '-code')[0]);
+    range.select();
   }
 
   // hide previous information
   $('.code-btn label').hide();
 
   // copy to clipboard
-  if (!isIe() && document.execCommand('copy')) {
+  if (document.execCommand('copy')) {
     // copy successfully
     showAndHide('copy-' + jsOrJson + '-success');
     // deselect code

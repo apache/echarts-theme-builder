@@ -5349,7 +5349,9 @@ a {
   .lower-ie #main {
     display: none; }
   .lower-ie #lowie-main img {
-    width: 60%; }
+    width: 60%;
+    display: block;
+    margin: 50px auto; }
 
 .navbar-default {
   border: none;

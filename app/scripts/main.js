@@ -526,7 +526,8 @@ function isSafari() {
 }
 
 function isIe() {
-  return navigator.userAgent.indexOf('MSIE') > 0;
+  return navigator.userAgent.indexOf('MSIE') > 0 ||
+    navigator.userAgent.indexOf('Trident');
 }
 
 function isMac() {

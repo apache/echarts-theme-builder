@@ -5344,6 +5344,9 @@ a {
     height: 100%;
     overflow-y: auto; }
 
+.lower-ie #main {
+  display: none; }
+
 .navbar-default {
   border: none;
   background-color: #293c55;

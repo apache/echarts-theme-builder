@@ -53,3 +53,12 @@ a {
     overflow-y: auto;
   }
 }
+
+
+
+// hide content under ie8
+.lower-ie {
+  #main {
+    display: none;
+  }
+}

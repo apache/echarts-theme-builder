@@ -18,8 +18,20 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  <!--[if lte IE 8]>
+  <body class="lower-ie">
+  <![endif]-->
+  <!--[if (gt IE 8)|!(IE)]>
   <body>
-    <div>
+  <![endif]-->
+    <!-- fallback for browsers under ie8 -->
+    <!--[if lte IE 8]>
+    <div id="lowie-main">
+      <img alt="ie tip" src="http://echarts.baidu.com/images/forie.png" />
+    </div>
+    <![endif]-->
+
+    <div id="main">
       <div class="container-fluid navbar-default">
         <div class="navbar-header">
           <button type="button" data-toggle="collapse" data-target="#echarts-navbar-collapse" aria-expanded="false" class="navbar-toggle collapsed">

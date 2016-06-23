@@ -582,7 +582,7 @@ function copyToClipboard(jsOrJson) {
   $('.code-btn label').hide();
 
   // copy to clipboard
-  if (document.execCommand('copy')) {
+  if (!isIe() && document.execCommand('copy')) {
     // copy successfully
     showAndHide('copy-' + jsOrJson + '-success');
     // deselect code

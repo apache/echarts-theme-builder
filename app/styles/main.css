@@ -5333,16 +5333,17 @@ a {
     border-color: #3a5477;
     background-color: #4a6d9a; }
 
-.scroll-parent {
-  position: absolute;
-  top: 50px;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-  overflow: hidden; }
-  .scroll-parent > div {
-    height: 100%;
-    overflow-y: auto; }
+@media (min-width: 768px) {
+  .scroll-parent {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    overflow: hidden; }
+    .scroll-parent > div {
+      height: 100%;
+      overflow-y: auto; } }
 
 .lower-ie {
   background-color: #293c55; }

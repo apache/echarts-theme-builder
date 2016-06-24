@@ -40,17 +40,19 @@ a {
 
 
 
-.scroll-parent {
-  position: absolute;
-  top: $nav-height;
-  bottom: 0;
-  left: 15px;
-  right: 15px;
-  overflow: hidden;
+@media (min-width: 768px) {
+  .scroll-parent {
+    position: absolute;
+    top: $nav-height;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    overflow: hidden;
 
-  > div {
-    height: 100%;
-    overflow-y: auto;
+    > div {
+      height: 100%;
+      overflow-y: auto;
+    }
   }
 }
 

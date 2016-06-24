@@ -218,6 +218,8 @@ var vm = new Vue({
         }
       }
       reader.readAsText(file);
+
+      $('#input-file').val('');
     },
 
     axisSeperateSettingChanges: function() {

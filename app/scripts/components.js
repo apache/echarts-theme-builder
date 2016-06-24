@@ -14,6 +14,9 @@ var VueColor = Vue.extend({
     $el.colorpicker().on('changeColor', function () {
       vm.$set('color', $el.find('input').val());
     });
+    vm.$watch('color', function(newV) {
+      $el.colorpicker('setValue', newV);
+    });
   },
 
   props: {

@@ -24,9 +24,15 @@ gulp.task('styles', function () {
 });
 
 gulp.task('scripts', function () {
-    return gulp.src('app/scripts/**/*.js')
-        .pipe(reload({stream:true}))
-        .pipe($.size());
+    gulp.src([
+        'app/scripts/components.js',
+        'app/scripts/options.js',
+        'app/scripts/main.js'
+      ])
+      .pipe(concat('app.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest('app/scripts'))
+      .pipe($.size());
 });
 
 gulp.task('images', function () {
@@ -57,7 +63,7 @@ gulp.task('clean', function () {
     return gulp.src(['app/styles/main.css', 'app/vendors/vendors.min.js'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['styles'], function() {
+gulp.task('build', ['styles', 'scripts'], function() {
     // pack vendor js files except echarts
     gulp.src([
         'app/vendors/lodash.min.js',
@@ -73,16 +79,6 @@ gulp.task('build', ['styles'], function() {
       ])
       .pipe(concat('vendors.min.js'))
       .pipe(gulp.dest('app/vendors'))
-      .pipe($.size());
-
-    gulp.src([
-        'app/scripts/components.js',
-        'app/scripts/options.js',
-        'app/scripts/main.js'
-      ])
-      .pipe(concat('app.min.js'))
-      .pipe($.uglify())
-      .pipe(gulp.dest('app/scripts'))
       .pipe($.size());
 });
 

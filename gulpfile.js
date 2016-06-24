@@ -5,13 +5,17 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var gutil = require('gulp-util');
+var concat = require('gulp-concat');
 
 // load plugins
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
-        .pipe($.sass({errLogToConsole: true}))
+        .pipe($.sass({
+          errLogToConsole: true,
+          outputStyle: 'compressed'
+        }))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
         .pipe(reload({stream:true}))
@@ -22,24 +26,6 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
         .pipe(reload({stream:true}))
-        .pipe($.size());
-});
-
-gulp.task('html', ['styles', 'scripts'], function () {
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
-
-    return gulp.src('app/*.html')
-        .pipe($.useref.assets())
-        .pipe(jsFilter)
-        .pipe($.uglify())
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
-        .pipe($.useref.restore())
-        .pipe($.useref())
-        .pipe(gulp.dest('dist'))
         .pipe($.size());
 });
 
@@ -68,10 +54,37 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['app/styles/main.css', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['app/styles/main.css', 'app/vendors/vendors.min.js'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['html', 'images', 'fonts']);
+gulp.task('build', ['styles'], function() {
+    // pack vendor js files except echarts
+    gulp.src([
+        'app/vendors/lodash.min.js',
+        'app/vendors/jquery.min.js',
+        'app/vendors/bootstrap.min.js',
+        'app/vendors/bootstrap-colorpicker.min.js',
+        'app/vendors/vue.min.js',
+        'app/vendors/FileSaver.min.js',
+        'app/vendors/highlight.pack.js',
+        'app/vendors/bootstrap-colorpicker.min.js',
+        'app/vendors/vue.min.js',
+        'app/vendors/china.js'
+      ])
+      .pipe(concat('vendors.min.js'))
+      .pipe(gulp.dest('app/vendors'))
+      .pipe($.size());
+
+    gulp.src([
+        'app/scripts/components.js',
+        'app/scripts/options.js',
+        'app/scripts/main.js'
+      ])
+      .pipe(concat('app.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest('app/scripts'))
+      .pipe($.size());
+});
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');

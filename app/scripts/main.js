@@ -1,3 +1,5 @@
+(function() {
+
 var VERSION = 1; // needs to upgrade when vm.theme changes
 
 var defaultTheme = {
@@ -628,3 +630,5 @@ function copyToClipboard(jsOrJson) {
 function cloneObject(obj) {
   return $.extend(true, {}, obj);
 }
+
+})();

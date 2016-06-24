@@ -192,7 +192,7 @@ var vm = new Vue({
           if (obj.version < VERSION) {
             // out-dated, use as much attribute as possible
             var unfound = [];
-            var newTheme = cloneObject(defaultTheme);
+            var newTheme = obj.theme;
             for (var attr in defaultTheme) {
               if (typeof obj.theme[attr] !== 'undefined') {
                 newTheme.attr = obj.theme[attr];
@@ -264,6 +264,10 @@ function getTheme() {
       normal: {
         borderWidth: vm.theme.borderWidth,
         borderColor: vm.theme.borderColor
+      },
+      emphasis: {
+        borderWidth: vm.theme.borderWidth,
+        borderColor: vm.theme.borderColor
       }
     }
   };
@@ -314,6 +318,10 @@ function getTheme() {
     bar: {
       itemStyle: {
         normal: {
+          barBorderWidth: vm.theme.borderWidth,
+          barBorderColor: vm.theme.borderColor
+        },
+        emphasis: {
           barBorderWidth: vm.theme.borderWidth,
           barBorderColor: vm.theme.borderColor
         }

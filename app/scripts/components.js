@@ -4,15 +4,21 @@
 var VueColor = Vue.extend({
 
   template: '<div class="input-group colorpicker-component">'
-          +   '<input type="text" v-model="color" class="form-control" />'
+          +   '<input type="text" class="form-control" />'
           +   '<span class="input-group-addon"><i></i></span>'
           + '</div>',
 
   compiled: function () {
     var vm = this;
     var $el = $(this.$el);
+    $el.find('input').val(this.color);
     $el.colorpicker().on('changeColor', function () {
-      vm.$set('color', $el.find('input').val());
+      var colorStr = $el.find('input').val();
+      // Avoid colorpicker will format the color string and cause vm updated twice when editing the hex value
+      var isColorValid = echarts.color.parse(colorStr);
+      if (isColorValid) {
+        vm.$set('color', colorStr);
+      }
     });
     vm.$watch('color', function(newV) {
       $el.colorpicker('setValue', newV);

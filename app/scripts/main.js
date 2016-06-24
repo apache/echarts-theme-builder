@@ -3,7 +3,7 @@ var VERSION = 1; // needs to upgrade when vm.theme changes
 var defaultTheme = {
   seriesCnt: 3,
 
-  backgroundColor: 'transparent',
+  backgroundColor: 'rgba(0, 0, 0, 0)',
   titleColor: '#333',
   subtitleColor: '#aaa',
   textColorShow: false,
@@ -14,6 +14,8 @@ var defaultTheme = {
   borderColor: '#ccc',
   borderWidth: 0,
   visualMapColor: ['#bf444c', '#d88273', '#f6efa6'],
+
+  legendTextColor: '#333',
 
   kColor: '#c23531',
   kColor0: '#314656',
@@ -100,7 +102,7 @@ var vm = new Vue({
   el: '#content',
 
   data: {
-    theme: defaultTheme,
+    theme: cloneObject(defaultTheme),
     themeName: 'customed',
     charts: [],
     options: [],
@@ -176,6 +178,11 @@ var vm = new Vue({
       reader.onload = function() {
         try {
           var obj = JSON.parse(this.result);
+
+          if (obj.themeName === undefined && obj.version === undefined) {
+            alert('请使用本网站“导出配置”的 JSON 文件，而不是下载的主题文件。');
+            return;
+          }
 
           // theme name
           that.$set('themeName', obj.themeName || 'customed');
@@ -360,6 +367,11 @@ function getTheme() {
         emphasis: {
           borderColor: vm.theme.toolboxEmpasisColor
         }
+      }
+    },
+    legend: {
+      textStyle: {
+        color: vm.theme.legendTextColor
       }
     },
     tooltip: {

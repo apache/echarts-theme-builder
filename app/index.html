@@ -150,7 +150,6 @@
                       <config-color title="标题" :color.sync="theme.titleColor"></config-color>
                       <config-color title="副标题" :color.sync="theme.subtitleColor"></config-color>
                       <config-color-list title="主题" :colors.sync="theme.color"></config-color-list>
-                      <config-color can-disable title="全局文字" :color.sync="theme.textColor" :enabled.sync="theme.textColorShow"></config-color>
                       <config-color title="标签文字" :color.sync="theme.markTextColor"></config-color>
                       <config-number title="描边粗细" :value.sync="theme.borderWidth"></config-number>
                       <config-color title="描边" :color.sync="theme.borderColor"></config-color>
@@ -206,6 +205,23 @@
                 </div>
               </div>
             </div><!-- end of acc-axis -->
+
+            <div id="acc-legend" class="panel-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#acc-legend" href="#acc-legend-body" title="legend">图例</a>
+                  </h4>
+                </div>
+                <div id="acc-legend-body" class="panel-collapse collapse">
+                  <div class="panel-body">
+                    <form class="form-horizontal">
+                      <config-color :color.sync="theme.legendTextColor" title="文字"></config-color>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- end of acc-legend -->
 
             <div id="acc-toolbox" class="panel-group">
               <div class="panel panel-default">
@@ -474,7 +490,7 @@
                 <h4>主题在线构建工具是什么？</h4>
                 <p>“主题”是 ECharts 图表的风格抽象，用于统一多个图表的风格样式。使用主题在线构建工具，可以快速直观地生成主题配置文件，并在 ECharts 中使用自定义的主题样式。</p>
                 <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
-                <p>ECharts 内置了 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可直接使用。</p>
+                <p>ECharts 官方提供 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可供<a href="http://echarts.baidu.com/download-theme.html" target="_blank">下载</a>使用。</p>
 
                 <h4>导入、导出</h4>
                 <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>

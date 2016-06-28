@@ -66,7 +66,6 @@ var defaultTheme = {
     }
     return axis;
   })(),
-  axisAll: null,
   axisSeperateSetting: true,
   axis: null,
 
@@ -208,6 +207,9 @@ var vm = new Vue({
             }
           }
           that.$set('theme', obj.theme);
+
+          // update axis according to if using seperate axes
+          vm.axisSeperateSettingChanges();
 
           setTimeout(function() {
             updateCharts();

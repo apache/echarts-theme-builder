@@ -123,14 +123,14 @@ var vm = new Vue({
 
     useTheme: function() {
       $('#js-code').text(getExportJsFile());
-      $('#json-code').text(JSON.stringify(getTheme(), null, '    '));
+      $('#json-code').text(JSON.stringify(getTheme(true), null, '    '));
       // code highlighting
       hljs.highlightBlock($('#js-code')[0]);
       hljs.highlightBlock($('#json-code')[0]);
     },
 
     downloadThemeJson: function() {
-      saveJsonFile(getTheme(), (vm.themeName || 'customed') + '.json');
+      saveJsonFile(getTheme(true), (vm.themeName || 'customed') + '.json');
     },
 
     downloadThemeJs: function() {
@@ -243,7 +243,7 @@ vm.$watch('theme', updateChartsDebounced, {
 vm.axisSeperateSettingChanges();
 
 
-function getTheme() {
+function getTheme(isToExport) {
   var seriesStyle = {
     itemStyle: {
       normal: {
@@ -301,7 +301,7 @@ function getTheme() {
 
   return {
     color: vm.theme.color,
-    backgroundColor: vm.theme.backgroundColor,
+    backgroundColor: isToExport ? vm.theme.backgroundColor : 'transparent',
     textStyle: vm.theme.textColorShow ? {
       color: vm.theme.textColor
     } : {},
@@ -508,7 +508,7 @@ function updateCharts(isForceUpdate) {
   var now = new Date();
   if (isForceUpdate || now - lastUpdate > 500) {
     setTimeout(function() {
-      echarts.registerTheme('customed', getTheme());
+      echarts.registerTheme('customed', getTheme(false));
       var options = getOptions(vm);
       // re-draw charts
       $('.ec-panel').each(function(i) {
@@ -565,7 +565,7 @@ function isMac() {
 
 function getExportJsFile() {
   // format theme with 4 spaces
-  var theme = JSON.stringify(getTheme(), null, '    ');
+  var theme = JSON.stringify(getTheme(true), null, '    ');
   // indent with 4 spaces
   theme = theme.split('\n').join('\n    ');
   return '(function (root, factory) {\n' +

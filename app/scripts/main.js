@@ -146,6 +146,7 @@ var vm = new Vue({
 
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
+      vm.axisSeperateSettingChanges();
       updateCharts();
     },
 

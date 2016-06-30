@@ -147,7 +147,6 @@ var defaultTheme = {
 defaultTheme.axis = [defaultTheme.axes[0]];
 
 
-var updateChartsDebounced = _.debounce(updateCharts, 1000);
 
 var vm = new Vue({
   el: '#content',
@@ -267,7 +266,7 @@ var vm = new Vue({
   }
 });
 
-vm.$watch('theme', updateChartsDebounced, {
+vm.$watch('theme', updateCharts, {
   deep: true
 });
 
@@ -310,10 +309,6 @@ function onThemeImported(result) {
 
     // update axis according to if using seperate axes
     vm.axisSeperateSettingChanges();
-
-    setTimeout(function() {
-      updateCharts();
-    });
   } catch(e) {
     alert('非法 JSON 格式！请使用本网站导出的 *.json 文件。');
     console.error(e);
@@ -583,7 +578,8 @@ function updateCharts(isForceUpdate) {
     return;
   }
   var now = new Date();
-  if (isForceUpdate || now - lastUpdate > 500) {
+  if (isForceUpdate === true || now - lastUpdate > 500) {
+    console.log('called');
     setTimeout(function() {
       echarts.registerTheme('customed', getTheme(false));
       var options = getOptions(vm);

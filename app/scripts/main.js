@@ -32,6 +32,27 @@ var PRE_DEFINED_THEMES = [{
     '#ebdba4'
   ]
 }, {
+  name: 'wonderland',
+  background: 'transparent',
+  theme: [
+    '#4ea397', '#22c3aa', '#7bd9a5', '#d0648a', '#f58db2',
+    '#f2b3c9'
+  ]
+}, {
+  name: 'walden',
+  background: 'rgba(252,252,252,0)',
+  theme: [
+    '#3fb1e3', '#6be6c1', '#626c91', '#a0a7e6', '#c4ebad',
+    '#96dee8'
+  ]
+}, {  
+  name: 'dashboard',
+  background: '#293441',
+  theme: [
+    '#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0',
+    '#d4a4eb', '#d2f5a6', '#76f2f2'
+  ]
+}, {
   name: 'infographic',
   background: 'transparent',
   theme: [

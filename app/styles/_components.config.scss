@@ -116,7 +116,9 @@
 }
 
   .theme-plan-group {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     width: auto;
     height: 32px;
     overflow: hidden;
@@ -129,7 +131,9 @@
     .theme-plan-color {
       width: 20px;
       height: 20px;
-      margin-right: 5px;
+      margin-bottom: 10px;
+      margin-left: 2px;
+      margin-right: 2px;
       display: inline-block;
       border-radius: 3px;
     }

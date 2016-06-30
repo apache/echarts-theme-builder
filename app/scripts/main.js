@@ -3,6 +3,35 @@
 var VERSION = 1; // needs to upgrade when vm.theme changes
 
 var PRE_DEFINED_THEMES = [{
+  name: 'vintage',
+  background: '#fef8ef',
+  theme: [
+    '#d87c7c', '#919e8b', '#d7ab82', '#6e7074', '#61a0a8',
+    '#efa18d', '#787464', '#cc7e63', '#724e58', '#4b565b'
+  ]
+}, {
+  name: 'dark',
+  background: '#333',
+  theme: [
+    '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53',
+    '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c',
+    '#f49f42'
+  ]
+}, {
+  name: 'westeros',
+  background: 'transparent',
+  theme: [
+    '#516b91', '#59c4e6', '#edafda', '#93b7e3', '#a5e7f0',
+    '#cbb0e3'
+  ]
+}, {
+  name: 'essos',
+  background: 'transparent',
+  theme: [
+    '#893448', '#d95850', '#eb8146', '#ffb248', '#f2d643',
+    '#ebdba4'
+  ]
+}, {
   name: 'infographic',
   background: 'transparent',
   theme: [
@@ -36,26 +65,11 @@ var PRE_DEFINED_THEMES = [{
     '#339ca8', '#cda819', '#32a487'
   ]
 }, {
-  name: 'vintage',
-  background: '#fef8ef',
-  theme: [
-    '#d87c7c', '#919e8b', '#d7ab82', '#6e7074', '#61a0a8',
-    '#efa18d', '#787464', '#cc7e63', '#724e58', '#4b565b'
-  ]
-}, {
   name: 'purple-passion',
   background: 'rgba(91,92,110,1)',
   theme: [
     '#8a7ca8', '#e098c7', '#8fd3e8', '#71669e', '#cc70af',
     '#7cb4cc'
-  ]
-}, {
-  name: 'dark',
-  background: '#333',
-  theme: [
-    '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53',
-    '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c',
-    '#f49f42'
   ]
 }];
 

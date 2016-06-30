@@ -162,10 +162,10 @@
         "timelineControlBorderColor": "#eeeeee",
         "timelineControlBorderWidth": 0.5,
         "timelineLabelColor": "#eeeeee",
-        "datazoomBackgroundColor": "#444444",
-        "datazoomDataColor": "#ccc",
-        "datazoomFillColor": "rgba(194,53,49, 0.1)",
-        "datazoomHandleColor": "#bbb",
+        "datazoomBackgroundColor": "rgba(47,69,84,0)",
+        "datazoomDataColor": "rgba(255,255,255,0.3)",
+        "datazoomFillColor": "rgba(167,183,204,0.4)",
+        "datazoomHandleColor": "#a7b7cc",
         "datazoomHandleWidth": "100",
         "datazoomLabelColor": "#eeeeee"
     }

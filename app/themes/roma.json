@@ -171,11 +171,11 @@
         "timelineControlBorderColor": "#293c55",
         "timelineControlBorderWidth": 0.5,
         "timelineLabelColor": "#293c55",
-        "datazoomBackgroundColor": "#ffffff",
-        "datazoomDataColor": "#cccccc",
-        "datazoomFillColor": "rgba(194,53,49,0.1)",
-        "datazoomHandleColor": "#bbbbbb",
+        "datazoomBackgroundColor": "rgba(47,69,84,0)",
+        "datazoomDataColor": "rgba(47,69,84,0.3)",
+        "datazoomFillColor": "rgba(167,183,204,0.4)",
+        "datazoomHandleColor": "#a7b7cc",
         "datazoomHandleWidth": "100",
-        "datazoomLabelColor": "#999999"
+        "datazoomLabelColor": "#333333"
     }
 }

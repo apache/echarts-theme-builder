@@ -137,12 +137,12 @@ var defaultTheme = {
   timelineControlBorderWidth: 0.5,
   timelineLabelColor: '#293c55',
 
-  datazoomBackgroundColor: '#fff',
-  datazoomDataColor: '#ccc',
-  datazoomFillColor: 'rgba(194,53,49, 0.1)',
-  datazoomHandleColor: '#bbb',
+  datazoomBackgroundColor: 'rgba(47,69,84,0)',
+  datazoomDataColor: 'rgba(47,69,84,0.3)',
+  datazoomFillColor: 'rgba(167,183,204,0.4)',
+  datazoomHandleColor: '#a7b7cc',
   datazoomHandleWidth: '100',
-  datazoomLabelColor: '#999'
+  datazoomLabelColor: '#333'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
@@ -579,7 +579,6 @@ function updateCharts(isForceUpdate) {
   }
   var now = new Date();
   if (isForceUpdate === true || now - lastUpdate > 500) {
-    console.log('called');
     setTimeout(function() {
       echarts.registerTheme('customed', getTheme(false));
       var options = getOptions(vm);

@@ -170,11 +170,11 @@
         "timelineControlBorderColor": "#008acd",
         "timelineControlBorderWidth": 0.5,
         "timelineLabelColor": "#008acd",
-        "datazoomBackgroundColor": "#ffffff",
+        "datazoomBackgroundColor": "rgba(47,69,84,0)",
         "datazoomDataColor": "#efefff",
         "datazoomFillColor": "rgba(182,162,222,0.2)",
         "datazoomHandleColor": "#008acd",
         "datazoomHandleWidth": "100",
-        "datazoomLabelColor": "#999999"
+        "datazoomLabelColor": "#333333"
     }
 }

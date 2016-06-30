@@ -2,6 +2,13 @@
 
 var VERSION = 1; // needs to upgrade when vm.theme changes
 
+var PRE_DEFINED_THEMES = [{
+  name: 'dark',
+  background: '#333',
+  theme: ['#dd6b66','#759aa0','#e69d87','#8dc1a9','#ea7e53','#eedd78',
+    '#73a373','#73b9bc','#7289ab', '#91ca8c','#f49f42']
+}];
+
 var defaultTheme = {
   seriesCnt: 3,
 
@@ -109,7 +116,8 @@ var vm = new Vue({
     options: [],
     isPauseChartUpdating: false,
     copyKbd: isMac() ? 'cmd' : 'ctrl',
-    downloadable: !isIe() && !isEdge()
+    downloadable: !isIe() && !isEdge(),
+    preDefinedThemes: PRE_DEFINED_THEMES
   },
 
   methods: {
@@ -118,6 +126,16 @@ var vm = new Vue({
     updateSymbol: function(symbol) {
       vm.theme.symbol = symbol;
       updateCharts();
+    },
+
+    selectPreDefinedTheme: function(id) {
+      $.ajax({
+        url: 'themes/' + PRE_DEFINED_THEMES[id].name + '.json',
+        dataType: 'text',
+        success: function(data) {
+          onThemeImported(data);
+        }
+      });
     },
 
     useTheme: function() {
@@ -175,50 +193,15 @@ var vm = new Vue({
         return;
       }
 
-      var that = this;
+      // read local file
       var reader = new FileReader();
       reader.onload = function() {
-        try {
-          var obj = JSON.parse(this.result);
-
-          if (obj.themeName === undefined && obj.version === undefined) {
-            alert('请使用本网站“导出配置”的 JSON 文件，而不是下载的主题文件。');
-            return;
-          }
-
-          // theme name
-          that.$set('themeName', obj.themeName || 'customed');
-
-          if (obj.version < VERSION) {
-            // out-dated, use as much attribute as possible
-            var unfound = [];
-            var newTheme = obj.theme;
-            for (var attr in defaultTheme) {
-              if (typeof obj.theme[attr] !== 'undefined') {
-                newTheme.attr = obj.theme[attr];
-              } else {
-                // unfound attribute in theme file, use default
-                unfound.push(obj.theme.attr);
-              }
-            }
-            if (unfound.length > 0) {
-              alert('导入的主题版本较低，有' + unfound.length + '个属性未被设置，现已使用默认值。');
-            } else {
-              console.warn('导入的主题版本较低，可能有部分属性未生效。');
-            }
-          }
-          that.$set('theme', obj.theme);
-
-          // update axis according to if using seperate axes
-          vm.axisSeperateSettingChanges();
-
-          setTimeout(function() {
-            updateCharts();
-          });
-        } catch(e) {
-          alert('非法 JSON 格式！请使用本网站导出的 *.json 文件。');
-          console.error(e);
-        }
+        // update theme
+        onThemeImported(this.result);
+      };
+      reader.onerror = function(e) {
+        alert('打开文件失败！');
+        console.error(e);
       }
       reader.readAsText(file);
 
@@ -245,6 +228,49 @@ vm.$watch('theme', updateChartsDebounced, {
 // init axis setting
 vm.axisSeperateSettingChanges();
 
+function onThemeImported(result) {
+  try {
+    var obj = JSON.parse(result);
+
+    if (obj.themeName === undefined && obj.version === undefined) {
+      alert('请使用本网站“导出配置”的 JSON 文件，而不是下载的主题文件。');
+      return;
+    }
+
+    // theme name
+    vm.$set('themeName', obj.themeName || 'customed');
+
+    if (obj.version < VERSION) {
+      // out-dated, use as much attribute as possible
+      var unfound = [];
+      var newTheme = obj.theme;
+      for (var attr in defaultTheme) {
+        if (typeof obj.theme[attr] !== 'undefined') {
+          newTheme.attr = obj.theme[attr];
+        } else {
+          // unfound attribute in theme file, use default
+          unfound.push(obj.theme.attr);
+        }
+      }
+      if (unfound.length > 0) {
+        alert('导入的主题版本较低，有' + unfound.length + '个属性未被设置，现已使用默认值。');
+      } else {
+        console.warn('导入的主题版本较低，可能有部分属性未生效。');
+      }
+    }
+    vm.$set('theme', obj.theme);
+
+    // update axis according to if using seperate axes
+    vm.axisSeperateSettingChanges();
+
+    setTimeout(function() {
+      updateCharts();
+    });
+  } catch(e) {
+    alert('非法 JSON 格式！请使用本网站导出的 *.json 文件。');
+    console.error(e);
+  }
+}
 
 function getTheme(isToExport) {
   var seriesStyle = {

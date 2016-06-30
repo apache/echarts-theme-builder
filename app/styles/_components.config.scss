@@ -105,3 +105,21 @@
 .space-row {
   margin-left: -4px;
 }
+
+.theme-plan-group {
+  display: block;
+  width: auto;
+  height: 32px;
+  overflow: hidden;
+  border: 1px solid $clr-border;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+  .theme-plan-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    border-radius: 3px;
+  }

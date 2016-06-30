@@ -16,7 +16,6 @@ var VueColor = Vue.extend({
       // Avoid colorpicker will format the color string and cause vm updated
       // twice when editing the hex value
       var colorStr = $el.find('input').val();
-      console.log('check', colorStr);
       var isColorValid = echarts.color.parse(colorStr);
       if (isColorValid) {
         vm.$set('color', colorStr);

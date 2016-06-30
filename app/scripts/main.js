@@ -203,7 +203,11 @@ var vm = new Vue({
     isPauseChartUpdating: false,
     copyKbd: isMac() ? 'cmd' : 'ctrl',
     downloadable: !isIe() && !isEdge(),
-    preDefinedThemes: PRE_DEFINED_THEMES
+    preDefinedThemes: PRE_DEFINED_THEMES,
+    chartDisplay: {
+      background: '#fff',
+      title: '#000'
+    }
   },
 
   methods: {
@@ -627,6 +631,9 @@ function updateCharts(isForceUpdate) {
         var chart = echarts.init(this, 'customed');
         chart.setOption(options[i]);
       });
+      // update background and title
+      vm.chartDisplay.background = vm.theme.backgroundColor;
+      vm.chartDisplay.title = vm.theme.titleColor;
     });
     lastUpdate = now;
   } else {

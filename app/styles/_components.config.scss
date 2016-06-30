@@ -106,20 +106,30 @@
   margin-left: -4px;
 }
 
-.theme-plan-group {
-  display: block;
-  width: auto;
-  height: 32px;
-  overflow: hidden;
-  border: 1px solid $clr-border;
-  padding: 5px;
-  border-radius: 4px;
+.theme-plan-row {
+  .col-xs-6:nth-child(even) {
+    padding-left: 5px;
+  }
+  .col-xs-6:nth-child(odd) {
+    padding-right: 5px;
+  }
 }
 
-  .theme-plan-color {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    display: inline-block;
-    border-radius: 3px;
+  .theme-plan-group {
+    display: block;
+    width: auto;
+    height: 32px;
+    overflow: hidden;
+    border: 1px solid $clr-border;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 8px;
   }
+
+    .theme-plan-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+      display: inline-block;
+      border-radius: 3px;
+    }

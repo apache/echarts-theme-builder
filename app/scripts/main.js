@@ -43,6 +43,13 @@ var PRE_DEFINED_THEMES = [{
     '#efa18d', '#787464', '#cc7e63', '#724e58', '#4b565b'
   ]
 }, {
+  name: 'purple-passion',
+  background: 'rgba(91,92,110,1)',
+  theme: [
+    '#8a7ca8', '#e098c7', '#8fd3e8', '#71669e', '#cc70af',
+    '#7cb4cc'
+  ]
+}, {
   name: 'dark',
   background: '#333',
   theme: [
@@ -146,6 +153,8 @@ var defaultTheme = {
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
+var updateChartsDebounced = _.debounce(updateCharts, 1000);
+
 
 
 var vm = new Vue({
@@ -167,7 +176,6 @@ var vm = new Vue({
 
     updateSymbol: function(symbol) {
       vm.theme.symbol = symbol;
-      updateCharts();
     },
 
     selectPreDefinedTheme: function(id) {
@@ -207,7 +215,6 @@ var vm = new Vue({
     newTheme: function() {
       this.$set('theme', cloneObject(defaultTheme));
       vm.axisSeperateSettingChanges();
-      updateCharts();
     },
 
     exportJson: function() {
@@ -260,13 +267,11 @@ var vm = new Vue({
       } else {
         vm.theme.axis = [vm.theme.axes[0]];
       }
-
-      updateCharts();
     }
   }
 });
 
-vm.$watch('theme', updateCharts, {
+vm.$watch('theme', updateChartsDebounced, {
   deep: true
 });
 

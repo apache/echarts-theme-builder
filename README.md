@@ -2,17 +2,16 @@
 
 Design your own theme for ECharts
 
-(Under Construction...)
+![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/essos.png)
 
-## Install
+![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/wonderland.png)
 
-```
+[Online Theme Builder](http://echarts.baidu.com/theme-builder/)
+
+## Build
+
+```bash
 $ npm install
 $ bower install
-```
-
-## Develop
-
-```
-gulp watch
+$ gulp watch
 ```

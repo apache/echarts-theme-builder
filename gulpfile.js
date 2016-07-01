@@ -123,7 +123,11 @@ gulp.task('watch', ['serve'], function () {
     gulp.watch(['app/*.html'], reload);
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
-    gulp.watch('app/scripts/**/*.js', ['scripts']);
+    gulp.watch([
+      'app/scripts/components.js',
+      'app/scripts/options.js',
+      'app/scripts/main.js'
+    ], ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });

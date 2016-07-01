@@ -45,8 +45,8 @@ var PRE_DEFINED_THEMES = [{
     '#3fb1e3', '#6be6c1', '#626c91', '#a0a7e6', '#c4ebad',
     '#96dee8'
   ]
-}, {  
-  name: 'dashboard',
+}, {
+  name: 'chalk',
   background: '#293441',
   theme: [
     '#fc97af', '#87f7cf', '#f7f494', '#72ccff', '#f7c5a0',

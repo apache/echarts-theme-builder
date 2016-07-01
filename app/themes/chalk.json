@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "themeName": "dashboard",
+    "themeName": "chalk",
     "theme": {
         "seriesCnt": "3",
         "backgroundColor": "#293441",

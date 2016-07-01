@@ -26,7 +26,7 @@ var PRE_DEFINED_THEMES = [{
   ]
 }, {
   name: 'essos',
-  background: 'transparent',
+  background: 'rgba(242,234,191,0.15)',
   theme: [
     '#893448', '#d95850', '#eb8146', '#ffb248', '#f2d643',
     '#ebdba4'
@@ -536,6 +536,11 @@ function getTheme(isToExport) {
           color: vm.theme.timelineControlColor,
           borderColor: vm.theme.timelineControlBorderColor,
           borderWidth: vm.theme.timelineControlBorderWidth
+        },
+        emphasis: {
+          color: vm.theme.timelineControlColor,
+          borderColor: vm.theme.timelineControlBorderColor,
+          borderWidth: vm.theme.timelineControlBorderWidth
         }
       },
       checkpointStyle: {
@@ -544,6 +549,11 @@ function getTheme(isToExport) {
       },
       label: {
         normal: {
+          textStyle: {
+            color: vm.theme.timelineLabelColor
+          }
+        },
+        emphasis: {
           textStyle: {
             color: vm.theme.timelineLabelColor
           }

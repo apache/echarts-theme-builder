@@ -188,7 +188,14 @@ var defaultTheme = {
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
-var updateChartsDebounced = _.debounce(updateCharts, 1000);
+var updateChartsDebounced = _.debounce(updateCharts, 500);
+
+
+
+// load themes
+for (var i = 0; i < PRE_DEFINED_THEMES.length; ++i) {
+  loadTheme(i, true);
+}
 
 
 
@@ -204,6 +211,7 @@ var vm = new Vue({
     copyKbd: isMac() ? 'cmd' : 'ctrl',
     downloadable: !isIe() && !isEdge(),
     preDefinedThemes: PRE_DEFINED_THEMES,
+    loadedThemes: [],
     chartDisplay: {
       background: '#fff',
       title: '#000'
@@ -218,13 +226,15 @@ var vm = new Vue({
     },
 
     selectPreDefinedTheme: function(id) {
-      $.ajax({
-        url: 'themes/' + PRE_DEFINED_THEMES[id].name + '.json',
-        dataType: 'text',
-        success: function(data) {
-          onThemeImported(data);
+      for (var i = 0; i < vm.loadedThemes.length; ++i) {
+        if (vm.loadedThemes[i].id === id) {
+          // use cache
+          onThemeImported(vm.loadedThemes[i].data);
+          return;
         }
-      });
+      }
+      // no cache found
+      loadTheme(id, false);
     },
 
     useTheme: function() {
@@ -771,6 +781,22 @@ function copyToClipboard(jsOrJson) {
 
 function cloneObject(obj) {
   return $.extend(true, {}, obj);
+}
+
+function loadTheme(id, preload) {
+  $.ajax({
+    url: 'themes/' + PRE_DEFINED_THEMES[id].name + '.json',
+    dataType: 'text',
+    success: function(data) {
+      vm.loadedThemes.push({
+        id: id,
+        data: data
+      });
+      if (!preload) {
+        onThemeImported(data);
+      }
+    }
+  });
 }
 
 })();

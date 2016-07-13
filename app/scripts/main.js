@@ -656,7 +656,7 @@ function updatingStep(idx, options, rootIdx) {
     // loop until the first updated chart
     if (next !== rootIdx) {
       timeout = setTimeout(function () {
-        updatingStep(idx + 1, options, rootIdx);
+        updatingStep(next, options, rootIdx);
       }, 150);
     }
   }

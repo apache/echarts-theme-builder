@@ -188,7 +188,7 @@ var defaultTheme = {
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 
-var updateChartsDebounced = _.debounce(updateCharts, 500);
+var updateChartsDebounced = _.debounce(updateCharts, 200);
 
 
 
@@ -638,30 +638,34 @@ function getTheme(isToExport) {
   }
 }
 
-var lastUpdate = null;
-function updateCharts(isForceUpdate) {
+var timeout;
+function updatingStep(idx, options) {
+  var $panel = $('.ec-panel').eq(idx);
+  if ($panel.length) {
+    var chart = echarts.init($panel[0], 'customed');
+    chart.setOption(options[idx]);
+
+    timeout = setTimeout(function () {
+      updatingStep(idx + 1, options);
+    }, 150);
+  }
+}
+
+function updateCharts() {
   if (vm.isPauseChartUpdating) {
     // do nothing when paused
     return;
   }
-  var now = new Date();
-  if (isForceUpdate === true || now - lastUpdate > 500) {
-    setTimeout(function() {
-      echarts.registerTheme('customed', getTheme(false));
-      var options = getOptions(vm);
-      // re-draw charts
-      $('.ec-panel').each(function(i) {
-        var chart = echarts.init(this, 'customed');
-        chart.setOption(options[i]);
-      });
-      // update background and title
-      vm.chartDisplay.background = vm.theme.backgroundColor;
-      vm.chartDisplay.title = vm.theme.titleColor;
-    });
-    lastUpdate = now;
-  } else {
-    console.warn('Ignored too frequent refresh.');
-  }
+
+  echarts.registerTheme('customed', getTheme(false));
+  var options = getOptions(vm);
+
+  clearTimeout(timeout);
+  updatingStep(0, options);
+
+  // update background and title
+  vm.chartDisplay.background = vm.theme.backgroundColor;
+  vm.chartDisplay.title = vm.theme.titleColor;
 }
 
 function saveJsonFile(json, name) {

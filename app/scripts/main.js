@@ -639,15 +639,26 @@ function getTheme(isToExport) {
 }
 
 var timeout;
-function updatingStep(idx, options) {
+// update a chart with index of idx, options as echarts options,
+// and rootIdx as index of the starting chart
+function updatingStep(idx, options, rootIdx) {
   var $panel = $('.ec-panel').eq(idx);
   if ($panel.length) {
     var chart = echarts.init($panel[0], 'customed');
     chart.setOption(options[idx]);
 
-    timeout = setTimeout(function () {
-      updatingStep(idx + 1, options);
-    }, 150);
+    // next chart is the chart after this one,
+    // or from begining
+    var next = idx + 1;
+    if (next === $('.ec-panel').length) {
+      next = 0;
+    }
+    // loop until the first updated chart
+    if (next !== rootIdx) {
+      timeout = setTimeout(function () {
+        updatingStep(idx + 1, options, rootIdx);
+      }, 150);
+    }
   }
 }
 
@@ -660,8 +671,27 @@ function updateCharts() {
   echarts.registerTheme('customed', getTheme(false));
   var options = getOptions(vm);
 
-  clearTimeout(timeout);
-  updatingStep(0, options);
+  if (timeout) {
+    clearTimeout(timeout);
+  }
+
+  // update from the first visible chart
+  var max = $('.ec-panel').length;
+  var hasUpdated = false;
+  for (var i = 0; i < max; ++i) {
+    var $chart = $('.ec-panel').eq(i);
+    if ($chart.offset().top + $chart.height() > 0) {
+      // start from here
+      updatingStep(i, options, i);
+      hasUpdated = true;
+      break;
+    }
+  }
+  if (!hasUpdated) {
+    // fallback
+    // start from 0 if something wrong happened and no one found visible
+    updatingStep(0, options);
+  }
 
   // update background and title
   vm.chartDisplay.background = vm.theme.backgroundColor;

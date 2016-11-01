@@ -487,7 +487,8 @@
 
           </div><!-- end of left -->
 
-          <div class="col-md-9 col-sm-8 chart-container scroll-content" v-bind:style="{ backgroundColor: chartDisplay.background }">
+          <div class="col-md-9 col-sm-8 chart-container scroll-content"
+              v-bind:style="{ backgroundColor: chartDisplay.background, backgroundImage: themeName == 'halloween' ? 'url(img/pumpkin.png)' : 'none'}">
 
             <h3 v-bind:style="{ color: chartDisplay.title }">示例预览</h3>
 

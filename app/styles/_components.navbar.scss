@@ -2,9 +2,9 @@
     border: none;
     // border-bottom: 1px solid $clr-primary-darker;
     background-color: $clr-primary;
-    z-index: 13;
+    z-index: 100;
     transition: background-color 0.5s linear;
-    height: $nav-height;
+    height: 50px;
 
     .navbar-nav {
         transition: background-color 0.5s linear;
@@ -29,12 +29,6 @@
                 transition-property: 'left, right';
                 transition-duration: .3s;
                 transition-timing-function: ease-out;
-            }
-
-            ul {
-                a:before {
-                    display: none;
-                }
             }
 
             &:hover, &:focus {
@@ -104,6 +98,12 @@
             box-shadow: none;
             border: none;
         }
+
+        ul {
+            a:before {
+                display: none;
+            }
+        }
     }
     .navbar-logo {
         height: 32px;
@@ -161,14 +161,6 @@
             opacity: 1;
         }
     }
-    .navbar-toggle {
-        border-color: #517A94;
-        background-color: #517A94;
-        &:hover {
-            border-color: #384E6B;
-            background-color: #384E6B;
-        }
-    }
 }
 
 #nav-github {
@@ -185,6 +177,8 @@
         .navbar-nav {
             background-color: $clr-primary;
             transition: background-color 0.5s linear;
+            margin-top: 0;
+            margin-bottom: 0;
 
             .open .dropdown-menu {
                 li a {
@@ -197,23 +191,6 @@
                 border-top: none;
                 padding: 10px 15px 10px 11px;
             }
-        }
-    }
-    .navbar-bg {
-        .navbar-nav {
-            background-color: #4B7995;
-        }
-        .navbar-toggle {
-            &:focus {
-                border-color: #5A88A2!important;
-                background-color: #5A88A2!important;
-            }
-            &:hover {
-                border-color: #5A88A2;
-                background-color: #5A88A2;
-            }
-            background-color: transparent;
-            border: none;
         }
     }
     #menu-btn {

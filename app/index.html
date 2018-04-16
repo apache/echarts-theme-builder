@@ -117,11 +117,13 @@
                   <div class="panel-body">
                     <div class="port-row">
                       <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <div class="btn-group" role="group">
+                      <div class="btn-group" role="group" style="margin-right: 5px">
                         <button type="button" class="btn btn-primary" data-target="#download-js-modal" data-toggle="modal" @click="useTheme()">
                           <span class="glyphicon glyphicon-download-alt"></span>
-                          下载主题
+                          下载
                         </button>
+                      </div>
+                      <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default" @click="importJson()">
                           <span class="glyphicon glyphicon-import"></span>
                           导入配置
@@ -131,6 +133,9 @@
                           导出配置
                         </button>
                       </div>
+                      <a data-toggle="modal" class="icon" data-target="#download-modal">
+                        <span class="glyphicon glyphicon-question-sign"></span>
+                      </a>
                     </div>
                     <div class="port-row">
                       <div class="btn-group" role="group">
@@ -141,10 +146,6 @@
                         <button type="button" class="btn btn-default" @click="newTheme()">
                           <span class="glyphicon glyphicon-repeat"></span>
                           复原
-                        </button>
-                        <button class="btn btn-default" data-toggle="modal" data-target="#download-modal">
-                          <span class="glyphicon glyphicon-question-sign"></span>
-                          帮助
                         </button>
                       </div>
                     </div>
@@ -535,8 +536,11 @@
                 <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
                 <p>ECharts 官方提供 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可供<a href="http://echarts.baidu.com/download-theme.html" target="_blank">下载</a>使用。</p>
 
+                <h4>下载</h4>
+                <p>下载后，可以在项目中引入并使用主题。</p>
+
                 <h4>导入、导出</h4>
-                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的配置可以通过导入恢复配置项。导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -553,6 +557,8 @@
                 <h4 class="modal-title">主题下载</h4>
               </div>
               <div class="modal-body">
+                下载主题并引入后，可以在 ECharts 中使用该主题。
+
                 <!-- tab nav -->
                 <ul class="nav nav-tabs" role="tablist">
                   <li role="presentation" class="active">

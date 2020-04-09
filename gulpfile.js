@@ -74,8 +74,7 @@ gulp.task('build', ['styles', 'scripts'], function() {
         'app/vendors/FileSaver.min.js',
         'app/vendors/highlight.pack.js',
         'app/vendors/bootstrap-colorpicker.min.js',
-        'app/vendors/vue.min.js',
-        'app/vendors/china.js'
+        'app/vendors/vue.min.js'
       ])
       .pipe(concat('vendors.min.js'))
       .pipe(gulp.dest('app/vendors'))

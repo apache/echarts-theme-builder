@@ -43,63 +43,42 @@
     <div id="main">
       <div class="container-fluid navbar-default">
         <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" class="navbar-toggle collapsed"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="http://echarts.baidu.com/index.html" class="navbar-brand"><img src="http://echarts.baidu.com/images/logo.png" alt="echarts logo" class="navbar-logo"/></a>
+          <button type="button" data-toggle="collapse" data-target="#echarts-navbar-collapse" aria-expanded="false" class="navbar-toggle collapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="https://echarts.apache.org" class="navbar-brand">
+            <img src="https://echarts.apache.org/zh/images/logo.png" alt="echarts logo" class="navbar-logo"/>
+          </a>
+          <a class="nav-title" href="#" style="color: white; padding: 15px; display: inline-block;">主题在线构建工具</a>
         </div>
-        <div id="navbar-collapse" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-left">
+        <!-- <div id="echarts-navbar-collapse" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right">
             <li id="nav-index"><a href="http://echarts.baidu.com/index.html">首页</a></li>
             <li id="nav-doc" class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">文档<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="http://echarts.baidu.com/feature.html">特性</a></li>
                 <li><a href="http://echarts.baidu.com/tutorial.html">教程</a></li>
                 <li><a href="http://echarts.baidu.com/api.html">API</a></li>
                 <li><a href="http://echarts.baidu.com/option.html">配置项手册</a></li>
-                <li><a href="http://echarts.baidu.com/option-gl.html">GL 配置项手册</a></li>
-                <li><a href="http://echarts.baidu.com/faq.html">常见问题</a></li>
-                <li><a href="http://echarts.baidu.com/changelog.html">版本记录</a></li>
+                <li><a href="http://echarts.baidu.com/changelog.html">Changelog</a></li>
               </ul>
             </li>
+            <li id="nav-examples"><a href="http://echarts.baidu.com/examples.html">实例</a></li>
             <li id="nav-download" class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">下载<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="http://echarts.baidu.com/download.html">下载</a></li>
-                <li><a href="http://echarts.baidu.com/download-extension.html">扩展下载</a></li>
+                <li><a href="http://echarts.baidu.com/builder.html">在线构建</a></li>
+                <li><a href="http://echarts.baidu.com/download-map.html">地图</a></li>
                 <li><a href="http://echarts.baidu.com/download-theme.html">主题下载</a></li>
-                <li><a href="http://echarts.baidu.com/download-map.html">地图下载</a></li>
+                <li><a href="http://echarts.baidu.com/theme-builder/">主题构建</a></li>
               </ul>
             </li>
-            <li id="nav-examples">
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">实例<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="http://echarts.baidu.com/examples.html">官方实例</a></li>
-                    <li><a href="http://gallery.echartsjs.com/explore.html#tags=echarts-gl">GL 实例</a></li>
-                </ul>
-            </li>
-            <li id="nav-community"><a href="#" data-toggle="dropdown" class="dropdown-toggle">社区<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://gallery.echartsjs.com">GALLERY</a></li>
-                <li><a href="http://efe.baidu.com/tags/ECharts/">博客</a></li>
-              </ul>
-            </li>
-            <li id="nav-tool" class="active"><a href="#" data-toggle="dropdown" class="dropdown-toggle">工具<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://echarts.baidu.com/spreadsheet.html">表格工具</a></li>
-                <li><a href="http://ecomfe.github.io/echarts-map-tool/">地图数据在线工具</a></li>
-                <li><a href="http://echarts.baidu.com/theme-builder/">主题构建工具</a></li>
-              </ul>
-            </li>
-            <li id="nav-about"><a href="#" data-toggle="dropdown" class="dropdown-toggle">关于<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="http://echarts.baidu.com/about.html">关于我们</a></li>
-                <li><a href="https://github.com/ecomfe/echarts/blob/master/LICENSE">版权声明</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li id="nav-github"><a href="https://github.com/ecomfe/echarts" target="_blank"><img src="http://echarts.baidu.com/images/github.png" width="18"/></a></li>
+            <li id="nav-github"><a href="https://github.com/ecomfe/echarts" target="_blank">GitHub</a></li>
             <li id="nav-2" class="0"><a href="http://echarts.baidu.com/echarts2/">2.0</a></li>
-            <li id="nav-homeen"><a href="https://ecomfe.github.io/echarts-doc/public/en/index.html">EN</a></li>
           </ul>
-        </div>
+        </div> -->
       </div><!-- end of navbar -->
 
       <div class="container-fluid" id="content">
@@ -117,13 +96,11 @@
                   <div class="panel-body">
                     <div class="port-row">
                       <input type="file" @change="importFileChanged" id="input-file" style="display: none" />
-                      <div class="btn-group" role="group" style="margin-right: 5px">
+                      <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" data-target="#download-js-modal" data-toggle="modal" @click="useTheme()">
                           <span class="glyphicon glyphicon-download-alt"></span>
-                          下载
+                          下载主题
                         </button>
-                      </div>
-                      <div class="btn-group" role="group">
                         <button type="button" class="btn btn-default" @click="importJson()">
                           <span class="glyphicon glyphicon-import"></span>
                           导入配置
@@ -133,9 +110,6 @@
                           导出配置
                         </button>
                       </div>
-                      <a data-toggle="modal" class="icon" data-target="#download-modal">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                      </a>
                     </div>
                     <div class="port-row">
                       <div class="btn-group" role="group">
@@ -146,6 +120,10 @@
                         <button type="button" class="btn btn-default" @click="newTheme()">
                           <span class="glyphicon glyphicon-repeat"></span>
                           复原
+                        </button>
+                        <button class="btn btn-default" data-toggle="modal" data-target="#download-modal">
+                          <span class="glyphicon glyphicon-question-sign"></span>
+                          帮助
                         </button>
                       </div>
                     </div>
@@ -481,32 +459,6 @@
               </div>
             </div><!-- end of acc-graph -->
 
-            <div id="acc-map" class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-map" href="#acc-map-body" title="map">地图</a>
-                  </h4>
-                </div>
-                <div id="acc-map-body" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <form class="form-horizontal">
-                      <h5>默认状态</h5>
-                      <config-color title="文字" :color.sync="theme.mapLabelColor"></config-color>
-                      <config-color title="填充" :color.sync="theme.mapAreaColor"></config-color>
-                      <config-color title="边框" :color.sync="theme.mapBorderColor"></config-color>
-                      <config-number title="边框宽度" :value.sync="theme.mapBorderWidth"></config-number>
-                      <h5>悬停状态</h5>
-                      <config-color title="文字" :color.sync="theme.mapLabelColorE"></config-color>
-                      <config-color title="填充" :color.sync="theme.mapAreaColorE"></config-color>
-                      <config-color title="边框" :color.sync="theme.mapBorderColorE"></config-color>
-                      <config-number title="边框宽度" :value.sync="theme.mapBorderWidthE"></config-number>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div><!-- end of acc-map -->
-
           </div><!-- end of left -->
 
           <div class="col-md-9 col-sm-8 chart-container scroll-content"
@@ -536,11 +488,8 @@
                 <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
                 <p>ECharts 官方提供 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可供<a href="http://echarts.baidu.com/download-theme.html" target="_blank">下载</a>使用。</p>
 
-                <h4>下载</h4>
-                <p>下载后，可以在项目中引入并使用主题。</p>
-
                 <h4>导入、导出</h4>
-                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的配置可以通过导入恢复配置项。导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+                <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -557,8 +506,6 @@
                 <h4 class="modal-title">主题下载</h4>
               </div>
               <div class="modal-body">
-                下载主题并引入后，可以在 ECharts 中使用该主题。
-
                 <!-- tab nav -->
                 <ul class="nav nav-tabs" role="tablist">
                   <li role="presentation" class="active">

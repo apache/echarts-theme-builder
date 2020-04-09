@@ -49,12 +49,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="http://echarts.baidu.com/index.html" class="navbar-brand">
-            <img src="http://echarts.baidu.com/images/logo.png" alt="echarts logo" class="navbar-logo"/>
+          <a href="https://echarts.apache.org" class="navbar-brand">
+            <img src="https://echarts.apache.org/zh/images/logo.png" alt="echarts logo" class="navbar-logo"/>
           </a>
           <a class="nav-title" href="#">主题在线构建工具</a>
         </div>
-        <div id="echarts-navbar-collapse" class="collapse navbar-collapse">
+        <!-- <div id="echarts-navbar-collapse" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li id="nav-index"><a href="http://echarts.baidu.com/index.html">首页</a></li>
             <li id="nav-doc" class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">文档<b class="caret"></b></a>
@@ -78,7 +78,7 @@
             <li id="nav-github"><a href="https://github.com/ecomfe/echarts" target="_blank">GitHub</a></li>
             <li id="nav-2" class="0"><a href="http://echarts.baidu.com/echarts2/">2.0</a></li>
           </ul>
-        </div>
+        </div> -->
       </div><!-- end of navbar -->
 
       <div class="container-fluid" id="content">
@@ -459,32 +459,6 @@
               </div>
             </div><!-- end of acc-graph -->
 
-            <div id="acc-map" class="panel-group">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#acc-map" href="#acc-map-body" title="map">地图</a>
-                  </h4>
-                </div>
-                <div id="acc-map-body" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <form class="form-horizontal">
-                      <h5>默认状态</h5>
-                      <config-color title="文字" :color.sync="theme.mapLabelColor"></config-color>
-                      <config-color title="填充" :color.sync="theme.mapAreaColor"></config-color>
-                      <config-color title="边框" :color.sync="theme.mapBorderColor"></config-color>
-                      <config-number title="边框宽度" :value.sync="theme.mapBorderWidth"></config-number>
-                      <h5>悬停状态</h5>
-                      <config-color title="文字" :color.sync="theme.mapLabelColorE"></config-color>
-                      <config-color title="填充" :color.sync="theme.mapAreaColorE"></config-color>
-                      <config-color title="边框" :color.sync="theme.mapBorderColorE"></config-color>
-                      <config-number title="边框宽度" :value.sync="theme.mapBorderWidthE"></config-number>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div><!-- end of acc-map -->
-
           </div><!-- end of left -->
 
           <div class="col-md-9 col-sm-8 chart-container scroll-content"
@@ -493,7 +467,7 @@
             <h3 v-bind:style="{ color: chartDisplay.title }">示例预览</h3>
 
             <div class="row">
-              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]" class="ec-container col-md-6">
+              <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12]" class="ec-container col-md-6">
                 <div class="ec-panel"></div>
               </div>
             </div>

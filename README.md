@@ -6,8 +6,6 @@ Design your own theme for ECharts
 
 ![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/essos.png)
 
-![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/wonderland.png)
-
 ## Build
 
 ```bash

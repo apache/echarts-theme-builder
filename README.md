@@ -2,7 +2,7 @@
 
 Design your own theme for ECharts
 
-[Online Theme Builder](http://echarts.baidu.com/theme-builder/)
+[Online Theme Builder](https://echartsjs.com/theme-builder/)
 
 ![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/essos.png)
 

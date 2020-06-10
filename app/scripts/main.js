@@ -656,7 +656,11 @@ var timeout;
 function updatingStep(idx, options, rootIdx) {
   var $panel = $('.ec-panel').eq(idx);
   if ($panel.length) {
-    var chart = echarts.init($panel[0], 'customed');
+    var chart = echarts.getInstanceByDom($panel[0]);
+    if (chart) {
+      chart.dispose();
+    }
+    chart = echarts.init($panel[0], 'customed');
     chart.setOption(options[idx]);
 
     // next chart is the chart after this one,

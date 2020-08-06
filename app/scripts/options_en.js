@@ -1,11 +1,11 @@
 function getOptions(vm) {
   var groupCnt = vm ? vm.theme.seriesCnt : 4;
-  var axisCat = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  var axisCat = ['Mon', 'Tus', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   var dataLength = axisCat.length;
   var getLegend = function() {
     var data = [];
     for (var i = 0; i < groupCnt; ++i) {
-      data.push('第' + (i + 1) + '组');
+      data.push('Group ' + (i + 1));
     }
     return data;
   };
@@ -13,7 +13,7 @@ function getOptions(vm) {
     var data = [];
     for (var i = 0; i < groupCnt; ++i) {
       data.push({
-        name: '第' + (i + 1) + '组'
+        name: 'Group ' + (i + 1)
       });
     }
     return data;
@@ -49,11 +49,11 @@ function getOptions(vm) {
       data.push({
         type: typeName,
         data: group,
-        name: '第' + (i + 1) + '组',
+        name: 'Group ' + (i + 1),
         markPoint: typeName === 'line' || typeName === 'bar' ||
           typeName === 'scatter' ? {
             data: [{
-              name: '最高',
+              name: 'Maximum',
               type: 'max'
             }]
           } : {}
@@ -124,7 +124,7 @@ function getOptions(vm) {
 
   var dataMap = {};
   function dataFormatter(obj) {
-    var pList = ['北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏'];
+    var pList = ['Beijing','Tianjin','Hebei','Shanxi','Inner Mongolia','Jilin','Heilongjiang','Shanghai','Jiangsu'];
     var temp;
     for (var year = 2002; year <= 2007; year++) {
       var max = 0;
@@ -176,8 +176,8 @@ function getOptions(vm) {
 
   var options = [{
     title: {
-      text: '折线图',
-      subtext: '副标题样式'
+      text: 'Line Chart',
+      subtext: '(Subtitle here)'
     },
     series: getSeriesRandomValue('line'),
     xAxis: {
@@ -195,8 +195,8 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '折线堆积面积图',
-      subtext: '副标题样式'
+      text: 'Stacked Line Chart',
+      subtext: '(Subtitle here)'
     },
     series: getSeriesRandomStack('line'),
     xAxis: {
@@ -215,7 +215,7 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '柱状图'
+      text: 'Bar Chart'
     },
     series: getSeriesRandomValue('bar'),
     xAxis: {
@@ -227,7 +227,7 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '柱状堆积图'
+      text: 'Stacked Bar Chart'
     },
     series: getSeriesRandomStack('bar'),
     xAxis: {
@@ -239,7 +239,7 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '散点图'
+      text: 'Scatter Chart'
     },
     series: getSeriesRandomValue('scatter'),
     toolbox: (function() {
@@ -258,7 +258,7 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '饼图'
+      text: 'Pie Chart'
     },
     series: getSeriesRandomGroup('pie'),
     tooltip: {
@@ -266,7 +266,7 @@ function getOptions(vm) {
     }
   }, {
     title: {
-      text: '雷达图'
+      text: 'Radar Chart'
     },
     series: getSeriesRandomValue('radar'),
     radar: {
@@ -283,7 +283,7 @@ function getOptions(vm) {
           {
             value: '2005-01-01',
             tooltip: {
-              formatter: '{b} GDP达到一个高度'
+              formatter: '{b} GDP reached a height.'
             }
           },
           '2006-01-01', '2007-01-01','2008-01-01','2009-01-01','2010-01-01',
@@ -291,7 +291,7 @@ function getOptions(vm) {
             value: '2011-01-01',
             tooltip: {
               formatter: function (params) {
-                return params.name + 'GDP达到又一个高度';
+                return params.name + 'GDP reached another height.';
               }
             }
           },
@@ -305,7 +305,7 @@ function getOptions(vm) {
       tooltip: {},
       legend: {
         x: 'right',
-        data: ['第一产业', '第二产业', '第三产业']
+        data: ['Primary Industry', 'Secondary Industry', 'Tertiary Industry']
       },
       calculable : true,
       grid: {
@@ -317,7 +317,7 @@ function getOptions(vm) {
           'type':'category',
           'axisLabel':{'interval':0},
           'data':[
-            '北京','天津','河北','山西','内蒙古','辽宁','吉林','黑龙江','上海','江苏'
+            'Beijing','Tianjin','Hebei','Shanxi','Inner Mongolia','Jilin','Heilongjiang','Shanghai','Jiangsu'
           ],
           splitLine: {show: false}
         }
@@ -325,15 +325,15 @@ function getOptions(vm) {
       yAxis: [
         {
           type: 'value',
-          name: 'GDP（亿元）'
+          name: 'GDP (hundred million Yuan)'
         }
       ],
       series: [
-        {name: '第一产业', type: 'bar'},
-        {name: '第二产业', type: 'bar'},
-        {name: '第三产业', type: 'bar'},
+        {name: 'Primary Industry', type: 'bar'},
+        {name: 'Secondary Industry', type: 'bar'},
+        {name: 'Tertiary Industry', type: 'bar'},
         {
-          name: 'GDP占比',
+          name: 'GDP Ratio',
           type: 'pie',
           center: ['30%', '35%'],
           radius: '28%'
@@ -342,87 +342,87 @@ function getOptions(vm) {
     },
     options: [
       {
-        title: {text: '时间轴'},
+        title: {text: 'Timeline'},
         series: [
           {data: dataMap.dataPI['2002']},
           {data: dataMap.dataSI['2002']},
           {data: dataMap.dataTI['2002']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2002sum']},
-            {name: '第二产业', value: dataMap.dataSI['2002sum']},
-            {name: '第三产业', value: dataMap.dataTI['2002sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2002sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2002sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2002sum']}
           ]}
         ]
       },
       {
-        title : {text: '时间轴'},
+        title : {text: 'Timeline'},
         series : [
           {data: dataMap.dataPI['2003']},
           {data: dataMap.dataSI['2003']},
           {data: dataMap.dataTI['2003']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2003sum']},
-            {name: '第二产业', value: dataMap.dataSI['2003sum']},
-            {name: '第三产业', value: dataMap.dataTI['2003sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2003sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2003sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2003sum']}
           ]}
         ]
       },
       {
-        title : {text: '时间轴'},
+        title : {text: 'Timeline'},
         series : [
           {data: dataMap.dataPI['2004']},
           {data: dataMap.dataSI['2004']},
           {data: dataMap.dataTI['2004']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2004sum']},
-            {name: '第二产业', value: dataMap.dataSI['2004sum']},
-            {name: '第三产业', value: dataMap.dataTI['2004sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2004sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2004sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2004sum']}
           ]}
         ]
       },
       {
-        title : {text: '时间轴'},
+        title : {text: 'Timeline'},
         series : [
           {data: dataMap.dataPI['2005']},
           {data: dataMap.dataSI['2005']},
           {data: dataMap.dataTI['2005']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2005sum']},
-            {name: '第二产业', value: dataMap.dataSI['2005sum']},
-            {name: '第三产业', value: dataMap.dataTI['2005sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2005sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2005sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2005sum']}
           ]}
         ]
       },
       {
-        title : {text: '时间轴'},
+        title : {text: 'Timeline'},
         series : [
           {data: dataMap.dataPI['2006']},
           {data: dataMap.dataSI['2006']},
           {data: dataMap.dataTI['2006']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2006sum']},
-            {name: '第二产业', value: dataMap.dataSI['2006sum']},
-            {name: '第三产业', value: dataMap.dataTI['2006sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2006sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2006sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2006sum']}
           ]}
         ]
       },
       {
-        title : {text: '时间轴'},
+        title : {text: 'Timeline'},
         series : [
           {data: dataMap.dataPI['2007']},
           {data: dataMap.dataSI['2007']},
           {data: dataMap.dataTI['2007']},
           {data: [
-            {name: '第一产业', value: dataMap.dataPI['2007sum']},
-            {name: '第二产业', value: dataMap.dataSI['2007sum']},
-            {name: '第三产业', value: dataMap.dataTI['2007sum']}
+            {name: 'Primary Industry', value: dataMap.dataPI['2007sum']},
+            {name: 'Secondary Industry', value: dataMap.dataSI['2007sum']},
+            {name: 'Tertiary Industry', value: dataMap.dataTI['2007sum']}
           ]}
         ]
       }
     ]
   }, {
     title: {
-      text: 'K 线图与数据缩放'
+      text: 'Candlestick Chart & Zoom'
     },
     grid: {
       left: 60,
@@ -479,7 +479,7 @@ function getOptions(vm) {
       boundaryGap: [0.05, 0.05]
     }],
     series: [{
-      name:'上证指数',
+      name:'The Shanghai Compisite Index',
       type:'candlestick',
       data:[ // 开盘，收盘，最低，最高
         [2320.26,2302.6,2287.3,2362.94],
@@ -574,7 +574,7 @@ function getOptions(vm) {
     }]
   }, {
     title: {
-      text: '图'
+      text: 'Graph'
     },
     "series":[
       {
@@ -3497,31 +3497,31 @@ function getOptions(vm) {
         ],
         "categories":[
           {
-            "name":"类目0"
+            "name":"Category 0"
           },
           {
-            "name":"类目1"
+            "name":"Category 1"
           },
           {
-            "name":"类目2"
+            "name":"Category 2"
           },
           {
-            "name":"类目3"
+            "name":"Category 3"
           },
           {
-            "name":"类目4"
+            "name":"Category 4"
           },
           {
-            "name":"类目5"
+            "name":"Category 5"
           },
           {
-            "name":"类目6"
+            "name":"Category 6"
           },
           {
-            "name":"类目7"
+            "name":"Category 7"
           },
           {
-            "name":"类目8"
+            "name":"Category 8"
           }
         ],
         "label":{
@@ -3544,7 +3544,7 @@ function getOptions(vm) {
     ]
   }, {
     title: {
-      text: '热力图'
+      text: 'Heatmap'
     },
     xAxis: {
       type: 'category',
@@ -3553,7 +3553,7 @@ function getOptions(vm) {
     },
     yAxis: {
       type: 'category',
-      data: ['周六', '周五', '周四', '周三', '周二', '周一', '周日']
+      data: ['Sat', 'Fri', 'Thu', 'Wed', 'Tue', 'Mon', 'Sun']
     },
     visualMap: {
       min: 1,
@@ -3567,7 +3567,7 @@ function getOptions(vm) {
       bottom: 40
     },
     series: [{
-      name: '热度',
+      name: 'Heat',
       type: 'heatmap',
       data: (function() {
         var data = [[0,0,5],[0,1,1],[0,2,3],[0,3,2],[0,4,1],[0,5,4],[0,6,6],
@@ -3593,7 +3593,7 @@ function getOptions(vm) {
     }]
   }, {
     title: {
-      text: '树图'
+      text: 'Tree'
     },
     series: [{
       type: 'treemap',

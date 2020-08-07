@@ -17,10 +17,12 @@ $nav-height: 50px;
 
   .btn-default {
     border-color: $clr-border;
+    color: $clr-primary;
 
     &:hover, &:active, &:focus, &.active {
       border-color: $clr-border-dark;
       background-color: $clr-lighter;
+      color: $clr-primary;
     }
   }
 

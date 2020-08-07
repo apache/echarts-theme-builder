@@ -3,6 +3,8 @@ $nav-height: 50px;
 #theme-builder {
 
   overflow-x: hidden;
+  text-align: left;
+
 
   a {
     cursor: pointer;
@@ -32,12 +34,9 @@ $nav-height: 50px;
     }
   }
 
-}
-
-@media (min-width: 768px) {
-  #theme-builder .scroll-parent {
+  .scroll-parent {
     position: absolute;
-    top: $nav-height;
+    top: 0;
     bottom: 0;
     left: 15px;
     right: 15px;

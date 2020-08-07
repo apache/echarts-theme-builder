@@ -53,8 +53,8 @@ var VueColorList = Vue.extend({
           +     '<color :color.sync="color"></color>'
           +   '</div>'
           +   '<div class="theme-color-control">'
-          +     '<a v-on:click="addColor()">Increase</a>'
-          +     '<a v-on:click="removeColor()" v-show="colors.length > 1">Decrease</a>'
+          +     '<a v-on:click="addColor()">Add</a>'
+          +     '<a v-on:click="removeColor()" v-show="colors.length > 1">Remove</a>'
           +   '</div>'
           + '</div>',
 

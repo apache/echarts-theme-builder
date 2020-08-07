@@ -54,8 +54,8 @@
           </a>
           <a class="nav-title" href="#" style="color: white; padding: 15px; display: inline-block;">Theme Online Build Tool</a>
         </div>
-        <div id="echarts-navbar-collapse" class="navbar-right">
-          <a href="index.html" class="navbar-brand">中文</a>
+        <div class="navbar-right">
+          <a href="index.html" class="navbar-brand" style="color: white; font-size: 12px;">中文</a>
         </div>
         <!-- <div id="echarts-navbar-collapse" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -146,7 +146,7 @@
                     </form>
                     <form class="form-horizontal">
                       <hr />
-                      <h5>Default Plan</h5>
+                      <h5>Default Themes</h5>
                       <div class="row theme-plan-row">
                         <div class="col-xs-6" v-for="group in preDefinedThemes">
                           <a class="theme-plan-group"@click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" title="{{ group.name }}">
@@ -175,7 +175,7 @@
                       <config-color title="Title" :color.sync="theme.titleColor"></config-color>
                       <config-color title="Subtitle" :color.sync="theme.subtitleColor"></config-color>
                       <config-color-list title="Theme" :colors.sync="theme.color"></config-color-list>
-                      <config-color title="LabelText" :color.sync="theme.markTextColor"></config-color>
+                      <config-color title="Label Text" :color.sync="theme.markTextColor"></config-color>
                       <config-number title="Border Width" :value.sync="theme.borderWidth"></config-number>
                       <config-color title="Border Color" :color.sync="theme.borderColor"></config-color>
                     </form>
@@ -214,11 +214,11 @@
                       <div class="form-group">
                         <div class="col-sm-12">
                           <input v-model="theme.axisSeperateSetting" @change="axisSeperateSettingChanges()" type="checkbox" id="axisSeperateSetting" />
-                          <label for="axisSeperateSetting" class="control-label">Change Config For Axes Separately</label>
+                          <label for="axisSeperateSetting" class="control-label">Change Config For Each Axis Types</label>
                         </div>
                       </div>
                       <div class="axis-group" v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
-                        <h5 v-if="axis.type !== 'all'">{{ axis.name }}</h5>
+                        <h5 v-if="axis.type !== 'all'">{{ axis.type }}</h5>
                         <config-color can-disable :enabled.sync="axis.axisLineShow" title="Line" :color.sync="axis.axisLineColor"></config-color>
                         <config-color can-disable :enabled.sync="axis.axisTickShow" title="Tick" :color.sync="axis.axisTickColor"></config-color>
                         <config-color-list can-disable :enabled.sync="axis.splitLineShow" title="Grid" :colors.sync="axis.splitLineColor"></config-color-list>
@@ -276,8 +276,8 @@
                 <div id="acc-tooltip-body" class="panel-collapse collapse">
                   <div class="panel-body">
                     <form class="form-horizontal">
-                      <config-color :color.sync="theme.tooltipAxisColor" title="AxisColor"></config-color>
-                      <config-number :value.sync="theme.tooltipAxisWidth" title="AxisWidth"></config-number>
+                      <config-color :color.sync="theme.tooltipAxisColor" title="Axis Color"></config-color>
+                      <config-number :value.sync="theme.tooltipAxisWidth" title="Axis Line Width"></config-number>
                     </form>
                   </div>
                 </div>
@@ -353,66 +353,66 @@
                       <config-number title="Border Width" :value.sync="theme.symbolBorderWidth"></config-number>
                       <config-number title="Item Size" :value.sync="theme.symbolSize"></config-number>
                       <div class="form-group">
-                        <div class="col-sm-3">
+                        <div class="col-sm-12" style="margin-bottom: 10px;">
                           <label class="control-label">Shape</label>
                         </div>
                         <div class="col-sm-12">
                           <div class="row space-row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolCircle" value="circle" @change="updateSymbol('circle')" />
                               <label for="symbolCircle">Circle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolCircleE" value="circle" checked @change="updateSymbol('emptyCircle')" />
-                              <label for="symbolCircleE">Hollow Circle</label>
+                              <label for="symbolCircleE">Empty Circle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolRect" value="rect" @change="updateSymbol('rect')" />
                               <label for="symbolRect">Square</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolRectE" value="rect" @change="updateSymbol('emptyRect')" />
-                              <label for="symbolRectE">Hollow Square</label>
+                              <label for="symbolRectE">Empty Square</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolRoundRect" value="roundRect" @change="updateSymbol('roundRect')" />
                               <label for="symbolRoundRect">Rounded Rectangle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolRoundRectE" value="roundRect" @change="updateSymbol('emptyRoundRect')" />
-                              <label for="symbolRoundRectE">Hollow Rounded Rectangle</label>
+                              <label for="symbolRoundRectE">Empty Rounded Rectangle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolTri" value="triangle" @change="updateSymbol('triangle')" />
                               <label for="symbolTri">Rectangle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolTriE" value="triangle" @change="updateSymbol('emptyTriangle')" />
-                              <label for="symbolTriE">Hollow Rectangle</label>
+                              <label for="symbolTriE">Empty Rectangle</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolDiamond" value="diamond" @change="updateSymbol('diamond')" />
                               <label for="symbolDiamond">Diamond</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolDiamondE" value="diamond" @change="updateSymbol('emptyDiamond')" />
-                              <label for="symbolDiamondE">Hollow Diamond</label>
+                              <label for="symbolDiamondE">Empty Diamond</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolCircle" value="pin" @change="updateSymbol('pin')" />
                               <label for="symbolPin">Pin</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolCircleE" value="pin" @change="updateSymbol('emptyPin')" />
-                              <label for="symbolPinE">Hollow Pin</label>
+                              <label for="symbolPinE">Empty Pin</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolArrow" value="arrow" @change="updateSymbol('arrow')" />
                               <label for="symbolArrowE">Arrow</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-12">
                               <input type="radio" name="symbol" id="symbolArrowE" value="arrow" @change="updateSymbol('emptyArrow')" />
-                              <label for="symbolArrowE">Hollow Arrow</label>
+                              <label for="symbolArrowE">Empty Arrow</label>
                             </div>
                           </div>
                         </div>
@@ -577,6 +577,6 @@
     <script src="vendors/echarts.min.js"></script>
     <script src="vendors/vendors.min.js"></script>
 
-    <script src="scripts/app.min.js"></script>
+    <script src="scripts/app_en.min.js"></script>
   </body>
 </html>

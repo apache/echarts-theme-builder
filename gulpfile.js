@@ -35,6 +35,18 @@ gulp.task('scripts', function () {
       .pipe($.size());
 });
 
+gulp.task('scripts-en', function () {
+    gulp.src([
+        'app/scripts/components_en.js',
+        'app/scripts/options_en.js',
+        'app/scripts/main_en.js'
+      ])
+      .pipe(concat('app_en.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest('app/scripts'))
+      .pipe($.size());
+});
+
 gulp.task('images', function () {
     return gulp.src('app/images/**/*')
         .pipe($.cache($.imagemin({
@@ -63,7 +75,7 @@ gulp.task('clean', function () {
     return gulp.src(['app/styles/main.css', 'app/vendors/vendors.min.js'], { read: false }).pipe($.clean());
 });
 
-gulp.task('build', ['styles', 'scripts'], function() {
+gulp.task('build', ['styles', 'scripts', 'scripts-en'], function() {
     // pack vendor js files except echarts
     gulp.src([
         'app/vendors/lodash.min.js',
@@ -127,6 +139,11 @@ gulp.task('watch', ['serve'], function () {
       'app/scripts/options.js',
       'app/scripts/main.js'
     ], ['scripts']);
+    gulp.watch([
+      'app/scripts/components_en.js',
+      'app/scripts/options_en.js',
+      'app/scripts/main_en.js'
+    ], ['scripts-en']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });

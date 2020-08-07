@@ -835,7 +835,7 @@ function cloneObject(obj) {
 
 function loadTheme(id, preload) {
   $.ajax({
-    url: 'themes/' + PRE_DEFINED_THEMES[id].name + '.json',
+    url: '../themes/' + PRE_DEFINED_THEMES[id].name + '.json',
     dataType: 'text',
     success: function(data) {
       vm.loadedThemes.push({

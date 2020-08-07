@@ -31,7 +31,7 @@ gulp.task('scripts', function () {
       ])
       .pipe(concat('app.min.js'))
       .pipe($.uglify())
-      .pipe(gulp.dest('app/scripts'))
+      .pipe(gulp.dest('app/zh'))
       .pipe($.size());
 });
 
@@ -41,9 +41,9 @@ gulp.task('scripts-en', function () {
         'app/scripts/options_en.js',
         'app/scripts/main_en.js'
       ])
-      .pipe(concat('app_en.min.js'))
+      .pipe(concat('app.min.js'))
       .pipe($.uglify())
-      .pipe(gulp.dest('app/scripts'))
+      .pipe(gulp.dest('app/en'))
       .pipe($.size());
 });
 

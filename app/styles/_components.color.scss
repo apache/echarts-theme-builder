@@ -1,13 +1,16 @@
 $color-size: 20px;
 
-.colorpicker {
-  padding: 10px;
-}
+#theme-builder {
 
-.theme-color-control {
-  padding-top: 5px;
+  .colorpicker {
+    padding: 10px;
+  }
 
-  a {
-    margin: 0px 0 5px 5px;
+  .theme-color-control {
+    padding-top: 5px;
+
+    a {
+      margin: 0px 0 5px 5px;
+    }
   }
 }

@@ -1,47 +1,41 @@
 $nav-height: 50px;
 
+#theme-builder {
 
-
-body {
   overflow-x: hidden;
-}
 
-
-
-a {
-  cursor: pointer;
-  color: $clr-thirdary;
-}
-
-
-
-.btn {
-  transition: 0.5s;
-}
-
-.btn-default {
-  border-color: $clr-border;
-
-  &:hover, &:active, &:focus, &.active {
-    border-color: $clr-border-dark;
-    background-color: $clr-lighter;
+  a {
+    cursor: pointer;
+    color: $clr-thirdary;
   }
-}
 
-.btn-primary {
-  border-color: lighten($clr-primary, 5%);
-  background-color: lighten($clr-primary, 10%);
-
-  &:hover, &:active, &:focus, &.active {
-    border-color: lighten($clr-primary, 10%);
-    background-color: lighten($clr-primary, 20%);
+  .btn {
+    transition: 0.5s;
   }
+
+  .btn-default {
+    border-color: $clr-border;
+
+    &:hover, &:active, &:focus, &.active {
+      border-color: $clr-border-dark;
+      background-color: $clr-lighter;
+    }
+  }
+
+  .btn-primary {
+    border-color: lighten($clr-primary, 5%);
+    background-color: lighten($clr-primary, 10%);
+
+    &:hover, &:active, &:focus, &.active {
+      border-color: lighten($clr-primary, 10%);
+      background-color: lighten($clr-primary, 20%);
+    }
+  }
+
 }
-
-
 
 @media (min-width: 768px) {
-  .scroll-parent {
+  #theme-builder .scroll-parent {
     position: absolute;
     top: $nav-height;
     bottom: 0;
@@ -52,25 +46,6 @@ a {
     > div {
       height: 100%;
       overflow-y: auto;
-    }
-  }
-}
-
-
-
-// hide content under ie8
-.lower-ie {
-  background-color: $clr-primary;
-
-  #main {
-    display: none;
-  }
-
-  #lowie-main {
-    img {
-      width: 60%;
-      display: block;
-      margin: 50px auto;
     }
   }
 }

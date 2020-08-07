@@ -92,13 +92,15 @@ var PRE_DEFINED_THEMES = [{
     '#8a7ca8', '#e098c7', '#8fd3e8', '#71669e', '#cc70af',
     '#7cb4cc'
   ]
-}, {
-  name: 'halloween',
-  background: 'rgba(51,51,51,1)',
-  theme: [
-    '#ff715e', '#ffaf51', '#ffee51', '#797fba', '#715c87'
-  ]
-}];
+}
+// {
+//   name: 'halloween',
+//   background: 'rgba(51,51,51,1)',
+//   theme: [
+//     '#ff715e', '#ffaf51', '#ffee51', '#797fba', '#715c87'
+//   ]
+// }
+];
 
 var defaultTheme = {
   seriesCnt: 3,

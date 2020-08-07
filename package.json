@@ -1,35 +1,16 @@
 {
   "name": "echarts-theme-builder",
   "version": "0.0.0",
-  "dependencies": {
-    "bootstrap-colorpicker": "^2.3.3",
-    "file-saver": "^1.3.2"
+  "scripts": {
+    "build": "node build.js",
+    "release": "node build.js --release"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "0.0.7",
-    "gulp-bower-files": "^0.2.7",
-    "gulp-cache": "^0.1.11",
-    "gulp-clean": "^0.2.4",
-    "gulp-concat": "^2.6.1",
-    "gulp-csso": "^0.2.9",
-    "gulp-filter": "^0.4.1",
-    "gulp-flatten": "0.0.2",
-    "gulp-imagemin": "^0.5.1",
-    "gulp-jshint": "^1.12.0",
-    "gulp-load-plugins": "^0.5.3",
-    "gulp-notify": "^1.8.0",
-    "gulp-plumber": "^0.6.6",
-    "gulp-sass": "^2.3.2",
-    "gulp-size": "^0.3.1",
-    "gulp-uglify": "^0.3.2",
-    "gulp-useref": "^0.4.5",
-    "gulp-util": "^2.2.20",
-    "jshint-stylish": "^0.2.0",
+    "copy-dir": "^1.3.0",
+    "fs-extra": "^9.0.1",
+    "node-sass": "^4.14.1",
     "opn": "^5.4.0",
-    "streamqueue": "^0.1.3",
-    "wiredep": "^1.8.6"
+    "uglify-js": "^3.10.1"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -1,14 +1,9 @@
 $icon-font-path: "../vendors/fonts/";
 
-@import "../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
-@import "../bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker";
-@import "../vendors/highlight.github";
-
 @import "configs.color";
 
 @import "settings.global";
 
-@import "components.navbar";
 @import "components.echarts";
 @import "components.config";
 @import "components.color";

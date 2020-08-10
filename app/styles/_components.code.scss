@@ -53,6 +53,11 @@
     margin-top: 10px;
   }
 
+  .modal-dialog {
+    // Leave space to nav bar.
+    margin-top: 60px;
+  }
+
   @media (min-width: 960px) {
     .modal-dialog {
       width: 900px;

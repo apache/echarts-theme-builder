@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>location.href = './zh/index.html';</script>
+    <script>
+    var hash = (location.hash || '').replace('#', '');
+    var search = (location.search || '').replace('?', '');
+    var lang = navigator.language || navigator.userLanguage;
+    lang = lang.indexOf('zh') > -1 ? 'zh' : 'en';
+    location.href = './' + lang + '/index.html'
+        + (search ? '?' + search : '') + (hash ? '#' + hash : '');
+    </script>
 </head>
 <body>
 </body>

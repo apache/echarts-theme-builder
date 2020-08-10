@@ -56,7 +56,6 @@ function build() {
         ]), 'utf-8');
         // Write css
         fs.writeFileSync(path.resolve(__dirname, `app/${lang}/theme-builder/main.css`), cssResult.css);
-        fs.writeFileSync(path.resolve(__dirname, `app/${lang}/theme-builder/main.css`), cssResult.css);
 
         // Build html
         fs.writeFileSync(

@@ -168,7 +168,7 @@ var defaultTheme = {
   axis: null,
 
   toolboxColor: '#999',
-  toolboxEmpasisColor: '#666',
+  toolboxEmphasisColor: '#666',
 
   tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1,
@@ -518,7 +518,7 @@ function getTheme(isToExport) {
           borderColor: vm.theme.toolboxColor
         },
         emphasis: {
-          borderColor: vm.theme.toolboxEmpasisColor
+          borderColor: vm.theme.toolboxEmphasisColor
         }
       }
     },

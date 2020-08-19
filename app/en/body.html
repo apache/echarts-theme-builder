@@ -42,7 +42,7 @@
                     </button>
                     <button type="button" class="btn btn-default" @click="newTheme()">
                       <span class="glyphicon glyphicon-repeat"></span>
-                      Repeat
+                      Reset
                     </button>
                     <button class="btn btn-default" data-toggle="modal" data-target="#download-modal">
                       <span class="glyphicon glyphicon-question-sign"></span>
@@ -134,7 +134,7 @@
                   <div class="form-group">
                     <div class="col-sm-12">
                       <input v-model="theme.axisSeperateSetting" @change="axisSeperateSettingChanges()" type="checkbox" id="axisSeperateSetting" />
-                      <label for="axisSeperateSetting" class="control-label">Change Config For Each Axis Types</label>
+                      <label for="axisSeperateSetting" class="control-label">Change Config For Each Axis Type</label>
                     </div>
                   </div>
                   <div class="axis-group" v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
@@ -179,7 +179,7 @@
               <div class="panel-body">
                 <form class="form-horizontal">
                   <config-color :color.sync="theme.toolboxColor" title="Item"></config-color>
-                  <config-color :color.sync="theme.toolboxEmpasisColor" title="Empasis"></config-color>
+                  <config-color :color.sync="theme.toolboxEmphasisColor" title="Emphasis"></config-color>
                 </form>
               </div>
             </div>
@@ -304,11 +304,11 @@
                         </div>
                         <div class="col-sm-12">
                           <input type="radio" name="symbol" id="symbolTri" value="triangle" @change="updateSymbol('triangle')" />
-                          <label for="symbolTri">Rectangle</label>
+                          <label for="symbolTri">Triangle</label>
                         </div>
                         <div class="col-sm-12">
                           <input type="radio" name="symbol" id="symbolTriE" value="triangle" @change="updateSymbol('emptyTriangle')" />
-                          <label for="symbolTriE">Empty Rectangle</label>
+                          <label for="symbolTriE">Empty Triangle</label>
                         </div>
                         <div class="col-sm-12">
                           <input type="radio" name="symbol" id="symbolDiamond" value="diamond" @change="updateSymbol('diamond')" />
@@ -319,16 +319,16 @@
                           <label for="symbolDiamondE">Empty Diamond</label>
                         </div>
                         <div class="col-sm-12">
-                          <input type="radio" name="symbol" id="symbolCircle" value="pin" @change="updateSymbol('pin')" />
+                          <input type="radio" name="symbol" id="symbolPin" value="pin" @change="updateSymbol('pin')" />
                           <label for="symbolPin">Pin</label>
                         </div>
                         <div class="col-sm-12">
-                          <input type="radio" name="symbol" id="symbolCircleE" value="pin" @change="updateSymbol('emptyPin')" />
+                          <input type="radio" name="symbol" id="symbolPinE" value="pin" @change="updateSymbol('emptyPin')" />
                           <label for="symbolPinE">Empty Pin</label>
                         </div>
                         <div class="col-sm-12">
                           <input type="radio" name="symbol" id="symbolArrow" value="arrow" @change="updateSymbol('arrow')" />
-                          <label for="symbolArrowE">Arrow</label>
+                          <label for="symbolArrow">Arrow</label>
                         </div>
                         <div class="col-sm-12">
                           <input type="radio" name="symbol" id="symbolArrowE" value="arrow" @change="updateSymbol('emptyArrow')" />
@@ -509,7 +509,7 @@
 
 </div>
 
-<script src="//cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/echarts@4/dist/echarts-en.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/bootstrap-colorpicker@2.5.3/dist/js/bootstrap-colorpicker.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/vue@1.0.28/dist/vue.min.js"></script>

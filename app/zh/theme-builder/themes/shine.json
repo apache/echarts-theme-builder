@@ -139,7 +139,7 @@
         ],
         "axisSeperateSetting": true,
         "toolboxColor": "#06467c",
-        "toolboxEmpasisColor": "#4187c2",
+        "toolboxEmphasisColor": "#4187c2",
         "tooltipAxisColor": "#cccccc",
         "tooltipAxisWidth": 1,
         "timelineLineColor": "#005eaa",

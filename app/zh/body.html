@@ -179,7 +179,7 @@
               <div class="panel-body">
                 <form class="form-horizontal">
                   <config-color :color.sync="theme.toolboxColor" title="图标"></config-color>
-                  <config-color :color.sync="theme.toolboxEmpasisColor" title="悬停"></config-color>
+                  <config-color :color.sync="theme.toolboxEmphasisColor" title="悬停"></config-color>
                 </form>
               </div>
             </div>
@@ -319,16 +319,16 @@
                           <label for="symbolDiamondE">空心菱形</label>
                         </div>
                         <div class="col-sm-6">
-                          <input type="radio" name="symbol" id="symbolCircle" value="pin" @change="updateSymbol('pin')" />
+                          <input type="radio" name="symbol" id="symbolPin" value="pin" @change="updateSymbol('pin')" />
                           <label for="symbolPin">水滴</label>
                         </div>
                         <div class="col-sm-6">
-                          <input type="radio" name="symbol" id="symbolCircleE" value="pin" @change="updateSymbol('emptyPin')" />
+                          <input type="radio" name="symbol" id="symbolPinE" value="pin" @change="updateSymbol('emptyPin')" />
                           <label for="symbolPinE">空心水滴</label>
                         </div>
                         <div class="col-sm-6">
                           <input type="radio" name="symbol" id="symbolArrow" value="arrow" @change="updateSymbol('arrow')" />
-                          <label for="symbolArrowE">箭头</label>
+                          <label for="symbolArrow">箭头</label>
                         </div>
                         <div class="col-sm-6">
                           <input type="radio" name="symbol" id="symbolArrowE" value="arrow" @change="updateSymbol('emptyArrow')" />

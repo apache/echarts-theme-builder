@@ -475,8 +475,10 @@ function getTheme(isToExport) {
           itemStyle: itemStyle
         }
         : {
-          normal: itemStyle,
-          emphasis: itemStyle
+          itemStyle: {
+            normal: itemStyle,
+            emphasis: itemStyle
+          }
         };
     })(),
     pie: border,
@@ -499,7 +501,9 @@ function getTheme(isToExport) {
           itemStyle: itemStyle
         }
         : {
-          normal: itemStyle
+          itemStyle: {
+            normal: itemStyle
+          }
         };
     })(),
     graph: (function() {
@@ -516,9 +520,7 @@ function getTheme(isToExport) {
       style.label = isFlattern ? {
         textStyle: textStyle
       } : {
-        normal: {
-          textStyle: textStyle
-        }
+        normal: textStyle
       };
       var itemStyle = isFlattern ? style.itemStyle : style.itemStyle.normal;
       itemStyle.borderWidth = vm.theme.borderWidth;

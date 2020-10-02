@@ -519,11 +519,7 @@ function getTheme(isToExport) {
         color: vm.theme.markTextColor
       };
       style.lineStyle = isFlattern ? lineStyle : { normal: lineStyle };
-      style.label = isFlattern ? {
-        textStyle: textStyle
-      } : {
-        normal: textStyle
-      };
+      style.label = isFlattern ? textStyle : { normal: textStyle };
       var itemStyle = isFlattern ? style.itemStyle : style.itemStyle.normal;
       itemStyle.borderWidth = vm.theme.borderWidth;
       itemStyle.borderColor = vm.theme.borderColor;

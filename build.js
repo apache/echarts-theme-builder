@@ -72,7 +72,7 @@ build();
 if (process.argv.indexOf('--release') >= 0) {
 
     if (!fs.existsSync(config.releaseDestDir)) {
-        throw new Error('incubator-echarts-website project not exists');
+        throw new Error('echarts-website project not exists');
     }
     if (!fs.existsSync(config.ecWWWGeneratedDir.replace('_generated', ''))) {
         throw new Error('echarts-www project not exists');

@@ -104,23 +104,33 @@ var defaultTheme = {
   seriesCnt: 3,
 
   backgroundColor: 'rgba(0, 0, 0, 0)',
-  titleColor: '#333',
-  subtitleColor: '#aaa',
+  titleColor: '#464646',
+  subtitleColor: '#6E7079',
   textColorShow: false,
   textColor: '#333',
   markTextColor: '#eee',
-  color: ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',
-    '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+  color: [
+    // '#51689b', '#ce5c5c', '#fbc357', '#8fbf8f', '#659d84', '#fb8e6a', '#c77288', '#786090', '#91c4c5', '#6890ba'
+    '#5470c6',
+    '#91cc75',
+    '#fac858',
+    '#ee6666',
+    '#73c0de',
+    '#3ba272',
+    '#fc8452',
+    '#9a60b4',
+    '#ea7ccc'
+  ],
   borderColor: '#ccc',
   borderWidth: 0,
   visualMapColor: ['#bf444c', '#d88273', '#f6efa6'],
 
   legendTextColor: '#333',
 
-  kColor: '#c23531',
-  kColor0: '#314656',
-  kBorderColor: '#c23531',
-  kBorderColor0: '#314656',
+  kColor: '#eb5454',
+  kColor0: '#47b262',
+  kBorderColor: '#eb5454',
+  kBorderColor0: '#47b262',
 
   kBorderWidth: 1,
 
@@ -144,22 +154,22 @@ var defaultTheme = {
 
   axes: (function() {
     var types = ['all', 'category', 'value', 'log', 'time'];
-    var names = ['General', 'Category', 'Value', 'Logarithm', 'Time'];
+    var names = ['通用', '类目', '数值', '对数', '时间'];
     var axis = [];
     for (var i = 0; i < types.length; ++i) {
       axis.push({
         type: types[i],
-        name: names[i] + ' Axis',
-        axisLineShow: true,
-        axisLineColor: '#333',
-        axisTickShow: true,
-        axisTickColor: '#333',
+        name: names[i] + '坐标轴',
+        axisLineShow: types[i] !== 'value' && types[i] !== 'log', // TODO Auto
+        axisLineColor: '#6E7079',
+        axisTickShow: types[i] !== 'value' && types[i] !== 'log',
+        axisTickColor: '#6E7079',
         axisLabelShow: true,
-        axisLabelColor: '#333',
-        splitLineShow: types[i] === 'category' ? false : true,
-        splitLineColor: ['#ccc'],
+        axisLabelColor: '#6E7079',
+        splitLineShow: types[i] !== 'category' && types[i] !== 'time',
+        splitLineColor: ['#E0E6F1'],
         splitAreaShow: false,
-        splitAreaColor: ['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']
+        splitAreaColor: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)']
       });
     }
     return axis;
@@ -173,24 +183,24 @@ var defaultTheme = {
   tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1,
 
-  timelineLineColor: '#293c55',
-  timelineLineWidth: 1,
-  timelineItemColor: '#293c55',
-  timelineItemColorE: '#a9334c',
-  timelineCheckColor: '#e43c59',
-  timelineCheckBorderColor: 'rgba(194,53,49, 0.5)',
+  timelineLineColor: '#DAE1F5',
+  timelineLineWidth: 2,
+  timelineItemColor: '#A4B1D7',
+  timelineItemColorE: '#FFF',
+  timelineCheckColor: '#316bf3',
+  timelineCheckBorderColor: 'fff',
   timelineItemBorderWidth: 1,
-  timelineControlColor: '#293c55',
-  timelineControlBorderColor: '#293c55',
-  timelineControlBorderWidth: 0.5,
-  timelineLabelColor: '#293c55',
+  timelineControlColor: '#A4B1D7',
+  timelineControlBorderColor: '#A4B1D7',
+  timelineControlBorderWidth: 1,
+  timelineLabelColor: '#A4B1D7'
 
-  datazoomBackgroundColor: 'rgba(47,69,84,0)',
-  datazoomDataColor: 'rgba(47,69,84,0.3)',
-  datazoomFillColor: 'rgba(167,183,204,0.4)',
-  datazoomHandleColor: '#a7b7cc',
-  datazoomHandleWidth: '100',
-  datazoomLabelColor: '#333'
+  // datazoomBackgroundColor: 'rgba(47,69,84,0)',
+  // datazoomDataColor: 'rgba(47,69,84,0.3)',
+  // datazoomFillColor: 'rgba(135,175,274,0.2)',
+  // datazoomHandleColor: '#ACB8D1',
+  // datazoomHandleWidth: '100',
+  // datazoomLabelColor: '#333'
 };
 defaultTheme.axis = [defaultTheme.axes[0]];
 

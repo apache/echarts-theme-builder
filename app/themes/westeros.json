@@ -147,6 +147,8 @@
         "toolboxEmphasisColor": "#666",
         "tooltipAxisColor": "#ccc",
         "tooltipAxisWidth": 1,
+        "tooltipTextColor": "#666666",
+        "tooltipBackgroundColor": "#ffffff",
         "timelineLineColor": "#8fd3e8",
         "timelineLineWidth": 1,
         "timelineItemColor": "#8fd3e8",

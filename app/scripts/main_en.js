@@ -182,8 +182,8 @@ var defaultTheme = {
 
   tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1,
-  tooltipBackgroundColor: '#666',
-  tooltipTextColor: '#fff',
+  tooltipTextColor: '#666',
+  tooltipBackgroundColor: '#fff',
 
   timelineLineColor: '#DAE1F5',
   timelineLineWidth: 2,

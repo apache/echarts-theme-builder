@@ -182,6 +182,8 @@ var defaultTheme = {
 
   tooltipAxisColor: '#ccc',
   tooltipAxisWidth: 1,
+  tooltipBackgroundColor: '#666',
+  tooltipTextColor: '#fff',
 
   timelineLineColor: '#DAE1F5',
   timelineLineWidth: 2,
@@ -564,6 +566,10 @@ function getTheme(isToExport) {
           color: vm.theme.tooltipAxisColor,
           width: vm.theme.tooltipAxisWidth
         }
+      },
+      backgroundColor: vm.theme.tooltipBackgroundColor,
+      textStyle: {
+        color: vm.theme.tooltipTextColor
       }
     },
     timeline: {

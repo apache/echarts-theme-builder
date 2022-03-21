@@ -1,13 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ECharts WWW SPA Boilerplate</title>
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            #header {
+                position: relative;
+                background-color: #fff;
+                z-index: 10000;
+                height: 50px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            }
+            #header .logo {
+                height: 35px;
+                margin-top: 7px;
+                margin-left: 20px;;
+            }
+            #header .lang {
+                float: right;
+                margin-right: 20px;
+                line-height: 50px;
+            }
+            #page-main {
+                position: absolute;
+                top: 50px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <img src="https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/images/logo.png?_v_=20200710_1" class="logo" />
+            <a class="lang" href="./">EN</a>
+        </div>
+        <div id="page-main">
+            <div id="echarts-spa-app"></div>
+        </div>
+        <script>
+            (function () {
+                var search = window.location.search.substr(1);
+                var parts = search.split('&');
+                var params = {};
+                parts.forEach(function (part) {
+                    var kv = part.split('=');
+                    params[kv[0]] = kv[1];
+                });
+
+                var locale = params.locale || navigator.language || navigator.userLanguage || 'en';
+                // zh / en
+                window.ECHARTS_WEBSITE_LANGUAGE = locale;
+
+                var otherLocale = locale === 'en' ? 'zh' : 'en';
+                document.querySelector('#header .lang').innerHTML = otherLocale.toUpperCase();
+                document.querySelector('#header .lang').href = 'index.html?locale=' + otherLocale;
+            })();
+        </script>
+        <script type="module" src="./src/main.ts"></script>
+    </body>
 </html>

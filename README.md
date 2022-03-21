@@ -1,27 +1,66 @@
-# Vue 3 + Typescript + Vite
+# Apache ECharts Theme Builder
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+## Dependencies
 
-## Recommended IDE Setup
+- TypeScript
+- Vue 3
+- Element Plus
+- Vite
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+## Structure
 
-### If Using `<script setup>`
+- `index.html` Entry HTML that for development preview usage
+- `body.html` Body HTML that will be final integrated when deploying
+- `src` Source folder.
+- `dist` Distribution folder. It will be copied when deploying.
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+## Recommanded Environment
 
-## Type Support For `.vue` Imports in TS
+- VSCode + Volar
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+Vetur need to be disabled in this workspace because it's not support [setup](https://github.com/vuejs/rfcs/pull/227) feature yet.
+You can replace the code using [setup](https://github.com/vuejs/rfcs/pull/227) feature if you don't like it.
 
-### If Using Volar
+## Use
 
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+Get boilerplate
 
-### If Using Vetur
+```shell
+degit pissang/echarts-www-spa-boilerplate yourProjectName
+```
 
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+Install
+
+```shell
+npm i
+```
+
+Start dev
+
+```shell
+npm run dev
+```
+
+Release
+
+```shell
+npm run release
+```
+
+## Create a Page in echarts-www
+
+```shell
+cd echarts-www
+npm run create:page
+```
+
+- Project Name: Name of this project. It will be used to locate the project folder.
+- Page Name: Page name of this tool. Page URL will be `https://echarts.apache.org/zh/${pageName}/index.html`.
+- Page Title: Title of this page tool.
+- Page Chinese Title: Chinese title of this page tool.
+
+## Global Variables from echarts-www
+
+- `ECHARTS_WEBSITE_LANGUAGE`
+
+Language of page. Can be 'zh' or 'en'

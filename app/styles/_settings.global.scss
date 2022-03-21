@@ -1,0 +1,53 @@
+$nav-height: 50px;
+
+#theme-builder {
+
+  overflow-x: hidden;
+  text-align: left;
+
+
+  a {
+    cursor: pointer;
+    color: $clr-primary;
+  }
+
+  .btn {
+    transition: 0.5s;
+  }
+
+  .btn-default {
+    border-color: $clr-border;
+    color: $clr-primary;
+
+    &:hover, &:active, &:focus, &.active {
+      border-color: $clr-border-dark;
+      background-color: $clr-lighter;
+      color: $clr-primary;
+    }
+  }
+
+  .btn-primary {
+    color: #fff;
+    border-color: lighten($clr-primary, 5%);
+    background-color: lighten($clr-primary, 10%);
+
+    &:hover, &:active, &:focus, &.active {
+      border-color: lighten($clr-primary, 10%);
+      background-color: lighten($clr-primary, 20%);
+    }
+  }
+
+  .scroll-parent {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    overflow: hidden;
+
+    > div {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+}

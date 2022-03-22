@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="500px">
+    <el-aside width="350px">
       <EConfig></EConfig>
     </el-aside>
     <el-main> </el-main>

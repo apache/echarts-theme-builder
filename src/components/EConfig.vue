@@ -80,8 +80,6 @@
 </template>
 
 <script setup lang="ts">
-import { multiply } from 'lodash';
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import EColorPicker from './EColorPicker.vue';
 import { themeConfigs } from '../data/themeConfigs';

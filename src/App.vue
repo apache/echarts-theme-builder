@@ -3,12 +3,15 @@
     <el-aside width="350px">
       <EConfig></EConfig>
     </el-aside>
-    <el-main> </el-main>
+    <el-main>
+      <EPreview></EPreview>
+    </el-main>
   </el-container>
 </template>
 
 <script lang="ts" setup>
 import EConfig from './components/EConfig.vue';
+import EPreview from './components/EPreview.vue';
 </script>
 
 <style scoped lang="scss">

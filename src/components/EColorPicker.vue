@@ -46,14 +46,14 @@ const colors = props.multiple
 .color-picker {
   display: inline-block;
   text-align: right;
-  margin-left: 20px;
-  padding: 2px 5px 0 5px;
+  padding: 2px 2px 0 0;
 }
 
 .color-input {
   display: inline-block;
   position: relative;
   top: -11px;
+  width: calc(100% - 34px);
 }
 
 .color-operations {

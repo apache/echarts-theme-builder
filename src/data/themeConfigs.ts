@@ -130,5 +130,117 @@ export const themeConfigs: ThemeConfig[] = [
         optionPath: 'toolbox.emphasis.iconStyle.color'
       }
     ]
+  },
+  {
+    groupName: '提示框',
+    items: [
+      {
+        name: '指示线',
+        type: 'color',
+        value: '#cccccc',
+        optionPath: 'tooltip.axisPointer.lineStyle.color'
+      },
+      {
+        name: '宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'tooltip.axisPointer.lineStyle.width'
+      }
+    ]
+  },
+  {
+    groupName: '时间轴',
+    items: [
+      {
+        name: '标记',
+        type: 'color',
+        value: '#a4b1d7',
+        optionPath: 'timeline.itemStyle.color'
+      },
+      {
+        name: '标记描边',
+        type: 'color',
+        value: '#a4b1d7',
+        optionPath: 'timeline.itemStyle.borderColor'
+      },
+      {
+        name: '标记描边宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'timeline.itemStyle.borderWidth'
+      },
+      {
+        name: '标记悬停',
+        type: 'color',
+        value: '#316bf3',
+        optionPath: 'timeline.emphasis.itemStyle.color'
+      },
+      {
+        name: '标记悬停描边',
+        type: 'color',
+        value: '#316bf3',
+        optionPath: 'timeline.emphasis.itemStyle.borderColor'
+      },
+      {
+        name: '标记悬停描边宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'timeline.emphasis.itemStyle.borderWidth'
+      },
+      {
+        name: '标记选中',
+        type: 'color',
+        value: '#316bf3',
+        optionPath: 'timeline.checkpointStyle.color'
+      },
+      {
+        name: '标记选中描边',
+        type: 'color',
+        value: '#ffffff',
+        optionPath: 'timeline.checkpointStyle.borderColor'
+      },
+      {
+        name: '标记选中描边宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'timeline.checkpointStyle.borderWidth'
+      },
+      {
+        name: '主轴',
+        type: 'color',
+        value: '#316bf3',
+        optionPath: 'timeline.progress.lineStyle.color'
+      },
+      {
+        name: '主轴宽度',
+        type: 'number',
+        value: 2,
+        optionPath: 'timeline.progress.lineStyle.width'
+      },
+      {
+        name: '控件填充',
+        type: 'color',
+        value: '#a4b1d7',
+        optionPath: 'timeline.controlStyle.color'
+      },
+      {
+        name: '控件描边',
+        type: 'color',
+        value: '#a4b1d7',
+        optionPath: 'timeline.controlStyle.borderColor'
+      },
+      {
+        name: '控件描边宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'timeline.controlStyle.borderWidth'
+      },
+      {
+        name: '文字',
+        type: 'color',
+        value: '#a4b1d7',
+        optionPath: 'timeline.label.color'
+      }
+    ]
   }
 ];

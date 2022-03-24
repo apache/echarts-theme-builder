@@ -27,18 +27,18 @@
       </div>
       <div class="item-row-lg">
         <el-row>
-          <el-col :span="6">
+          <el-col :span="columnSize.left">
             <h5>主题名称</h5>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="columnSize.right">
             <el-input placeholder="custom" size="medium"></el-input>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
+          <el-col :span="columnSize.left">
             <h5>系列数量</h5>
           </el-col>
-          <el-col :span="18">
+          <el-col :span="columnSize.right">
             <el-input placeholder="5" size="medium"></el-input>
           </el-col>
         </el-row>
@@ -56,13 +56,13 @@
         v-bind:key="item.name"
         :name="item.name"
       >
-        <el-col :span="6">
+        <el-col :span="columnSize.left">
           <el-checkbox v-if="item.showOptionPath" v-model="item.isShow">
             {{ item.name }}
           </el-checkbox>
           <h5 v-else>{{ item.name }}</h5>
         </el-col>
-        <el-col :span="18">
+        <el-col :span="columnSize.right">
           <el-checkbox v-if="item.type === 'boolean'" v-model="item.value">
             {{ item.name }}
           </el-checkbox>
@@ -87,11 +87,16 @@ import EColorPicker from './EColorPicker.vue';
 import { themeConfigs } from '../data/themeConfigs';
 
 const configs = themeConfigs;
+const columnSize = {
+  left: 10,
+  right: 14
+};
 </script>
 
 <style scoped>
-.item-row {
-  margin: 10px 0;
+.item-row,
+.el-row {
+  margin: 5px 0;
 }
 
 .item-row-lg {

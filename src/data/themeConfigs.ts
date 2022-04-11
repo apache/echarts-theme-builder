@@ -1,7 +1,8 @@
 export type ThemeConfigItem = {
   name: string;
-  type: 'string' | 'number' | 'boolean' | 'color';
+  type: 'string' | 'number' | 'boolean' | 'select' | 'color';
   value: string | number | boolean | string[];
+  selectOptions?: { name: string; value: string }[];
   optionPath: string;
   multipleColor?: boolean;
   isShow?: boolean;
@@ -240,6 +241,151 @@ export const themeConfigs: ThemeConfig[] = [
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.label.color'
+      }
+    ]
+  },
+  {
+    groupName: '折线图',
+    items: [
+      {
+        name: '平滑曲线',
+        type: 'boolean',
+        value: false,
+        optionPath: 'series-line.smooth'
+      },
+      {
+        name: '线条宽度',
+        type: 'number',
+        value: 2,
+        optionPath: 'series-line.lineStyle.width'
+      },
+      {
+        name: '图形描边',
+        type: 'number',
+        value: 0,
+        optionPath: 'series-line.itemStyle.borderWidth'
+      },
+      {
+        name: '图形大小',
+        type: 'number',
+        value: 4,
+        optionPath: 'series-line.symbolSize'
+      },
+      {
+        name: '图形形状',
+        type: 'select',
+        selectOptions: [
+          {
+            value: 'circle',
+            name: '圆形'
+          },
+          {
+            value: 'emptyCircle',
+            name: '空心圆形'
+          },
+          {
+            value: 'rect',
+            name: '矩形'
+          },
+          {
+            value: 'emptyRect',
+            name: '空心矩形'
+          },
+          {
+            value: 'roundRect',
+            name: '圆角矩形'
+          },
+          {
+            value: 'emptyRoundRect',
+            name: '空心圆角矩形'
+          },
+          {
+            value: 'triangle',
+            name: '三角形'
+          },
+          {
+            value: 'emptyTriangle',
+            name: '空心三角形'
+          },
+          {
+            value: 'diamond',
+            name: '菱形'
+          },
+          {
+            value: 'emptyDiamond',
+            name: '空心菱形'
+          },
+          {
+            value: 'pin',
+            name: '水滴'
+          },
+          {
+            value: 'emptyPin',
+            name: '空心水滴'
+          },
+          {
+            value: 'arrow',
+            name: '箭头'
+          },
+          {
+            value: 'emptyArrow',
+            name: '空心箭头'
+          }
+        ],
+        value: 'emptyCircle',
+        optionPath: 'series-line.symbol'
+      }
+    ]
+  },
+  {
+    groupName: 'K 线图',
+    items: [
+      {
+        name: '阳线填充',
+        type: 'color',
+        value: '#eb5454',
+        optionPath: 'series-candlestick.itemStyle.color'
+      },
+      {
+        name: '阴线填充',
+        type: 'color',
+        value: '#47b262',
+        optionPath: 'series-candlestick.itemStyle.color0'
+      },
+      {
+        name: '阳线描边',
+        type: 'color',
+        value: '#eb5454',
+        optionPath: 'series-candlestick.itemStyle.borderColor'
+      },
+      {
+        name: '阴线描边',
+        type: 'color',
+        value: '#47b262',
+        optionPath: 'series-candlestick.itemStyle.borderColor0'
+      },
+      {
+        name: '描边宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'series-candlestick.itemStyle.borderWidth'
+      }
+    ]
+  },
+  {
+    groupName: '力导图',
+    items: [
+      {
+        name: '连线',
+        type: 'color',
+        value: '#aaaaaa',
+        optionPath: 'series-graph.links.lineStyle.color'
+      },
+      {
+        name: '连线宽度',
+        type: 'number',
+        value: 1,
+        optionPath: 'series-graph.links.lineStyle.width'
       }
     ]
   }

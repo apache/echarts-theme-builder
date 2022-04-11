@@ -47,15 +47,11 @@
 
     <el-collapse-item
       v-for="group in configs"
-      v-bind:key="group.groupName"
+      :key="group.groupName"
       :title="group.groupName"
       :name="group.groupName"
     >
-      <el-row
-        v-for="item in group.items"
-        v-bind:key="item.name"
-        :name="item.name"
-      >
+      <el-row v-for="item in group.items" :key="item.name" :name="item.name">
         <el-col :span="columnSize.left">
           <el-checkbox v-if="item.showOptionPath" v-model="item.isShow">
             {{ item.name }}
@@ -66,6 +62,15 @@
           <el-checkbox v-if="item.type === 'boolean'" v-model="item.value">
             {{ item.name }}
           </el-checkbox>
+          <el-select v-else-if="item.type === 'select'" v-model="item.value">
+            <el-option
+              v-for="option in item.selectOptions"
+              :key="option.value"
+              :label="option.name"
+              :value="option.value"
+            >
+            </el-option>
+          </el-select>
           <EColorPicker
             v-else-if="item.type === 'color'"
             :value="item.value"

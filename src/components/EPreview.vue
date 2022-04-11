@@ -2,8 +2,8 @@
   <el-row>
     <el-col
       :xs="24"
-      :md="12"
-      :lg="8"
+      :lg="12"
+      :xl="8"
       v-for="(option, index) in options"
       v-bind:key="option"
       class="chart-col"

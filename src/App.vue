@@ -1,17 +1,25 @@
 <template>
   <el-container>
     <el-aside width="350px">
-      <EConfig></EConfig>
+      <EConfig @configChange="onConfigChange"></EConfig>
     </el-aside>
     <el-main>
-      <EPreview></EPreview>
+      <EPreview ref="preview"></EPreview>
     </el-main>
   </el-container>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import EConfig from './components/EConfig.vue';
 import EPreview from './components/EPreview.vue';
+
+let preview = ref<EPreview>(null);
+
+function onConfigChange() {
+  console.log('onConfigChange', preview);
+  preview.value?.render();
+}
 </script>
 
 <style scoped lang="scss">

@@ -17,6 +17,12 @@
 import * as echarts from 'echarts';
 import { getPreviewOptions } from '../data/previews';
 
+defineExpose({
+  render
+});
+
+const charts: echarts.ECharts[] = [];
+
 const options = getPreviewOptions(4);
 setTimeout(() => {
   for (let i = 0; i < options.length; ++i) {
@@ -25,9 +31,16 @@ setTimeout(() => {
     if (el) {
       const chart = echarts.init(el);
       chart.setOption(option as any);
+      charts.push(chart);
     }
   }
 });
+
+function render() {
+  for (let i = 0; i < charts.length; ++i) {
+    charts[i].setOption({});
+  }
+}
 </script>
 
 <style scoped>

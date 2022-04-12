@@ -53,16 +53,28 @@
     >
       <el-row v-for="item in group.items" :key="item.name" :name="item.name">
         <el-col :span="columnSize.left">
-          <el-checkbox v-if="item.showOptionPath" v-model="item.isShow">
+          <el-checkbox
+            v-if="item.showOptionPath"
+            v-model="item.isShow"
+            @change="onConfigChange()"
+          >
             {{ item.name }}
           </el-checkbox>
           <h5 v-else>{{ item.name }}</h5>
         </el-col>
         <el-col :span="columnSize.right">
-          <el-checkbox v-if="item.type === 'boolean'" v-model="item.value">
+          <el-checkbox
+            v-if="item.type === 'boolean'"
+            v-model="item.value"
+            @change="onConfigChange()"
+          >
             {{ item.name }}
           </el-checkbox>
-          <el-select v-else-if="item.type === 'select'" v-model="item.value">
+          <el-select
+            v-else-if="item.type === 'select'"
+            v-model="item.value"
+            @change="onConfigChange()"
+          >
             <el-option
               v-for="option in item.selectOptions"
               :key="option.value"
@@ -75,9 +87,15 @@
             v-else-if="item.type === 'color'"
             :value="item.value"
             :multiple="item.multipleColor"
+            @change="onConfigChange()"
           >
           </EColorPicker>
-          <el-input v-else size="medium" v-model="item.value"></el-input>
+          <el-input
+            v-else
+            size="medium"
+            v-model="item.value"
+            @change="onConfigChange()"
+          ></el-input>
         </el-col>
       </el-row>
     </el-collapse-item>
@@ -85,15 +103,22 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import EColorPicker from './EColorPicker.vue';
 import { themeConfigs } from '../data/themeConfigs';
 
-const configs = themeConfigs;
+const emit = defineEmits(['configChange']);
+
+const configs = ref(themeConfigs);
 const columnSize = {
   left: 10,
   right: 14
 };
+
+function onConfigChange() {
+  emit('configChange');
+}
 </script>
 
 <style scoped>

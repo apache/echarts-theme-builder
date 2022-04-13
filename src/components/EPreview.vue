@@ -36,9 +36,17 @@ setTimeout(() => {
   }
 });
 
-function render() {
-  for (let i = 0; i < charts.length; ++i) {
-    charts[i].setOption({});
+function render(theme: object) {
+  echarts.registerTheme('custom', theme);
+  for (let i = 0; i < options.length; ++i) {
+    if (charts[i]) {
+      charts[i].dispose();
+      const el = document.getElementById('chart-' + i);
+      if (el) {
+        charts[i] = echarts.init(el, 'custom');
+        charts[i].setOption(options[i] as any);
+      }
+    }
   }
 }
 </script>

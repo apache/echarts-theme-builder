@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="props.multiple">
-      <div v-for="(item, index) in colors" v-bind:key="item.name">
+      <div v-for="item in colors" v-bind:key="item.name">
         <div class="color-picker">
           <el-color-picker v-model="item.value" size="small"></el-color-picker>
         </div>
@@ -35,6 +35,7 @@
 const props = defineProps(['value', 'multiple']);
 const colors = props.multiple
   ? (props.value || []).map((item: string) => {
+      console.log(item);
       return {
         value: item
       };

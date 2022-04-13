@@ -16,9 +16,9 @@ import EPreview from './components/EPreview.vue';
 
 let preview = ref<EPreview>(null);
 
-function onConfigChange() {
-  console.log('onConfigChange', preview);
-  preview.value?.render();
+function onConfigChange(theme) {
+  console.log('onConfigChange');
+  preview.value?.render(theme);
 }
 </script>
 
@@ -39,6 +39,7 @@ function onConfigChange() {
 }
 
 .el-aside {
+  width: 350px;
   padding: 0 15px;
   height: calc(100vh - 50px);
   overflow: auto;

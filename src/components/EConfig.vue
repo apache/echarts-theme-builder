@@ -117,7 +117,34 @@ const columnSize = {
 };
 
 function onConfigChange() {
-  emit('configChange');
+  emit('configChange', getTheme());
+}
+
+function getTheme() {
+  const theme = {};
+  if (configs.value) {
+    for (let group of configs.value) {
+      console.log(group);
+      for (let item of group.items) {
+        const optionPath = item.optionPath.split('.');
+        let themeObj: object = theme;
+        for (let i = 0; i < optionPath.length; i++) {
+          const path = optionPath[i] as keyof typeof themeObj;
+          if (i === optionPath.length - 1) {
+            // @ts-ignore
+            themeObj[path] = item.value;
+          } else {
+            if (!themeObj.hasOwnProperty(path)) {
+              // @ts-ignore
+              themeObj[path] = {};
+            }
+            themeObj = themeObj[path];
+          }
+        }
+      }
+    }
+  }
+  return theme;
 }
 </script>
 

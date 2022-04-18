@@ -52,8 +52,7 @@ const colors = props.multiple
 
 .color-input {
   display: inline-block;
-  position: relative;
-  top: -11px;
+  margin: 5px 0;
   width: calc(100% - 34px);
 }
 

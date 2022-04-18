@@ -4,7 +4,7 @@ import zh from './i18n/zh-CN';
 import en from './i18n/en-US';
 
 import ElementPlus from 'element-plus';
-import './element-style.css';
+import 'element-plus/dist/index.css';
 import App from './App.vue';
 
 // @ts-ignore

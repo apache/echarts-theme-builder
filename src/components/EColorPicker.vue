@@ -11,9 +11,11 @@
       </div>
       <div class="color-operations">
         <el-button v-on:click="addColor" icon="el-icon-plus" size="small">
+          <el-icon><plus /></el-icon>
           增加
         </el-button>
-        <el-button v-on:click="addColor" icon="el-icon-minus" size="small">
+        <el-button v-on:click="addColor" size="small">
+          <el-icon><minus /></el-icon>
           减少
         </el-button>
       </div>
@@ -35,7 +37,6 @@
 const props = defineProps(['value', 'multiple']);
 const colors = props.multiple
   ? (props.value || []).map((item: string) => {
-      console.log(item);
       return {
         value: item
       };
@@ -43,7 +44,7 @@ const colors = props.multiple
   : [];
 </script>
 
-<style scoped>
+<style>
 .color-picker {
   display: inline-block;
   text-align: right;
@@ -54,6 +55,11 @@ const colors = props.multiple
   display: inline-block;
   margin: 5px 0;
   width: calc(100% - 34px);
+}
+
+.el-icon {
+  width: auto;
+  margin-right: 3px;
 }
 
 .color-operations {

@@ -5,6 +5,7 @@ import en from './i18n/en-US';
 
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+import * as ElIconModules from '@element-plus/icons-vue';
 import App from './App.vue';
 
 // @ts-ignore
@@ -25,5 +26,12 @@ const i18n = createI18n({
 const app = createApp(App);
 app.use(ElementPlus);
 app.use(i18n);
+
+for (const iconName in ElIconModules) {
+  if (Reflect.has(ElIconModules, iconName)) {
+    const item = ElIconModules[iconName as keyof typeof ElIconModules];
+    app.component(iconName, item);
+  }
+}
 
 app.mount('#echarts-spa-app');

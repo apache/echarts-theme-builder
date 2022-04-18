@@ -49,6 +49,11 @@ function onConfigChange(theme) {
   padding: 5px;
 }
 
+.el-icon {
+  margin-right: 3px;
+  width: auto;
+}
+
 .text-base {
   font-size: 1.5rem;
   font-weight: bold;

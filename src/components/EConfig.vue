@@ -4,25 +4,33 @@
       <div class="item-row">
         <el-button-group>
           <el-button type="primary">
-            <i class="el-icon-download"></i>
+            <el-icon><download /></el-icon>
             下载主题
           </el-button>
-          <el-button icon="el-icon-bottom-right">
+          <el-button>
+            <el-icon><bottom-right /></el-icon>
             导入配置
           </el-button>
-          <el-button icon="el-icon-top-right">导出配置</el-button>
+          <el-button>
+            <el-icon><top-right /></el-icon>
+            导出配置
+          </el-button>
         </el-button-group>
       </div>
       <div class="item-row">
         <el-button-group>
           <el-button>
-            <i class="el-icon-refresh"></i>
+            <el-icon><refresh /></el-icon>
             刷新
           </el-button>
-          <el-button icon="el-icon-refresh-left">
+          <el-button>
+            <el-icon><refresh-left /></el-icon>
             复原
           </el-button>
-          <el-button icon="el-icon-question">帮助</el-button>
+          <el-button>
+            <el-icon><question-filled /></el-icon>
+            帮助
+          </el-button>
         </el-button-group>
       </div>
       <div class="item-row-lg">

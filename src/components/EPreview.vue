@@ -24,28 +24,29 @@ defineExpose({
 const charts: echarts.ECharts[] = [];
 
 const options = getPreviewOptions(4);
-setTimeout(() => {
-  for (let i = 0; i < options.length; ++i) {
-    const option = options[i];
-    const el = document.getElementById('chart-' + i);
-    if (el) {
-      const chart = echarts.init(el);
-      chart.setOption(option as any);
-      charts.push(chart);
-    }
-  }
-});
+// setTimeout(() => {
+//   for (let i = 0; i < options.length; ++i) {
+//     const option = options[i];
+//     const el = document.getElementById('chart-' + i);
+//     if (el) {
+//       const chart = echarts.init(el);
+//       chart.setOption(option as any);
+//       charts.push(chart);
+//     }
+//   }
+// });
 
 function render(theme: object) {
+  console.log(theme);
   echarts.registerTheme('custom', theme);
   for (let i = 0; i < options.length; ++i) {
     if (charts[i]) {
       charts[i].dispose();
-      const el = document.getElementById('chart-' + i);
-      if (el) {
-        charts[i] = echarts.init(el, 'custom');
-        charts[i].setOption(options[i] as any);
-      }
+    }
+    const el = document.getElementById('chart-' + i);
+    if (el) {
+      charts[i] = echarts.init(el, 'custom');
+      charts[i].setOption(options[i] as any);
     }
   }
 }

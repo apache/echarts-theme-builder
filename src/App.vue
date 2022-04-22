@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="350px">
-      <EConfig @configChange="onConfigChange"></EConfig>
+      <EConfig @configChange="onConfigChange" ref="config"></EConfig>
     </el-aside>
     <el-main>
       <EPreview ref="preview"></EPreview>
@@ -14,10 +14,21 @@ import { ref } from 'vue';
 import EConfig from './components/EConfig.vue';
 import EPreview from './components/EPreview.vue';
 
-let preview = ref<EPreview>(null);
+const preview = ref<EPreview>(null);
+const config = ref<EConfig>(null);
 
-function onConfigChange(theme) {
+setTimeout(() => {
+  if (config.value) {
+    renderPreview(config.value.getTheme());
+  }
+});
+
+function onConfigChange(theme: object) {
   console.log('onConfigChange');
+  renderPreview(theme);
+}
+
+function renderPreview(theme: object) {
   preview.value?.render(theme);
 }
 </script>

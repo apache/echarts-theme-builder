@@ -91,13 +91,49 @@
             >
             </el-option>
           </el-select>
-          <EColorPicker
-            v-else-if="item.type === 'color'"
-            :value="item.value"
-            :multiple="item.multipleColor"
-            @change="onConfigChange()"
-          >
-          </EColorPicker>
+          <div v-else-if="item.type === 'color'">
+            <div v-if="item.multipleColor">
+              <div v-for="(v, id) in item.value" v-bind:key="v.key">
+                <div class="color-picker">
+                  <el-color-picker
+                    v-model="item.value[id]"
+                    size="small"
+                    @change="onColorChange"
+                  >
+                  </el-color-picker>
+                </div>
+                <div class="color-input">
+                  <el-input size="medium" v-model="item.value[id]"></el-input>
+                </div>
+              </div>
+              <div class="color-operations">
+                <el-button
+                  v-on:click="addColor"
+                  icon="el-icon-plus"
+                  size="small"
+                >
+                  <el-icon><plus /></el-icon>
+                  增加
+                </el-button>
+                <el-button v-on:click="addColor" size="small">
+                  <el-icon><minus /></el-icon>
+                  减少
+                </el-button>
+              </div>
+            </div>
+            <div v-else>
+              <div class="color-picker">
+                <el-color-picker
+                  v-model="item.value"
+                  size="small"
+                  @change="onColorChange"
+                ></el-color-picker>
+              </div>
+              <div class="color-input">
+                <el-input size="medium" v-model="item.value"></el-input>
+              </div>
+            </div>
+          </div>
           <el-input
             v-else
             size="medium"
@@ -113,10 +149,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import EColorPicker from './EColorPicker.vue';
 import { themeConfigs } from '../data/themeConfigs';
 
 const emit = defineEmits(['configChange']);
+defineExpose({
+  getTheme
+});
 
 const configs = ref(themeConfigs);
 const columnSize = {
@@ -124,8 +162,12 @@ const columnSize = {
   right: 14
 };
 
-function onConfigChange() {
-  emit('configChange', getTheme());
+function onColorChange(value: string) {
+  console.log('color change', value);
+}
+
+function onConfigChange(value: string) {
+  emit('configChange', value);
 }
 
 function getTheme() {
@@ -152,6 +194,7 @@ function getTheme() {
       }
     }
   }
+  console.log(theme);
   return theme;
 }
 </script>

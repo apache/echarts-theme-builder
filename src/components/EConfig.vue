@@ -39,7 +39,13 @@
             <h5>主题名称</h5>
           </el-col>
           <el-col :span="columnSize.right">
-            <el-input placeholder="custom" size="medium"></el-input>
+            <el-input
+              placeholder="custom"
+              size="medium"
+              v-model="themeName"
+              @change="onConfigChange"
+            >
+            </el-input>
           </el-col>
         </el-row>
         <el-row>
@@ -47,7 +53,13 @@
             <h5>系列数量</h5>
           </el-col>
           <el-col :span="columnSize.right">
-            <el-input placeholder="5" size="medium"></el-input>
+            <el-input
+              placeholder="5"
+              size="medium"
+              v-model="seriesCount"
+              @change="onConfigChange"
+            >
+            </el-input>
           </el-col>
         </el-row>
       </div>
@@ -160,12 +172,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ThemeConfigItem, themeConfigs } from '../data/themeConfigs';
+import { Theme, ThemeConfigItem, themeConfigs } from '../data/themeConfigs';
 
 const emit = defineEmits(['configChange']);
 defineExpose({
   getTheme
 });
+
+const themeName = ref('custom');
+const seriesCount = ref('5');
 
 const configs = ref(themeConfigs);
 const columnSize = {
@@ -173,33 +188,35 @@ const columnSize = {
   right: 14
 };
 
-function onConfigChange(value: string | number | boolean | string[]) {
-  console.log('onConfigChange', value);
-  emit('configChange', value);
+function onConfigChange() {
+  emit('configChange');
 }
 
 function addColor(item: ThemeConfigItem) {
   if (typeof item.value === 'object') {
     item.value.push('#000');
   }
-  onConfigChange(item.value);
+  onConfigChange();
 }
 
 function removeColor(item: ThemeConfigItem) {
   if (typeof item.value === 'object') {
     item.value.splice(-1, 1);
   }
-  onConfigChange(item.value);
+  onConfigChange();
 }
 
-function getTheme() {
-  const theme = {};
+function getTheme(): Theme {
+  const theme: Theme = {
+    name: themeName.value,
+    groupCount: parseInt(seriesCount.value, 10),
+    config: {}
+  };
   if (configs.value) {
     for (let group of configs.value) {
-      console.log(group);
       for (let item of group.items) {
         const optionPath = item.optionPath.split('.');
-        let themeObj: object = theme;
+        let themeObj: object = theme.config;
         for (let i = 0; i < optionPath.length; i++) {
           const path = optionPath[i] as keyof typeof themeObj;
           if (i === optionPath.length - 1) {
@@ -216,7 +233,6 @@ function getTheme() {
       }
     }
   }
-  console.log(theme);
   return theme;
 }
 </script>

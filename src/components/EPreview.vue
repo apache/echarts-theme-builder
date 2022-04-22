@@ -16,18 +16,18 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
 import { getPreviewOptions } from '../data/previews';
+import { Theme } from '../data/themeConfigs';
 
 defineExpose({
   render
 });
 
+let options = getPreviewOptions(4);
 const charts: echarts.ECharts[] = [];
 
-const options = getPreviewOptions(4);
-
-function render(theme: object) {
-  console.log(theme);
-  echarts.registerTheme('custom', theme);
+function render(theme: Theme) {
+  echarts.registerTheme(theme.name, theme.config);
+  options = getPreviewOptions(theme.groupCount || 4) as any;
   for (let i = 0; i < options.length; ++i) {
     if (charts[i]) {
       charts[i].dispose();

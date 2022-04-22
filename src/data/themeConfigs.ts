@@ -14,6 +14,12 @@ export type ThemeConfig = {
   items: ThemeConfigItem[];
 };
 
+export type Theme = {
+  name: string;
+  groupCount: number;
+  config: object;
+};
+
 export const themeConfigs: ThemeConfig[] = [
   {
     groupName: '基本配置',

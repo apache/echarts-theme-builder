@@ -23,9 +23,8 @@ setTimeout(() => {
   }
 });
 
-function onConfigChange(theme: object) {
-  console.log('onConfigChange');
-  renderPreview(theme);
+function onConfigChange() {
+  renderPreview(config.value.getTheme());
 }
 
 function renderPreview(theme: object) {

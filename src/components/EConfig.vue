@@ -64,7 +64,7 @@
           <el-checkbox
             v-if="item.showOptionPath"
             v-model="item.isShow"
-            @change="onConfigChange()"
+            @change="onConfigChange"
           >
             {{ item.name }}
           </el-checkbox>
@@ -74,14 +74,14 @@
           <el-checkbox
             v-if="item.type === 'boolean'"
             v-model="item.value"
-            @change="onConfigChange()"
+            @change="onConfigChange"
           >
             {{ item.name }}
           </el-checkbox>
           <el-select
             v-else-if="item.type === 'select'"
             v-model="item.value"
-            @change="onConfigChange()"
+            @change="onConfigChange"
           >
             <el-option
               v-for="option in item.selectOptions"
@@ -98,24 +98,29 @@
                   <el-color-picker
                     v-model="item.value[id]"
                     size="small"
-                    @change="onColorChange"
+                    @change="onConfigChange"
                   >
                   </el-color-picker>
                 </div>
                 <div class="color-input">
-                  <el-input size="medium" v-model="item.value[id]"></el-input>
+                  <el-input
+                    size="medium"
+                    v-model="item.value[id]"
+                    @change="onConfigChange"
+                  >
+                  </el-input>
                 </div>
               </div>
               <div class="color-operations">
                 <el-button
-                  v-on:click="addColor"
+                  v-on:click="addColor(item)"
                   icon="el-icon-plus"
                   size="small"
                 >
                   <el-icon><plus /></el-icon>
                   增加
                 </el-button>
-                <el-button v-on:click="addColor" size="small">
+                <el-button v-on:click="removeColor(item)" size="small">
                   <el-icon><minus /></el-icon>
                   减少
                 </el-button>
@@ -126,11 +131,17 @@
                 <el-color-picker
                   v-model="item.value"
                   size="small"
-                  @change="onColorChange"
-                ></el-color-picker>
+                  @change="onConfigChange"
+                >
+                </el-color-picker>
               </div>
               <div class="color-input">
-                <el-input size="medium" v-model="item.value"></el-input>
+                <el-input
+                  size="medium"
+                  v-model="item.value"
+                  @change="onConfigChange"
+                >
+                </el-input>
               </div>
             </div>
           </div>
@@ -138,7 +149,7 @@
             v-else
             size="medium"
             v-model="item.value"
-            @change="onConfigChange()"
+            @change="onConfigChange"
           ></el-input>
         </el-col>
       </el-row>
@@ -149,7 +160,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { themeConfigs } from '../data/themeConfigs';
+import { ThemeConfigItem, themeConfigs } from '../data/themeConfigs';
 
 const emit = defineEmits(['configChange']);
 defineExpose({
@@ -162,12 +173,23 @@ const columnSize = {
   right: 14
 };
 
-function onColorChange(value: string) {
-  console.log('color change', value);
+function onConfigChange(value: string | number | boolean | string[]) {
+  console.log('onConfigChange', value);
+  emit('configChange', value);
 }
 
-function onConfigChange(value: string) {
-  emit('configChange', value);
+function addColor(item: ThemeConfigItem) {
+  if (typeof item.value === 'object') {
+    item.value.push('#000');
+  }
+  onConfigChange(item.value);
+}
+
+function removeColor(item: ThemeConfigItem) {
+  if (typeof item.value === 'object') {
+    item.value.splice(-1, 1);
+  }
+  onConfigChange(item.value);
 }
 
 function getTheme() {
@@ -217,5 +239,27 @@ h5 {
 
 .el-checkbox {
   margin: 5px 0;
+}
+
+.color-picker {
+  display: inline-block;
+  text-align: right;
+  padding: 2px 2px 0 0;
+}
+
+.color-input {
+  display: inline-block;
+  margin: 5px 0;
+  width: calc(100% - 34px);
+}
+
+.el-icon {
+  width: auto;
+  margin-right: 3px;
+}
+
+.color-operations {
+  margin-left: 25px;
+  margin-bottom: 20px;
 }
 </style>

@@ -24,17 +24,6 @@ defineExpose({
 const charts: echarts.ECharts[] = [];
 
 const options = getPreviewOptions(4);
-// setTimeout(() => {
-//   for (let i = 0; i < options.length; ++i) {
-//     const option = options[i];
-//     const el = document.getElementById('chart-' + i);
-//     if (el) {
-//       const chart = echarts.init(el);
-//       chart.setOption(option as any);
-//       charts.push(chart);
-//     }
-//   }
-// });
 
 function render(theme: object) {
   console.log(theme);

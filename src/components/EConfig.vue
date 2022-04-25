@@ -170,9 +170,15 @@
 </template>
 
 <script setup lang="ts">
+import { tr } from 'element-plus/lib/locale';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Theme, ThemeConfigItem, themeConfigs } from '../data/themeConfigs';
+import {
+  optionPathAlias,
+  Theme,
+  ThemeConfigItem,
+  themeConfigs
+} from '../data/themeConfigs';
 
 const emit = defineEmits(['configChange']);
 defineExpose({
@@ -207,6 +213,36 @@ function removeColor(item: ThemeConfigItem) {
 }
 
 function getTheme(): Theme {
+  function searchPath(
+    optionPath: string,
+    showOptionPath: number | undefined,
+    isShow: boolean | undefined,
+    themeObj: object,
+    value: any
+  ) {
+    const optionPathArr = optionPath.split('.');
+    for (let i = 0; i < optionPathArr.length; i++) {
+      const path = optionPathArr[i] as keyof typeof themeObj;
+      if (i === optionPathArr.length - 1) {
+        // @ts-ignore
+        themeObj[path] = value;
+      } else {
+        if (!themeObj.hasOwnProperty(path)) {
+          // @ts-ignore
+          themeObj[path] = {};
+        }
+        themeObj = themeObj[path];
+        if (
+          showOptionPath != null &&
+          i === optionPathArr.length + showOptionPath
+        ) {
+          // @ts-ignore
+          themeObj.show = isShow;
+        }
+      }
+    }
+  }
+
   const theme: Theme = {
     name: themeName.value,
     groupCount: parseInt(seriesCount.value, 10),
@@ -215,24 +251,36 @@ function getTheme(): Theme {
   if (configs.value) {
     for (let group of configs.value) {
       for (let item of group.items) {
-        const optionPath = item.optionPath.split('.');
-        let themeObj: object = theme.config;
-        for (let i = 0; i < optionPath.length; i++) {
-          const path = optionPath[i] as keyof typeof themeObj;
-          if (i === optionPath.length - 1) {
-            // @ts-ignore
-            themeObj[path] = item.value;
-          } else {
-            if (!themeObj.hasOwnProperty(path)) {
-              // @ts-ignore
-              themeObj[path] = {};
+        let isAlias = false;
+        for (let alias of optionPathAlias) {
+          const optionPath = item.optionPath;
+          if (optionPath.startsWith(`{${alias[0]}`)) {
+            for (let realOption of alias[1]) {
+              searchPath(
+                `${realOption}` + optionPath.slice(optionPath.indexOf('.')),
+                item.showOptionPath,
+                item.isShow,
+                theme.config,
+                item.value
+              );
             }
-            themeObj = themeObj[path];
+            isAlias = true;
+            break;
           }
+        }
+        if (!isAlias) {
+          searchPath(
+            item.optionPath,
+            item.showOptionPath,
+            item.isShow,
+            theme.config,
+            item.value
+          );
         }
       }
     }
   }
+  console.log('theme', theme);
   return theme;
 }
 </script>

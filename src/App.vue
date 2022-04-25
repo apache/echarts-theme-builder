@@ -49,6 +49,7 @@ function renderPreview(theme: object) {
 }
 
 .el-aside {
+  position: fixed;
   width: 350px;
   padding: 0 15px;
   height: calc(100vh - 50px);
@@ -57,6 +58,7 @@ function renderPreview(theme: object) {
 
 .el-main {
   padding: 5px;
+  margin-left: 350px;
 }
 
 .el-icon {

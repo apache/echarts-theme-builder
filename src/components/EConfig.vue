@@ -3,7 +3,7 @@
     <el-collapse-item title="核心功能" name="core">
       <div class="item-row">
         <el-button-group>
-          <el-button type="primary">
+          <el-button type="primary" @click="download()">
             <el-icon><download /></el-icon>
             下载主题
           </el-button>
@@ -212,6 +212,11 @@ function removeColor(item: ThemeConfigItem) {
   onConfigChange();
 }
 
+function download() {
+  const theme = getTheme();
+  saveJsonFile(theme, themeName.value);
+}
+
 function getTheme(): Theme {
   function searchPath(
     optionPath: string,
@@ -282,6 +287,88 @@ function getTheme(): Theme {
   }
   console.log('theme', theme);
   return theme;
+}
+
+function saveJsonFile(json: object, name: string) {
+  var data = JSON.stringify(json, null, '    ');
+  saveFile(data, name, 'json');
+}
+
+function saveJsFile(data: string, name: string) {
+  saveFile(data, name, 'js');
+}
+
+function saveFile(data: string, name: string, type: string) {
+  if (isSafari()) {
+    window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+  } else {
+    try {
+      const file = new Blob([data], { type: type });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(file);
+      link.download = `${name}.${type}`;
+      link.click();
+    } catch (e) {
+      console.error(e);
+      window.open('data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+    }
+  }
+}
+
+function isSafari() {
+  return (
+    navigator.userAgent.indexOf('Safari') > 0 &&
+    navigator.userAgent.indexOf('Chrome') < 0
+  );
+}
+
+function isIe() {
+  return navigator.userAgent.indexOf('MSIE') > 0;
+}
+
+function isEdge() {
+  return navigator.userAgent.indexOf('Trident') > 0;
+}
+
+function isMac() {
+  return navigator.userAgent.indexOf('Mac OS X') > 0;
+}
+
+function getExportJsFile() {
+  // format theme with 4 spaces
+  let theme = JSON.stringify(getTheme(), null, '    ');
+  // indent with 4 spaces
+  theme = theme.split('\n').join('\n    ');
+  return (
+    '(function (root, factory) {\n' +
+    "    if (typeof define === 'function' && define.amd) {\n" +
+    '        // AMD. Register as an anonymous module.\n' +
+    "        define(['exports', 'echarts'], factory);\n" +
+    "    } else if (typeof exports === 'object' && typeof " +
+    "exports.nodeName !== 'string') {\n" +
+    '        // CommonJS\n' +
+    "        factory(exports, require('echarts'));\n" +
+    '    } else {\n' +
+    '        // Browser globals\n' +
+    '        factory({}, root.echarts);\n' +
+    '    }\n' +
+    '}(this, function (exports, echarts) {\n' +
+    '    var log = function (msg) {\n' +
+    "        if (typeof console !== 'undefined') {\n" +
+    '            console && console.error && console.error(msg);\n' +
+    '        }\n' +
+    '    };\n' +
+    '    if (!echarts) {\n' +
+    "        log('ECharts is not Loaded');\n" +
+    '        return;\n' +
+    '    }\n' +
+    "    echarts.registerTheme('" +
+    themeName +
+    "', " +
+    theme +
+    ');\n' +
+    '}));\n'
+  );
 }
 </script>
 

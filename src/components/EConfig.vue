@@ -3,29 +3,25 @@
     <el-collapse-item title="核心功能" name="core">
       <div class="item-row">
         <el-button-group>
-          <el-button type="primary" @click="download()">
+          <el-button type="primary" @click="downloadJs">
             <el-icon><download /></el-icon>
-            下载主题
+            下载 .js 主题
           </el-button>
-          <el-button>
-            <el-icon><bottom-right /></el-icon>
-            导入配置
-          </el-button>
-          <el-button>
-            <el-icon><top-right /></el-icon>
-            导出配置
+          <el-button @click="downloadJson">
+            <el-icon><download /></el-icon>
+            下载 .json 主题
           </el-button>
         </el-button-group>
       </div>
       <div class="item-row">
         <el-button-group>
           <el-button>
-            <el-icon><refresh /></el-icon>
-            刷新
+            <el-icon><bottom-right /></el-icon>
+            导入
           </el-button>
           <el-button>
-            <el-icon><refresh-left /></el-icon>
-            复原
+            <el-icon><top-right /></el-icon>
+            导出
           </el-button>
           <el-button>
             <el-icon><question-filled /></el-icon>
@@ -125,14 +121,14 @@
               </div>
               <div class="color-operations">
                 <el-button
-                  v-on:click="addColor(item)"
+                  @click="addColor(item)"
                   icon="el-icon-plus"
                   size="small"
                 >
                   <el-icon><plus /></el-icon>
                   增加
                 </el-button>
-                <el-button v-on:click="removeColor(item)" size="small">
+                <el-button @click="removeColor(item)" size="small">
                   <el-icon><minus /></el-icon>
                   减少
                 </el-button>
@@ -170,6 +166,7 @@
 </template>
 
 <script setup lang="ts">
+import { ElMessage, ElMessageBox } from 'element-plus';
 import { tr } from 'element-plus/lib/locale';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -187,6 +184,7 @@ defineExpose({
 
 const themeName = ref('custom');
 const seriesCount = ref('5');
+const downloadDrawer = ref(false);
 
 const configs = ref(themeConfigs);
 const columnSize = {
@@ -210,11 +208,6 @@ function removeColor(item: ThemeConfigItem) {
     item.value.splice(-1, 1);
   }
   onConfigChange();
-}
-
-function download() {
-  const theme = getTheme();
-  saveJsonFile(theme, themeName.value);
 }
 
 function getTheme(): Theme {
@@ -289,6 +282,14 @@ function getTheme(): Theme {
   return theme;
 }
 
+function downloadJs() {
+  saveJsFile(getExportJsFile(), themeName.value);
+}
+
+function downloadJson() {
+  saveJsonFile(getTheme(), themeName.value);
+}
+
 function saveJsonFile(json: object, name: string) {
   var data = JSON.stringify(json, null, '    ');
   saveFile(data, name, 'json');
@@ -339,36 +340,32 @@ function getExportJsFile() {
   let theme = JSON.stringify(getTheme(), null, '    ');
   // indent with 4 spaces
   theme = theme.split('\n').join('\n    ');
-  return (
-    '(function (root, factory) {\n' +
-    "    if (typeof define === 'function' && define.amd) {\n" +
-    '        // AMD. Register as an anonymous module.\n' +
-    "        define(['exports', 'echarts'], factory);\n" +
-    "    } else if (typeof exports === 'object' && typeof " +
-    "exports.nodeName !== 'string') {\n" +
-    '        // CommonJS\n' +
-    "        factory(exports, require('echarts'));\n" +
-    '    } else {\n' +
-    '        // Browser globals\n' +
-    '        factory({}, root.echarts);\n' +
-    '    }\n' +
-    '}(this, function (exports, echarts) {\n' +
-    '    var log = function (msg) {\n' +
-    "        if (typeof console !== 'undefined') {\n" +
-    '            console && console.error && console.error(msg);\n' +
-    '        }\n' +
-    '    };\n' +
-    '    if (!echarts) {\n' +
-    "        log('ECharts is not Loaded');\n" +
-    '        return;\n' +
-    '    }\n' +
-    "    echarts.registerTheme('" +
-    themeName +
-    "', " +
-    theme +
-    ');\n' +
-    '}));\n'
-  );
+  return `
+    (function (root, factory) {
+      if (typeof define === 'function' && define.amd) {
+          // AMD. Register as an anonymous module.
+          define(['exports', 'echarts'], factory);
+      } else if (typeof exports === 'object' && typeof
+        exports.nodeName !== 'string') {
+          // CommonJS
+          factory(exports, require('echarts'));
+      } else {
+        // Browser globals
+          factory({}, root.echarts);
+      }
+    }(this, function (exports, echarts) {
+      var log = function (msg) {
+          if (typeof console !== 'undefined') {
+              console && console.error && console.error(msg);
+          }
+      };
+      if (!echarts) {
+          log('ECharts is not Loaded');
+          return;
+      }
+      echarts.registerTheme("${themeName.value}", ${theme});
+    }));
+  `;
 }
 </script>
 

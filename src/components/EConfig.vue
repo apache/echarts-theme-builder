@@ -15,11 +15,17 @@
       </div>
       <div class="item-row">
         <el-button-group>
-          <el-button>
+          <el-button @click="importTheme">
             <el-icon><bottom-right /></el-icon>
             导入
           </el-button>
-          <el-button>
+          <input
+            type="file"
+            @change="importFileChanged"
+            id="input-file"
+            style="display: none"
+          />
+          <el-button @click="exportTheme">
             <el-icon><top-right /></el-icon>
             导出
           </el-button>
@@ -267,7 +273,6 @@ function getTheme(): Theme {
       }
     }
   }
-  console.log('theme', theme);
   return theme;
 }
 
@@ -286,6 +291,62 @@ function saveJsonFile(json: object, name: string) {
 
 function saveJsFile(data: string, name: string) {
   saveFile(data, name, 'js');
+}
+
+function exportTheme() {
+  const theme = getTheme();
+  const data = JSON.stringify(
+    {
+      version: 2,
+      themeName: themeName.value,
+      groupCount: parseInt(seriesCount.value, 10),
+      config: configs.value
+    },
+    null,
+    '    '
+  );
+  saveFile(data, 'echarts-theme-builder', 'json');
+}
+
+function importTheme() {
+  const el = document.getElementById('input-file');
+  if (el) {
+    el.click();
+  }
+}
+
+function importFileChanged(e: any) {
+  if (!e.target.files) {
+    // cancelled selecting, do nothing
+    return;
+  }
+  var file = e.target.files[0];
+
+  var extension = file.name.slice(file.name.lastIndexOf('.'));
+  if (extension !== '.json') {
+    alert('非法后缀！请使用本网站导出的 *.json 文件。');
+    return;
+  }
+
+  // read local file
+  var reader = new FileReader();
+  reader.onload = function() {
+    // update theme
+    const json = JSON.parse(reader.result as string);
+    if (!json.version || json.version !== 2) {
+      alert('不兼容的版本！请使用本网站导出的 *.json 文件。');
+      return;
+    }
+    seriesCount.value = json.groupCount || 5;
+    themeName.value = json.themeName || 'custom';
+    configs.value = json.config;
+    onConfigChange();
+  };
+  reader.onerror = function(e) {
+    alert('打开文件失败！');
+    console.error(e);
+  };
+  reader.readAsText(file);
 }
 
 function saveFile(data: string, name: string, type: string) {
@@ -310,18 +371,6 @@ function isSafari() {
     navigator.userAgent.indexOf('Safari') > 0 &&
     navigator.userAgent.indexOf('Chrome') < 0
   );
-}
-
-function isIe() {
-  return navigator.userAgent.indexOf('MSIE') > 0;
-}
-
-function isEdge() {
-  return navigator.userAgent.indexOf('Trident') > 0;
-}
-
-function isMac() {
-  return navigator.userAgent.indexOf('Mac OS X') > 0;
 }
 
 function getExportJsFile() {

@@ -3927,6 +3927,5 @@ export function getPreviewOptions(groupCnt: number) {
     option.tooltip = option.tooltip || tooltip;
     option.grid = option.grid || grid;
   }
-  console.log(options);
   return options;
 }

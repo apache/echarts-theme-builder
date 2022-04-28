@@ -34,7 +34,7 @@ function render(theme: Theme) {
     }
     const el = document.getElementById('chart-' + i);
     if (el) {
-      charts[i] = echarts.init(el, 'custom');
+      charts[i] = echarts.init(el, theme.name);
       charts[i].setOption(options[i] as any);
     }
   }

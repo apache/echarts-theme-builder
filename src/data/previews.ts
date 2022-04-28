@@ -377,7 +377,7 @@ function getSeriesRandomStack(groupCnt: number, typeName: string) {
   const data = getSeriesRandomValue(groupCnt, typeName);
   for (let i = 0; i < data.length; ++i) {
     const row = data[i] as any;
-    row.areaStyle = { normal: {} };
+    row.areaStyle = {};
     row.stack = 'total';
   }
   return data;
@@ -906,10 +906,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '0',
               name: 'Myriel',
               label: {
-                normal: {
-                  formatter: 'Myriel',
-                  show: false
-                }
+                formatter: 'Myriel',
+                show: false
               },
               symbolSize: 8.685715,
               x: -266.82776,
@@ -924,10 +922,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '1',
               name: 'Napoleon',
               label: {
-                normal: {
-                  formatter: 'Napoleon',
-                  show: false
-                }
+                formatter: 'Napoleon',
+                show: false
               },
               symbolSize: 4,
               x: -418.08344,
@@ -942,10 +938,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '2',
               name: 'MlleBaptistine',
               label: {
-                normal: {
-                  formatter: 'MlleBaptistine',
-                  show: false
-                }
+                formatter: 'MlleBaptistine',
+                show: false
               },
               symbolSize: 9.485714,
               x: -212.76357,
@@ -960,10 +954,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '3',
               name: 'MmeMagloire',
               label: {
-                normal: {
-                  formatter: 'MmeMagloire',
-                  show: false
-                }
+                formatter: 'MmeMagloire',
+                show: false
               },
               symbolSize: 9.485714,
               x: -242.82404,
@@ -978,10 +970,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '4',
               name: 'CountessDeLo',
               label: {
-                normal: {
-                  formatter: 'CountessDeLo',
-                  show: false
-                }
+                formatter: 'CountessDeLo',
+                show: false
               },
               symbolSize: 4,
               x: -379.30386,
@@ -996,10 +986,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '5',
               name: 'Geborand',
               label: {
-                normal: {
-                  formatter: 'Geborand',
-                  show: false
-                }
+                formatter: 'Geborand',
+                show: false
               },
               symbolSize: 4,
               x: -417.26337,
@@ -1014,10 +1002,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '6',
               name: 'Champtercier',
               label: {
-                normal: {
-                  formatter: 'Champtercier',
-                  show: false
-                }
+                formatter: 'Champtercier',
+                show: false
               },
               symbolSize: 4,
               x: -332.6012,
@@ -1032,10 +1018,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '7',
               name: 'Cravatte',
               label: {
-                normal: {
-                  formatter: 'Cravatte',
-                  show: false
-                }
+                formatter: 'Cravatte',
+                show: false
               },
               symbolSize: 4,
               x: -382.69568,
@@ -1050,10 +1034,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '8',
               name: 'Count',
               label: {
-                normal: {
-                  formatter: 'Count',
-                  show: false
-                }
+                formatter: 'Count',
+                show: false
               },
               symbolSize: 4,
               x: -320.384,
@@ -1068,10 +1050,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '9',
               name: 'OldMan',
               label: {
-                normal: {
-                  formatter: 'OldMan',
-                  show: false
-                }
+                formatter: 'OldMan',
+                show: false
               },
               symbolSize: 4,
               x: -344.39832,
@@ -1086,10 +1066,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '10',
               name: 'Labarre',
               label: {
-                normal: {
-                  formatter: 'Labarre',
-                  show: false
-                }
+                formatter: 'Labarre',
+                show: false
               },
               symbolSize: 4,
               x: -89.34107,
@@ -1104,10 +1082,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '11',
               name: 'Valjean',
               label: {
-                normal: {
-                  formatter: 'Valjean',
-                  show: false
-                }
+                formatter: 'Valjean',
+                show: false
               },
               symbolSize: 40,
               x: -87.93029,
@@ -1122,10 +1098,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '12',
               name: 'Marguerite',
               label: {
-                normal: {
-                  formatter: 'Marguerite',
-                  show: false
-                }
+                formatter: 'Marguerite',
+                show: false
               },
               symbolSize: 6.742859,
               x: -339.77908,
@@ -1140,10 +1114,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '13',
               name: 'MmeDeR',
               label: {
-                normal: {
-                  formatter: 'MmeDeR',
-                  show: false
-                }
+                formatter: 'MmeDeR',
+                show: false
               },
               symbolSize: 4,
               x: -194.31313,
@@ -1158,10 +1130,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '14',
               name: 'Isabeau',
               label: {
-                normal: {
-                  formatter: 'Isabeau',
-                  show: false
-                }
+                formatter: 'Isabeau',
+                show: false
               },
               symbolSize: 4,
               x: -158.05168,
@@ -1176,10 +1146,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '15',
               name: 'Gervais',
               label: {
-                normal: {
-                  formatter: 'Gervais',
-                  show: false
-                }
+                formatter: 'Gervais',
+                show: false
               },
               symbolSize: 4,
               x: -127.701546,
@@ -1194,10 +1162,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '16',
               name: 'Tholomyes',
               label: {
-                normal: {
-                  formatter: 'Tholomyes',
-                  show: false
-                }
+                formatter: 'Tholomyes',
+                show: false
               },
               symbolSize: 15.942856,
               x: -385.2226,
@@ -1212,10 +1178,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '17',
               name: 'Listolier',
               label: {
-                normal: {
-                  formatter: 'Listolier',
-                  show: false
-                }
+                formatter: 'Listolier',
+                show: false
               },
               symbolSize: 17.457146,
               x: -516.55884,
@@ -1230,10 +1194,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '18',
               name: 'Fameuil',
               label: {
-                normal: {
-                  formatter: 'Fameuil',
-                  show: false
-                }
+                formatter: 'Fameuil',
+                show: false
               },
               symbolSize: 17.457146,
               x: -464.79382,
@@ -1248,10 +1210,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '19',
               name: 'Blacheville',
               label: {
-                normal: {
-                  formatter: 'Blacheville',
-                  show: false
-                }
+                formatter: 'Blacheville',
+                show: false
               },
               symbolSize: 17.457146,
               x: -515.1624,
@@ -1266,10 +1226,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '20',
               name: 'Favourite',
               label: {
-                normal: {
-                  formatter: 'Favourite',
-                  show: false
-                }
+                formatter: 'Favourite',
+                show: false
               },
               symbolSize: 17.457146,
               x: -408.12122,
@@ -1284,10 +1242,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '21',
               name: 'Dahlia',
               label: {
-                normal: {
-                  formatter: 'Dahlia',
-                  show: false
-                }
+                formatter: 'Dahlia',
+                show: false
               },
               symbolSize: 17.457146,
               x: -456.44113,
@@ -1302,10 +1258,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '22',
               name: 'Zephine',
               label: {
-                normal: {
-                  formatter: 'Zephine',
-                  show: false
-                }
+                formatter: 'Zephine',
+                show: false
               },
               symbolSize: 17.457146,
               x: -459.1107,
@@ -1320,10 +1274,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '23',
               name: 'Fantine',
               label: {
-                normal: {
-                  formatter: 'Fantine',
-                  show: false
-                }
+                formatter: 'Fantine',
+                show: false
               },
               symbolSize: 22.4,
               x: -313.42786,
@@ -1338,10 +1290,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '24',
               name: 'MmeThenardier',
               label: {
-                normal: {
-                  formatter: 'MmeThenardier',
-                  show: false
-                }
+                formatter: 'MmeThenardier',
+                show: false
               },
               symbolSize: 14.428574,
               x: 4.6313396,
@@ -1356,10 +1306,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '25',
               name: 'Thenardier',
               label: {
-                normal: {
-                  formatter: 'Thenardier',
-                  show: false
-                }
+                formatter: 'Thenardier',
+                show: false
               },
               symbolSize: 25.142853,
               x: 82.80825,
@@ -1374,10 +1322,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '26',
               name: 'Cosette',
               label: {
-                normal: {
-                  formatter: 'Cosette',
-                  show: false
-                }
+                formatter: 'Cosette',
+                show: false
               },
               symbolSize: 21.428574,
               x: 78.64646,
@@ -1392,10 +1338,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '27',
               name: 'Javert',
               label: {
-                normal: {
-                  formatter: 'Javert',
-                  show: false
-                }
+                formatter: 'Javert',
+                show: false
               },
               symbolSize: 27.88571,
               x: -81.46074,
@@ -1410,10 +1354,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '28',
               name: 'Fauchelevent',
               label: {
-                normal: {
-                  formatter: 'Fauchelevent',
-                  show: false
-                }
+                formatter: 'Fauchelevent',
+                show: false
               },
               symbolSize: 12.228573,
               x: -225.73984,
@@ -1428,10 +1370,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '29',
               name: 'Bamatabois',
               label: {
-                normal: {
-                  formatter: 'Bamatabois',
-                  show: false
-                }
+                formatter: 'Bamatabois',
+                show: false
               },
               symbolSize: 23.2,
               x: -385.6842,
@@ -1446,10 +1386,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '30',
               name: 'Perpetue',
               label: {
-                normal: {
-                  formatter: 'Perpetue',
-                  show: false
-                }
+                formatter: 'Perpetue',
+                show: false
               },
               symbolSize: 6.742859,
               x: -403.92447,
@@ -1464,10 +1402,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '31',
               name: 'Simplice',
               label: {
-                normal: {
-                  formatter: 'Simplice',
-                  show: false
-                }
+                formatter: 'Simplice',
+                show: false
               },
               symbolSize: 12.228573,
               x: -281.4253,
@@ -1482,10 +1418,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '32',
               name: 'Scaufflaire',
               label: {
-                normal: {
-                  formatter: 'Scaufflaire',
-                  show: false
-                }
+                formatter: 'Scaufflaire',
+                show: false
               },
               symbolSize: 4,
               x: -122.41348,
@@ -1500,10 +1434,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '33',
               name: 'Woman1',
               label: {
-                normal: {
-                  formatter: 'Woman1',
-                  show: false
-                }
+                formatter: 'Woman1',
+                show: false
               },
               symbolSize: 6.742859,
               x: -234.6001,
@@ -1518,10 +1450,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '34',
               name: 'Judge',
               label: {
-                normal: {
-                  formatter: 'Judge',
-                  show: false
-                }
+                formatter: 'Judge',
+                show: false
               },
               symbolSize: 17.714287,
               x: -387.84915,
@@ -1536,10 +1466,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '35',
               name: 'Champmathieu',
               label: {
-                normal: {
-                  formatter: 'Champmathieu',
-                  show: false
-                }
+                formatter: 'Champmathieu',
+                show: false
               },
               symbolSize: 17.714287,
               x: -338.2307,
@@ -1554,10 +1482,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '36',
               name: 'Brevet',
               label: {
-                normal: {
-                  formatter: 'Brevet',
-                  show: false
-                }
+                formatter: 'Brevet',
+                show: false
               },
               symbolSize: 17.714287,
               x: -453.26874,
@@ -1572,10 +1498,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '37',
               name: 'Chenildieu',
               label: {
-                normal: {
-                  formatter: 'Chenildieu',
-                  show: false
-                }
+                formatter: 'Chenildieu',
+                show: false
               },
               symbolSize: 17.714287,
               x: -386.44904,
@@ -1590,10 +1514,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '38',
               name: 'Cochepaille',
               label: {
-                normal: {
-                  formatter: 'Cochepaille',
-                  show: false
-                }
+                formatter: 'Cochepaille',
+                show: false
               },
               symbolSize: 17.714287,
               x: -446.7876,
@@ -1608,10 +1530,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '39',
               name: 'Pontmercy',
               label: {
-                normal: {
-                  formatter: 'Pontmercy',
-                  show: false
-                }
+                formatter: 'Pontmercy',
+                show: false
               },
               symbolSize: 9.485714,
               x: 336.49738,
@@ -1626,10 +1546,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '40',
               name: 'Boulatruelle',
               label: {
-                normal: {
-                  formatter: 'Boulatruelle',
-                  show: false
-                }
+                formatter: 'Boulatruelle',
+                show: false
               },
               symbolSize: 4,
               x: 29.187843,
@@ -1644,10 +1562,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '41',
               name: 'Eponine',
               label: {
-                normal: {
-                  formatter: 'Eponine',
-                  show: false
-                }
+                formatter: 'Eponine',
+                show: false
               },
               symbolSize: 31.428574,
               x: 238.36697,
@@ -1662,10 +1578,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '42',
               name: 'Anzelma',
               label: {
-                normal: {
-                  formatter: 'Anzelma',
-                  show: false
-                }
+                formatter: 'Anzelma',
+                show: false
               },
               symbolSize: 9.485714,
               x: 189.69513,
@@ -1680,10 +1594,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '43',
               name: 'Woman2',
               label: {
-                normal: {
-                  formatter: 'Woman2',
-                  show: false
-                }
+                formatter: 'Woman2',
+                show: false
               },
               symbolSize: 9.485714,
               x: -187.00418,
@@ -1698,10 +1610,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '44',
               name: 'MotherInnocent',
               label: {
-                normal: {
-                  formatter: 'MotherInnocent',
-                  show: false
-                }
+                formatter: 'MotherInnocent',
+                show: false
               },
               symbolSize: 6.742859,
               x: -252.99521,
@@ -1716,10 +1626,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '45',
               name: 'Gribier',
               label: {
-                normal: {
-                  formatter: 'Gribier',
-                  show: false
-                }
+                formatter: 'Gribier',
+                show: false
               },
               symbolSize: 4,
               x: -296.07935,
@@ -1734,10 +1642,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '46',
               name: 'Jondrette',
               label: {
-                normal: {
-                  formatter: 'Jondrette',
-                  show: false
-                }
+                formatter: 'Jondrette',
+                show: false
               },
               symbolSize: 4,
               x: 550.3201,
@@ -1752,10 +1658,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '47',
               name: 'MmeBurgon',
               label: {
-                normal: {
-                  formatter: 'MmeBurgon',
-                  show: false
-                }
+                formatter: 'MmeBurgon',
+                show: false
               },
               symbolSize: 6.742859,
               x: 488.13535,
@@ -1770,10 +1674,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '48',
               name: 'Gavroche',
               label: {
-                normal: {
-                  formatter: 'Gavroche',
-                  show: false
-                }
+                formatter: 'Gavroche',
+                show: false
               },
               symbolSize: 31.600006,
               x: 387.89572,
@@ -1788,10 +1690,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '49',
               name: 'Gillenormand',
               label: {
-                normal: {
-                  formatter: 'Gillenormand',
-                  show: false
-                }
+                formatter: 'Gillenormand',
+                show: false
               },
               symbolSize: 20.457146,
               x: 126.4831,
@@ -1806,10 +1706,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '50',
               name: 'Magnon',
               label: {
-                normal: {
-                  formatter: 'Magnon',
-                  show: false
-                }
+                formatter: 'Magnon',
+                show: false
               },
               symbolSize: 6.742859,
               x: 127.07365,
@@ -1824,10 +1722,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '51',
               name: 'MlleGillenormand',
               label: {
-                normal: {
-                  formatter: 'MlleGillenormand',
-                  show: false
-                }
+                formatter: 'MlleGillenormand',
+                show: false
               },
               symbolSize: 20.457146,
               x: 162.63559,
@@ -1842,10 +1738,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '52',
               name: 'MmePontmercy',
               label: {
-                normal: {
-                  formatter: 'MmePontmercy',
-                  show: false
-                }
+                formatter: 'MmePontmercy',
+                show: false
               },
               symbolSize: 6.742859,
               x: 353.66415,
@@ -1860,10 +1754,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '53',
               name: 'MlleVaubois',
               label: {
-                normal: {
-                  formatter: 'MlleVaubois',
-                  show: false
-                }
+                formatter: 'MlleVaubois',
+                show: false
               },
               symbolSize: 4,
               x: 165.43939,
@@ -1878,10 +1770,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '54',
               name: 'LtGillenormand',
               label: {
-                normal: {
-                  formatter: 'LtGillenormand',
-                  show: false
-                }
+                formatter: 'LtGillenormand',
+                show: false
               },
               symbolSize: 12.228573,
               x: 137.69348,
@@ -1896,10 +1786,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '55',
               name: 'Marius',
               label: {
-                normal: {
-                  formatter: 'Marius',
-                  show: false
-                }
+                formatter: 'Marius',
+                show: false
               },
               symbolSize: 33.37143,
               x: 206.44687,
@@ -1914,10 +1802,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '56',
               name: 'BaronessT',
               label: {
-                normal: {
-                  formatter: 'BaronessT',
-                  show: false
-                }
+                formatter: 'BaronessT',
+                show: false
               },
               symbolSize: 6.742859,
               x: 194.82993,
@@ -1932,10 +1818,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '57',
               name: 'Mabeuf',
               label: {
-                normal: {
-                  formatter: 'Mabeuf',
-                  show: false
-                }
+                formatter: 'Mabeuf',
+                show: false
               },
               symbolSize: 31.428574,
               x: 597.6618,
@@ -1950,10 +1834,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '58',
               name: 'Enjolras',
               label: {
-                normal: {
-                  formatter: 'Enjolras',
-                  show: false
-                }
+                formatter: 'Enjolras',
+                show: false
               },
               symbolSize: 42.4,
               x: 355.78366,
@@ -1968,10 +1850,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '59',
               name: 'Combeferre',
               label: {
-                normal: {
-                  formatter: 'Combeferre',
-                  show: false
-                }
+                formatter: 'Combeferre',
+                show: false
               },
               symbolSize: 21.428574,
               x: 515.2961,
@@ -1986,10 +1866,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '60',
               name: 'Prouvaire',
               label: {
-                normal: {
-                  formatter: 'Prouvaire',
-                  show: false
-                }
+                formatter: 'Prouvaire',
+                show: false
               },
               symbolSize: 15.942856,
               x: 614.29285,
@@ -2004,10 +1882,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '61',
               name: 'Feuilly',
               label: {
-                normal: {
-                  formatter: 'Feuilly',
-                  show: false
-                }
+                formatter: 'Feuilly',
+                show: false
               },
               symbolSize: 21.428574,
               x: 550.1917,
@@ -2022,10 +1898,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '62',
               name: 'Courfeyrac',
               label: {
-                normal: {
-                  formatter: 'Courfeyrac',
-                  show: false
-                }
+                formatter: 'Courfeyrac',
+                show: false
               },
               symbolSize: 26.91429,
               x: 436.17184,
@@ -2040,10 +1914,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '63',
               name: 'Bahorel',
               label: {
-                normal: {
-                  formatter: 'Bahorel',
-                  show: false
-                }
+                formatter: 'Bahorel',
+                show: false
               },
               symbolSize: 24.17143,
               x: 602.55225,
@@ -2058,10 +1930,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '64',
               name: 'Bossuet',
               label: {
-                normal: {
-                  formatter: 'Bossuet',
-                  show: false
-                }
+                formatter: 'Bossuet',
+                show: false
               },
               symbolSize: 26.91429,
               x: 455.81955,
@@ -2076,10 +1946,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '65',
               name: 'Joly',
               label: {
-                normal: {
-                  formatter: 'Joly',
-                  show: false
-                }
+                formatter: 'Joly',
+                show: false
               },
               symbolSize: 24.17143,
               x: 516.40784,
@@ -2094,10 +1962,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '66',
               name: 'Grantaire',
               label: {
-                normal: {
-                  formatter: 'Grantaire',
-                  show: false
-                }
+                formatter: 'Grantaire',
+                show: false
               },
               symbolSize: 28.685715,
               x: 646.4313,
@@ -2112,10 +1978,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '67',
               name: 'MotherPlutarch',
               label: {
-                normal: {
-                  formatter: 'MotherPlutarch',
-                  show: false
-                }
+                formatter: 'MotherPlutarch',
+                show: false
               },
               symbolSize: 4,
               x: 668.9568,
@@ -2130,10 +1994,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '68',
               name: 'Gueulemer',
               label: {
-                normal: {
-                  formatter: 'Gueulemer',
-                  show: false
-                }
+                formatter: 'Gueulemer',
+                show: false
               },
               symbolSize: 28.685715,
               x: 78.4799,
@@ -2148,10 +2010,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '69',
               name: 'Babet',
               label: {
-                normal: {
-                  formatter: 'Babet',
-                  show: false
-                }
+                formatter: 'Babet',
+                show: false
               },
               symbolSize: 28.685715,
               x: 150.35959,
@@ -2166,10 +2026,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '70',
               name: 'Claquesous',
               label: {
-                normal: {
-                  formatter: 'Claquesous',
-                  show: false
-                }
+                formatter: 'Claquesous',
+                show: false
               },
               symbolSize: 28.685715,
               x: 137.3717,
@@ -2184,10 +2042,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '71',
               name: 'Montparnasse',
               label: {
-                normal: {
-                  formatter: 'Montparnasse',
-                  show: false
-                }
+                formatter: 'Montparnasse',
+                show: false
               },
               symbolSize: 25.942856,
               x: 234.87747,
@@ -2202,10 +2058,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '72',
               name: 'Toussaint',
               label: {
-                normal: {
-                  formatter: 'Toussaint',
-                  show: false
-                }
+                formatter: 'Toussaint',
+                show: false
               },
               symbolSize: 9.485714,
               x: 40.942253,
@@ -2220,10 +2074,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '73',
               name: 'Child1',
               label: {
-                normal: {
-                  formatter: 'Child1',
-                  show: false
-                }
+                formatter: 'Child1',
+                show: false
               },
               symbolSize: 6.742859,
               x: 437.939,
@@ -2238,10 +2090,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '74',
               name: 'Child2',
               label: {
-                normal: {
-                  formatter: 'Child2',
-                  show: false
-                }
+                formatter: 'Child2',
+                show: false
               },
               symbolSize: 6.742859,
               x: 466.04922,
@@ -2256,10 +2106,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '75',
               name: 'Brujon',
               label: {
-                normal: {
-                  formatter: 'Brujon',
-                  show: false
-                }
+                formatter: 'Brujon',
+                show: false
               },
               symbolSize: 20.457146,
               x: 238.79364,
@@ -2274,10 +2122,8 @@ export function getPreviewOptions(groupCnt: number) {
               id: '76',
               name: 'MmeHucheloup',
               label: {
-                normal: {
-                  formatter: 'MmeHucheloup',
-                  show: false
-                }
+                formatter: 'MmeHucheloup',
+                show: false
               },
               symbolSize: 20.457146,
               x: 712.18353,
@@ -3845,20 +3691,14 @@ export function getPreviewOptions(groupCnt: number) {
             }
           ],
           label: {
-            normal: {
-              position: 'right'
-            }
+            position: 'right'
           },
           symbol: 'circle',
           itemStyle: {
-            normal: {
-              opacity: 0.8
-            }
+            opacity: 0.8
           },
           lineStyle: {
-            normal: {
-              curveness: 0.3
-            }
+            curveness: 0.3
           }
         }
       ]
@@ -3997,9 +3837,7 @@ export function getPreviewOptions(groupCnt: number) {
             });
           })(),
           label: {
-            normal: {
-              show: true
-            }
+            show: true
           }
         }
       ]
@@ -4079,9 +3917,16 @@ export function getPreviewOptions(groupCnt: number) {
 
   for (let i = 0; i < options.length; ++i) {
     const option = options[i] as any;
-    option.legend = option.legend || legend;
+    if (
+      option.series &&
+      option.series.length > 0 &&
+      option.series[0].name === '第1组'
+    ) {
+      option.legend = option.legend || legend;
+    }
     option.tooltip = option.tooltip || tooltip;
     option.grid = option.grid || grid;
   }
+  console.log(options);
   return options;
 }

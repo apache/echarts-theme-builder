@@ -37,7 +37,6 @@
           <el-col :span="columnSize.right">
             <el-input
               placeholder="custom"
-              size="medium"
               v-model="themeName"
               @change="onConfigChange"
             >
@@ -51,7 +50,6 @@
           <el-col :span="columnSize.right">
             <el-input
               placeholder="5"
-              size="medium"
               v-model="seriesCount"
               @change="onConfigChange"
             >
@@ -111,11 +109,7 @@
                   </el-color-picker>
                 </div>
                 <div class="color-input">
-                  <el-input
-                    size="medium"
-                    v-model="item.value[id]"
-                    @change="onConfigChange"
-                  >
+                  <el-input v-model="item.value[id]" @change="onConfigChange">
                   </el-input>
                 </div>
               </div>
@@ -144,18 +138,13 @@
                 </el-color-picker>
               </div>
               <div class="color-input">
-                <el-input
-                  size="medium"
-                  v-model="item.value"
-                  @change="onConfigChange"
-                >
+                <el-input v-model="item.value" @change="onConfigChange">
                 </el-input>
               </div>
             </div>
           </div>
           <el-input
             v-else
-            size="medium"
             v-model="item.value"
             @change="onConfigChange"
           ></el-input>

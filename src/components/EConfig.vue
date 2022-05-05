@@ -1,15 +1,15 @@
 <template>
   <el-collapse value="core" :accordion="true">
-    <el-collapse-item title="核心功能" name="core">
+    <el-collapse-item :title="$t('core')" name="core">
       <div class="item-row">
         <el-button-group>
           <el-button type="primary" @click="downloadJs">
             <el-icon><download /></el-icon>
-            下载 .js 主题
+            {{ $t('downloadJs') }}
           </el-button>
           <el-button @click="downloadJson">
             <el-icon><download /></el-icon>
-            下载 .json 主题
+            {{ $t('downloadJson') }}
           </el-button>
         </el-button-group>
       </div>
@@ -17,7 +17,7 @@
         <el-button-group>
           <el-button @click="importTheme">
             <el-icon><bottom-right /></el-icon>
-            导入
+            {{ $t('importTheme') }}
           </el-button>
           <input
             type="file"
@@ -27,14 +27,14 @@
           />
           <el-button @click="exportTheme">
             <el-icon><top-right /></el-icon>
-            导出
+            {{ $t('exportTheme') }}
           </el-button>
         </el-button-group>
       </div>
       <div class="item-row-lg">
         <el-row>
           <el-col :span="columnSize.left">
-            <h5>主题名称</h5>
+            <h5>{{ $t('themeName') }}</h5>
           </el-col>
           <el-col :span="columnSize.right">
             <el-input
@@ -47,7 +47,7 @@
         </el-row>
         <el-row>
           <el-col :span="columnSize.left">
-            <h5>系列数量</h5>
+            <h5>{{ $t('seriesNumber') }}</h5>
           </el-col>
           <el-col :span="columnSize.right">
             <el-input
@@ -58,7 +58,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <h5>内置方案</h5>
+        <h5>{{ $t('seriesNumber') }}</h5>
         <div style="text-align: center">
           <div
             class="theme-group"
@@ -83,19 +83,23 @@
     <el-collapse-item
       v-for="group in configs"
       :key="group.groupName"
-      :title="group.groupName"
-      :name="group.groupName"
+      :title="$t(group.groupName)"
+      :name="$t(group.groupName)"
     >
-      <el-row v-for="item in group.items" :key="item.name" :name="item.name">
+      <el-row
+        v-for="item in group.items"
+        :key="item.name"
+        :name="$t(item.name)"
+      >
         <el-col :span="columnSize.left">
           <el-checkbox
             v-if="item.showOptionPath"
             v-model="item.isShow"
             @change="onConfigChange"
           >
-            {{ item.name }}
+            {{ $t(item.name) }}
           </el-checkbox>
-          <h5 v-else>{{ item.name }}</h5>
+          <h5 v-else>{{ $t(item.name) }}</h5>
         </el-col>
         <el-col :span="columnSize.right">
           <el-checkbox
@@ -103,7 +107,7 @@
             v-model="item.value"
             @change="onConfigChange"
           >
-            {{ item.name }}
+            {{ $t(item.name) }}
           </el-checkbox>
           <el-select
             v-else-if="item.type === 'select'"
@@ -113,7 +117,7 @@
             <el-option
               v-for="option in item.selectOptions"
               :key="option.value"
-              :label="option.name"
+              :label="$t(option.name)"
               :value="option.value"
             >
             </el-option>
@@ -141,11 +145,11 @@
                   size="small"
                 >
                   <el-icon><plus /></el-icon>
-                  增加
+                  {{ $t('increase') }}
                 </el-button>
                 <el-button @click="removeColor(item)" size="small">
                   <el-icon><minus /></el-icon>
-                  减少
+                  {{ $t('decrease') }}
                 </el-button>
               </div>
             </div>

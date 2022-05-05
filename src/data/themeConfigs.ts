@@ -26,28 +26,28 @@ export const optionPathAlias = [
 
 export const themeConfigs: ThemeConfig[] = [
   {
-    groupName: '基本配置',
+    groupName: 'basicConfigs',
     items: [
       {
-        name: '背景色',
+        name: 'backgroundColor',
         type: 'color',
         value: 'rgba(0, 0, 0, 0)',
         optionPath: 'backgroundColor'
       },
       {
-        name: '标题色',
+        name: 'titleColor',
         type: 'color',
         value: '#464646',
         optionPath: 'title.textStyle.color'
       },
       {
-        name: '副标题色',
+        name: 'subtitleColor',
         type: 'color',
         value: '#6e7079',
         optionPath: 'title.subtextStyle.color'
       },
       {
-        name: '主题调色板',
+        name: 'themeColors',
         type: 'color',
         multipleColor: true,
         value: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de'],
@@ -56,10 +56,10 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '视觉映射',
+    groupName: 'visualMap',
     items: [
       {
-        name: '视觉映射',
+        name: 'visualMap',
         type: 'color',
         multipleColor: true,
         value: ['#bf444c', '#d88273', '#f6efa6'],
@@ -68,10 +68,10 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '坐标轴',
+    groupName: 'axis',
     items: [
       {
-        name: '轴线',
+        name: 'axisLine',
         type: 'color',
         value: '#6e7079',
         optionPath: '{axis}.axisLine.lineStyle.color',
@@ -79,7 +79,7 @@ export const themeConfigs: ThemeConfig[] = [
         showOptionPath: -3
       },
       {
-        name: '刻度线',
+        name: 'axisTick',
         type: 'color',
         value: '#6e7079',
         optionPath: '{axis}.axisTick.lineStyle.color',
@@ -87,7 +87,7 @@ export const themeConfigs: ThemeConfig[] = [
         showOptionPath: -3
       },
       {
-        name: '网格',
+        name: 'axisSplitLine',
         type: 'color',
         multipleColor: true,
         value: ['#e0e6f1'],
@@ -96,7 +96,7 @@ export const themeConfigs: ThemeConfig[] = [
         showOptionPath: -3
       },
       {
-        name: '填充',
+        name: 'axisArea',
         type: 'color',
         multipleColor: true,
         value: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)'],
@@ -105,7 +105,7 @@ export const themeConfigs: ThemeConfig[] = [
         showOptionPath: -3
       },
       {
-        name: '标签文字',
+        name: 'axisLabel',
         type: 'color',
         value: '#6e7079',
         optionPath: '{axis}.axisLabel.color',
@@ -115,10 +115,10 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '图例',
+    groupName: 'legend',
     items: [
       {
-        name: '文字',
+        name: 'legendTextColor',
         type: 'color',
         value: '#333333',
         optionPath: 'legend.textStyle.color'
@@ -126,16 +126,16 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '工具箱',
+    groupName: 'toolbox',
     items: [
       {
-        name: '图标',
+        name: 'iconColor',
         type: 'color',
         value: '#999999',
         optionPath: 'toolbox.iconStyle.borderColor'
       },
       {
-        name: '悬停',
+        name: 'iconEmphasisColor',
         type: 'color',
         value: '#666666',
         optionPath: 'toolbox.emphasis.iconStyle.borderColor'
@@ -143,16 +143,16 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '提示框',
+    groupName: 'tooltip',
     items: [
       {
-        name: '指示线',
+        name: 'axisPointerColor',
         type: 'color',
         value: '#cccccc',
         optionPath: 'tooltip.axisPointer.lineStyle.color'
       },
       {
-        name: '宽度',
+        name: 'axisPointerWidth',
         type: 'number',
         value: 1,
         optionPath: 'tooltip.axisPointer.lineStyle.width'
@@ -160,94 +160,94 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '时间轴',
+    groupName: 'timeline',
     items: [
       {
-        name: '标记',
+        name: 'timelineItemColor',
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.itemStyle.color'
       },
       {
-        name: '标记描边',
+        name: 'timelineItemBorderColor',
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.itemStyle.borderColor'
       },
       {
-        name: '标记描边宽度',
+        name: 'timelineItemBorderWidth',
         type: 'number',
         value: 1,
         optionPath: 'timeline.itemStyle.borderWidth'
       },
       {
-        name: '标记悬停',
+        name: 'timelineItemEmphasisColor',
         type: 'color',
         value: '#316bf3',
         optionPath: 'timeline.emphasis.itemStyle.color'
       },
       {
-        name: '标记悬停描边',
+        name: 'timelineItemEmphasisBorderColor',
         type: 'color',
         value: '#316bf3',
         optionPath: 'timeline.emphasis.itemStyle.borderColor'
       },
       {
-        name: '标记悬停描边宽度',
+        name: 'timelineItemEmphasisWidth',
         type: 'number',
         value: 1,
         optionPath: 'timeline.emphasis.itemStyle.borderWidth'
       },
       {
-        name: '标记选中',
+        name: 'timelineCheckpointColor',
         type: 'color',
         value: '#316bf3',
         optionPath: 'timeline.checkpointStyle.color'
       },
       {
-        name: '标记选中描边',
+        name: 'timelineCheckpointBorderColor',
         type: 'color',
         value: '#ffffff',
         optionPath: 'timeline.checkpointStyle.borderColor'
       },
       {
-        name: '标记选中描边宽度',
+        name: 'timelineCheckpointBorderWidth',
         type: 'number',
         value: 1,
         optionPath: 'timeline.checkpointStyle.borderWidth'
       },
       {
-        name: '主轴',
+        name: 'timelineProgessColor',
         type: 'color',
         value: '#316bf3',
         optionPath: 'timeline.progress.lineStyle.color'
       },
       {
-        name: '主轴宽度',
+        name: 'timelineProgessWidth',
         type: 'number',
         value: 2,
         optionPath: 'timeline.progress.lineStyle.width'
       },
       {
-        name: '控件填充',
+        name: 'timelineControlColor',
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.controlStyle.color'
       },
       {
-        name: '控件描边',
+        name: 'timelineControlBorderColor',
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.controlStyle.borderColor'
       },
       {
-        name: '控件描边宽度',
+        name: 'timelineControlBorderWidth',
         type: 'number',
         value: 1,
         optionPath: 'timeline.controlStyle.borderWidth'
       },
       {
-        name: '文字',
+        name: 'timelineLabelColor',
         type: 'color',
         value: '#a4b1d7',
         optionPath: 'timeline.label.color'
@@ -255,91 +255,91 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '折线图',
+    groupName: 'lineCharts',
     items: [
       {
-        name: '平滑曲线',
+        name: 'lineSmooth',
         type: 'boolean',
         value: false,
         optionPath: 'line.smooth'
       },
       {
-        name: '线条宽度',
+        name: 'lineWidth',
         type: 'number',
         value: 2,
         optionPath: 'line.lineStyle.width'
       },
       {
-        name: '图形描边',
+        name: 'borderColor',
         type: 'number',
         value: 0,
         optionPath: 'line.itemStyle.borderWidth'
       },
       {
-        name: '图形大小',
+        name: 'symbolSize',
         type: 'number',
         value: 4,
         optionPath: 'line.symbolSize'
       },
       {
-        name: '图形形状',
+        name: 'symbol',
         type: 'select',
         selectOptions: [
           {
             value: 'circle',
-            name: '圆形'
+            name: 'circle'
           },
           {
             value: 'emptyCircle',
-            name: '空心圆形'
+            name: 'emptyCircle'
           },
           {
             value: 'rect',
-            name: '矩形'
+            name: 'rect'
           },
           {
             value: 'emptyRect',
-            name: '空心矩形'
+            name: 'emptyRect'
           },
           {
             value: 'roundRect',
-            name: '圆角矩形'
+            name: 'roundRect'
           },
           {
             value: 'emptyRoundRect',
-            name: '空心圆角矩形'
+            name: 'emptyRoundRect'
           },
           {
             value: 'triangle',
-            name: '三角形'
+            name: 'triangle'
           },
           {
             value: 'emptyTriangle',
-            name: '空心三角形'
+            name: 'emptyTriangle'
           },
           {
             value: 'diamond',
-            name: '菱形'
+            name: 'diamond'
           },
           {
             value: 'emptyDiamond',
-            name: '空心菱形'
+            name: 'emptyDiamond'
           },
           {
             value: 'pin',
-            name: '水滴'
+            name: 'pin'
           },
           {
             value: 'emptyPin',
-            name: '空心水滴'
+            name: 'emptyPin'
           },
           {
             value: 'arrow',
-            name: '箭头'
+            name: 'arrow'
           },
           {
             value: 'emptyArrow',
-            name: '空心箭头'
+            name: 'emptyArrow'
           }
         ],
         value: 'emptyCircle',
@@ -348,34 +348,34 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: 'K 线图',
+    groupName: 'candlestick',
     items: [
       {
-        name: '阳线填充',
+        name: 'candlestickColor',
         type: 'color',
         value: '#eb5454',
         optionPath: 'candlestick.itemStyle.color'
       },
       {
-        name: '阴线填充',
+        name: 'candlestick0Color',
         type: 'color',
         value: '#47b262',
         optionPath: 'candlestick.itemStyle.color0'
       },
       {
-        name: '阳线描边',
+        name: 'candlestickBorderColor',
         type: 'color',
         value: '#eb5454',
         optionPath: 'candlestick.itemStyle.borderColor'
       },
       {
-        name: '阴线描边',
+        name: 'candlestick0BorderColor',
         type: 'color',
         value: '#47b262',
         optionPath: 'candlestick.itemStyle.borderColor0'
       },
       {
-        name: '描边宽度',
+        name: 'candlestickBorderWidth',
         type: 'number',
         value: 1,
         optionPath: 'candlestick.itemStyle.borderWidth'
@@ -383,16 +383,16 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   },
   {
-    groupName: '力导图',
+    groupName: 'graph',
     items: [
       {
-        name: '连线',
+        name: 'graphLineColor',
         type: 'color',
         value: '#aaaaaa',
         optionPath: 'graph.lineStyle.color'
       },
       {
-        name: '连线宽度',
+        name: 'graphLineWidth',
         type: 'number',
         value: 1,
         optionPath: 'graph.lineStyle.width'

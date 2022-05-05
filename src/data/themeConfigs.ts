@@ -400,3 +400,63 @@ export const themeConfigs: ThemeConfig[] = [
     ]
   }
 ];
+
+export function getMergedConfigs(
+  version1Config: object
+): { configs: ThemeConfig[]; name: string } {
+  const mergedConfigs: ThemeConfig[] = [];
+  const nameMaps = {
+    backgroundColor: 'backgroundColor',
+    'title.textStyle.color': 'titleColor',
+    'title.subtextStyle.color': 'subtitleColor',
+    color: 'color',
+    'visualMap.color': 'visualMapColor',
+    'legend.textStyle.color': 'legendTextColor',
+    'candlestick.itemStyle.color': 'kColor',
+    'candlestick.itemStyle.color0': 'kColor0',
+    'candlestick.itemStyle.borderColor': 'kBorderColor',
+    'candlestick.itemStyle.borderColor0': 'kBorderColor0',
+    'candlestick.itemStyle.borderWidth': 'kBorderWidth',
+    'line.itemStyle.borderWidth': 'lineWidth',
+    'line.symbolSize': 'symbolSize',
+    'line.symbol': 'symbol',
+    'line.smooth': 'lineSmooth',
+    'graph.lineStyle.width': 'graphLineWidth',
+    'graph.lineStyle.color': 'graphLineColor',
+    'toolbox.iconStyle.borderColor': 'toolboxColor',
+    'toolbox.emphasis.iconStyle.borderColor': 'toolboxEmphasisColor',
+    'tooltip.axisPointer.lineStyle.color': 'tooltipAxisColor',
+    'tooltip.axisPointer.lineStyle.width': 'tooltipAxisWidth',
+    'timeline.lineStyle.color': 'timelineLineColor',
+    'timeline.lineStyle.borderWidth': 'timelineLineWidth',
+    'timeline.itemStyle.color': 'timelineItemColor',
+    'timeline.emphasis.itemStyle.color': 'timelineItemColorE',
+    'timeline.checkpointStyle.color': 'timelineCheckColor',
+    'timeline.checkpointStyle.borderColor': 'timelineCheckBorderColor',
+    'timeline.itemStyle.borderWidth': 'timelineItemBorderWidth',
+    'timeline.controlStyle.color': 'timelineControlColor',
+    'timeline.controlStyle.borderColor': 'timelineControlBorderColor',
+    'timeline.controlStyle.borderWidth': 'timelineControlBorderWidth',
+    'timeline.label.color': 'timelineLabelColor'
+  };
+  for (let i = 0; i < themeConfigs.length; i++) {
+    const items = [];
+    for (let j = 0; j < themeConfigs[i].items.length; j++) {
+      const item = themeConfigs[i].items[j];
+      const newItem = Object.assign({}, item);
+      if (nameMaps.hasOwnProperty(item.optionPath)) {
+        // @ts-ignore
+        newItem.value = version1Config.theme[nameMaps[item.optionPath]];
+      }
+      items.push(newItem);
+    }
+    mergedConfigs.push({
+      items,
+      groupName: themeConfigs[i].groupName
+    });
+  }
+  return {
+    configs: mergedConfigs,
+    name: (version1Config as any).themeName
+  };
+}

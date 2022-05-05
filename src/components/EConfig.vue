@@ -29,10 +29,6 @@
             <el-icon><top-right /></el-icon>
             导出
           </el-button>
-          <el-button>
-            <el-icon><question-filled /></el-icon>
-            帮助
-          </el-button>
         </el-button-group>
       </div>
       <div class="item-row-lg">
@@ -62,6 +58,24 @@
             </el-input>
           </el-col>
         </el-row>
+        <h5>内置方案</h5>
+        <div style="text-align: center">
+          <div
+            class="theme-group"
+            v-for="theme in builtinThemes"
+            :key="theme.name"
+          >
+            <div
+              class="theme-group-item"
+              v-for="(color, index) in theme.configs[0].items[3].value"
+              :key="index"
+              :style="{
+                backgroundColor: color,
+                display: index > 5 ? 'none' : 'inline-block'
+              }"
+            ></div>
+          </div>
+        </div>
       </div>
     </el-collapse-item>
 
@@ -168,9 +182,12 @@ import { useI18n } from 'vue-i18n';
 import {
   optionPathAlias,
   Theme,
+  ThemeConfig,
   ThemeConfigItem,
-  themeConfigs
+  themeConfigs,
+  getMergedConfigs
 } from '../data/themeConfigs';
+import defaultThemes from '../data/defaultThemes';
 
 const emit = defineEmits(['configChange']);
 defineExpose({
@@ -180,12 +197,16 @@ defineExpose({
 const themeName = ref('custom');
 const seriesCount = ref('5');
 const downloadDrawer = ref(false);
+const helpModal = ref(false);
 
 const configs = ref(themeConfigs);
 const columnSize = {
   left: 10,
   right: 14
 };
+
+const builtinThemes = defaultThemes.map(theme => getMergedConfigs(theme));
+console.log(builtinThemes);
 
 function onConfigChange() {
   emit('configChange');
@@ -447,5 +468,22 @@ h5 {
 .color-operations {
   margin-left: 25px;
   margin-bottom: 20px;
+}
+
+.theme-group {
+  display: inline-block;
+  margin: 5px;
+  border-radius: 6px;
+  padding: 8px 4px 0 6px;
+  border: 1px solid #eee;
+  cursor: pointer;
+}
+
+.theme-group-item {
+  width: 19px;
+  height: 19px;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 4px;
 }
 </style>

@@ -444,7 +444,24 @@ export function getMergedConfigs(
     for (let j = 0; j < themeConfigs[i].items.length; j++) {
       const item = themeConfigs[i].items[j];
       const newItem = Object.assign({}, item);
-      if (nameMaps.hasOwnProperty(item.optionPath)) {
+      if (item.optionPath.startsWith('{axis}')) {
+        const axisMap = {
+          '{axis}.axisLine.lineStyle.color': 'axisLineColor',
+          '{axis}.axisTick.lineStyle.color': 'axisTickColor',
+          '{axis}.splitLine.lineStyle.color': 'splitLineColor',
+          '{axis}.splitArea.areaStyle.color': 'splitAreaColor',
+          '{axis}.axisLabel.color': 'axisLabelColor'
+        };
+        if (
+          axisMap.hasOwnProperty(item.optionPath) &&
+          // @ts-ignore
+          version1Config.theme.axes.length > 0
+        ) {
+          newItem.value =
+            // @ts-ignore
+            version1Config.theme.axes[0][axisMap[item.optionPath]];
+        }
+      } else if (nameMaps.hasOwnProperty(item.optionPath)) {
         // @ts-ignore
         newItem.value = version1Config.theme[nameMaps[item.optionPath]];
       }

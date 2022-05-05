@@ -64,6 +64,7 @@
             class="theme-group"
             v-for="theme in builtinThemes"
             :key="theme.name"
+            @click="useBuiltinTheme(theme.configs, theme.name)"
           >
             <div
               class="theme-group-item"
@@ -223,6 +224,12 @@ function removeColor(item: ThemeConfigItem) {
   if (typeof item.value === 'object') {
     item.value.splice(-1, 1);
   }
+  onConfigChange();
+}
+
+function useBuiltinTheme(builtinConfig: ThemeConfig[], name: string) {
+  configs.value = builtinConfig;
+  themeName.value = name;
   onConfigChange();
 }
 

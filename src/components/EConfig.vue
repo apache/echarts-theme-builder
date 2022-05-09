@@ -139,11 +139,7 @@
                 </div>
               </div>
               <div class="color-operations">
-                <el-button
-                  @click="addColor(item)"
-                  icon="el-icon-plus"
-                  size="small"
-                >
+                <el-button @click="addColor(item)" size="small">
                   <el-icon><plus /></el-icon>
                   {{ $t('increase') }}
                 </el-button>
@@ -211,7 +207,6 @@ const columnSize = {
 };
 
 const builtinThemes = defaultThemes.map(theme => getMergedConfigs(theme));
-console.log(builtinThemes);
 
 function onConfigChange() {
   emit('configChange');
@@ -326,7 +321,6 @@ function saveJsFile(data: string, name: string) {
 }
 
 function exportTheme() {
-  const theme = getTheme();
   const data = JSON.stringify(
     {
       version: 2,

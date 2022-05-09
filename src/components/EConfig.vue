@@ -313,7 +313,7 @@ function downloadJs() {
 }
 
 function downloadJson() {
-  saveJsonFile(getTheme(), themeName.value);
+  saveJsonFile(getTheme().config, themeName.value);
 }
 
 function saveJsonFile(json: object, name: string) {
@@ -407,7 +407,7 @@ function isSafari() {
 
 function getExportJsFile() {
   // format theme with 4 spaces
-  let theme = JSON.stringify(getTheme(), null, '    ');
+  let theme = JSON.stringify(getTheme().config, null, '    ');
   // indent with 4 spaces
   theme = theme.split('\n').join('\n    ');
   return `

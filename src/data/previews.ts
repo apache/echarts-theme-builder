@@ -345,15 +345,25 @@ function getSeriesRandomValue(groupCnt: number, typeName: string) {
   return data;
 }
 
-function getSeriesRandomGroup(groupCnt: number, typeName: string) {
+function getSeriesRandomGroup(
+  groupCnt: number,
+  typeName: string,
+  isDataArray = false
+) {
+  function getRandomData(i: number) {
+    return Math.floor(
+      ((Math.random() * 800 + 200) * (groupCnt - i)) / groupCnt
+    );
+  }
   const data = [];
   const legend = getLegend(groupCnt);
   for (let i = 0; i < groupCnt; ++i) {
+    const value = isDataArray
+      ? axisCat.map(() => getRandomData(i))
+      : getRandomData(i);
     data.push({
       name: legend.data[i],
-      value: Math.floor(
-        ((Math.random() * 800 + 200) * (groupCnt - i)) / groupCnt
-      )
+      value: value
     });
   }
   return {
@@ -470,7 +480,7 @@ export function getPreviewOptions(groupCnt: number) {
       title: {
         text: 'Radar'
       },
-      series: getSeriesRandomValue(groupCnt, 'radar'),
+      series: getSeriesRandomGroup(groupCnt, 'radar', true),
       radar: {
         indicator: getIndicator(),
         center: ['50%', '60%']

@@ -10,7 +10,8 @@
     "target": "es5",
     "allowJs": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

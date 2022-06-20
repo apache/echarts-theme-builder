@@ -206,7 +206,7 @@ const columnSize = {
   right: 14
 };
 
-const builtinThemes = defaultThemes.map(theme => getMergedConfigs(theme));
+const builtinThemes = defaultThemes.map((theme) => getMergedConfigs(theme));
 
 function onConfigChange() {
   emit('configChange');
@@ -356,7 +356,7 @@ function importFileChanged(e: any) {
 
   // read local file
   var reader = new FileReader();
-  reader.onload = function() {
+  reader.onload = function () {
     // update theme
     const json = JSON.parse(reader.result as string);
     if (!json.version || json.version !== 2) {
@@ -368,7 +368,7 @@ function importFileChanged(e: any) {
     configs.value = json.config;
     onConfigChange();
   };
-  reader.onerror = function(e) {
+  reader.onerror = function (e) {
     alert('打开文件失败！');
     console.error(e);
   };

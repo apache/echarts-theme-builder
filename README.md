@@ -1,24 +1,66 @@
-# ECharts-Theme-Builder
+# Apache ECharts Theme Builder
 
-Design your own theme for Apache ECharts.
+## Dependencies
 
-[Online Theme Builder](https://echarts.apache.org/theme-builder.html)
+- TypeScript
+- Vue 3
+- Element Plus
+- Vite
 
-![](https://raw.githubusercontent.com/Ovilia/ECharts-Theme-Builder/master/assets/essos.png)
+## Structure
 
-## Build
+- `index.html` Entry HTML that for development preview usage
+- `body.html` Body HTML that will be final integrated when deploying
+- `src` Source folder.
+- `dist` Distribution folder. It will be copied when deploying.
 
-```bash
-npm install
-npm run build
+## Recommanded Environment
+
+- VSCode + Volar
+
+Vetur need to be disabled in this workspace because it's not support [setup](https://github.com/vuejs/rfcs/pull/227) feature yet.
+You can replace the code using [setup](https://github.com/vuejs/rfcs/pull/227) feature if you don't like it.
+
+## Use
+
+Get boilerplate
+
+```shell
+degit pissang/echarts-www-spa-boilerplate yourProjectName
 ```
 
-## Release to echarts-www
+Install
 
-Update the echarts-www and echarts-website project path in `config/env.asf.js` before run
+```shell
+npm i
+```
 
-```bash
+Start dev
+
+```shell
+npm run dev
+```
+
+Release
+
+```shell
 npm run release
 ```
 
-It will generate the html to the `_generated` folder of echarts-www. And other resources to the echarts-website folder
+## Create a Page in echarts-www
+
+```shell
+cd echarts-www
+npm run create:page
+```
+
+- Project Name: Name of this project. It will be used to locate the project folder.
+- Page Name: Page name of this tool. Page URL will be `https://echarts.apache.org/zh/${pageName}/index.html`.
+- Page Title: Title of this page tool.
+- Page Chinese Title: Chinese title of this page tool.
+
+## Global Variables from echarts-www
+
+- `ECHARTS_WEBSITE_LANGUAGE`
+
+Language of page. Can be 'zh' or 'en'

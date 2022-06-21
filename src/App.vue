@@ -23,6 +23,12 @@ setTimeout(() => {
   }
 });
 
+window.onresize = () => {
+  if (preview.value) {
+    preview.value.resize();
+  }
+};
+
 function onConfigChange() {
   renderPreview(config.value.getTheme());
 }
@@ -34,7 +40,7 @@ function renderPreview(theme: object) {
 
 <style scoped lang="scss">
 #echarts-spa-app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'PingFang SC', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

@@ -19,7 +19,8 @@ import { getPreviewOptions } from '../data/previews';
 import { Theme } from '../data/themeConfigs';
 
 defineExpose({
-  render
+  render,
+  resize
 });
 
 let options = getPreviewOptions(4);
@@ -36,6 +37,14 @@ function render(theme: Theme) {
     if (el) {
       charts[i] = echarts.init(el, theme.name);
       charts[i].setOption(options[i] as any);
+    }
+  }
+}
+
+function resize() {
+  for (let i = 0; i < charts.length; ++i) {
+    if (charts[i]) {
+      charts[i].resize();
     }
   }
 }

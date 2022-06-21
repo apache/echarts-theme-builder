@@ -58,7 +58,7 @@
             </el-input>
           </el-col>
         </el-row>
-        <h5>{{ $t('seriesNumber') }}</h5>
+        <h5>{{ $t('colorPalette') }}</h5>
         <div style="text-align: center">
           <div
             class="theme-group"
@@ -91,7 +91,12 @@
         :key="item.name"
         :name="$t(item.name)"
       >
-        <el-col :span="columnSize.left">
+        <div v-if="item.type === 'head'" class="item-header">
+          <h5>
+            {{ $t(item.name) }}
+          </h5>
+        </div>
+        <el-col :span="columnSize.left" v-if="item.type !== 'head'">
           <el-checkbox
             v-if="item.showOptionPath"
             v-model="item.isShow"
@@ -101,7 +106,7 @@
           </el-checkbox>
           <h5 v-else>{{ $t(item.name) }}</h5>
         </el-col>
-        <el-col :span="columnSize.right">
+        <el-col :span="columnSize.right" v-if="item.type !== 'head'">
           <el-checkbox
             v-if="item.type === 'boolean'"
             v-model="item.value"
@@ -139,13 +144,19 @@
                 </div>
               </div>
               <div class="color-operations">
-                <el-button @click="addColor(item)" size="small">
+                <el-button
+                  @click="addColor(item)"
+                  size="small"
+                  class="icon-btn"
+                >
                   <el-icon><plus /></el-icon>
-                  {{ $t('increase') }}
                 </el-button>
-                <el-button @click="removeColor(item)" size="small">
+                <el-button
+                  @click="removeColor(item)"
+                  size="small"
+                  class="icon-btn"
+                >
                   <el-icon><minus /></el-icon>
-                  {{ $t('decrease') }}
                 </el-button>
               </div>
             </div>
@@ -271,6 +282,9 @@ function getTheme(): Theme {
   if (configs.value) {
     for (let group of configs.value) {
       for (let item of group.items) {
+        if (item.type === 'head') {
+          continue;
+        }
         let isAlias = false;
         for (let alias of optionPathAlias) {
           const optionPath = item.optionPath;
@@ -446,11 +460,24 @@ function getExportJsFile() {
 h5 {
   margin: 8px 0;
   font-size: 13px;
+  font-weight: normal;
   color: #666;
 }
 
 .el-checkbox {
   margin: 5px 0;
+  --el-checkbox-font-size: 13px;
+}
+
+.icon-btn {
+  padding: 5px 2px 5px 5px;
+}
+
+.item-header {
+  width: 100%;
+  border-top: 1px dashed #ddd;
+  padding-top: 5px;
+  margin-top: 10px;
 }
 
 .color-picker {
@@ -478,8 +505,9 @@ h5 {
 .theme-group {
   display: inline-block;
   margin: 5px;
+  height: 19px;
   border-radius: 6px;
-  padding: 8px 4px 0 6px;
+  padding: 5px;
   border: 1px solid #eee;
   cursor: pointer;
 }
@@ -490,5 +518,9 @@ h5 {
   display: inline-block;
   border-radius: 4px;
   margin-right: 4px;
+}
+
+.theme-group-item:nth-child(6) {
+  margin-right: 0;
 }
 </style>

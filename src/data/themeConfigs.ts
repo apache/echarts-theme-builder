@@ -1,9 +1,9 @@
 export type ThemeConfigItem = {
   name: string;
-  type: 'string' | 'number' | 'boolean' | 'select' | 'color';
-  value: string | number | boolean | string[];
+  type: 'string' | 'number' | 'boolean' | 'select' | 'color' | 'head';
+  value?: string | number | boolean | string[];
   selectOptions?: { name: string; value: string }[];
-  optionPath: string;
+  optionPath?: string;
   multipleColor?: boolean;
   isShow?: boolean;
   showOptionPath?: number;
@@ -71,10 +71,14 @@ export const themeConfigs: ThemeConfig[] = [
     groupName: 'axis',
     items: [
       {
+        name: 'axisCategoryHead',
+        type: 'head'
+      },
+      {
         name: 'axisLine',
         type: 'color',
         value: '#6e7079',
-        optionPath: '{axis}.axisLine.lineStyle.color',
+        optionPath: 'categoryAxis.axisLine.lineStyle.color',
         isShow: true,
         showOptionPath: -3
       },
@@ -82,7 +86,7 @@ export const themeConfigs: ThemeConfig[] = [
         name: 'axisTick',
         type: 'color',
         value: '#6e7079',
-        optionPath: '{axis}.axisTick.lineStyle.color',
+        optionPath: 'categoryAxis.axisTick.lineStyle.color',
         isShow: true,
         showOptionPath: -3
       },
@@ -91,7 +95,53 @@ export const themeConfigs: ThemeConfig[] = [
         type: 'color',
         multipleColor: true,
         value: ['#e0e6f1'],
-        optionPath: '{axis}.splitLine.lineStyle.color',
+        optionPath: 'categoryAxis.splitLine.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisArea',
+        type: 'color',
+        multipleColor: true,
+        value: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)'],
+        optionPath: 'categoryAxis.splitArea.areaStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisLabel',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'categoryAxis.axisLabel.color',
+        isShow: true,
+        showOptionPath: -2
+      },
+      {
+        name: 'axisValueHead',
+        type: 'head'
+      },
+      {
+        name: 'axisLine',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'valueAxis.axisLine.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisTick',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'valueAxis.axisTick.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisSplitLine',
+        type: 'color',
+        multipleColor: true,
+        value: ['#e0e6f1'],
+        optionPath: 'valueAxis.splitLine.lineStyle.color',
         isShow: true,
         showOptionPath: -3
       },
@@ -100,7 +150,7 @@ export const themeConfigs: ThemeConfig[] = [
         type: 'color',
         multipleColor: true,
         value: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)'],
-        optionPath: '{axis}.splitArea.areaStyle.color',
+        optionPath: 'valueAxis.splitArea.areaStyle.color',
         isShow: false,
         showOptionPath: -3
       },
@@ -108,7 +158,99 @@ export const themeConfigs: ThemeConfig[] = [
         name: 'axisLabel',
         type: 'color',
         value: '#6e7079',
-        optionPath: '{axis}.axisLabel.color',
+        optionPath: 'valueAxis.axisLabel.color',
+        isShow: true,
+        showOptionPath: -2
+      },
+      {
+        name: 'axisLogHead',
+        type: 'head'
+      },
+      {
+        name: 'axisLine',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'logAxis.axisLine.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisTick',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'logAxis.axisTick.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisSplitLine',
+        type: 'color',
+        multipleColor: true,
+        value: ['#e0e6f1'],
+        optionPath: 'logAxis.splitLine.lineStyle.color',
+        isShow: true,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisArea',
+        type: 'color',
+        multipleColor: true,
+        value: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)'],
+        optionPath: 'logAxis.splitArea.areaStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisLabel',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'logAxis.axisLabel.color',
+        isShow: true,
+        showOptionPath: -2
+      },
+      {
+        name: 'axisTimeHead',
+        type: 'head'
+      },
+      {
+        name: 'axisLine',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'timeAxis.axisLine.lineStyle.color',
+        isShow: true,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisTick',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'timeAxis.axisTick.lineStyle.color',
+        isShow: true,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisSplitLine',
+        type: 'color',
+        multipleColor: true,
+        value: ['#e0e6f1'],
+        optionPath: 'timeAxis.splitLine.lineStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisArea',
+        type: 'color',
+        multipleColor: true,
+        value: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)'],
+        optionPath: 'timeAxis.splitArea.areaStyle.color',
+        isShow: false,
+        showOptionPath: -3
+      },
+      {
+        name: 'axisLabel',
+        type: 'color',
+        value: '#6e7079',
+        optionPath: 'timeAxis.axisLabel.color',
         isShow: true,
         showOptionPath: -2
       }
@@ -401,9 +543,10 @@ export const themeConfigs: ThemeConfig[] = [
   }
 ];
 
-export function getMergedConfigs(
-  version1Config: object
-): { configs: ThemeConfig[]; name: string } {
+export function getMergedConfigs(version1Config: object): {
+  configs: ThemeConfig[];
+  name: string;
+} {
   const mergedConfigs: ThemeConfig[] = [];
   const nameMaps = {
     backgroundColor: 'backgroundColor',
@@ -444,24 +587,7 @@ export function getMergedConfigs(
     for (let j = 0; j < themeConfigs[i].items.length; j++) {
       const item = themeConfigs[i].items[j];
       const newItem = Object.assign({}, item);
-      if (item.optionPath.startsWith('{axis}')) {
-        const axisMap = {
-          '{axis}.axisLine.lineStyle.color': 'axisLineColor',
-          '{axis}.axisTick.lineStyle.color': 'axisTickColor',
-          '{axis}.splitLine.lineStyle.color': 'splitLineColor',
-          '{axis}.splitArea.areaStyle.color': 'splitAreaColor',
-          '{axis}.axisLabel.color': 'axisLabelColor'
-        };
-        if (
-          axisMap.hasOwnProperty(item.optionPath) &&
-          // @ts-ignore
-          version1Config.theme.axes.length > 0
-        ) {
-          newItem.value =
-            // @ts-ignore
-            version1Config.theme.axes[0][axisMap[item.optionPath]];
-        }
-      } else if (nameMaps.hasOwnProperty(item.optionPath)) {
+      if (item.optionPath && nameMaps.hasOwnProperty(item.optionPath)) {
         // @ts-ignore
         newItem.value = version1Config.theme[nameMaps[item.optionPath]];
       }

@@ -3,7 +3,7 @@
     "themeName": "halloween",
     "theme": {
         "seriesCnt": "4",
-        "backgroundColor": "rgba(64,64,64,0.5)",
+        "backgroundColor": "rgba(64,64,64,1)",
         "titleColor": "#ffaf51",
         "subtitleColor": "#eeeeee",
         "textColorShow": false,

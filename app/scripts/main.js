@@ -289,9 +289,7 @@ var vm = new Vue({
     },
 
     exportJson: function() {
-      // delete replicated axis option, which is included in theme.axes
-      var theme = cloneObject(vm.theme);
-      delete theme.axis;
+      var theme = getTheme(true);
       saveJsonFile({
         version: VERSION,
         themeName: vm.themeName,

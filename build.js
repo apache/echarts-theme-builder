@@ -1,7 +1,7 @@
 const fs = require('fs');
 const UglifyJS = require('uglify-js');
 const path = require('path');
-const sass = require('node-sass');
+const sass = require('sass');
 const copydir = require('copy-dir');
 const config = require('./config/env.asf');
 const fse = require('fs-extra');
@@ -42,8 +42,7 @@ function build() {
     }
 
     // Bundle sass
-    const cssResult = sass.renderSync({
-        file: path.resolve(__dirname, 'app/styles/main.scss'),
+    const cssResult = sass.compile(path.resolve(__dirname, 'app/styles/main.scss'), {
         outputStyle: 'compressed'
     });
 

@@ -1,3 +1,6 @@
+@use "sass:color";
+@use "configs.color" as *;
+
 $nav-height: 50px;
 
 #theme-builder {
@@ -28,12 +31,12 @@ $nav-height: 50px;
 
   .btn-primary {
     color: #fff;
-    border-color: lighten($clr-primary, 5%);
-    background-color: lighten($clr-primary, 10%);
+    border-color: color.adjust($clr-primary, $lightness: 5%);
+    background-color: color.adjust($clr-primary, $lightness: 10%);
 
     &:hover, &:active, &:focus, &.active {
-      border-color: lighten($clr-primary, 10%);
-      background-color: lighten($clr-primary, 20%);
+      border-color: color.adjust($clr-primary, $lightness: 10%);
+      background-color: color.adjust($clr-primary, $lightness: 20%);
     }
   }
 

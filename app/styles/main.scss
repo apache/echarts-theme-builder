@@ -1,10 +1,9 @@
 $icon-font-path: "../vendors/fonts/";
 
-@import "configs.color";
+@use "configs.color";
+@use "settings.global";
 
-@import "settings.global";
-
-@import "components.echarts";
-@import "components.config";
-@import "components.color";
-@import "components.code";
+@use "components.echarts" as *;
+@use "components.config" as *;
+@use "components.color" as *;
+@use "components.code" as *;

@@ -61,7 +61,7 @@ function build() {
             path.resolve(__dirname, `app/${lang}/index.html`),
             htmlTpl
               .replace('{{body}}', fs.readFileSync(path.resolve(__dirname, `app/${lang}/body.html`)))
-              .replace('{{lang}}', lang)
+              .replace(/{{lang}}/g, lang)
         );
 
         copydir.sync(path.resolve(__dirname, 'app/themes'), `app/${lang}/theme-builder/themes`);

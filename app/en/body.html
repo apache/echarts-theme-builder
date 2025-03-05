@@ -69,7 +69,7 @@
                   <h5>Default Themes</h5>
                   <div class="row theme-plan-row">
                     <div class="col-xs-6" v-for="(group, $index) in preDefinedThemes">
-                      <a class="theme-plan-group" @click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" title="{{ group.name }}">
+                      <a class="theme-plan-group" @click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" v-bind:title="group.name">
                         <div class="theme-plan-color" v-for="color in group.theme" v-bind:style="{ backgroundColor: color }">
                         </div>
                       </a>
@@ -406,7 +406,7 @@
         <h3 v-bind:style="{ color: chartDisplay.title }">Example</h3>
 
         <div class="row">
-          <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12]" class="ec-container col-md-6">
+          <div v-for="i in 12" class="ec-container col-md-6">
             <div class="ec-panel"></div>
           </div>
         </div>
@@ -465,7 +465,7 @@
                 <ol id="how-to-use-js">
                   <li><span v-if="downloadable">Download or </span>copy the following theme and save as a <code>*.js</code> file; </li>
                   <li>Quote this file in HTML</li>
-                  <li>Use <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> to create the chart. The second parameter is the theme name registered in <code>*.js</code>. </li>
+                  <li>Use <code>echarts.init(dom, '{{ themeName || 'customized' }}')</code> to create the chart. The second parameter is the theme name registered in <code>*.js</code>. </li>
                 </ol>
                 <div class="code-btn">
                   <div class="btn-group" role="group">
@@ -483,8 +483,8 @@
                 <ol id="how-to-use-json">
                   <li><span v-if="downloadable">Download or </span>copy and save the following theme as <code>*.json</code>; </li>
                   <li>Read this JSON file and use <code>obj = JSON.parse(data)</code> to transfer it as object; </li>
-                  <li>Call <code>echarts.registerTheme('{{ themeName || 'customed' }}', obj)</code> to register the theme. </li>
-                  <li>Use <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> to create the chart. The second parameter represents the theme name. </li>
+                  <li>Call <code>echarts.registerTheme('{{ themeName || 'customized' }}', obj)</code> to register the theme. </li>
+                  <li>Use <code>echarts.init(dom, '{{ themeName || 'customized' }}')</code> to create the chart. The second parameter represents the theme name. </li>
                 </ol>
                 <div class="code-btn">
                   <div class="btn-group" role="group">

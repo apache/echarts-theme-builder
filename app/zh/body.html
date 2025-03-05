@@ -69,7 +69,7 @@
                   <h5>默认方案</h5>
                   <div class="row theme-plan-row">
                     <div class="col-xs-6" v-for="(group, $index) in preDefinedThemes">
-                      <a class="theme-plan-group" @click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" title="{{ group.name }}">
+                      <a class="theme-plan-group" @click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" v-bind:title="group.name">
                         <div class="theme-plan-color" v-for="color in group.theme" v-bind:style="{ backgroundColor: color }">
                         </div>
                       </a>
@@ -406,7 +406,7 @@
         <h3 v-bind:style="{ color: chartDisplay.title }">示例预览</h3>
 
         <div class="row">
-          <div v-for="i in [1,2,3,4,5,6,7,8,9,10,11,12]" class="ec-container col-md-6">
+          <div v-for="i in 12" class="ec-container col-md-6">
             <div class="ec-panel"></div>
           </div>
         </div>
@@ -465,7 +465,7 @@
                 <ol id="how-to-use-js">
                   <li><span v-if="downloadable">下载或</span>复制以下的主题保存至 <code>*.js</code> 文件；</li>
                   <li>将该文件在 HTML 中引用；</li>
-                  <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为 <code>*.js</code> 文件中注册的主题名字。</li>
+                  <li>使用 <code>echarts.init(dom, '{{ themeName || 'customized' }}')</code> 创建图表，第二个参数即为 <code>*.js</code> 文件中注册的主题名字。</li>
                 </ol>
                 <div class="code-btn">
                   <div class="btn-group" role="group">
@@ -483,8 +483,8 @@
                 <ol id="how-to-use-json">
                   <li><span v-if="downloadable">下载或</span>复制以下的主题保存至 <code>*.json</code> 文件；</li>
                   <li>读取该 JSON 文件，并使用 <code>obj = JSON.parse(data)</code> 将其转换成对象；</li>
-                  <li>调用 <code>echarts.registerTheme('{{ themeName || 'customed' }}', obj)</code> 注册主题；</li>
-                  <li>使用 <code>echarts.init(dom, '{{ themeName || 'customed' }}')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
+                  <li>调用 <code>echarts.registerTheme('{{ themeName || 'customized' }}', obj)</code> 注册主题；</li>
+                  <li>使用 <code>echarts.init(dom, '{{ themeName || 'customized' }}')</code> 创建图表，第二个参数即为刚才注册的主题名字。</li>
                 </ol>
                 <div class="code-btn">
                   <div class="btn-group" role="group">

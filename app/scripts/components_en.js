@@ -49,7 +49,7 @@ Vue.component('color', VueColor);
 var VueColorList = Vue.extend({
 
   template: '<div>'
-          +   '<div v-for="color in colors" track-by="$index">'
+          +   '<div v-for="(color, $index) in colors" v-bind:track-by="$index">'
           +     '<color :color.sync="color"></color>'
           +   '</div>'
           +   '<div class="theme-color-control">'

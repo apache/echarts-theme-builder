@@ -68,8 +68,8 @@
                   <hr />
                   <h5>默认方案</h5>
                   <div class="row theme-plan-row">
-                    <div class="col-xs-6" v-for="group in preDefinedThemes">
-                      <a class="theme-plan-group"@click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" title="{{ group.name }}">
+                    <div class="col-xs-6" v-for="(group, $index) in preDefinedThemes">
+                      <a class="theme-plan-group" @click="selectPreDefinedTheme($index)" v-bind:style="{ backgroundColor: group.background }" title="{{ group.name }}">
                         <div class="theme-plan-color" v-for="color in group.theme" v-bind:style="{ backgroundColor: color }">
                         </div>
                       </a>
@@ -137,7 +137,7 @@
                       <label for="axisSeperateSetting" class="control-label">为不同类型坐标轴分别设置</label>
                     </div>
                   </div>
-                  <div class="axis-group" v-for="axis in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
+                  <div class="axis-group" v-for="(axis, $index) in theme.axis" v-if="$index > 0 || !theme.axisSeperateSetting">
                     <h5 v-if="axis.type !== 'all'">{{ axis.name }}</h5>
                     <config-color can-disable :enabled.sync="axis.axisLineShow" title="轴线" :color.sync="axis.axisLineColor"></config-color>
                     <config-color can-disable :enabled.sync="axis.axisTickShow" title="刻度" :color.sync="axis.axisTickColor"></config-color>

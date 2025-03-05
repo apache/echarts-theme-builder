@@ -220,7 +220,7 @@ var vm = new Vue({
 
   data: {
     theme: cloneObject(defaultTheme),
-    themeName: 'customed',
+    themeName: 'customized',
     charts: [],
     options: [],
     isPauseChartUpdating: false,
@@ -264,12 +264,12 @@ var vm = new Vue({
 
     downloadThemeJson: function() {
       // _hmt.push(['_trackEvent', 'theme-builder', 'download', 'json']);
-      saveJsonFile(getTheme(true), (vm.themeName || 'customed') + '.json');
+      saveJsonFile(getTheme(true), (vm.themeName || 'customized') + '.json');
     },
 
     downloadThemeJs: function() {
       // _hmt.push(['_trackEvent', 'theme-builder', 'download', 'js']);
-      saveJsFile(getExportJsFile(), (vm.themeName || 'customed') + '.js');
+      saveJsFile(getExportJsFile(), (vm.themeName || 'customized') + '.js');
     },
 
     copyThemeJson: function() {
@@ -281,8 +281,8 @@ var vm = new Vue({
     },
 
     newTheme: function() {
-      this.$set('theme', cloneObject(defaultTheme));
-      this.$set('themeName', 'customed');
+      this.$set(this, 'theme', cloneObject(defaultTheme));
+      this.$set(this, 'themeName', 'customized');
       vm.axisSeperateSettingChanges();
     },
 
@@ -294,7 +294,7 @@ var vm = new Vue({
         version: VERSION,
         themeName: vm.themeName,
         theme: theme
-      }, (vm.themeName || 'customed') + '.project.json');
+      }, (vm.themeName || 'customized') + '.project.json');
     },
 
     importJson: function() {
@@ -357,7 +357,7 @@ function onThemeImported(result) {
     }
 
     // theme name
-    vm.$set('themeName', obj.themeName || 'customed');
+    vm.$set(vm, 'themeName', obj.themeName || 'customized');
 
     if (obj.version < VERSION) {
       // out-dated, use as much attribute as possible
@@ -379,7 +379,7 @@ function onThemeImported(result) {
         console.warn('The imported theme have lower version, some attributes have not been set.');
       }
     }
-    vm.$set('theme', obj.theme);
+    vm.$set(vm, 'theme', obj.theme);
 
     // update axis according to if using seperate axes
     vm.axisSeperateSettingChanges();
@@ -637,8 +637,9 @@ function updatingStep(idx, options, rootIdx) {
     if (chart) {
       chart.dispose();
     }
-    chart = echarts.init($panel[0], 'customed');
+    chart = echarts.init($panel[0], 'customized');
     chart.setOption(options[idx]);
+    window.addEventListener('resize', chart.resize);
 
     // next chart is the chart after this one,
     // or from begining
@@ -661,7 +662,7 @@ function updateCharts() {
     return;
   }
 
-  echarts.registerTheme('customed', getTheme(false));
+  echarts.registerTheme('customized', getTheme(false));
   var options = getOptions(vm);
 
   if (timeout) {

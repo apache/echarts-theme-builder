@@ -8,7 +8,7 @@ var VueColor = Vue.extend({
           +   '<span class="input-group-addon"><i></i></span>'
           + '</div>',
 
-  compiled: function () {
+  mounted: function () {
     var vm = this;
     var $el = $(this.$el);
     $el.find('input').val(this.color);
@@ -18,11 +18,12 @@ var VueColor = Vue.extend({
       var colorStr = $el.find('input').val();
       var isColorValid = echarts.color.parse(colorStr);
       if (isColorValid) {
-        vm.$set('color', colorStr);
+        vm.$set(vm, 'color', colorStr);
       }
     });
     vm.$watch('color', function(newV) {
       $el.colorpicker('setValue', newV);
+      vm.$emit('update:color', newV);
     });
   },
 
@@ -31,12 +32,6 @@ var VueColor = Vue.extend({
       twoWay: true
     }
   }
-
-  // data: function () {
-  //   return {
-  //     color: '#333'
-  //   };
-  // }
 });
 
 Vue.component('color', VueColor);
@@ -50,7 +45,7 @@ var VueColorList = Vue.extend({
 
   template: '<div>'
           +   '<div v-for="(color, $index) in colors" v-bind:track-by="$index">'
-          +     '<color :color.sync="color"></color>'
+          +     '<color :color.sync="colors[$index]"></color>'
           +   '</div>'
           +   '<div class="theme-color-control">'
           +     '<a v-on:click="addColor()">增加</a>'
@@ -64,11 +59,14 @@ var VueColorList = Vue.extend({
     }
   },
 
-  // data: function () {
-  //   return {
-  //     colors: ['#333333']
-  //   };
-  // },
+  watch: {
+    colors: {
+      handler: function (newVal) {
+        this.$emit('update:colors', newVal);
+      },
+      deep: true
+    }
+  },
 
   methods: {
     addColor: function () {
@@ -114,11 +112,14 @@ var VueNumberConfig = Vue.extend({
     }
   },
 
-  // data: function () {
-  //   return {
-  //     value: 1
-  //   };
-  // }
+  watch: {
+    value: function (newVal) {
+      this.$emit('update:value', newVal)
+    },
+    enabled: function (newVal) {
+      this.$emit('update:enabled', newVal)
+    }
+  }
 });
 
 Vue.component('config-number', VueNumberConfig);
@@ -154,11 +155,14 @@ var VueColorConfig = Vue.extend({
     }
   },
 
-  // data: function () {
-  //   return {
-  //     color: '#333'
-  //   };
-  // }
+  watch: {
+    color: function (newVal) {
+      this.$emit('update:color', newVal)
+    },
+    enabled: function (newVal) {
+      this.$emit('update:enabled', newVal)
+    }
+  }
 });
 Vue.component('config-color', VueColorConfig);
 
@@ -192,10 +196,16 @@ var VueColorListConfig = Vue.extend({
     }
   },
 
-  // data: function () {
-  //   return {
-  //     colors: ['#333333']
-  //   };
-  // },
+  watch: {
+    colors: {
+      handler: function (newVal) {
+        this.$emit('update:colors', newVal)
+      },
+      deep: true
+    },
+    enabled: function (newVal) {
+      this.$emit('update:enabled', newVal)
+    }
+  }
 });
 Vue.component('config-color-list', VueColorListConfig);

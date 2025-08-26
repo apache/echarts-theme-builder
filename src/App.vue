@@ -1,30 +1,72 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+// Simple fixed sidebar layout without responsive design
+import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="theme-builder">
+    <div class="container-fluid" id="content">
+      <van-row class="row-container" :gutter="0">
+        <!-- Left panel: Theme configuration - Fixed width -->
+        <van-col span="6" class="theme-config">
+          <!-- Theme configuration panel will be implemented here -->
+          <div class="placeholder">
+            Theme Configuration Panel
+          </div>
+        </van-col>
+
+        <!-- Right panel: Chart preview - Remaining width -->
+        <van-col span="18" class="chart-container">
+          <ChartPreviewPanel />
+        </van-col>
+      </van-row>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+#theme-builder {
+  width: 100%;
+  height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.container-fluid {
+  height: 100%;
+  padding: 0;
+  width: 100%;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.row-container {
+  height: 100%;
+  display: flex !important;
+  flex-direction: row !important;
+}
+
+.theme-config {
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 0 0 25%; /* Fixed 25% width */
+}
+
+.chart-container {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1; /* Take remaining space */
+}
+
+.placeholder {
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+  border: 2px dashed #dee2e6;
+  border-radius: 4px;
+  font-size: 16px;
 }
 </style>

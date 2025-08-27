@@ -208,10 +208,37 @@ export const useThemeStore = () => {
     themeName.value = 'customized'
   }
 
-  const loadPreDefinedTheme = (preTheme: PreDefinedTheme) => {
-    theme.backgroundColor = preTheme.background
-    theme.color = [...preTheme.theme]
-    themeName.value = preTheme.name
+  const loadPreDefinedTheme = (index: number) => {
+    const preTheme = PRE_DEFINED_THEMES[index]
+    if (preTheme) {
+      theme.backgroundColor = preTheme.background
+      theme.color = [...preTheme.theme]
+      themeName.value = preTheme.name
+    }
+  }
+
+  const updateAxisSetting = () => {
+    if (theme.axisSeperateSetting) {
+      theme.axis = theme.axes
+    } else {
+      theme.axis = [theme.axes[0]]
+    }
+  }
+
+  const importTheme = (jsonString: string) => {
+    try {
+      const data = JSON.parse(jsonString)
+      if (data.theme) {
+        Object.assign(theme, data.theme)
+        if (data.themeName) {
+          themeName.value = data.themeName
+        }
+        updateAxisSetting()
+      }
+    } catch (error) {
+      console.error('Failed to import theme:', error)
+      throw error
+    }
   }
 
   const exportTheme = () => {
@@ -228,6 +255,8 @@ export const useThemeStore = () => {
     chartDisplay,
     resetTheme,
     loadPreDefinedTheme,
+    updateAxisSetting,
+    importTheme,
     exportTheme
   }
 }

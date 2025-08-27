@@ -5,3 +5,4 @@ dist
 app/bower_components
 test/bower_components
 app/vendors/echarts.js
+.DS_Store

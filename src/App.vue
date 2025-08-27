@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // Simple fixed sidebar layout without responsive design
 import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
+import ThemePanel from './components/ThemePanel.vue'
 </script>
 
 <template>
@@ -9,10 +10,7 @@ import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
       <van-row class="row-container" :gutter="0">
         <!-- Left panel: Theme configuration - Fixed width -->
         <van-col span="6" class="theme-config">
-          <!-- Theme configuration panel will be implemented here -->
-          <div class="placeholder">
-            Theme Configuration Panel
-          </div>
+          <ThemePanel />
         </van-col>
 
         <!-- Right panel: Chart preview - Remaining width -->
@@ -45,9 +43,10 @@ import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 .theme-config {
   height: 100vh;
   overflow-y: auto;
-  background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
-  padding: 20px;
+  background-color: #ffffff;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 0;
   box-sizing: border-box;
   flex: 0 0 25%; /* Fixed 25% width */
 }

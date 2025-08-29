@@ -1,5 +1,6 @@
 import { ref, reactive } from 'vue'
 import type { ThemeData, PreDefinedTheme } from '../types/theme'
+import { generateEChartsTheme, generateThemeJsFile, generateThemeConfigForDownload } from '../utils/themeGenerator'
 
 // 预定义主题
 export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
@@ -208,9 +209,75 @@ export const useThemeStore = () => {
     themeName.value = 'customized'
   }
 
-  const loadPreDefinedTheme = (index: number) => {
+  const loadPreDefinedTheme = async (index: number) => {
+    console.log('🏪 loadPreDefinedTheme called with index:', index)
     const preTheme = PRE_DEFINED_THEMES[index]
-    if (preTheme) {
+    if (!preTheme) {
+      console.error('❌ No theme found at index:', index)
+      return
+    }
+
+    console.log('🏪 Loading theme:', preTheme.name)
+
+    try {
+      // Load the complete theme configuration from JSON file
+      const response = await fetch(`/themes/${preTheme.name}.json`)
+      if (!response.ok) {
+        throw new Error(`Failed to load theme: ${preTheme.name}`)
+      }
+
+      const themeData = await response.json()
+      console.log('🏪 Loaded theme data:', themeData)
+
+      if (themeData.theme) {
+        // Convert string numbers to actual numbers
+        const loadedTheme = { ...themeData.theme }
+        if (typeof loadedTheme.seriesCnt === 'string') {
+          loadedTheme.seriesCnt = parseInt(loadedTheme.seriesCnt, 10)
+        }
+        if (typeof loadedTheme.borderWidth === 'string') {
+          loadedTheme.borderWidth = parseFloat(loadedTheme.borderWidth)
+        }
+        if (typeof loadedTheme.lineWidth === 'string') {
+          loadedTheme.lineWidth = parseFloat(loadedTheme.lineWidth)
+        }
+        if (typeof loadedTheme.symbolSize === 'string') {
+          loadedTheme.symbolSize = parseFloat(loadedTheme.symbolSize)
+        }
+        if (typeof loadedTheme.symbolBorderWidth === 'string') {
+          loadedTheme.symbolBorderWidth = parseFloat(loadedTheme.symbolBorderWidth)
+        }
+
+        console.log('🏪 Before applying theme:', { ...theme })
+
+        // Apply the complete theme configuration property by property to ensure reactivity
+        // This ensures Vue's reactive system properly detects changes
+        Object.keys(loadedTheme).forEach(key => {
+          if (key in theme) {
+            (theme as any)[key] = loadedTheme[key]
+          }
+        })
+
+        themeName.value = themeData.themeName || preTheme.name
+
+        // Ensure color is an array
+        if (typeof theme.color === 'string') {
+          theme.color = [theme.color]
+        }
+
+        // Update axis settings based on axisSeperateSetting
+        updateAxisSetting()
+
+        console.log('🏪 After applying theme:', theme)
+        console.log('🏪 Theme name set to:', themeName.value)
+
+        // Force trigger reactive update by modifying a dummy property
+        ;(theme as any).__forceUpdate = Date.now()
+      }
+    } catch (error) {
+      console.error('❌ Error loading predefined theme:', error)
+      // Fallback to basic theme loading
+      console.log('🏪 Using fallback theme loading')
       theme.backgroundColor = preTheme.background
       theme.color = [...preTheme.theme]
       themeName.value = preTheme.name
@@ -248,6 +315,18 @@ export const useThemeStore = () => {
     return cleanedData
   }
 
+  const getEChartsTheme = (isToExport: boolean = false) => {
+    return generateEChartsTheme(theme, isToExport)
+  }
+
+  const getThemeJsFile = () => {
+    return generateThemeJsFile(theme, themeName.value)
+  }
+
+  const getThemeConfigForDownload = () => {
+    return generateThemeConfigForDownload(theme, themeName.value, 1)
+  }
+
   return {
     theme,
     themeName,
@@ -257,6 +336,9 @@ export const useThemeStore = () => {
     loadPreDefinedTheme,
     updateAxisSetting,
     importTheme,
-    exportTheme
+    exportTheme,
+    getEChartsTheme,
+    getThemeJsFile,
+    getThemeConfigForDownload
   }
 }

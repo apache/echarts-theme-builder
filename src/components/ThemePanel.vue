@@ -412,6 +412,13 @@ import { useThemeStore } from '../stores/theme'
 import { PRE_DEFINED_THEMES } from '../stores/theme'
 import ColorPicker from './ColorPicker.vue'
 import ColorList from './ColorList.vue'
+import type ChartPreviewPanel from './ChartPreviewPanel.vue'
+
+// Props
+interface Props {
+  chartPreviewRef?: InstanceType<typeof ChartPreviewPanel> | null
+}
+const props = defineProps<Props>()
 
 // Component state
 const activeNames = ref(['functions'])  // Functions panel expanded by default
@@ -427,7 +434,6 @@ const preDefinedThemes = PRE_DEFINED_THEMES
 // Methods
 const downloadTheme = () => {
   // TODO: Implement theme download
-  console.log('Download theme')
 }
 
 const importConfig = () => {
@@ -436,12 +442,10 @@ const importConfig = () => {
 
 const exportConfig = () => {
   // TODO: Implement config export
-  console.log('Export config')
 }
 
 const refreshCharts = () => {
   // TODO: Implement chart refresh
-  console.log('Refresh charts')
 }
 
 const resetTheme = () => {
@@ -450,11 +454,19 @@ const resetTheme = () => {
 
 const showHelp = () => {
   // TODO: Implement help dialog
-  console.log('Show help')
 }
 
-const selectPreDefinedTheme = (index: number) => {
-  themeStore.loadPreDefinedTheme(index)
+const selectPreDefinedTheme = async (index: number) => {
+  try {
+    await themeStore.loadPreDefinedTheme(index)
+
+    // Manually trigger chart update
+    if (props.chartPreviewRef?.updateCharts) {
+      props.chartPreviewRef.updateCharts()
+    }
+  } catch (error) {
+    console.error('Error selecting predefined theme:', error)
+  }
 }
 
 const onAxisSettingChange = () => {
@@ -525,15 +537,18 @@ const handleFileImport = (event: Event) => {
 }
 
 .theme-item {
-  padding: 8px;
-  border: 1px solid #ebedf0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: auto;
+  height: 22px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  padding: 5px;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
-  min-height: 60px;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
   gap: 2px;
 }
 
@@ -543,10 +558,12 @@ const handleFileImport = (event: Event) => {
 }
 
 .color-dot {
-  width: 12px;
-  height: 12px;
+  width: 20px;
+  height: 20px;
+  margin: 0 2px 4px 2px;
   border-radius: 2px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .axis-group {

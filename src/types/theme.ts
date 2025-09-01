@@ -1,4 +1,4 @@
-// ECharts 主题类型定义
+// ECharts theme type definitions
 export interface ThemeAxis {
   type: string
   name: string
@@ -15,7 +15,7 @@ export interface ThemeAxis {
 }
 
 export interface ThemeData {
-  // 基础配置
+  // Basic configuration
   seriesCnt: number
   backgroundColor: string
   titleColor: string
@@ -24,38 +24,38 @@ export interface ThemeData {
   textColor: string
   markTextColor: string
 
-  // 主色板
+  // Main color palette
   color: string[]
 
-  // 边框
+  // Border
   borderColor: string
   borderWidth: number
 
-  // 视觉映射
+  // Visual mapping
   visualMapColor: string[]
 
-  // 图例
+  // Legend
   legendTextColor: string
 
-  // K线图
+  // Candlestick chart
   kColor: string
   kColor0: string
   kBorderColor: string
   kBorderColor0: string
   kBorderWidth: number
 
-  // 线条
+  // Line chart
   lineWidth: number
   symbolSize: number
   symbol: string
   symbolBorderWidth: number
   lineSmooth: boolean
 
-  // 关系图
+  // Graph/Network chart
   graphLineWidth: number
   graphLineColor: string
 
-  // 地图
+  // Map
   mapLabelColor: string
   mapLabelColorE: string
   mapBorderColor: string
@@ -65,20 +65,20 @@ export interface ThemeData {
   mapAreaColor: string
   mapAreaColorE: string
 
-  // 坐标轴
+  // Coordinate axis
   axes: ThemeAxis[]
   axisSeperateSetting: boolean
   axis: ThemeAxis[] | null
 
-  // 工具箱
+  // Toolbox
   toolboxColor: string
   toolboxEmphasisColor: string
 
-  // 提示框
+  // Tooltip
   tooltipAxisColor: string
   tooltipAxisWidth: number
 
-  // 时间轴
+  // Timeline
   timelineLineColor: string
   timelineLineWidth: number
   timelineItemColor: string

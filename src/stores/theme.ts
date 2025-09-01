@@ -2,7 +2,7 @@ import { ref, reactive } from 'vue'
 import type { ThemeData, PreDefinedTheme } from '../types/theme'
 import { generateEChartsTheme, generateThemeJsFile, generateThemeConfigForDownload } from '../utils/themeGenerator'
 
-// 预定义主题
+// Predefined themes configuration
 export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
   {
     name: 'vintage',
@@ -108,13 +108,13 @@ export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
   }
 ]
 
-// 默认主题配置
+// Default theme axes configuration
 const createDefaultAxes = () => {
   const types = ['all', 'category', 'value', 'log', 'time']
-  const names = ['通用', '类目', '数值', '对数', '时间']
+  const names = ['General', 'Category', 'Value', 'Log', 'Time']
   return types.map((type, i) => ({
     type,
-    name: names[i] + '坐标轴',
+    name: names[i] + ' Axis',
     axisLineShow: type !== 'value' && type !== 'log',
     axisLineColor: '#6E7079',
     axisTickShow: type !== 'value' && type !== 'log',
@@ -194,8 +194,10 @@ export const createDefaultTheme = (): ThemeData => {
   }
 }
 
-// 全局状态管理
-export const useThemeStore = () => {
+// Global state management - Singleton pattern
+let themeStoreInstance: ReturnType<typeof createThemeStore> | null = null
+
+const createThemeStore = () => {
   const theme = reactive<ThemeData>(createDefaultTheme())
   const themeName = ref('customized')
   const isPauseChartUpdating = ref(false)
@@ -210,14 +212,11 @@ export const useThemeStore = () => {
   }
 
   const loadPreDefinedTheme = async (index: number) => {
-    console.log('🏪 loadPreDefinedTheme called with index:', index)
     const preTheme = PRE_DEFINED_THEMES[index]
     if (!preTheme) {
-      console.error('❌ No theme found at index:', index)
+      console.error('No theme found at index:', index)
       return
     }
-
-    console.log('🏪 Loading theme:', preTheme.name)
 
     try {
       // Load the complete theme configuration from JSON file
@@ -227,7 +226,6 @@ export const useThemeStore = () => {
       }
 
       const themeData = await response.json()
-      console.log('🏪 Loaded theme data:', themeData)
 
       if (themeData.theme) {
         // Convert string numbers to actual numbers
@@ -248,8 +246,6 @@ export const useThemeStore = () => {
           loadedTheme.symbolBorderWidth = parseFloat(loadedTheme.symbolBorderWidth)
         }
 
-        console.log('🏪 Before applying theme:', { ...theme })
-
         // Apply the complete theme configuration property by property to ensure reactivity
         // This ensures Vue's reactive system properly detects changes
         Object.keys(loadedTheme).forEach(key => {
@@ -268,16 +264,12 @@ export const useThemeStore = () => {
         // Update axis settings based on axisSeperateSetting
         updateAxisSetting()
 
-        console.log('🏪 After applying theme:', theme)
-        console.log('🏪 Theme name set to:', themeName.value)
-
         // Force trigger reactive update by modifying a dummy property
         ;(theme as any).__forceUpdate = Date.now()
       }
     } catch (error) {
-      console.error('❌ Error loading predefined theme:', error)
+      console.error('Error loading predefined theme:', error)
       // Fallback to basic theme loading
-      console.log('🏪 Using fallback theme loading')
       theme.backgroundColor = preTheme.background
       theme.color = [...preTheme.theme]
       themeName.value = preTheme.name
@@ -310,13 +302,15 @@ export const useThemeStore = () => {
 
   const exportTheme = () => {
     const exportData = { ...theme }
-    // 删除重复的 axis 选项，因为它已经包含在 theme.axes 中
+    // Remove duplicate axis options since they are already included in theme.axes
     const { axis, ...cleanedData } = exportData
     return cleanedData
   }
 
   const getEChartsTheme = (isToExport: boolean = false) => {
-    return generateEChartsTheme(theme, isToExport)
+    // Convert reactive object to plain object to ensure proper data passing
+    const plainTheme = JSON.parse(JSON.stringify(theme))
+    return generateEChartsTheme(plainTheme, isToExport)
   }
 
   const getThemeJsFile = () => {
@@ -341,4 +335,11 @@ export const useThemeStore = () => {
     getThemeJsFile,
     getThemeConfigForDownload
   }
+}
+
+export const useThemeStore = () => {
+  if (!themeStoreInstance) {
+    themeStoreInstance = createThemeStore()
+  }
+  return themeStoreInstance
 }

@@ -1,21 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 // Simple fixed sidebar layout without responsive design
 import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 import ThemePanel from './components/ThemePanel.vue'
+
+// Get reference to chart preview panel
+const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 </script>
 
 <template>
   <div id="theme-builder">
     <div class="container-fluid" id="content">
       <van-row class="row-container" :gutter="0">
-        <!-- Left panel: Theme configuration - Fixed width -->
         <van-col span="6" class="theme-config">
-          <ThemePanel />
+          <ThemePanel :chart-preview-ref="chartPreviewRef" />
         </van-col>
 
-        <!-- Right panel: Chart preview - Remaining width -->
         <van-col span="18" class="chart-container">
-          <ChartPreviewPanel />
+          <ChartPreviewPanel ref="chartPreviewRef" />
         </van-col>
       </van-row>
     </div>

@@ -23,8 +23,10 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { getChartConfigs } from '../utils/chartConfigs'
+import { useThemeStore } from '../stores/theme'
 import type { ECharts } from 'echarts'
 
+const themeStore = useThemeStore()
 const chartInstances = ref<ECharts[]>([])
 const chartRefs = ref<(HTMLElement | null)[]>([])
 
@@ -38,22 +40,58 @@ function setChartRef(el: any, index: number) {
   }
 }
 
+// Register and apply current theme
+function registerCurrentTheme() {
+  const currentTheme = themeStore.getEChartsTheme(false)
+  echarts.registerTheme('customized', currentTheme)
+}
+
 // Initialize all charts
 function initializeCharts() {
   // Dispose existing charts
   chartInstances.value.forEach(chart => chart.dispose())
   chartInstances.value = []
 
+  // Register current theme
+  registerCurrentTheme()
+
   // Create new chart instances
   displayedCharts.value.forEach((config, index) => {
     const container = chartRefs.value[index]
     if (container) {
-      const chart = echarts.init(container)
+      // Initialize chart with theme
+      const chart = echarts.init(container, 'customized')
       chart.setOption(config.option)
       chartInstances.value.push(chart)
     }
   })
 }
+
+// Update charts when theme changes
+function updateCharts() {
+  if (chartInstances.value.length === 0) {
+    return
+  }
+
+  // Get current theme and register with unique ID to force refresh
+  const currentTheme = themeStore.getEChartsTheme(false)
+  const themeId = `customized-${Date.now()}`
+  echarts.registerTheme(themeId, currentTheme)
+
+  // Recreate charts with new theme
+  displayedCharts.value.forEach((config, index) => {
+    const container = chartRefs.value[index]
+    if (container && chartInstances.value[index]) {
+      chartInstances.value[index].dispose()
+      const chart = echarts.init(container, themeId)
+      chart.setOption(config.option)
+      chartInstances.value[index] = chart
+    }
+  })
+}// Expose updateCharts method for external calling
+defineExpose({
+  updateCharts
+})
 
 // Resize charts when window resizes
 function handleResize() {
@@ -99,7 +137,7 @@ onUnmounted(() => {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
+  gap: 12px;
   overflow-y: auto;
   padding-right: 8px;
 }
@@ -108,13 +146,6 @@ onUnmounted(() => {
   background: #fff;
   border: 1px solid #e9ecef;
   border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s ease;
-}
-
-.chart-item:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chart-container {

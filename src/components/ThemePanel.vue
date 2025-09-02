@@ -18,6 +18,10 @@
               <van-icon name="share" />
               导出配置
             </van-button>
+            <van-button size="small" @click="showThemeCode">
+              <van-icon name="eye-o" />
+              使用主题
+            </van-button>
           </div>
 
           <div class="action-buttons">
@@ -413,6 +417,8 @@ import { PRE_DEFINED_THEMES } from '../stores/theme'
 import ColorPicker from './ColorPicker.vue'
 import ColorList from './ColorList.vue'
 import type ChartPreviewPanel from './ChartPreviewPanel.vue'
+import { downloadJsonFile, downloadJsFile, copyToClipboard } from '../utils/download'
+import { showToast, showDialog } from 'vant'
 
 // Props
 interface Props {
@@ -432,28 +438,201 @@ const { theme, themeName } = themeStore
 const preDefinedThemes = PRE_DEFINED_THEMES
 
 // Methods
-const downloadTheme = () => {
-  // TODO: Implement theme download
+const downloadTheme = async () => {
+  try {
+    const themeConfig = themeStore.getEChartsTheme(true)
+    const jsContent = themeStore.getThemeJsFile()
+    const filename = themeName.value || 'customized'
+
+    // Show format selection dialog using action sheet style
+    try {
+      await showDialog({
+        title: '选择下载格式',
+        message: '请选择要下载的主题文件格式：',
+        showCancelButton: true,
+        confirmButtonText: 'JavaScript 文件',
+        cancelButtonText: 'JSON 文件'
+      })
+
+      // User chose JavaScript
+      downloadJsFile(jsContent, filename)
+      showUsageInstructions('js', filename)
+    } catch {
+      // User chose JSON (clicked cancel button)
+      downloadJsonFile(themeConfig, filename)
+      showUsageInstructions('json', filename)
+    }
+  } catch (error) {
+    console.error('Download failed:', error)
+    showToast({
+      message: '下载失败，请重试',
+      type: 'fail'
+    })
+  }
+}
+
+const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
+  const themeNameDisplay = themeName.value || 'customized'
+
+  if (format === 'js') {
+    showDialog({
+      title: 'JavaScript 主题文件使用方法',
+      message: `<div style="text-align: left; padding: 5px 0;">
+          <ol style="margin: 0; line-height: 1">
+            <li>将下载的 <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.js</code> 文件保存到项目中</li>
+            <li>在 HTML 中引入此文件：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">&lt;script src="${filename}.js"&gt;&lt;/script&gt;</code></li>
+            <li>创建图表时使用主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+          </ol>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">💡 第二个参数是在 JS 文件中注册的主题名称。</p>
+        </div>`,
+      allowHtml: true,
+      confirmButtonText: '好的'
+    })
+  } else {
+    showDialog({
+      title: 'JSON 主题文件使用方法',
+      message: `<div style="text-align: left; padding: 5px 0;">
+          <ol style="margin: 0; line-height: 1">
+            <li>将下载的 <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.json</code> 文件保存到项目中</li>
+            <li>读取 JSON 文件并解析：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">const obj = JSON.parse(data)</code></li>
+            <li>注册主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.registerTheme('${themeNameDisplay}', obj)</code></li>
+            <li>创建图表时使用主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+          </ol>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">💡 第二个参数是注册时使用的主题名称。</p>
+        </div>`,
+      allowHtml: true,
+      confirmButtonText: '好的'
+    })
+  }
 }
 
 const importConfig = () => {
   fileInput.value?.click()
 }
 
-const exportConfig = () => {
-  // TODO: Implement config export
+const exportConfig = async () => {
+  try {
+    const configData = themeStore.getThemeConfigForDownload()
+    const filename = `${themeName.value || 'customized'}.project`
+
+    downloadJsonFile(configData, filename)
+
+    showToast({
+      message: '配置导出成功！',
+      type: 'success'
+    })
+  } catch (error) {
+    console.error('Export failed:', error)
+    showToast({
+      message: '导出失败，请重试',
+      type: 'fail'
+    })
+  }
 }
 
 const refreshCharts = () => {
-  // TODO: Implement chart refresh
+  if (props.chartPreviewRef?.updateCharts) {
+    props.chartPreviewRef.updateCharts()
+    showToast({
+      message: '图表已刷新',
+      type: 'success'
+    })
+  }
 }
 
-const resetTheme = () => {
-  themeStore.resetTheme()
+const resetTheme = async () => {
+  try {
+    await showDialog({
+      title: '确认重置',
+      message: '确定要重置为默认主题吗？此操作不可撤销。',
+    })
+
+    themeStore.resetTheme()
+    showToast({
+      message: '主题已重置',
+      type: 'success'
+    })
+  } catch {
+    // User cancelled
+  }
+}
+
+const showThemeCode = async () => {
+  try {
+    const themeConfig = themeStore.getEChartsTheme(true)
+    const jsContent = themeStore.getThemeJsFile()
+
+    // Show format selection dialog
+    try {
+      await showDialog({
+        title: '主题代码预览',
+        message: '选择要查看的代码格式：',
+        showCancelButton: true,
+        confirmButtonText: 'JavaScript 格式',
+        cancelButtonText: 'JSON 格式'
+      })
+
+      // User chose JavaScript format
+      showCodeDialog('JavaScript 主题文件', jsContent)
+    } catch {
+      // User chose JSON format
+      const jsonCode = JSON.stringify(themeConfig, null, 4)
+      showCodeDialog('JSON 主题配置', jsonCode)
+    }
+  } catch (error) {
+    console.error('Failed to show theme code:', error)
+    showToast({
+      message: '代码生成失败',
+      type: 'fail'
+    })
+  }
+}
+
+const showCodeDialog = async (title: string, code: string) => {
+  try {
+    await showDialog({
+      title,
+      message: `<pre style="text-align: left; white-space: pre-wrap; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px; max-height: 400px; overflow-y: auto; background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef; line-height: 1.4; margin: 0;">${code}</pre>`,
+      allowHtml: true,
+      confirmButtonText: '复制代码',
+      cancelButtonText: '关闭'
+    })
+
+    // User wants to copy
+    const success = await copyToClipboard(code)
+    if (success) {
+      showToast({
+        message: '代码已复制到剪贴板',
+        type: 'success'
+      })
+    } else {
+      showToast({
+        message: '复制失败，请手动复制',
+        type: 'fail'
+      })
+    }
+  } catch {
+    // User closed dialog
+  }
 }
 
 const showHelp = () => {
-  // TODO: Implement help dialog
+  showDialog({
+    title: '使用帮助',
+    message: `ECharts 主题构建工具
+
+• 基本配置：设置主题的基本颜色和样式
+• 预定义主题：选择内置的主题方案
+• 导入配置：导入之前导出的配置文件
+• 导出配置：导出当前配置供后续使用
+• 下载主题：下载可用于 ECharts 的主题文件
+• 使用主题：查看和复制生成的主题代码
+
+支持的格式：
+• JSON：ECharts 主题配置文件
+• JavaScript：可直接引入的 JS 文件`,
+    confirmButtonText: '知道了'
+  })
 }
 
 const selectPreDefinedTheme = async (index: number) => {
@@ -473,23 +652,86 @@ const onAxisSettingChange = () => {
   themeStore.updateAxisSetting()
 }
 
-const handleFileImport = (event: Event) => {
+const handleFileImport = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
 
   if (!file) return
 
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    try {
-      const result = e.target?.result as string
-      themeStore.importTheme(result)
-    } catch (error) {
-      console.error('Failed to import theme:', error)
-      // TODO: Show error message
-    }
+  // Check file extension
+  const extension = file.name.slice(file.name.lastIndexOf('.'))
+  if (extension !== '.json') {
+    showToast({
+      message: '请选择 JSON 格式的配置文件！',
+      type: 'fail'
+    })
+    target.value = ''
+    return
   }
-  reader.readAsText(file)
+
+  try {
+    const reader = new FileReader()
+    reader.onload = async (e) => {
+      try {
+        const result = e.target?.result as string
+        const data = JSON.parse(result)
+
+        // Validate imported data
+        if (!data.themeName && !data.version && !data.theme) {
+          showToast({
+            message: '请使用从本网站导出的 JSON 配置文件！',
+            type: 'fail'
+          })
+          return
+        }
+
+        // Check version compatibility
+        if (data.version && data.version < 1) {
+          try {
+            await showDialog({
+              title: '版本兼容性警告',
+              message: '导入的主题版本较低，某些属性可能无法正确设置。是否继续导入？',
+            })
+          } catch {
+            return // User cancelled
+          }
+        }
+
+        themeStore.importTheme(result)
+
+        // Update charts if reference is available
+        if (props.chartPreviewRef?.updateCharts) {
+          props.chartPreviewRef.updateCharts()
+        }
+
+        showToast({
+          message: '主题导入成功！',
+          type: 'success'
+        })
+      } catch (error) {
+        console.error('Import error:', error)
+        showToast({
+          message: '配置文件格式错误，请使用从本网站导出的 JSON 文件！',
+          type: 'fail'
+        })
+      }
+    }
+
+    reader.onerror = () => {
+      showToast({
+        message: '文件读取失败，请重试',
+        type: 'fail'
+      })
+    }
+
+    reader.readAsText(file)
+  } catch (error) {
+    console.error('File import failed:', error)
+    showToast({
+      message: '文件导入失败',
+      type: 'fail'
+    })
+  }
 
   // Clear input
   target.value = ''
@@ -674,5 +916,29 @@ const handleFileImport = (event: Event) => {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dialog width adjustments */
+:global(.van-dialog) {
+  width: 800px;
+  max-width: 90vw;
+}
+
+:global(.van-dialog__content) {
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+}
+
+:global(.van-dialog__message) {
+  text-align: left !important;
+  line-height: 1 !important;
+}
+
+/* Code dialog specific styles */
+:global(.van-dialog__message pre) {
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
 }
 </style>

@@ -839,7 +839,6 @@ const handleFileImport = async (event: Event) => {
 :deep(.van-collapse-item__title) {
   padding: 10px 16px;
   background-color: #fff;
-  color: #1989fa;
   font-weight: 500;
   border: none;
   transition: background-color 0.3s;
@@ -896,6 +895,7 @@ const handleFileImport = async (event: Event) => {
 
 :deep(.van-checkbox) {
   font-size: 12px;
+  min-width: 24px;
 }
 
 :deep(.van-button--small) {

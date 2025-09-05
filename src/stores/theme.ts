@@ -5,6 +5,21 @@ import { generateEChartsTheme, generateThemeJsFile, generateThemeConfigForDownlo
 // Predefined themes configuration
 export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
   {
+    name: 'v5',
+    background: 'rgba(0, 0, 0, 0)',
+    theme: [
+      '#5470c6',
+      '#91cc75',
+      '#fac858',
+      '#ee6666',
+      '#73c0de',
+      '#3ba272',
+      '#fc8452',
+      '#9a60b4',
+      '#ea7ccc'
+    ]
+  },
+  {
     name: 'vintage',
     background: '#fef8ef',
     theme: [
@@ -116,15 +131,15 @@ const createDefaultAxes = () => {
     type,
     name: names[i] + ' Axis',
     axisLineShow: type !== 'value' && type !== 'log',
-    axisLineColor: '#6E7079',
+    axisLineColor: '#54555a',
     axisTickShow: type !== 'value' && type !== 'log',
-    axisTickColor: '#6E7079',
+    axisTickColor: '#54555a',
     axisLabelShow: true,
-    axisLabelColor: '#6E7079',
+    axisLabelColor: '#54555a',
     splitLineShow: type !== 'category' && type !== 'time',
-    splitLineColor: ['#E0E6F1'],
+    splitLineColor: ['#dbdee4'],
     splitAreaShow: false,
-    splitAreaColor: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2)']
+    splitAreaColor: ['rgba(234,237,245,0.5)', 'rgba(255,255,255,0)']
   }))
 }
 
@@ -139,15 +154,15 @@ export const createDefaultTheme = (): ThemeData => {
     textColor: '#333',
     markTextColor: '#eee',
     color: [
-      '#5470c6',
-      '#91cc75',
-      '#fac858',
-      '#ee6666',
-      '#73c0de',
-      '#3ba272',
-      '#fc8452',
-      '#9a60b4',
-      '#ea7ccc'
+      '#5070dd',
+      '#b6d634',
+      '#505372',
+      '#ff994d',
+      '#0ca8df',
+      '#ffd10a',
+      '#fb628b',
+      '#785db0',
+      '#3fbe95'
     ],
     borderColor: '#ccc',
     borderWidth: 0,

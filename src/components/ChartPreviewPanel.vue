@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, watch, computed } from 'vue'
 import * as echarts from 'echarts'
 import { getChartConfigs } from '../utils/chartConfigs'
 import { useThemeStore } from '../stores/theme'
@@ -30,12 +30,16 @@ const themeStore = useThemeStore()
 const chartInstances = ref<ECharts[]>([])
 const chartRefs = ref<(HTMLElement | null)[]>([])
 
-// Always display all charts
-const displayedCharts = ref(getChartConfigs(4))
+// Dynamically generate charts based on seriesCnt
+const displayedCharts = computed(() => getChartConfigs(themeStore.theme.seriesCnt))
 
 // Set chart ref
 function setChartRef(el: any, index: number) {
   if (el) {
+    // Ensure the array is large enough
+    while (chartRefs.value.length <= index) {
+      chartRefs.value.push(null)
+    }
     chartRefs.value[index] = el as HTMLElement
   }
 }
@@ -52,24 +56,37 @@ function initializeCharts() {
   chartInstances.value.forEach(chart => chart.dispose())
   chartInstances.value = []
 
+  // Clear chart refs to ensure they match the new chart count
+  chartRefs.value = []
+
   // Register current theme
   registerCurrentTheme()
 
-  // Create new chart instances
-  displayedCharts.value.forEach((config, index) => {
-    const container = chartRefs.value[index]
-    if (container) {
-      // Initialize chart with theme
-      const chart = echarts.init(container, 'customized')
-      chart.setOption(config.option)
-      chartInstances.value.push(chart)
-    }
+  // Wait for DOM to update with new chart count
+  nextTick(() => {
+    // Create new chart instances
+    displayedCharts.value.forEach((config, index) => {
+      const container = chartRefs.value[index]
+      if (container) {
+        // Initialize chart with theme
+        const chart = echarts.init(container, 'customized')
+        chart.setOption(config.option)
+        chartInstances.value.push(chart)
+      }
+    })
   })
 }
 
 // Update charts when theme changes
 function updateCharts() {
   if (chartInstances.value.length === 0) {
+    initializeCharts()
+    return
+  }
+
+  // If chart count doesn't match, reinitialize
+  if (chartInstances.value.length !== displayedCharts.value.length) {
+    initializeCharts()
     return
   }
 
@@ -88,10 +105,21 @@ function updateCharts() {
       chartInstances.value[index] = chart
     }
   })
-}// Expose updateCharts method for external calling
+}
+
+// Expose updateCharts method for external calling
 defineExpose({
   updateCharts
 })
+
+// Watch for theme changes and automatically update charts
+watch(() => themeStore.theme, () => {
+  if (!themeStore.isPauseChartUpdating.value) {
+    nextTick(() => {
+      updateCharts()
+    })
+  }
+}, { deep: true })
 
 // Resize charts when window resizes
 function handleResize() {
@@ -123,8 +151,6 @@ onUnmounted(() => {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #e9ecef;
 }
 
 .preview-header h3 {

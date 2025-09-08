@@ -46,8 +46,8 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
   height: 100vh;
   overflow-y: auto;
   background-color: #ffffff;
-  border-right: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 0;
   box-sizing: border-box;
   flex: 0 0 25%; /* Fixed 25% width */

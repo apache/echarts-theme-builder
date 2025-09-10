@@ -1,43 +1,68 @@
 {
   "common": {
-    "title": "ECharts Theme Builder",
-    "welcome": "Welcome to ECharts Theme Builder",
-    "language": "Language",
-    "theme": "Theme",
-    "preview": "Preview",
-    "download": "Download",
-    "reset": "Reset"
-  },
-  "themeBuilder": {
-    "title": "Theme Editor",
+    "add": "Add",
+    "reduce": "Remove",
+    "refresh": "Refresh",
     "reset": "Reset",
-    "export": "Export",
-    "preDefinedThemes": "Predefined Themes",
-    "basicSettings": "Basic Settings",
-    "themeName": "Theme Name",
-    "themeNamePlaceholder": "Enter theme name",
-    "backgroundColor": "Background Color",
-    "titleColor": "Title Color",
-    "subtitleColor": "Subtitle Color",
-    "textColor": "Text Color",
-    "colorPalette": "Color Palette",
-    "legend": "Legend",
-    "legendTextColor": "Legend Text Color",
-    "line": "Line",
-    "lineWidth": "Line Width",
-    "symbolSize": "Symbol Size",
-    "symbol": "Symbol Type",
-    "lineSmooth": "Smooth Line",
-    "toolbox": "Toolbox",
-    "toolboxColor": "Toolbox Color",
-    "toolboxEmphasisColor": "Toolbox Emphasis Color"
+    "help": "Help",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
-  "chartPreview": {
+  "panel": {
+    "functions": "Functions",
+    "basicConfig": "Basic Configuration",
+    "visualMap": "Visual Map",
+    "axis": "Axes",
+    "legend": "Legend",
+    "toolbox": "Toolbox",
+    "download": "Download Theme",
+    "import": "Import Config",
+    "export": "Export Config",
+    "showCode": "Use Theme",
+    "themeName": "Theme Name",
+    "themePlaceholder": "Please enter theme name",
+    "seriesCount": "Series Count",
+    "seriesPlaceholder": "Please enter series count",
+    "preDefinedThemes": "Predefined Themes",
+    "separateAxisSetting": "Configure different axis types separately"
+  },
+  "colors": {
+    "background": "Background",
+    "title": "Title",
+    "subtitle": "Subtitle",
+    "theme": "Theme",
+    "markText": "Mark Text",
+    "border": "Border",
+    "borderWidth": "Border Width",
+    "axisLine": "Axis Line",
+    "axisTick": "Axis Tick",
+    "splitLine": "Split Line",
+    "splitArea": "Split Area",
+    "axisLabel": "Axis Label",
+    "legendText": "Legend Text",
+    "toolbox": "Toolbox",
+    "toolboxEmphasis": "Toolbox Hover",
+    "visualMapColor": "Visual Map"
+  },
+  "axis": {
+    "categoryAxis": "Category Axis",
+    "valueAxis": "Value Axis",
+    "timeAxis": "Time Axis",
+    "logAxis": "Log Axis",
+    "all": "All Axes"
+  },
+  "preview": {
     "title": "Chart Preview",
-    "themeCode": "Theme Code",
-    "copy": "Copy",
-    "close": "Close",
-    "showCode": "Show Code",
-    "hideCode": "Hide Code"
+    "chartPreview": "Chart Preview"
+  },
+  "language": {
+    "title": "Language",
+    "en": "English",
+    "zh": "中文"
+  },
+  "modals": {
+    "themeCodeTitle": "Theme Code",
+    "importThemeTitle": "Import Theme",
+    "helpTitle": "Help"
   }
 }

@@ -1,43 +1,68 @@
 {
   "common": {
-    "title": "ECharts Theme Builder",
-    "welcome": "Welcome to ECharts Theme Builder",
-    "language": "Language",
-    "theme": "Theme",
-    "preview": "Preview",
-    "download": "Download",
-    "reset": "Reset"
+    "add": "增加",
+    "reduce": "减少",
+    "refresh": "刷新",
+    "reset": "复原",
+    "help": "帮助",
+    "cancel": "取消",
+    "confirm": "确定"
   },
-  "themeBuilder": {
-    "title": "Theme Editor",
-    "reset": "Reset",
-    "export": "Export",
-    "preDefinedThemes": "Predefined Themes",
-    "basicSettings": "Basic Settings",
-    "themeName": "Theme Name",
-    "themeNamePlaceholder": "Enter theme name",
-    "backgroundColor": "Background Color",
-    "titleColor": "Title Color",
-    "subtitleColor": "Subtitle Color",
-    "textColor": "Text Color",
-    "colorPalette": "Color Palette",
-    "legend": "Legend",
-    "legendTextColor": "Legend Text Color",
-    "line": "Line",
-    "lineWidth": "Line Width",
-    "symbolSize": "Symbol Size",
-    "symbol": "Symbol Type",
-    "lineSmooth": "Smooth Line",
-    "toolbox": "Toolbox",
-    "toolboxColor": "Toolbox Color",
-    "toolboxEmphasisColor": "Toolbox Emphasis Color"
+  "panel": {
+    "functions": "功能",
+    "basicConfig": "基本配置",
+    "visualMap": "视觉映射",
+    "axis": "坐标轴",
+    "legend": "图例",
+    "toolbox": "工具箱",
+    "download": "下载主题",
+    "import": "导入配置",
+    "export": "导出配置",
+    "showCode": "使用主题",
+    "themeName": "主题名称",
+    "themePlaceholder": "请输入主题名称",
+    "seriesCount": "系列数量",
+    "seriesPlaceholder": "请输入系列数量",
+    "preDefinedThemes": "默认方案",
+    "separateAxisSetting": "为不同类型坐标轴分别设置"
   },
-  "chartPreview": {
-    "title": "Chart Preview",
-    "themeCode": "Theme Code",
-    "copy": "Copy",
-    "close": "Close",
-    "showCode": "Show Code",
-    "hideCode": "Hide Code"
+  "colors": {
+    "background": "背景",
+    "title": "标题",
+    "subtitle": "副标题",
+    "theme": "主题",
+    "markText": "标签文字",
+    "border": "描边",
+    "borderWidth": "描边粗细",
+    "axisLine": "轴线",
+    "axisTick": "刻度",
+    "splitLine": "网格",
+    "splitArea": "填充",
+    "axisLabel": "文字",
+    "legendText": "文字",
+    "toolbox": "图标",
+    "toolboxEmphasis": "悬停",
+    "visualMapColor": "视觉映射"
+  },
+  "axis": {
+    "categoryAxis": "类目轴",
+    "valueAxis": "数值轴",
+    "timeAxis": "时间轴",
+    "logAxis": "对数轴",
+    "all": "所有坐标轴"
+  },
+  "preview": {
+    "title": "图表预览",
+    "chartPreview": "Chart Preview"
+  },
+  "language": {
+    "title": "语言",
+    "en": "English",
+    "zh": "中文"
+  },
+  "modals": {
+    "themeCodeTitle": "主题代码",
+    "importThemeTitle": "导入主题",
+    "helpTitle": "帮助"
   }
 }

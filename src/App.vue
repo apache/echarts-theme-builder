@@ -28,6 +28,8 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 #theme-builder {
   width: 100%;
   height: 100vh;
+
+  --van-button-default-height: 35px;
 }
 
 .container-fluid {

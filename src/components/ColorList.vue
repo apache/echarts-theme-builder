@@ -29,6 +29,7 @@
               size="mini"
               @click="removeColor(index)"
               icon="cross"
+              plain
             />
           </div>
         </div>

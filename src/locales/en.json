@@ -6,7 +6,11 @@
     "reset": "Reset",
     "help": "Help",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "ok": "OK",
+    "copyCode": "Copy Code",
+    "close": "Close",
+    "gotIt": "Got it"
   },
   "panel": {
     "functions": "Functions",
@@ -52,7 +56,6 @@
     "all": "All Axes"
   },
   "preview": {
-    "title": "Chart Preview",
     "chartPreview": "Chart Preview"
   },
   "language": {
@@ -63,6 +66,31 @@
   "modals": {
     "themeCodeTitle": "Theme Code",
     "importThemeTitle": "Import Theme",
-    "helpTitle": "Help"
+    "helpTitle": "Help",
+    "formatSelection": "Select Format",
+    "formatSelectionMsg": "Please select a format for the theme file:",
+    "jsFormat": "JavaScript File",
+    "jsonFormat": "JSON File",
+    "jsUsageTitle": "JavaScript Theme File Usage",
+    "jsUsageStep1": "Save the downloaded {filename} file to your project",
+    "jsUsageStep2": "Include this file in your HTML:",
+    "jsUsageStep3": "Use the theme when creating a chart:",
+    "jsUsageTip": "💡 The second parameter is the theme name registered in the JS file.",
+    "downloadFailed": "Download failed, please try again",
+    "exportSuccess": "Configuration exported successfully!",
+    "exportFailed": "Export failed, please try again",
+    "chartsRefreshed": "Charts refreshed",
+    "resetConfirm": "Are you sure you want to reset to the default theme? This action cannot be undone.",
+    "themeReset": "Theme has been reset",
+    "selectCodeFormat": "Select code format to view:",
+    "codeGenFailed": "Code generation failed",
+    "codeCopied": "Code copied to clipboard",
+    "copyFailed": "Copy failed, please copy manually",
+    "selectJsonFile": "Please select a JSON format configuration file!",
+    "useExportedFile": "Please use a JSON configuration file exported from this site!",
+    "oldVersionPrompt": "The imported theme is from an older version, some properties may not be correctly set. Continue importing?",
+    "importSuccess": "Theme imported successfully!",
+    "invalidFormat": "Configuration file format error, please use a JSON file exported from this site!",
+    "fileReadFailed": "File read failed, please try again"
   }
 }

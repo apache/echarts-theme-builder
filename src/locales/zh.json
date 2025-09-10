@@ -6,7 +6,11 @@
     "reset": "复原",
     "help": "帮助",
     "cancel": "取消",
-    "confirm": "确定"
+    "confirm": "确定",
+    "ok": "好的",
+    "copyCode": "复制代码",
+    "close": "关闭",
+    "gotIt": "知道了"
   },
   "panel": {
     "functions": "功能",
@@ -52,8 +56,7 @@
     "all": "所有坐标轴"
   },
   "preview": {
-    "title": "图表预览",
-    "chartPreview": "Chart Preview"
+    "chartPreview": "图表预览"
   },
   "language": {
     "title": "语言",
@@ -63,6 +66,31 @@
   "modals": {
     "themeCodeTitle": "主题代码",
     "importThemeTitle": "导入主题",
-    "helpTitle": "帮助"
+    "helpTitle": "帮助",
+    "formatSelection": "选择下载格式",
+    "formatSelectionMsg": "请选择要下载的主题文件格式：",
+    "jsFormat": "JavaScript 文件",
+    "jsonFormat": "JSON 文件",
+    "jsUsageTitle": "JavaScript 主题文件使用方法",
+    "jsUsageStep1": "将下载的 {filename} 文件保存到项目中",
+    "jsUsageStep2": "在 HTML 中引入此文件：",
+    "jsUsageStep3": "创建图表时使用主题：",
+    "jsUsageTip": "💡 第二个参数是在 JS 文件中注册的主题名称。",
+    "downloadFailed": "下载失败，请重试",
+    "exportSuccess": "配置导出成功！",
+    "exportFailed": "导出失败，请重试",
+    "chartsRefreshed": "图表已刷新",
+    "resetConfirm": "确定要重置为默认主题吗？此操作不可撤销。",
+    "themeReset": "主题已重置",
+    "selectCodeFormat": "选择要查看的代码格式：",
+    "codeGenFailed": "代码生成失败",
+    "codeCopied": "代码已复制到剪贴板",
+    "copyFailed": "复制失败，请手动复制",
+    "selectJsonFile": "请选择 JSON 格式的配置文件！",
+    "useExportedFile": "请使用从本网站导出的 JSON 配置文件！",
+    "oldVersionPrompt": "导入的主题版本较低，某些属性可能无法正确设置。是否继续导入？",
+    "importSuccess": "主题导入成功！",
+    "invalidFormat": "配置文件格式错误，请使用从本网站导出的 JSON 文件！",
+    "fileReadFailed": "文件读取失败，请重试"
   }
 }

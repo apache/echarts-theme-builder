@@ -6,35 +6,35 @@
         <div class="panel-content">
           <!-- Action Buttons -->
           <div class="action-buttons">
-            <van-button type="primary" size="small" @click="downloadTheme">
+            <van-button type="primary" @click="downloadTheme">
               <van-icon name="down" />
               下载主题
             </van-button>
-            <van-button size="small" @click="importConfig">
+            <van-button @click="importConfig">
               <van-icon name="upgrade" />
               导入配置
             </van-button>
-            <van-button size="small" @click="exportConfig">
+            <van-button @click="exportConfig">
               <van-icon name="share" />
               导出配置
             </van-button>
-            <van-button size="small" @click="showThemeCode">
+            <van-button @click="showThemeCode">
               <van-icon name="eye-o" />
               使用主题
             </van-button>
           </div>
 
           <div class="action-buttons">
-            <van-button size="small" @click="refreshCharts">
+            <van-button @click="refreshCharts">
               <van-icon name="replay" />
               刷新
             </van-button>
-            <van-button size="small" @click="resetTheme">
-              <van-icon name="delete" />
+            <van-button @click="resetTheme">
+              <van-icon name="revoke" />
               复原
             </van-button>
-            <van-button size="small" @click="showHelp">
-              <van-icon name="question" />
+            <van-button @click="showHelp">
+              <van-icon name="info-o" />
               帮助
             </van-button>
           </div>
@@ -619,18 +619,16 @@ const showCodeDialog = async (title: string, code: string) => {
 const showHelp = () => {
   showDialog({
     title: '使用帮助',
-    message: `ECharts 主题构建工具
+    message: `<div class="modal-body">
+            <h4>主题在线构建工具是什么？</h4>
+            <p>"主题"是 ECharts 图表的风格抽象，用于统一多个图表的风格样式。使用主题在线构建工具，可以快速直观地生成主题配置文件，并在 ECharts 中使用自定义的主题样式。</p>
+            <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
+            <p>ECharts 官方提供 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可供<a href="http://echarts.baidu.com/download-theme.html" target="_blank">下载</a>使用。</p>
 
-• 基本配置：设置主题的基本颜色和样式
-• 预定义主题：选择内置的主题方案
-• 导入配置：导入之前导出的配置文件
-• 导出配置：导出当前配置供后续使用
-• 下载主题：下载可用于 ECharts 的主题文件
-• 使用主题：查看和复制生成的主题代码
-
-支持的格式：
-• JSON：ECharts 主题配置文件
-• JavaScript：可直接引入的 JS 文件`,
+            <h4>导入、导出</h4>
+            <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+          </div>`,
+    allowHtml: true,
     confirmButtonText: '知道了'
   })
 }
@@ -940,5 +938,47 @@ const handleFileImport = async (event: Event) => {
   word-wrap: break-word !important;
   font-size: 12px !important;
   line-height: 1 !important;
+}
+
+/* Help dialog styles */
+:global(.modal-body) {
+  text-align: left;
+  padding: 5px 0;
+  white-space: normal;
+}
+
+:global(.modal-body h4) {
+  margin: 30px 0 10px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+:global(.modal-body h4:first-child) {
+  margin-top: 0;
+}
+
+:global(.modal-body p) {
+  margin: 15px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+:global(.modal-body code) {
+  background: #f0f0f0;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: Monaco, monospace;
+  font-size: 90%;
+}
+
+:global(.modal-body a) {
+  color: #1989fa;
+  text-decoration: none;
+}
+
+:global(.modal-body a:hover) {
+  text-decoration: underline;
 }
 </style>

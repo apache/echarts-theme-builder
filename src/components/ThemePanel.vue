@@ -2,60 +2,60 @@
   <div class="theme-panel">
     <!-- Functions Section -->
     <van-collapse v-model="activeNames">
-      <van-collapse-item title="功能" name="functions">
+      <van-collapse-item :title="$t('panel.functions')" name="functions">
         <div class="panel-content">
           <!-- Action Buttons -->
           <div class="action-buttons">
             <van-button type="primary" @click="downloadTheme">
               <van-icon name="down" />
-              下载主题
+              {{ $t('panel.download') }}
             </van-button>
             <van-button @click="importConfig">
               <van-icon name="upgrade" />
-              导入配置
+              {{ $t('panel.import') }}
             </van-button>
             <van-button @click="exportConfig">
               <van-icon name="share" />
-              导出配置
+              {{ $t('panel.export') }}
             </van-button>
             <van-button @click="showThemeCode">
               <van-icon name="eye-o" />
-              使用主题
+              {{ $t('panel.showCode') }}
             </van-button>
           </div>
 
           <div class="action-buttons">
             <van-button @click="refreshCharts">
               <van-icon name="replay" />
-              刷新
+              {{ $t('common.refresh') }}
             </van-button>
             <van-button @click="resetTheme">
               <van-icon name="revoke" />
-              复原
+              {{ $t('common.reset') }}
             </van-button>
             <van-button @click="showHelp">
               <van-icon name="info-o" />
-              帮助
+              {{ $t('common.help') }}
             </van-button>
           </div>
 
           <!-- Theme Name and Series Count -->
           <van-field
             v-model="themeName"
-            label="主题名称"
-            placeholder="请输入主题名称"
+            :label="$t('panel.themeName')"
+            :placeholder="$t('panel.themePlaceholder')"
           />
 
           <van-field
             v-model.number="theme.seriesCnt"
             type="number"
-            label="系列数量"
-            placeholder="请输入系列数量"
+            :label="$t('panel.seriesCount')"
+            :placeholder="$t('panel.seriesPlaceholder')"
           />
 
           <!-- Predefined Themes -->
           <div class="predefined-themes">
-            <h4>默认方案</h4>
+            <h4>{{ $t('panel.preDefinedThemes') }}</h4>
             <div class="theme-grid">
               <div
                 v-for="(themeItem, index) in preDefinedThemes"
@@ -78,57 +78,57 @@
       </van-collapse-item>
 
       <!-- Basic Configuration -->
-      <van-collapse-item title="基本配置" name="basic">
+      <van-collapse-item :title="$t('panel.basicConfig')" name="basic">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.backgroundColor"
-            label="背景"
+            :label="$t('colors.background')"
           />
           <ColorPicker
             v-model="theme.titleColor"
-            label="标题"
+            :label="$t('colors.title')"
           />
           <ColorPicker
             v-model="theme.subtitleColor"
-            label="副标题"
+            :label="$t('colors.subtitle')"
           />
           <ColorList
             v-model="theme.color"
-            label="主题"
+            :label="$t('colors.theme')"
           />
           <ColorPicker
             v-model="theme.markTextColor"
-            label="标签文字"
+            :label="$t('colors.markText')"
           />
           <van-field
             v-model.number="theme.borderWidth"
             type="number"
-            label="描边粗细"
+            :label="$t('colors.borderWidth')"
           />
           <ColorPicker
             v-model="theme.borderColor"
-            label="描边"
+            :label="$t('colors.border')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Visual Map -->
-      <van-collapse-item title="视觉映射" name="visualMap">
+      <van-collapse-item :title="$t('panel.visualMap')" name="visualMap">
         <div class="panel-content">
           <ColorList
             v-model="theme.visualMapColor"
-            label="视觉映射"
+            :label="$t('colors.visualMapColor')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Coordinate Axis -->
-      <van-collapse-item title="坐标轴" name="axis">
+      <van-collapse-item :title="$t('panel.axis')" name="axis">
         <div class="panel-content">
-          <van-field label="坐标轴设置">
+          <van-field :label="$t('panel.axis')">
             <template #input>
               <van-checkbox v-model="theme.axisSeperateSetting" @change="onAxisSettingChange">
-                为不同类型坐标轴分别设置
+                {{ $t('panel.separateAxisSetting') }}
               </van-checkbox>
             </template>
           </van-field>
@@ -138,35 +138,35 @@
             :key="index"
             class="axis-group"
           >
-            <h4 v-if="axis.type !== 'all'">{{ axis.name }}</h4>
+            <h4 v-if="axis.type !== 'all'">{{ $t(`axis.${axis.type}Axis`) }}</h4>
 
             <ColorPicker
               v-model="axis.axisLineColor"
-              :label="'轴线'"
+              :label="$t('colors.axisLine')"
               :can-disable="true"
               v-model:enabled="axis.axisLineShow"
             />
             <ColorPicker
               v-model="axis.axisTickColor"
-              :label="'刻度'"
+              :label="$t('colors.axisTick')"
               :can-disable="true"
               v-model:enabled="axis.axisTickShow"
             />
             <ColorList
               v-model="axis.splitLineColor"
-              :label="'网格'"
+              :label="$t('colors.splitLine')"
               :can-disable="true"
               v-model:enabled="axis.splitLineShow"
             />
             <ColorList
               v-model="axis.splitAreaColor"
-              :label="'填充'"
+              :label="$t('colors.splitArea')"
               :can-disable="true"
               v-model:enabled="axis.splitAreaShow"
             />
             <ColorPicker
               v-model="axis.axisLabelColor"
-              :label="'文字'"
+              :label="$t('colors.axisLabel')"
               :can-disable="true"
               v-model:enabled="axis.axisLabelShow"
             />
@@ -175,25 +175,25 @@
       </van-collapse-item>
 
       <!-- Legend -->
-      <van-collapse-item title="图例" name="legend">
+      <van-collapse-item :title="$t('panel.legend')" name="legend">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.legendTextColor"
-            label="文字"
+            :label="$t('colors.legendText')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Toolbox -->
-      <van-collapse-item title="工具箱" name="toolbox">
+      <van-collapse-item :title="$t('panel.toolbox')" name="toolbox">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.toolboxColor"
-            label="图标"
+            :label="$t('colors.toolbox')"
           />
           <ColorPicker
             v-model="theme.toolboxEmphasisColor"
-            label="悬停"
+            :label="$t('colors.toolboxEmphasis')"
           />
         </div>
       </van-collapse-item>
@@ -419,6 +419,10 @@ import ColorList from './ColorList.vue'
 import type ChartPreviewPanel from './ChartPreviewPanel.vue'
 import { downloadJsonFile, downloadJsFile, copyToClipboard } from '../utils/download'
 import { showToast, showDialog } from 'vant'
+import { useI18n } from 'vue-i18n'
+
+// Initialize i18n and localization
+const { t } = useI18n()
 
 // Props
 interface Props {
@@ -447,11 +451,11 @@ const downloadTheme = async () => {
     // Show format selection dialog using action sheet style
     try {
       await showDialog({
-        title: '选择下载格式',
-        message: '请选择要下载的主题文件格式：',
+        title: t('modals.formatSelection'),
+        message: t('modals.formatSelectionMsg'),
         showCancelButton: true,
-        confirmButtonText: 'JavaScript 文件',
-        cancelButtonText: 'JSON 文件'
+        confirmButtonText: t('modals.jsFormat'),
+        cancelButtonText: t('modals.jsonFormat')
       })
 
       // User chose JavaScript
@@ -465,7 +469,7 @@ const downloadTheme = async () => {
   } catch (error) {
     console.error('Download failed:', error)
     showToast({
-      message: '下载失败，请重试',
+      message: t('modals.downloadFailed'),
       type: 'fail'
     })
   }
@@ -476,14 +480,14 @@ const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
 
   if (format === 'js') {
     showDialog({
-      title: 'JavaScript 主题文件使用方法',
+      title: t('modals.jsUsageTitle'),
       message: `<div style="text-align: left; padding: 5px 0;">
           <ol style="margin: 0; line-height: 1">
-            <li>将下载的 <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.js</code> 文件保存到项目中</li>
-            <li>在 HTML 中引入此文件：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">&lt;script src="${filename}.js"&gt;&lt;/script&gt;</code></li>
-            <li>创建图表时使用主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+            <li>${t('modals.jsUsageStep1').replace('{filename}', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.js</code>`)}</li>
+            <li>${t('modals.jsUsageStep2')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">&lt;script src="${filename}.js"&gt;&lt;/script&gt;</code></li>
+            <li>${t('modals.jsUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
           </ol>
-          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">💡 第二个参数是在 JS 文件中注册的主题名称。</p>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">${t('modals.jsUsageTip')}</p>
         </div>`,
       allowHtml: true,
       confirmButtonText: '好的'
@@ -518,13 +522,13 @@ const exportConfig = async () => {
     downloadJsonFile(configData, filename)
 
     showToast({
-      message: '配置导出成功！',
+      message: t('modals.exportSuccess'),
       type: 'success'
     })
   } catch (error) {
     console.error('Export failed:', error)
     showToast({
-      message: '导出失败，请重试',
+      message: t('modals.exportFailed'),
       type: 'fail'
     })
   }
@@ -534,7 +538,7 @@ const refreshCharts = () => {
   if (props.chartPreviewRef?.updateCharts) {
     props.chartPreviewRef.updateCharts()
     showToast({
-      message: '图表已刷新',
+      message: t('modals.chartsRefreshed'),
       type: 'success'
     })
   }
@@ -544,12 +548,12 @@ const resetTheme = async () => {
   try {
     await showDialog({
       title: '确认重置',
-      message: '确定要重置为默认主题吗？此操作不可撤销。',
+      message: t('modals.resetConfirm'),
     })
 
     themeStore.resetTheme()
     showToast({
-      message: '主题已重置',
+      message: t('modals.themeReset'),
       type: 'success'
     })
   } catch {
@@ -566,7 +570,7 @@ const showThemeCode = async () => {
     try {
       await showDialog({
         title: '主题代码预览',
-        message: '选择要查看的代码格式：',
+        message: t('modals.selectCodeFormat'),
         showCancelButton: true,
         confirmButtonText: 'JavaScript 格式',
         cancelButtonText: 'JSON 格式'
@@ -756,7 +760,7 @@ const handleFileImport = async (event: Event) => {
 .action-buttons .van-button {
   flex: 1;
   min-width: 80px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .predefined-themes {
@@ -816,7 +820,7 @@ const handleFileImport = async (event: Event) => {
   margin: 0 0 12px 0;
   font-size: 14px;
   font-weight: 500;
-  color: #323233;
+  color: rgb(41, 60, 85);
 }
 
 /* Custom Vant styles */

@@ -3,6 +3,18 @@ import { ref } from 'vue'
 // Simple fixed sidebar layout without responsive design
 import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 import ThemePanel from './components/ThemePanel.vue'
+import { useI18n } from 'vue-i18n'
+import { useLocalization } from './composables/useLocalization'
+
+// Initialize i18n
+const { t } = useI18n()
+
+// Set up language control
+const { switchLanguage, currentLanguage } = useLocalization()
+const currentLang = ref(currentLanguage)
+const onLanguageChange = (lang: string) => {
+  switchLanguage(lang)
+}
 
 // Get reference to chart preview panel
 const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
@@ -10,6 +22,14 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 
 <template>
   <div id="theme-builder">
+    <!-- Language Selector -->
+    <div class="language-selector">
+      <van-radio-group v-model="currentLang" direction="horizontal" @change="onLanguageChange">
+        <van-radio name="en">English</van-radio>
+        <van-radio name="zh">中文</van-radio>
+      </van-radio-group>
+    </div>
+
     <div class="container-fluid" id="content">
       <van-row class="row-container" :gutter="0">
         <van-col span="6" class="theme-config">
@@ -28,8 +48,18 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 #theme-builder {
   width: 100%;
   height: 100vh;
+  position: relative;
+  --van-button-default-height: auto;
+  --van-button-normal-padding: 8px 10px;
+}
 
-  --van-button-default-height: 35px;
+.language-selector {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 15px;
 }
 
 .container-fluid {

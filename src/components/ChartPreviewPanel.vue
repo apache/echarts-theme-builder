@@ -1,7 +1,7 @@
 <template>
   <div class="chart-preview">
     <div class="preview-header">
-      <h3>Chart Preview</h3>
+      <h3>{{ $t('preview.chartPreview') }}</h3>
     </div>
 
     <div class="charts-grid">
@@ -24,7 +24,11 @@ import { ref, onMounted, onUnmounted, nextTick, watch, computed } from 'vue'
 import * as echarts from 'echarts'
 import { getChartConfigs } from '../utils/chartConfigs'
 import { useThemeStore } from '../stores/theme'
+import { useI18n } from 'vue-i18n'
 import type { ECharts } from 'echarts'
+
+// Initialize i18n
+const { t } = useI18n()
 
 const themeStore = useThemeStore()
 const chartInstances = ref<ECharts[]>([])

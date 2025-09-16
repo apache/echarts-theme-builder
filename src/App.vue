@@ -3,15 +3,16 @@ import { ref } from 'vue'
 // Simple fixed sidebar layout without responsive design
 import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 import ThemePanel from './components/ThemePanel.vue'
-import { useI18n } from 'vue-i18n'
 import { useLocalization } from './composables/useLocalization'
-
-// Initialize i18n
-const { t } = useI18n()
+import { RadioGroup as VanRadioGroup, Radio as VanRadio, Row as VanRow, Col as VanCol } from 'vant'
 
 // Set up language control
-const { switchLanguage, currentLanguage } = useLocalization()
+const { switchLanguage, currentLanguage, getAvailableLanguages } = useLocalization()
 const currentLang = ref(currentLanguage)
+const availableLocales = getAvailableLanguages()
+// Only show language selector in dev/preview mode
+const showLanguageSelector = availableLocales.length > 0
+
 const onLanguageChange = (lang: string) => {
   switchLanguage(lang)
 }
@@ -22,24 +23,24 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 
 <template>
   <div id="theme-builder">
-    <!-- Language Selector -->
-    <div class="language-selector">
-      <van-radio-group v-model="currentLang" direction="horizontal" @change="onLanguageChange">
-        <van-radio name="en">English</van-radio>
-        <van-radio name="zh">中文</van-radio>
-      </van-radio-group>
+    <!-- Language Selector - only shown in dev/preview mode -->
+    <div v-if="showLanguageSelector" class="language-selector">
+      <VanRadioGroup v-model="currentLang" direction="horizontal" @change="onLanguageChange">
+        <VanRadio name="en">English</VanRadio>
+        <VanRadio name="zh">中文</VanRadio>
+      </VanRadioGroup>
     </div>
 
     <div class="container-fluid" id="content">
-      <van-row class="row-container" :gutter="0">
-        <van-col span="6" class="theme-config">
+      <VanRow class="row-container" :gutter="0">
+        <VanCol span="6" class="theme-config">
           <ThemePanel :chart-preview-ref="chartPreviewRef" />
-        </van-col>
+        </VanCol>
 
-        <van-col span="18" class="chart-container">
+        <VanCol span="18" class="chart-container">
           <ChartPreviewPanel ref="chartPreviewRef" />
-        </van-col>
-      </van-row>
+        </VanCol>
+      </VanRow>
     </div>
   </div>
 </template>

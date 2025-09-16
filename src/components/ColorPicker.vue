@@ -26,10 +26,6 @@
 import { defineProps, defineEmits } from 'vue'
 import { ColorPicker } from 'vue3-colorpicker'
 import 'vue3-colorpicker/style.css'
-import { useI18n } from 'vue-i18n'
-
-// Initialize i18n
-const { t } = useI18n()
 
 interface Props {
   modelValue: string

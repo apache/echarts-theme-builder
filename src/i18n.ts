@@ -41,6 +41,12 @@ export const getCurrentLocale = () => {
 
 // Get available languages list
 export const getAvailableLocales = () => {
+  // 在 release 模式下不显示语言切换选项
+  if (import.meta.env.VITE_MODE === 'release') {
+    return []
+  }
+
+  // 在开发/预览模式下显示语言切换选项
   return [
     { code: 'en', name: 'English' },
     { code: 'zh', name: '中文' }

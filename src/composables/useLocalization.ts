@@ -27,6 +27,11 @@ export function useLocalization() {
   const availableLanguages = getAvailableLocales()
 
   /**
+   * Get available languages list function
+   */
+  const getAvailableLanguages = () => getAvailableLocales()
+
+  /**
    * Check if current language matches specified language
    * @param lang Language code
    */
@@ -62,6 +67,7 @@ export function useLocalization() {
     switchLanguage,
     currentLanguage,
     availableLanguages,
+    getAvailableLanguages,
     isLanguage,
     formatDate,
     formatNumber

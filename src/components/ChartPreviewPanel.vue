@@ -24,11 +24,10 @@ import { ref, onMounted, onUnmounted, nextTick, watch, computed } from 'vue'
 import * as echarts from 'echarts'
 import { getChartConfigs } from '../utils/chartConfigs'
 import { useThemeStore } from '../stores/theme'
-import { useI18n } from 'vue-i18n'
 import type { ECharts } from 'echarts'
 
 // Initialize i18n
-const { t } = useI18n()
+// const { t } = useI18n() // Not currently being used
 
 const themeStore = useThemeStore()
 const chartInstances = ref<ECharts[]>([])

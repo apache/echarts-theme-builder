@@ -22,13 +22,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
   const axisCat = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
   const legendData = Array.from({ length: seriesCnt }, (_, i) => `Series ${i + 1}`)
 
-  const commonGrid = {
-    left: 60,
-    right: 20,
-    top: 60,
-    bottom: 50
-  }
-
   const commonTooltip = {
     trigger: 'axis' as const
   }
@@ -57,7 +50,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           data: legendData,
           right: 0
         },
-        grid: commonGrid,
         tooltip: commonTooltip,
         toolbox: commonToolbox,
         xAxis: {
@@ -92,7 +84,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           data: legendData,
           right: 0
         },
-        grid: commonGrid,
         tooltip: commonTooltip,
         toolbox: commonToolbox,
         xAxis: {
@@ -127,7 +118,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           data: legendData,
           right: 0
         },
-        grid: commonGrid,
         tooltip: commonTooltip,
         toolbox: commonToolbox,
         xAxis: {
@@ -162,7 +152,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           data: legendData,
           right: 0
         },
-        grid: commonGrid,
         tooltip: commonTooltip,
         toolbox: commonToolbox,
         xAxis: {
@@ -195,7 +184,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           data: legendData,
           right: 0
         },
-        grid: commonGrid,
         tooltip: {
           trigger: 'item' as const
         },
@@ -296,12 +284,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           text: 'Candlestick Chart',
           subtext: 'K-line chart with data zoom'
         },
-        grid: {
-          left: 60,
-          right: 20,
-          top: 40,
-          bottom: 70
-        },
         tooltip: {
           trigger: 'axis' as const
         },
@@ -350,12 +332,6 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
         title: {
           text: 'Heatmap',
           subtext: 'Basic heatmap example'
-        },
-        grid: {
-          left: 90,
-          right: 20,
-          top: 40,
-          bottom: 40
         },
         tooltip: {
           trigger: 'item' as const
@@ -532,19 +508,11 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
             trigger: 'axis' as const
           },
           legend: {
-            data: ['Primary', 'Secondary', 'Tertiary'],
-            right: 0
-          },
-          grid: {
-            top: 80,
-            bottom: 100,
-            left: 60,
-            right: 20
+            data: ['Primary', 'Secondary', 'Tertiary']
           },
           xAxis: {
             type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            splitLine: { show: false }
+            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
           },
           yAxis: {
             type: 'value',

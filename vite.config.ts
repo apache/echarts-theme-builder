@@ -39,10 +39,10 @@ export default defineConfig({
           // Generate HTML content - just div + script tag
           const divContent = '<div id="theme-builder"></div>'
           const scriptTag = '<script type="module" src="./theme-builder/app.min.js"></script>'
-          
+
           // Create simplified index.html for both languages
-          const indexHTML = `${divContent}\n  ${scriptTag}`
-          
+          const indexHTML = `${divContent}\n${scriptTag}`
+
           // Write index.html files (only these, no body.html)
           fs.writeFileSync('app/en/index.html', indexHTML, 'utf-8')
           fs.writeFileSync('app/zh/index.html', indexHTML, 'utf-8')
@@ -91,13 +91,13 @@ export default defineConfig({
             console.error(`Error: ECharts www project not found: ${ecWWWBaseDir}`)
             return
           }
-          
+
           // Create destination directory if needed
           fse.ensureDirSync(config.ecWWWGeneratedDir)
-          
+
           // Copy the entire app directory to ecWWWGeneratedDir
           console.log(`Copying app contents to ${config.ecWWWGeneratedDir}`)
-          
+
           // Copy app directory to ecWWWGeneratedDir
           fse.copySync('app', config.ecWWWGeneratedDir)
 

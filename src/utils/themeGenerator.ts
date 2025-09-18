@@ -3,7 +3,7 @@ import type { ThemeData } from '../types/theme'
 /**
  * Generate ECharts theme configuration based on theme data
  * @param themeData - Theme configuration data
- * @param isToExport - Whether this is for export (includes backgroundColor)
+ * @param isToExport - Reserved for backward compatibility (no longer used)
  * @returns ECharts theme configuration object
  */
 export function generateEChartsTheme(themeData: ThemeData, isToExport: boolean = false) {
@@ -153,7 +153,7 @@ export function generateEChartsTheme(themeData: ThemeData, isToExport: boolean =
   // Main theme configuration object
   const themeConfig = {
     color: themeData.color,
-    backgroundColor: isToExport ? themeData.backgroundColor : 'transparent',
+    backgroundColor: themeData.backgroundColor, // Apply background color regardless of export state
     textStyle: themeData.textColorShow ? {
       color: themeData.textColor
     } : {},

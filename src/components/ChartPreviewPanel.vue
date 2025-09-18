@@ -26,6 +26,22 @@ import { getChartConfigs } from '../utils/chartConfigs'
 import { useThemeStore } from '../stores/theme'
 import type { ECharts } from 'echarts'
 
+// Debounce function to limit how often a function can be called
+function debounce<T extends (...args: any[]) => any>(fn: T, delay: number): (...args: Parameters<T>) => void {
+  let timer: ReturnType<typeof setTimeout> | null = null
+
+  return function(this: any, ...args: Parameters<T>) {
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+      timer = null
+    }, delay)
+  }
+}
+
 // Initialize i18n
 // const { t } = useI18n() // Not currently being used
 
@@ -80,8 +96,8 @@ function initializeCharts() {
   })
 }
 
-// Update charts when theme changes
-function updateCharts() {
+// Original update charts implementation
+function _updateChartsImpl() {
   if (chartInstances.value.length === 0) {
     initializeCharts()
     return
@@ -109,6 +125,8 @@ function updateCharts() {
     }
   })
 }
+
+const updateCharts = debounce(_updateChartsImpl, 100)
 
 // Expose updateCharts method for external calling
 defineExpose({

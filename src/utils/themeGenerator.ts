@@ -248,7 +248,13 @@ export function generateEChartsTheme(themeData: ThemeData, isToExport: boolean =
     visualMap: {
       color: themeData.visualMapColor
     },
-    markPoint: markPointConfig
+    markPoint: markPointConfig,
+    grid: {
+      left: themeData.gridLeft === '' ? '10%' : themeData.gridLeft,
+      right: themeData.gridRight === '' ? '10%' : themeData.gridRight,
+      top: themeData.gridTop === '' ? 60 : themeData.gridTop,
+      bottom: themeData.gridBottom === '' ? 60 : themeData.gridBottom
+    }
   }
 
   return themeConfig

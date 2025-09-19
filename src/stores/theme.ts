@@ -205,7 +205,11 @@ export const createDefaultTheme = (): ThemeData => {
     timelineControlColor: '#A4B1D7',
     timelineControlBorderColor: '#A4B1D7',
     timelineControlBorderWidth: 1,
-    timelineLabelColor: '#A4B1D7'
+    timelineLabelColor: '#A4B1D7',
+    gridLeft: '15%',
+    gridRight: '10%',
+    gridTop: 65,
+    gridBottom: 80
   }
 }
 
@@ -245,21 +249,6 @@ const createThemeStore = () => {
       if (themeData.theme) {
         // Convert string numbers to actual numbers
         const loadedTheme = { ...themeData.theme }
-        if (typeof loadedTheme.seriesCnt === 'string') {
-          loadedTheme.seriesCnt = parseInt(loadedTheme.seriesCnt, 10)
-        }
-        if (typeof loadedTheme.borderWidth === 'string') {
-          loadedTheme.borderWidth = parseFloat(loadedTheme.borderWidth)
-        }
-        if (typeof loadedTheme.lineWidth === 'string') {
-          loadedTheme.lineWidth = parseFloat(loadedTheme.lineWidth)
-        }
-        if (typeof loadedTheme.symbolSize === 'string') {
-          loadedTheme.symbolSize = parseFloat(loadedTheme.symbolSize)
-        }
-        if (typeof loadedTheme.symbolBorderWidth === 'string') {
-          loadedTheme.symbolBorderWidth = parseFloat(loadedTheme.symbolBorderWidth)
-        }
 
         // Apply the complete theme configuration property by property to ensure reactivity
         // This ensures Vue's reactive system properly detects changes

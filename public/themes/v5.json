@@ -160,6 +160,10 @@
         "timelineControlColor": "#A4B1D7",
         "timelineControlBorderColor": "#A4B1D7",
         "timelineControlBorderWidth": 1,
-        "timelineLabelColor": "#A4B1D7"
+        "timelineLabelColor": "#A4B1D7",
+        "gridLeft": "10%",
+        "gridTop": 60,
+        "gridBottom": 70,
+        "gridRight": ""
     }
 }

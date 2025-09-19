@@ -16,6 +16,7 @@
     "functions": "功能",
     "basicConfig": "基本配置",
     "visualMap": "视觉映射",
+    "grid": "Grid 布局",
     "axis": "坐标轴",
     "legend": "图例",
     "toolbox": "工具箱",
@@ -47,6 +48,12 @@
     "toolbox": "图标",
     "toolboxEmphasis": "悬停",
     "visualMapColor": "视觉映射"
+  },
+  "grid": {
+    "left": "左边距",
+    "right": "右边距",
+    "top": "上边距",
+    "bottom": "下边距"
   },
   "axis": {
     "categoryAxis": "类目轴",

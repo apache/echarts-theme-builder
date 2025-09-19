@@ -16,6 +16,7 @@
     "functions": "Functions",
     "basicConfig": "Basic Configuration",
     "visualMap": "Visual Map",
+    "grid": "Grid Layout",
     "axis": "Axes",
     "legend": "Legend",
     "toolbox": "Toolbox",
@@ -47,6 +48,12 @@
     "toolbox": "Toolbox",
     "toolboxEmphasis": "Toolbox Hover",
     "visualMapColor": "Visual Map"
+  },
+  "grid": {
+    "left": "Left",
+    "right": "Right",
+    "top": "Top",
+    "bottom": "Bottom"
   },
   "axis": {
     "categoryAxis": "Category Axis",

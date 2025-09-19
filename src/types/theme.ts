@@ -90,6 +90,12 @@ export interface ThemeData {
   timelineControlBorderColor: string
   timelineControlBorderWidth: number
   timelineLabelColor: string
+
+  // Grid layout
+  gridLeft: number | string
+  gridRight: number | string
+  gridTop: number | string
+  gridBottom: number | string
 }
 
 export interface PreDefinedTheme {

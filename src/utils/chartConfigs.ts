@@ -47,8 +47,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Basic line chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: commonTooltip,
         toolbox: commonToolbox,
@@ -81,8 +80,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Stacked area chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: commonTooltip,
         toolbox: commonToolbox,
@@ -115,8 +113,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Basic bar chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: commonTooltip,
         toolbox: commonToolbox,
@@ -149,8 +146,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Stacked bar chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: commonTooltip,
         toolbox: commonToolbox,
@@ -181,8 +177,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Basic scatter chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: {
           trigger: 'item' as const
@@ -216,8 +211,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Basic pie chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: {
           trigger: 'item',
@@ -254,8 +248,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           subtext: 'Basic radar chart example'
         },
         legend: {
-          data: legendData,
-          right: 0
+          data: legendData
         },
         tooltip: commonTooltip,
         toolbox: commonToolbox,
@@ -437,8 +430,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           layout: 'force',
           roam: true,
           label: {
-            show: true,
-            fontSize: 12
+            show: true
           },
           force: {
             repulsion: 400,

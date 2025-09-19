@@ -122,6 +122,32 @@
         </div>
       </van-collapse-item>
 
+      <!-- Grid Layout -->
+      <van-collapse-item :title="$t('panel.grid')" name="grid">
+        <div class="panel-content">
+          <van-field
+            v-model="gridLeft"
+            :label="$t('grid.left')"
+            @blur="validateGridValue('left')"
+          />
+          <van-field
+            v-model="gridRight"
+            :label="$t('grid.right')"
+            @blur="validateGridValue('right')"
+          />
+          <van-field
+            v-model="gridTop"
+            :label="$t('grid.top')"
+            @blur="validateGridValue('top')"
+          />
+          <van-field
+            v-model="gridBottom"
+            :label="$t('grid.bottom')"
+            @blur="validateGridValue('bottom')"
+          />
+        </div>
+      </van-collapse-item>
+
       <!-- Coordinate Axis -->
       <van-collapse-item :title="$t('panel.axis')" name="axis">
         <div class="panel-content">
@@ -431,7 +457,7 @@ interface Props {
 const props = defineProps<Props>()
 
 // Component state
-const activeNames = ref(['functions'])  // Functions panel expanded by default
+const activeNames = ref(['functions', 'basic', 'visualMap', 'grid'])  // Panels expanded by default
 const fileInput = ref<HTMLInputElement>()
 
 // Theme store
@@ -440,6 +466,88 @@ const { theme, themeName } = themeStore
 
 // Predefined themes
 const preDefinedThemes = PRE_DEFINED_THEMES
+
+// Grid layout reactive properties
+const gridLeft = ref(String(theme.gridLeft))
+const gridRight = ref(String(theme.gridRight))
+const gridTop = ref(String(theme.gridTop))
+const gridBottom = ref(String(theme.gridBottom))
+
+// Grid value validation function
+const validateGridValue = (position: 'left' | 'right' | 'top' | 'bottom') => {
+  let valueRef;
+
+  switch (position) {
+    case 'left':
+      valueRef = gridLeft;
+      break;
+    case 'right':
+      valueRef = gridRight;
+      break;
+    case 'top':
+      valueRef = gridTop;
+      break;
+    case 'bottom':
+      valueRef = gridBottom;
+      break;
+  }
+
+  const inputValue = valueRef.value.trim();
+
+  // Check if the value is a number or a percentage string
+  const isValid =
+    // Empty string - will be converted to undefined in setOption
+    inputValue === '' ||
+    // Valid number
+    /^[0-9]+$/.test(inputValue) ||
+    // Valid percentage (e.g. 10%, 10.5%)
+    /^[0-9]+(\.[0-9]+)?%$/.test(inputValue);
+
+  if (isValid) {
+    // Update the theme property with the validated value
+    // For numeric values, convert to number if it's a pure number
+    // Empty strings will use default values defined in themeGenerator.ts
+    const finalValue = inputValue === '' ?
+                       (position === 'left' || position === 'right' ? '10%' : 60) :
+                       (/^[0-9]+$/.test(inputValue)) ? parseInt(inputValue, 10) : inputValue;
+
+    // Update the corresponding theme property
+    switch (position) {
+      case 'left':
+        theme.gridLeft = finalValue;
+        break;
+      case 'right':
+        theme.gridRight = finalValue;
+        break;
+      case 'top':
+        theme.gridTop = finalValue;
+        break;
+      case 'bottom':
+        theme.gridBottom = finalValue;
+        break;
+    }
+  } else {
+    // If invalid, reset to default values
+    const defaultValue = position === 'left' || position === 'right' ? '10%' : 60;
+    valueRef.value = String(defaultValue);
+
+    // Set the theme property to default value
+    switch (position) {
+      case 'left':
+        theme.gridLeft = '10%';
+        break;
+      case 'right':
+        theme.gridRight = '10%';
+        break;
+      case 'top':
+        theme.gridTop = 60;
+        break;
+      case 'bottom':
+        theme.gridBottom = 60;
+        break;
+    }
+  }
+}
 
 // Methods
 const downloadTheme = async () => {

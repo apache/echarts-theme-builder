@@ -19,6 +19,7 @@
     "grid": "Grid Layout",
     "axis": "Axes",
     "legend": "Legend",
+  "legendPosition": "Legend Position",
     "toolbox": "Toolbox",
     "download": "Download Theme",
     "import": "Import Config",
@@ -49,11 +50,15 @@
     "toolboxEmphasis": "Toolbox Hover",
     "visualMapColor": "Visual Map"
   },
-  "grid": {
+  "position": {
     "left": "Left",
     "right": "Right",
     "top": "Top",
     "bottom": "Bottom"
+  },
+  "legend": {
+  },
+  "grid": {
   },
   "axis": {
     "categoryAxis": "Category Axis",

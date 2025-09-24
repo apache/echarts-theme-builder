@@ -19,6 +19,7 @@
     "grid": "Grid 布局",
     "axis": "坐标轴",
     "legend": "图例",
+  "legendPosition": "图例位置",
     "toolbox": "工具箱",
     "download": "下载主题",
     "import": "导入配置",
@@ -49,11 +50,15 @@
     "toolboxEmphasis": "悬停",
     "visualMapColor": "视觉映射"
   },
+  "position": {
+    "left": "左",
+    "right": "右",
+    "top": "上",
+    "bottom": "下"
+  },
+  "legend": {
+  },
   "grid": {
-    "left": "左边距",
-    "right": "右边距",
-    "top": "上边距",
-    "bottom": "下边距"
   },
   "axis": {
     "categoryAxis": "类目轴",

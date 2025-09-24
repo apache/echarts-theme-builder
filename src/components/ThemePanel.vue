@@ -127,22 +127,22 @@
         <div class="panel-content">
           <van-field
             v-model="gridLeft"
-            :label="$t('grid.left')"
+            :label="$t('position.left')"
             @blur="validateGridValue('left')"
           />
           <van-field
             v-model="gridRight"
-            :label="$t('grid.right')"
+            :label="$t('position.right')"
             @blur="validateGridValue('right')"
           />
           <van-field
             v-model="gridTop"
-            :label="$t('grid.top')"
+            :label="$t('position.top')"
             @blur="validateGridValue('top')"
           />
           <van-field
             v-model="gridBottom"
-            :label="$t('grid.bottom')"
+            :label="$t('position.bottom')"
             @blur="validateGridValue('bottom')"
           />
         </div>
@@ -206,6 +206,28 @@
           <ColorPicker
             v-model="theme.legendTextColor"
             :label="$t('colors.legendText')"
+          />
+
+          <h4>{{ $t('panel.legendPosition') }}</h4>
+          <van-field
+            v-model="legendLeft"
+            :label="$t('position.left')"
+            @blur="validateLegendValue('left')"
+          />
+          <van-field
+            v-model="legendRight"
+            :label="$t('position.right')"
+            @blur="validateLegendValue('right')"
+          />
+          <van-field
+            v-model="legendTop"
+            :label="$t('position.top')"
+            @blur="validateLegendValue('top')"
+          />
+          <van-field
+            v-model="legendBottom"
+            :label="$t('position.bottom')"
+            @blur="validateLegendValue('bottom')"
           />
         </div>
       </van-collapse-item>
@@ -457,7 +479,7 @@ interface Props {
 const props = defineProps<Props>()
 
 // Component state
-const activeNames = ref(['functions', 'basic', 'visualMap', 'grid'])  // Panels expanded by default
+const activeNames = ref(['functions', 'basic', 'visualMap', 'grid', 'legend'])  // Panels expanded by default
 const fileInput = ref<HTMLInputElement>()
 
 // Theme store
@@ -472,6 +494,105 @@ const gridLeft = ref(String(theme.gridLeft))
 const gridRight = ref(String(theme.gridRight))
 const gridTop = ref(String(theme.gridTop))
 const gridBottom = ref(String(theme.gridBottom))
+
+// Legend position reactive properties
+const legendLeft = ref(String(theme.legendLeft))
+const legendRight = ref(String(theme.legendRight))
+const legendTop = ref(String(theme.legendTop))
+const legendBottom = ref(String(theme.legendBottom))
+
+// Legend value validation function
+const validateLegendValue = (position: 'left' | 'right' | 'top' | 'bottom') => {
+  let valueRef;
+
+  switch (position) {
+    case 'left':
+      valueRef = legendLeft;
+      break;
+    case 'right':
+      valueRef = legendRight;
+      break;
+    case 'top':
+      valueRef = legendTop;
+      break;
+    case 'bottom':
+      valueRef = legendBottom;
+      break;
+  }
+
+  const inputValue = valueRef.value.trim();
+
+  // Check if the value is a valid position value (number, percentage, or special value)
+  const isValid =
+    // Empty string - will be converted to auto in setOption
+    inputValue === '' ||
+    // Valid number
+    /^[0-9]+$/.test(inputValue) ||
+    // Valid percentage (e.g. 10%, 10.5%)
+    /^[0-9]+(\.[0-9]+)?%$/.test(inputValue) ||
+    // Special values for legend position
+    inputValue === 'auto' ||
+    inputValue === 'center' ||
+    inputValue === 'left' ||
+    inputValue === 'right' ||
+    inputValue === 'top' ||
+    inputValue === 'bottom';
+
+  if (isValid) {
+    // For numeric values, convert to number if it's a pure number
+    const finalValue = inputValue === '' ?
+                       position === 'bottom' ? 10 :
+                       position === 'left' ? 'center' : 'auto' :
+                       (/^[0-9]+$/.test(inputValue)) ? parseInt(inputValue, 10) : inputValue;
+
+    // Update the corresponding theme property
+    switch (position) {
+      case 'left':
+        theme.legendLeft = finalValue;
+        break;
+      case 'right':
+        theme.legendRight = finalValue;
+        break;
+      case 'top':
+        theme.legendTop = finalValue;
+        break;
+      case 'bottom':
+        theme.legendBottom = finalValue;
+        break;
+    }
+  } else {
+    // If invalid, reset to default values
+    let defaultValue;
+    switch (position) {
+      case 'left':
+        defaultValue = 'center';
+        break;
+      case 'bottom':
+        defaultValue = 10;
+        break;
+      default:
+        defaultValue = 'auto';
+    }
+
+    valueRef.value = String(defaultValue);
+
+    // Set the theme property to default value
+    switch (position) {
+      case 'left':
+        theme.legendLeft = 'center';
+        break;
+      case 'right':
+        theme.legendRight = 'auto';
+        break;
+      case 'top':
+        theme.legendTop = 'auto';
+        break;
+      case 'bottom':
+        theme.legendBottom = 10;
+        break;
+    }
+  }
+}
 
 // Grid value validation function
 const validateGridValue = (position: 'left' | 'right' | 'top' | 'bottom') => {

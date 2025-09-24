@@ -196,7 +196,11 @@ export function generateEChartsTheme(themeData: ThemeData, isToExport: boolean =
     legend: {
       textStyle: {
         color: themeData.legendTextColor
-      }
+      },
+      left: themeData.legendLeft === '' ? 'center' : themeData.legendLeft,
+      right: themeData.legendRight === '' ? 'auto' : themeData.legendRight,
+      top: themeData.legendTop === '' ? 'auto' : themeData.legendTop,
+      bottom: themeData.legendBottom === '' ? 10 : themeData.legendBottom
     },
     tooltip: {
       axisPointer: {

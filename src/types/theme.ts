@@ -96,6 +96,12 @@ export interface ThemeData {
   gridRight: number | string
   gridTop: number | string
   gridBottom: number | string
+
+  // Legend position
+  legendLeft: number | string
+  legendRight: number | string
+  legendTop: number | string
+  legendBottom: number | string
 }
 
 export interface PreDefinedTheme {

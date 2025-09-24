@@ -209,7 +209,11 @@ export const createDefaultTheme = (): ThemeData => {
     gridLeft: '15%',
     gridRight: '10%',
     gridTop: 65,
-    gridBottom: 80
+    gridBottom: 80,
+    legendLeft: 'center',
+    legendRight: 'auto',
+    legendTop: 'auto',
+    legendBottom: 15
   }
 }
 

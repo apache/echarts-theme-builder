@@ -164,6 +164,10 @@
         "gridLeft": "10%",
         "gridTop": 60,
         "gridBottom": 70,
-        "gridRight": ""
+        "gridRight": "10%",
+        "legendLeft": "center",
+        "legendRight": "",
+        "legendTop": 0,
+        "legendBottom": ""
     }
 }

@@ -18,10 +18,7 @@
               <van-icon name="share" />
               {{ $t('panel.export') }}
             </van-button>
-            <van-button @click="showThemeCode">
-              <van-icon name="eye-o" />
-              {{ $t('panel.showCode') }}
-            </van-button>
+            <!-- showThemeCode 按钮已删除 -->
           </div>
 
           <div class="action-buttons">
@@ -465,7 +462,7 @@ import { PRE_DEFINED_THEMES } from '../stores/theme'
 import ColorPicker from './ColorPicker.vue'
 import ColorList from './ColorList.vue'
 import type ChartPreviewPanel from './ChartPreviewPanel.vue'
-import { downloadJsonFile, downloadJsFile, copyToClipboard } from '../utils/download'
+import { downloadJsonFile, downloadJsFile } from '../utils/download'
 import { showToast, showDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
 
@@ -790,64 +787,6 @@ const resetTheme = async () => {
   }
 }
 
-const showThemeCode = async () => {
-  try {
-    const themeConfig = themeStore.getEChartsTheme(true)
-    const jsContent = themeStore.getThemeJsFile()
-
-    // Show format selection dialog
-    try {
-      await showDialog({
-        title: '主题代码预览',
-        message: t('modals.selectCodeFormat'),
-        showCancelButton: true,
-        confirmButtonText: 'JavaScript 格式',
-        cancelButtonText: 'JSON 格式'
-      })
-
-      // User chose JavaScript format
-      showCodeDialog('JavaScript 主题文件', jsContent)
-    } catch {
-      // User chose JSON format
-      const jsonCode = JSON.stringify(themeConfig, null, 4)
-      showCodeDialog('JSON 主题配置', jsonCode)
-    }
-  } catch (error) {
-    console.error('Failed to show theme code:', error)
-    showToast({
-      message: '代码生成失败',
-      type: 'fail'
-    })
-  }
-}
-
-const showCodeDialog = async (title: string, code: string) => {
-  try {
-    await showDialog({
-      title,
-      message: `<pre style="text-align: left; white-space: pre-wrap; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 11px; max-height: 400px; overflow-y: auto; background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef; line-height: 1.4; margin: 0;">${code}</pre>`,
-      allowHtml: true,
-      confirmButtonText: '复制代码',
-      cancelButtonText: '关闭'
-    })
-
-    // User wants to copy
-    const success = await copyToClipboard(code)
-    if (success) {
-      showToast({
-        message: '代码已复制到剪贴板',
-        type: 'success'
-      })
-    } else {
-      showToast({
-        message: '复制失败，请手动复制',
-        type: 'fail'
-      })
-    }
-  } catch {
-    // User closed dialog
-  }
-}
 
 const showHelp = () => {
   showDialog({
@@ -1151,7 +1090,7 @@ const handleFileImport = async (event: Event) => {
 
 /* Dialog width adjustments */
 :global(.van-dialog) {
-  width: 800px;
+  width: 500px;
   max-width: 90vw;
 }
 

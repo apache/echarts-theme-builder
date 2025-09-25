@@ -476,7 +476,7 @@ interface Props {
 const props = defineProps<Props>()
 
 // Component state
-const activeNames = ref(['functions', 'basic', 'visualMap', 'grid', 'legend'])  // Panels expanded by default
+const activeNames = ref(['functions'])
 const fileInput = ref<HTMLInputElement>()
 
 // Theme store

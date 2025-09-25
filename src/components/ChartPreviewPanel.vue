@@ -65,7 +65,7 @@ function setChartRef(el: any, index: number) {
 
 // Register and apply current theme
 function registerCurrentTheme() {
-  const currentTheme = themeStore.getEChartsTheme(false)
+  const currentTheme = themeStore.getEChartsTheme()
   echarts.registerTheme('customized', currentTheme)
 }
 
@@ -110,7 +110,7 @@ function _updateChartsImpl() {
   }
 
   // Get current theme and register with unique ID to force refresh
-  const currentTheme = themeStore.getEChartsTheme(false)
+  const currentTheme = themeStore.getEChartsTheme()
   const themeId = `customized-${Date.now()}`
   echarts.registerTheme(themeId, currentTheme)
 

@@ -1,150 +1,145 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import fs from 'fs'
 import fse from 'fs-extra'
 
-/**
- * Load release config from env.asf.js
- */
-function loadReleaseConfig() {
-  const configModule = require('./config/env.asf.js')
-  return configModule.default || configModule
+const SUPPORTED_LANGUAGES: string[] = ['en', 'zh'];
+const OUTPUT_DIR: string = 'app';
+
+// Custom plugin to handle HTML output for different languages
+function createHtmlOutputPlugin(): Plugin {
+  return {
+    name: 'html-output-plugin',
+    enforce: 'post',
+    apply: 'build',
+    closeBundle: async () => {
+      const distDir = path.resolve(__dirname, 'dist');
+      const publicDir = path.resolve(__dirname, 'public');
+
+      // Create language directories if they don't exist
+      for (const lang of SUPPORTED_LANGUAGES) {
+        const langDir = path.join(OUTPUT_DIR, lang);
+        const assetDir = path.join(langDir, 'theme-builder');
+        const themesDir = path.join(assetDir, 'themes');
+
+        // Ensure directories exist and clean any existing assets
+        await fse.ensureDir(langDir);
+        await fse.ensureDir(assetDir);
+
+        // Clean up existing JS and CSS files before copying new ones
+        const existingFiles = await fse.readdir(assetDir);
+        for (const file of existingFiles) {
+          if (file.endsWith('.js') || file.endsWith('.css')) {
+            await fse.remove(path.join(assetDir, file));
+          }
+        }
+
+        await fse.ensureDir(themesDir);
+
+        // Find JS and CSS files in the dist directory
+        const files = await fse.readdir(distDir);
+        const jsFiles = files.filter(file => file.endsWith('.js'));
+        const cssFiles = files.filter(file => file.endsWith('.css'));
+
+        // Read the HTML file to extract scripts and links to include in body.html
+        if (fs.existsSync(path.join(distDir, 'index.html'))) {
+          const htmlContent = await fse.readFile(path.join(distDir, 'index.html'), 'utf-8');
+
+          // Extract only the content within the body tag
+          let bodyContent = htmlContent.match(/<body[^>]*>([\s\S]*)<\/body>/i)?.[1] || '';
+
+          // Get all script and link tags from head
+          const headScripts = (htmlContent.match(/<script[^>]*src="\.\/([^"]+)"[^>]*><\/script>/g) || [])
+            .map(script => script.replace(/src="\.\//g, 'src="theme-builder/'));
+
+          const headLinks = (htmlContent.match(/<link[^>]*href="\.\/([^"]+)"[^>]*>/g) || [])
+            .map(link => link.replace(/href="\.\//g, 'href="theme-builder/'));
+
+          // Create a complete body.html with necessary script and link tags
+          let finalContent = [...headLinks, ...headScripts, bodyContent.trim()].join('\n');
+
+          // Replace any references to themes in the content
+          finalContent = finalContent.replace(/(['"])\.?\/themes\//g, '$1./theme-builder/themes/');
+
+          // Write the content to body.html
+          await fse.writeFile(path.join(langDir, 'body.html'), finalContent);
+        }
+
+        // Copy JS and CSS files to the theme-builder directory
+        for (const jsFile of jsFiles) {
+          await fse.copy(
+            path.join(distDir, jsFile),
+            path.join(assetDir, jsFile)
+          );
+        }
+
+        for (const cssFile of cssFiles) {
+          await fse.copy(
+            path.join(distDir, cssFile),
+            path.join(assetDir, cssFile)
+          );
+        }
+
+        // Copy themes from public directory
+        if (fs.existsSync(path.join(publicDir, 'themes'))) {
+          await fse.copy(
+            path.join(publicDir, 'themes'),
+            themesDir
+          );
+        }
+      }
+
+      // Clean up the original dist directory
+      await fse.remove(distDir);
+    }
+  };
 }
 
-// Check if release mode is enabled with RELEASE=true environment variable
-const isRelease = process.env.RELEASE === 'true'
-
-// https://vite.dev/config/
-export default defineConfig({
-  define: {
-    // 设置环境变量，在前端代码中可以通过import.meta.env访问
-    'import.meta.env.VITE_MODE': JSON.stringify(isRelease ? 'release' : 'development')
-  },
-  plugins: [
-    vue(),
-    {
-      name: 'theme-builder-processor',
-      closeBundle: async () => {
-        // Handle HTML files - Create language-specific index.html files
-        if (fs.existsSync('app/index.html')) {
-          console.log('Processing HTML output...')
-
-          // Create directories if they don't exist
-          fs.mkdirSync('app/en', { recursive: true })
-          fs.mkdirSync('app/zh', { recursive: true })
-          fs.mkdirSync('app/en/theme-builder', { recursive: true })
-          fs.mkdirSync('app/zh/theme-builder', { recursive: true })
-
-          // Generate HTML content - just div + script tag
-          const divContent = '<div id="theme-builder"></div>'
-          const scriptTag = '<script type="module" src="./theme-builder/app.min.js"></script>'
-
-          // Create simplified index.html for both languages
-          const indexHTML = `${divContent}\n${scriptTag}`
-
-          // Write index.html files (only these, no body.html)
-          fs.writeFileSync('app/en/index.html', indexHTML, 'utf-8')
-          fs.writeFileSync('app/zh/index.html', indexHTML, 'utf-8')
-
-          // Remove the original index.html
-          fs.unlinkSync('app/index.html')
-        }
-
-        // Move CSS to shared styles directory
-        console.log('Processing CSS and shared resources...')
-        fs.mkdirSync('app/styles', { recursive: true })
-
-        if (fs.existsSync('app/styles/main.css')) {
-          // CSS is already in the correct location from the build output
-          console.log('CSS output already in correct location')
-        }
-
-        // Copy theme files from public to app/themes (common resource)
-        const themesDir = 'public/themes'
-        const themesDestination = 'app/themes'
-
-        if (fs.existsSync(themesDir)) {
-          fs.mkdirSync(themesDestination, { recursive: true })
-
-          // Copy theme JSON files
-          fs.readdirSync(themesDir).forEach((file) => {
-            if (file.endsWith('.json')) {
-              fs.copyFileSync(`${themesDir}/${file}`, `${themesDestination}/${file}`)
-            }
-          })
-        }
-
-        // Handle release mode - copy files from app to ecWWWGeneratedDir
-        if (isRelease) {
-          console.log('Starting release process...')
-          const config = loadReleaseConfig()
-
-          // Validate target directories
-          if (!config.ecWWWGeneratedDir) {
-            console.error('Error: ecWWWGeneratedDir not defined in config')
-            return
-          }
-
-          const ecWWWBaseDir = config.ecWWWGeneratedDir.replace('_generated', '')
-          if (!fs.existsSync(ecWWWBaseDir)) {
-            console.error(`Error: ECharts www project not found: ${ecWWWBaseDir}`)
-            return
-          }
-
-          // Create destination directory if needed
-          fse.ensureDirSync(config.ecWWWGeneratedDir)
-
-          // Copy the entire app directory to ecWWWGeneratedDir
-          console.log(`Copying app contents to ${config.ecWWWGeneratedDir}`)
-
-          // Copy app directory to ecWWWGeneratedDir
-          fse.copySync('app', config.ecWWWGeneratedDir)
-
-          console.log('Release process completed successfully!')
-        }
+// Custom plugin to rewrite theme paths in JS files
+function createThemePathRewritePlugin(): Plugin {
+  return {
+    name: 'theme-path-rewrite',
+    transform(code, id) {
+      if (id.endsWith('.js') || id.endsWith('.ts')) {
+        // Replace theme path references
+        return code.replace(/(['"`])\.?\/themes\//g, '$1./theme-builder/themes/');
       }
+      return code;
     }
+  };
+}
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        transformAssetUrls: {
+          base: '/src',
+          includeAbsolute: false,
+        },
+      }
+    }),
+    createThemePathRewritePlugin(),
+    createHtmlOutputPlugin()
   ],
   build: {
-    outDir: 'app',
+    outDir: 'dist', // Temporary build directory
     emptyOutDir: true,
+    assetsDir: '.', // This will ensure assets are placed at the root level of the output directory
     rollupOptions: {
-      input: {
-        'en': path.resolve(process.cwd(), 'index.html'),
-        'zh': path.resolve(process.cwd(), 'index.html')
-      },
       output: {
-        entryFileNames: () => {
-          // 统一放在各自语言目录下的theme-builder目录中
-          return `[name]/theme-builder/app.min.js`
-        },
-        chunkFileNames: (chunkInfo: any) => {
-          const name = chunkInfo.name || ''
-          // 根据名称推断语言
-          if (name.startsWith('en') || name.includes('en-')) {
-            return `en/theme-builder/chunks/[name]-[hash].js`
-          } else {
-            return `zh/theme-builder/chunks/[name]-[hash].js`
-          }
-        },
-        assetFileNames: (assetInfo: any) => {
-          const info = assetInfo.name || ''
-
-          // For CSS files, put them in shared styles directory
-          if (info.endsWith('.css')) {
-            return `styles/main.css`
-          }
-
-          // Common assets go to app root, others to language-specific directories
-          if (info.includes('assets/') || info.includes('images/')) {
-            return `assets/[name]-[hash][extname]`
-          }
-
-          return `en/theme-builder/assets/[name]-[hash][extname]`
-        },
-        manualChunks: undefined
+        // Customize output file names
+        entryFileNames: '[name]-[hash].js',
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name]-[hash].[ext]'
       }
     }
+  },
+  base: './', // Make sure assets use relative paths
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
   }
-})
+});

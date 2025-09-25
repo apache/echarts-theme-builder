@@ -8,7 +8,7 @@
     "build": "vue-tsc -b && vite build",
     "preview": "http-server app",
     "serve": "http-server app",
-    "release": "RELEASE=true vue-tsc -b && RELEASE=true vite build"
+    "release": "npm run build && node scripts/release.js"
   },
   "dependencies": {
     "echarts": "^6.0.0",

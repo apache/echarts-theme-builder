@@ -11,7 +11,8 @@ const { switchLanguage, currentLanguage, getAvailableLanguages } = useLocalizati
 const currentLang = ref(currentLanguage)
 const availableLocales = getAvailableLanguages()
 // Only show language selector in dev/preview mode
-const showLanguageSelector = availableLocales.length > 0
+// Use import.meta.env.DEV to only show in development mode
+const showLanguageSelector = import.meta.env.DEV && availableLocales.length > 0
 
 const onLanguageChange = (lang: string) => {
   switchLanguage(lang)

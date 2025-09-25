@@ -670,7 +670,7 @@ const validateGridValue = (position: 'left' | 'right' | 'top' | 'bottom') => {
 // Methods
 const downloadTheme = async () => {
   try {
-    const themeConfig = themeStore.getEChartsTheme(true)
+    const themeConfig = themeStore.getEChartsTheme()
     const jsContent = themeStore.getThemeJsFile()
     const filename = themeName.value || 'customized'
 
@@ -953,7 +953,8 @@ const handleFileImport = async (event: Event) => {
   flex-wrap: wrap;
   justify-content: space-between;
   width: auto;
-  height: 22px;
+  box-sizing: border-box;
+  height: 32px;
   margin-bottom: 5px;
   overflow: hidden;
   border: 1px solid #eee;

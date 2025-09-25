@@ -315,10 +315,10 @@ const createThemeStore = () => {
     return cleanedData
   }
 
-  const getEChartsTheme = (isToExport: boolean = false) => {
+  const getEChartsTheme = () => {
     // Convert reactive object to plain object to ensure proper data passing
     const plainTheme = JSON.parse(JSON.stringify(theme))
-    return generateEChartsTheme(plainTheme, isToExport)
+    return generateEChartsTheme(plainTheme)
   }
 
   const getThemeJsFile = () => {

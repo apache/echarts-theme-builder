@@ -430,7 +430,8 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           layout: 'force',
           roam: true,
           label: {
-            show: true
+            show: true,
+            color: 'auto'
           },
           force: {
             repulsion: 400,

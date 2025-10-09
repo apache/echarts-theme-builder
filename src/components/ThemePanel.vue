@@ -244,80 +244,80 @@
       </van-collapse-item>
 
       <!-- Tooltip -->
-      <van-collapse-item title="提示框" name="tooltip">
+      <van-collapse-item :title="$t('panel.tooltip')" name="tooltip">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.tooltipAxisColor"
-            label="指示线"
+            :label="$t('tooltip.axisPointer')"
           />
           <van-field
             v-model.number="theme.tooltipAxisWidth"
             type="number"
-            label="宽度"
+            :label="$t('tooltip.axisPointerWidth')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Timeline -->
-      <van-collapse-item title="时间轴" name="timeline">
+      <van-collapse-item :title="$t('panel.timeline')" name="timeline">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.timelineItemColor"
-            label="标记"
+            :label="$t('timeline.item')"
           />
           <ColorPicker
             v-model="theme.timelineItemColorE"
-            label="标记悬停"
+            :label="$t('timeline.itemHover')"
           />
           <ColorPicker
             v-model="theme.timelineCheckColor"
-            label="标记选中"
+            :label="$t('timeline.itemSelected')"
           />
           <ColorPicker
             v-model="theme.timelineCheckBorderColor"
-            label="标记选中描边"
+            :label="$t('timeline.itemSelectedBorder')"
           />
           <van-field
             v-model.number="theme.timelineItemBorderWidth"
             type="number"
-            label="标记描边"
+            :label="$t('timeline.itemBorderWidth')"
           />
           <ColorPicker
             v-model="theme.timelineLineColor"
-            label="主轴"
+            :label="$t('timeline.mainAxis')"
           />
           <van-field
             v-model.number="theme.timelineLineWidth"
             type="number"
-            label="主轴宽度"
+            :label="$t('timeline.mainAxisWidth')"
           />
           <ColorPicker
             v-model="theme.timelineControlColor"
-            label="控件填充"
+            :label="$t('timeline.controlFill')"
           />
           <ColorPicker
             v-model="theme.timelineControlBorderColor"
-            label="控件描边"
+            :label="$t('timeline.controlBorder')"
           />
           <van-field
             v-model.number="theme.timelineControlBorderWidth"
             type="number"
-            label="控件描边宽度"
+            :label="$t('timeline.controlBorderWidth')"
           />
           <ColorPicker
             v-model="theme.timelineLabelColor"
-            label="文字"
+            :label="$t('timeline.label')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Line Chart -->
-      <van-collapse-item title="折线图" name="line">
+      <van-collapse-item :title="$t('panel.lineChart')" name="line">
         <div class="panel-content">
-          <van-field label="平滑曲线">
+          <van-field :label="$t('lineChart.smooth')">
             <template #input>
               <van-checkbox v-model="theme.lineSmooth">
-                平滑曲线
+                {{ $t('lineChart.smooth') }}
               </van-checkbox>
             </template>
           </van-field>
@@ -325,36 +325,36 @@
           <van-field
             v-model.number="theme.lineWidth"
             type="number"
-            label="线条宽度"
+            :label="$t('lineChart.lineWidth')"
           />
           <van-field
             v-model.number="theme.symbolBorderWidth"
             type="number"
-            label="图形描边"
+            :label="$t('lineChart.symbolBorder')"
           />
           <van-field
             v-model.number="theme.symbolSize"
             type="number"
-            label="图形大小"
+            :label="$t('lineChart.symbolSize')"
           />
 
-          <van-field label="图形形状">
+          <van-field :label="$t('lineChart.symbolShape')">
             <template #input>
               <van-radio-group v-model="theme.symbol" direction="horizontal">
-                <van-radio name="circle">圆形</van-radio>
-                <van-radio name="emptyCircle">空心圆形</van-radio>
-                <van-radio name="rect">方形</van-radio>
-                <van-radio name="emptyRect">空心方形</van-radio>
-                <van-radio name="roundRect">圆角矩形</van-radio>
-                <van-radio name="emptyRoundRect">空心圆角矩形</van-radio>
-                <van-radio name="triangle">三角形</van-radio>
-                <van-radio name="emptyTriangle">空心三角形</van-radio>
-                <van-radio name="diamond">菱形</van-radio>
-                <van-radio name="emptyDiamond">空心菱形</van-radio>
-                <van-radio name="pin">水滴</van-radio>
-                <van-radio name="emptyPin">空心水滴</van-radio>
-                <van-radio name="arrow">箭头</van-radio>
-                <van-radio name="emptyArrow">空心箭头</van-radio>
+                <van-radio name="circle">{{ $t('lineChart.circle') }}</van-radio>
+                <van-radio name="emptyCircle">{{ $t('lineChart.emptyCircle') }}</van-radio>
+                <van-radio name="rect">{{ $t('lineChart.rect') }}</van-radio>
+                <van-radio name="emptyRect">{{ $t('lineChart.emptyRect') }}</van-radio>
+                <van-radio name="roundRect">{{ $t('lineChart.roundRect') }}</van-radio>
+                <van-radio name="emptyRoundRect">{{ $t('lineChart.emptyRoundRect') }}</van-radio>
+                <van-radio name="triangle">{{ $t('lineChart.triangle') }}</van-radio>
+                <van-radio name="emptyTriangle">{{ $t('lineChart.emptyTriangle') }}</van-radio>
+                <van-radio name="diamond">{{ $t('lineChart.diamond') }}</van-radio>
+                <van-radio name="emptyDiamond">{{ $t('lineChart.emptyDiamond') }}</van-radio>
+                <van-radio name="pin">{{ $t('lineChart.pin') }}</van-radio>
+                <van-radio name="emptyPin">{{ $t('lineChart.emptyPin') }}</van-radio>
+                <van-radio name="arrow">{{ $t('lineChart.arrow') }}</van-radio>
+                <van-radio name="emptyArrow">{{ $t('lineChart.emptyArrow') }}</van-radio>
               </van-radio-group>
             </template>
           </van-field>
@@ -362,83 +362,83 @@
       </van-collapse-item>
 
       <!-- Graph -->
-      <van-collapse-item title="关系图" name="graph">
+      <van-collapse-item :title="$t('panel.graph')" name="graph">
         <div class="panel-content">
           <van-field
             v-model.number="theme.graphLineWidth"
             type="number"
-            label="线条宽度"
+            :label="$t('graph.lineWidth')"
           />
           <ColorPicker
             v-model="theme.graphLineColor"
-            label="线条颜色"
+            :label="$t('graph.lineColor')"
           />
         </div>
       </van-collapse-item>
 
       <!-- Map -->
-      <van-collapse-item title="地图" name="map">
+      <van-collapse-item :title="$t('panel.map')" name="map">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.mapAreaColor"
-            label="区域颜色"
+            :label="$t('map.areaColor')"
           />
           <ColorPicker
             v-model="theme.mapBorderColor"
-            label="边界颜色"
+            :label="$t('map.borderColor')"
           />
           <van-field
             v-model.number="theme.mapBorderWidth"
             type="number"
-            label="边界宽度"
+            :label="$t('map.borderWidth')"
           />
           <ColorPicker
             v-model="theme.mapLabelColor"
-            label="标签颜色"
+            :label="$t('map.labelColor')"
           />
           <ColorPicker
             v-model="theme.mapAreaColorE"
-            label="悬停区域颜色"
+            :label="$t('map.areaHoverColor')"
           />
           <ColorPicker
             v-model="theme.mapBorderColorE"
-            label="悬停边界颜色"
+            :label="$t('map.borderHoverColor')"
           />
           <van-field
             v-model.number="theme.mapBorderWidthE"
             type="number"
-            label="悬停边界宽度"
+            :label="$t('map.borderHoverWidth')"
           />
           <ColorPicker
             v-model="theme.mapLabelColorE"
-            label="悬停标签颜色"
+            :label="$t('map.labelHoverColor')"
           />
         </div>
       </van-collapse-item>
 
       <!-- K Line Chart -->
-      <van-collapse-item title="K线图" name="kline">
+      <van-collapse-item :title="$t('panel.kline')" name="kline">
         <div class="panel-content">
           <ColorPicker
             v-model="theme.kColor"
-            label="阳线颜色"
+            :label="$t('kline.upColor')"
           />
           <ColorPicker
             v-model="theme.kColor0"
-            label="阴线颜色"
+            :label="$t('kline.downColor')"
           />
           <ColorPicker
             v-model="theme.kBorderColor"
-            label="阳线边框"
+            :label="$t('kline.upBorderColor')"
           />
           <ColorPicker
             v-model="theme.kBorderColor0"
-            label="阴线边框"
+            :label="$t('kline.downBorderColor')"
           />
           <van-field
             v-model.number="theme.kBorderWidth"
             type="number"
-            label="边框宽度"
+            :label="$t('kline.borderWidth')"
           />
         </div>
       </van-collapse-item>
@@ -720,18 +720,18 @@ const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
     })
   } else {
     showDialog({
-      title: 'JSON 主题文件使用方法',
+      title: t('modals.jsonUsageTitle'),
       message: `<div style="text-align: left; padding: 5px 0;">
           <ol style="margin: 0; line-height: 1">
-            <li>将下载的 <code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.json</code> 文件保存到项目中</li>
-            <li>读取 JSON 文件并解析：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">const obj = JSON.parse(data)</code></li>
-            <li>注册主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.registerTheme('${themeNameDisplay}', obj)</code></li>
-            <li>创建图表时使用主题：<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+            <li>${t('modals.jsonUsageStep1').replace('{filename}', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.json</code>`)}</li>
+            <li>${t('modals.jsonUsageStep2')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">const obj = JSON.parse(data)</code></li>
+            <li>${t('modals.jsonUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.registerTheme('${themeNameDisplay}', obj)</code></li>
+            <li>${t('modals.jsonUsageStep4')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
           </ol>
-          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">💡 第二个参数是注册时使用的主题名称。</p>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">${t('modals.jsonUsageTip')}</p>
         </div>`,
       allowHtml: true,
-      confirmButtonText: '好的'
+      confirmButtonText: t('common.ok')
     })
   }
 }
@@ -773,7 +773,7 @@ const refreshCharts = () => {
 const resetTheme = async () => {
   try {
     await showDialog({
-      title: '确认重置',
+      title: t('common.reset'),
       message: t('modals.resetConfirm'),
     })
 
@@ -790,18 +790,18 @@ const resetTheme = async () => {
 
 const showHelp = () => {
   showDialog({
-    title: '使用帮助',
+    title: t('modals.helpTitle'),
     message: `<div class="modal-body">
-            <h4>主题在线构建工具是什么？</h4>
-            <p>"主题"是 ECharts 图表的风格抽象，用于统一多个图表的风格样式。使用主题在线构建工具，可以快速直观地生成主题配置文件，并在 ECharts 中使用自定义的主题样式。</p>
-            <p>在此主题的基础上，你仍然可以使用 <code>setOption</code> 覆盖或设置主题样式。</p>
-            <p>ECharts 官方提供 <code>default</code>、<code>infographic</code>、<code>shine</code>、<code>roma</code>、<code>macarons</code>、<code>vintage</code> 等主题，可供<a href="http://echarts.baidu.com/download-theme.html" target="_blank">下载</a>使用。</p>
+            <h4>${t('modals.helpContent.whatIs')}</h4>
+            <p>${t('modals.helpContent.whatIsDesc1')}</p>
+            <p>${t('modals.helpContent.whatIsDesc2')}</p>
+            <p>${t('modals.helpContent.whatIsDesc3')}</p>
 
-            <h4>导入、导出</h4>
-            <p>为了便于二次修改，我们的主题构建工具支持导入、导出配置项，导出的 JSON 文件仅用于在本工具中导入使用，而不能直接作为主题在 ECharts 中注册。</p>
+            <h4>${t('modals.helpContent.importExport')}</h4>
+            <p>${t('modals.helpContent.importExportDesc')}</p>
           </div>`,
     allowHtml: true,
-    confirmButtonText: '知道了'
+    confirmButtonText: t('common.gotIt')
   })
 }
 

@@ -32,6 +32,7 @@
     "export": "导出配置",
     "themeName": "主题名称",
     "themePlaceholder": "请输入主题名称",
+    "sourceCode": "项目源码",
     "seriesCount": "系列数量",
     "seriesPlaceholder": "请输入系列数量",
     "preDefinedThemes": "默认方案",

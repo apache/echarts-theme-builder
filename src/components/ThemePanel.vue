@@ -30,9 +30,16 @@
               <van-icon name="revoke" />
               {{ $t('common.reset') }}
             </van-button>
+          </div>
+
+          <div class="action-buttons">
             <van-button @click="showHelp">
               <van-icon name="info-o" />
               {{ $t('common.help') }}
+            </van-button>
+            <van-button @click="openSourceCode">
+              <van-icon name="link-o" />
+              {{ $t('panel.sourceCode') }}
             </van-button>
           </div>
 
@@ -716,7 +723,7 @@ const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
           <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">${t('modals.jsUsageTip')}</p>
         </div>`,
       allowHtml: true,
-      confirmButtonText: '好的'
+      confirmButtonText: t('common.ok')
     })
   } else {
     showDialog({
@@ -805,6 +812,10 @@ const showHelp = () => {
   })
 }
 
+const openSourceCode = () => {
+  window.open('https://github.com/apache/echarts-theme-builder', '_blank', 'noopener,noreferrer')
+}
+
 const selectPreDefinedTheme = async (index: number) => {
   try {
     await themeStore.loadPreDefinedTheme(index)
@@ -832,7 +843,7 @@ const handleFileImport = async (event: Event) => {
   const extension = file.name.slice(file.name.lastIndexOf('.'))
   if (extension !== '.json') {
     showToast({
-      message: '请选择 JSON 格式的配置文件！',
+      message: t('modals.selectJsonFile'),
       type: 'fail'
     })
     target.value = ''
@@ -849,7 +860,7 @@ const handleFileImport = async (event: Event) => {
         // Validate imported data
         if (!data.themeName && !data.version && !data.theme) {
           showToast({
-            message: '请使用从本网站导出的 JSON 配置文件！',
+            message: t('modals.useExportedFile'),
             type: 'fail'
           })
           return
@@ -859,8 +870,8 @@ const handleFileImport = async (event: Event) => {
         if (data.version && data.version < 1) {
           try {
             await showDialog({
-              title: '版本兼容性警告',
-              message: '导入的主题版本较低，某些属性可能无法正确设置。是否继续导入？',
+              title: t('modals.importThemeTitle'),
+              message: t('modals.oldVersionPrompt'),
             })
           } catch {
             return // User cancelled
@@ -875,13 +886,13 @@ const handleFileImport = async (event: Event) => {
         }
 
         showToast({
-          message: '主题导入成功！',
+          message: t('modals.importSuccess'),
           type: 'success'
         })
       } catch (error) {
         console.error('Import error:', error)
         showToast({
-          message: '配置文件格式错误，请使用从本网站导出的 JSON 文件！',
+          message: t('modals.invalidFormat'),
           type: 'fail'
         })
       }
@@ -889,7 +900,7 @@ const handleFileImport = async (event: Event) => {
 
     reader.onerror = () => {
       showToast({
-        message: '文件读取失败，请重试',
+        message: t('modals.fileReadFailed'),
         type: 'fail'
       })
     }
@@ -898,7 +909,7 @@ const handleFileImport = async (event: Event) => {
   } catch (error) {
     console.error('File import failed:', error)
     showToast({
-      message: '文件导入失败',
+      message: t('modals.fileReadFailed'),
       type: 'fail'
     })
   }
@@ -921,7 +932,7 @@ const handleFileImport = async (event: Event) => {
 .action-buttons {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 

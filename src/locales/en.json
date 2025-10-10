@@ -32,6 +32,7 @@
     "export": "Export",
     "themeName": "Name",
     "themePlaceholder": "Please enter theme name",
+    "sourceCode": "Source Code",
     "seriesCount": "Series",
     "seriesPlaceholder": "Please enter series count",
     "preDefinedThemes": "Predefined Themes",

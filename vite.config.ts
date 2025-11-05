@@ -91,7 +91,7 @@ function createHtmlOutputPlugin(): Plugin {
       }
 
       // Clean up the original dist directory
-      await fse.remove(distDir);
+      // await fse.remove(distDir);
     }
   };
 }

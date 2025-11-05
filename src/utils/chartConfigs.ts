@@ -63,7 +63,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           type: 'line' as const,
           data: getRandomArray(axisCat.length, 800, 200),
           markPoint: {
-            data: [{ name: 'Max', type: 'max' }]
+            data: [{ name: 'Min', type: 'min' }]
           }
         }))
       }
@@ -129,7 +129,7 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
           type: 'bar' as const,
           data: getRandomArray(axisCat.length, 800, 200),
           markPoint: {
-            data: [{ name: 'Max', type: 'max' }]
+            data: [{ name: 'Min', type: 'min' }]
           }
         }))
       }

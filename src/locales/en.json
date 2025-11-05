@@ -16,7 +16,7 @@
     "functions": "Functions",
     "basicConfig": "Basic Configuration",
     "visualMap": "Visual Map",
-    "grid": "Grid Layout",
+    "grid": "Grid (Cartesian)",
     "axis": "Axes",
     "legend": "Legend",
     "legendPosition": "Legend Position",

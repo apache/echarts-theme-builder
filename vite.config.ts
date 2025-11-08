@@ -5,6 +5,8 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig((env) => {
   const isBuildForApp = env.mode === 'app'
+  const publicDir = 'public'
+  const assetsDir = isBuildForApp ? './theme-builder/' : './'
   return {
     plugins: [
       vue({
@@ -18,8 +20,8 @@ export default defineConfig((env) => {
       isBuildForApp && viteStaticCopy({
         targets: [
           {
-            src: 'public/*',
-            dest: './theme-builder'
+            src: publicDir + '/*',
+            dest: assetsDir
           }
         ]
       }),
@@ -40,10 +42,11 @@ export default defineConfig((env) => {
         }
       }
     ],
+    publicDir,
     build: {
       outDir: isBuildForApp ? 'app' : 'dist', // Target different output directories based on the build mode
       emptyOutDir: true,
-      assetsDir: isBuildForApp ? './theme-builder' : '.',
+      assetsDir,
       // public dir will be copied via vite-plugin-static-copy when building for app
       copyPublicDir: !isBuildForApp,
       rollupOptions: {
@@ -66,7 +69,8 @@ export default defineConfig((env) => {
     define: {
       'import.meta.env.VITE_EXTERNAL_ECHARTS_SCRIPT': isBuildForApp
         ? `""`
-        : `"<script src=\\"https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js\\"></script>"`
+        : `"<script src=\\"https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js\\"></script>"`,
+      'import.meta.env.VITE_APP_ASSETS_DIR': JSON.stringify(assetsDir)
     }
   }
 });

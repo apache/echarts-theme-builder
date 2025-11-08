@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && vite build && vite build --mode app",
     "serve:dist": "http-server dist",
     "serve:app": "http-server app",
-    "release": "npm run build -- --mode app && node scripts/release.js"
+    "release": "vue-tsc -b && vite build --mode app && node scripts/release.js"
   },
   "dependencies": {
     "vant": "^4.9.21",

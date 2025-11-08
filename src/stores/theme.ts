@@ -254,7 +254,7 @@ const createThemeStore = () => {
 
     try {
       // Load the complete theme configuration from JSON file
-      const response = await fetch(`${import.meta.env.BASE_URL}themes/${preTheme.name}.json`, {
+      const response = await fetch(`${import.meta.env.VITE_APP_ASSETS_DIR}themes/${preTheme.name}.json`, {
         signal: definedThemeLoadAbortController.signal
       })
       if (!response.ok) {

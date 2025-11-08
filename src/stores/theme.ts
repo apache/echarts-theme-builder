@@ -1,9 +1,9 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, markRaw } from 'vue'
 import type { ThemeData, PreDefinedTheme } from '../types/theme'
 import { generateEChartsTheme, generateThemeJsFile, generateThemeConfigForDownload } from '../utils/themeGenerator'
 
 // Predefined themes configuration
-export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
+export const PRE_DEFINED_THEMES: PreDefinedTheme[] = markRaw([
   {
     name: 'v5',
     background: 'rgba(0, 0, 0, 0)',
@@ -121,7 +121,7 @@ export const PRE_DEFINED_THEMES: PreDefinedTheme[] = [
       '#7cb4cc'
     ]
   }
-]
+])
 
 // Default theme axes configuration
 const createDefaultAxes = () => {
@@ -190,7 +190,7 @@ export const createDefaultTheme = (): ThemeData => {
     mapAreaColorE: 'rgba(255,215,0,0.8)',
     axes,
     axisSeperateSetting: true,
-    axis: [axes[0]],
+    axis: [axes[0]!],
     toolboxColor: '#999',
     toolboxEmphasisColor: '#666',
     tooltipAxisColor: '#ccc',
@@ -223,18 +223,29 @@ let themeStoreInstance: ReturnType<typeof createThemeStore> | null = null
 const createThemeStore = () => {
   const theme = reactive<ThemeData>(createDefaultTheme())
   const themeName = ref('customized')
-  const isPauseChartUpdating = ref(false)
   const chartDisplay = reactive({
     background: '#fff',
     title: '#000'
   })
 
   const resetTheme = () => {
+    activePreDefinedThemeIndex.value = null
     Object.assign(theme, createDefaultTheme())
     themeName.value = 'customized'
   }
 
+  const activePreDefinedThemeIndex = ref<number | null>(null)
+  let definedThemeLoadAbortController: AbortController | null = null
   const loadPreDefinedTheme = async (index: number) => {
+    if (activePreDefinedThemeIndex.value === index) {
+      return
+    }
+
+    activePreDefinedThemeIndex.value = index
+
+    definedThemeLoadAbortController?.abort()
+    definedThemeLoadAbortController = new AbortController()
+
     const preTheme = PRE_DEFINED_THEMES[index]
     if (!preTheme) {
       console.error('No theme found at index:', index)
@@ -243,7 +254,9 @@ const createThemeStore = () => {
 
     try {
       // Load the complete theme configuration from JSON file
-      const response = await fetch(`/themes/${preTheme.name}.json`)
+      const response = await fetch(`${import.meta.env.BASE_URL}themes/${preTheme.name}.json`, {
+        signal: definedThemeLoadAbortController.signal
+      })
       if (!response.ok) {
         throw new Error(`Failed to load theme: ${preTheme.name}`)
       }
@@ -288,7 +301,7 @@ const createThemeStore = () => {
     if (theme.axisSeperateSetting) {
       theme.axis = theme.axes
     } else {
-      theme.axis = [theme.axes[0]]
+      theme.axis = [theme.axes[0]!]
     }
   }
 
@@ -332,9 +345,9 @@ const createThemeStore = () => {
   return {
     theme,
     themeName,
-    isPauseChartUpdating,
     chartDisplay,
     resetTheme,
+    activePreDefinedThemeIndex,
     loadPreDefinedTheme,
     updateAxisSetting,
     importTheme,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 // Simple fixed sidebar layout without responsive design
 import ChartPreviewPanel from './components/ChartPreviewPanel.vue'
 import ThemePanel from './components/ThemePanel.vue'
@@ -7,28 +7,28 @@ import { useLocalization } from './composables/useLocalization'
 import { RadioGroup as VanRadioGroup, Radio as VanRadio, Row as VanRow, Col as VanCol } from 'vant'
 
 // Set up language control
-const { switchLanguage, currentLanguage, getAvailableLanguages } = useLocalization()
+const { switchLanguage, currentLanguage, availableLanguages } = useLocalization()
 const currentLang = ref(currentLanguage)
-const availableLocales = getAvailableLanguages()
 // Only show language selector in dev/preview mode
 // Use import.meta.env.DEV to only show in development mode
-const showLanguageSelector = import.meta.env.DEV && availableLocales.length > 0
+const showLanguageSelector = import.meta.env.DEV || (window as any).SHOW_LANGUAGE_SELECTOR
 
 const onLanguageChange = (lang: string) => {
   switchLanguage(lang)
 }
 
 // Get reference to chart preview panel
-const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
+const chartPreviewRef = useTemplateRef('chartPreviewRef')
 </script>
 
 <template>
-  <div id="theme-builder">
+  <div class="theme-builder-body">
     <!-- Language Selector - only shown in dev/preview mode -->
     <div v-if="showLanguageSelector" class="language-selector">
       <VanRadioGroup v-model="currentLang" direction="horizontal" @change="onLanguageChange">
-        <VanRadio name="en">English</VanRadio>
-        <VanRadio name="zh">中文</VanRadio>
+        <VanRadio v-for="locale in availableLanguages" :name="locale.code" :key="locale.code">
+          {{ locale.name }}
+        </VanRadio>
       </VanRadioGroup>
     </div>
 
@@ -47,9 +47,9 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 </template>
 
 <style scoped>
-#theme-builder {
+.theme-builder-body {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: relative;
   --van-button-default-height: auto;
   --van-button-normal-padding: 8px 10px;
@@ -77,7 +77,7 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 }
 
 .theme-config {
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   background-color: #ffffff;
   border-right: 1px solid #ddd;
@@ -88,7 +88,7 @@ const chartPreviewRef = ref<InstanceType<typeof ChartPreviewPanel> | null>(null)
 }
 
 .chart-container {
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   background-color: #ffffff;
   padding: 20px;

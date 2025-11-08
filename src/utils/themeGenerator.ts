@@ -58,7 +58,7 @@ export function generateEChartsTheme(themeData: ThemeData) {
       axisIndex = axisType
     }
 
-    const axisData = themeData.axes[axisIndex]
+    const axisData = themeData.axes[axisIndex]!
     return {
       axisLine: {
         show: axisData.axisLineShow,

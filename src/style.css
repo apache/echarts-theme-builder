@@ -1,5 +1,10 @@
-body {
-  width: 100%;
+#theme-builder-app {
   height: 100%;
-  margin: 0;
+  overflow: auto;
+}
+
+:root, :host {
+  --van-primary-color: #ff6d8f;
+  /* inherit font from parent page */
+  --van-base-font: inherit;
 }

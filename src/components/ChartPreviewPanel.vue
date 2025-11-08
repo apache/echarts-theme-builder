@@ -7,11 +7,12 @@
     <div class="charts-grid">
       <div
         v-for="(config, index) in displayedCharts"
+        v-once
         :key="config.type + index"
         class="chart-item"
       >
         <div
-          :ref="el => setChartRef(el, index)"
+          :ref="el => setChartDomRef(el, index)"
           class="chart-container"
         ></div>
       </div>
@@ -20,11 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, nextTick, watch, computed } from 'vue'
+import { onMounted, onUnmounted, watch, computed, markRaw, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { getChartConfigs } from '../utils/chartConfigs'
 import { useThemeStore } from '../stores/theme'
 import type { ECharts } from 'echarts'
+import { useI18n } from 'vue-i18n'
 
 // Debounce function to limit how often a function can be called
 function debounce<T extends (...args: any[]) => any>(fn: T, delay: number): (...args: Parameters<T>) => void {
@@ -43,86 +45,42 @@ function debounce<T extends (...args: any[]) => any>(fn: T, delay: number): (...
 }
 
 // Initialize i18n
-// const { t } = useI18n() // Not currently being used
+const { locale } = useI18n()
 
 const themeStore = useThemeStore()
-const chartInstances = ref<ECharts[]>([])
-const chartRefs = ref<(HTMLElement | null)[]>([])
+const chartInstances: ECharts[] = []
+const chartDoms: (HTMLElement | null)[] = []
 
 // Dynamically generate charts based on seriesCnt
 const displayedCharts = computed(() => getChartConfigs(themeStore.theme.seriesCnt))
 
-// Set chart ref
-function setChartRef(el: any, index: number) {
-  if (el) {
-    // Ensure the array is large enough
-    while (chartRefs.value.length <= index) {
-      chartRefs.value.push(null)
-    }
-    chartRefs.value[index] = el as HTMLElement
-  }
-}
-
-// Register and apply current theme
-function registerCurrentTheme() {
-  const currentTheme = themeStore.getEChartsTheme()
-  echarts.registerTheme('customized', currentTheme)
-}
-
-// Initialize all charts
-function initializeCharts() {
-  // Dispose existing charts
-  chartInstances.value.forEach(chart => chart.dispose())
-  chartInstances.value = []
-
-  // Clear chart refs to ensure they match the new chart count
-  chartRefs.value = []
-
-  // Register current theme
-  registerCurrentTheme()
-
-  // Wait for DOM to update with new chart count
-  nextTick(() => {
-    // Create new chart instances
-    displayedCharts.value.forEach((config, index) => {
-      const container = chartRefs.value[index]
-      if (container) {
-        // Initialize chart with theme
-        const chart = echarts.init(container, 'customized')
-        chart.setOption(config.option)
-        chartInstances.value.push(chart)
-      }
-    })
-  })
+// Set chart DOM ref
+function setChartDomRef(el: any, index: number) {
+  chartDoms[index] = el as HTMLElement
 }
 
 // Original update charts implementation
 function _updateChartsImpl() {
-  if (chartInstances.value.length === 0) {
-    initializeCharts()
-    return
-  }
+  // Dispose existing charts
+  chartInstances.forEach(chart => chart.dispose())
+  chartInstances.length = 0
 
-  // If chart count doesn't match, reinitialize
-  if (chartInstances.value.length !== displayedCharts.value.length) {
-    initializeCharts()
-    return
-  }
-
-  // Get current theme and register with unique ID to force refresh
+  // re-register theme with the same name
   const currentTheme = themeStore.getEChartsTheme()
-  const themeId = `customized-${Date.now()}`
+  const themeId = 'customized'
   echarts.registerTheme(themeId, currentTheme)
 
+  const chartLocale = locale.value === 'zh' ? 'ZH' : 'EN'
   // Recreate charts with new theme
-  displayedCharts.value.forEach((config, index) => {
-    const container = chartRefs.value[index]
-    if (container && chartInstances.value[index]) {
-      chartInstances.value[index].dispose()
-      const chart = echarts.init(container, themeId)
+  nextTick(() => {
+    displayedCharts.value.forEach((config, index) => {
+      const container = chartDoms[index]
+      const chart = markRaw(echarts.init(container, themeId, {
+        locale: chartLocale
+      }))
       chart.setOption(config.option)
-      chartInstances.value[index] = chart
-    }
+      chartInstances[index] = chart
+    })
   })
 }
 
@@ -133,30 +91,25 @@ defineExpose({
   updateCharts
 })
 
-// Watch for theme changes and automatically update charts
-watch(() => themeStore.theme, () => {
-  if (!themeStore.isPauseChartUpdating.value) {
-    nextTick(() => {
-      updateCharts()
-    })
-  }
-}, { deep: true })
+// Watch for theme or locale changes and automatically update charts
+watch(() => [themeStore.theme, locale.value], updateCharts, { deep: true })
 
 // Resize charts when window resizes
 function handleResize() {
-  chartInstances.value.forEach(chart => chart.resize())
+  chartInstances.forEach(chart => chart.resize())
 }
 
+const debouncedHandleResize = debounce(handleResize, 100)
+
 onMounted(() => {
-  nextTick(() => {
-    initializeCharts()
-  })
-  window.addEventListener('resize', handleResize)
+  updateCharts()
+  window.addEventListener('resize', debouncedHandleResize)
 })
 
 onUnmounted(() => {
-  chartInstances.value.forEach(chart => chart.dispose())
-  window.removeEventListener('resize', handleResize)
+  window.removeEventListener('resize', debouncedHandleResize)
+  chartInstances.forEach(chart => chart.dispose())
+  chartDoms.length = chartInstances.length = 0
 })
 </script>
 

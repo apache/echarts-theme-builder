@@ -1,3 +1,5 @@
+import 'vant/lib/index.css'
+import './style.css'
 import { createApp } from 'vue'
 import {
   Col,
@@ -11,8 +13,6 @@ import {
   RadioGroup,
   Radio
 } from 'vant'
-import 'vant/lib/index.css'
-import './style.css'
 import App from './App.vue'
 import i18n from './i18n'
 
@@ -28,4 +28,4 @@ app.use(Icon)
 app.use(Checkbox)
 app.use(RadioGroup)
 app.use(Radio)
-app.mount('#theme-builder')
+app.mount('#theme-builder-app')

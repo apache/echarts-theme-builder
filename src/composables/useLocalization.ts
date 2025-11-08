@@ -1,5 +1,5 @@
 import { useI18n } from 'vue-i18n'
-import { setLocale, getCurrentLocale, getAvailableLocales } from '../i18n'
+import { setLocale, getCurrentLocale, availableLocales } from '../i18n'
 
 /**
  * Localization composable
@@ -20,16 +20,6 @@ export function useLocalization() {
    * Get current language
    */
   const currentLanguage = getCurrentLocale()
-
-  /**
-   * Get available languages list
-   */
-  const availableLanguages = getAvailableLocales()
-
-  /**
-   * Get available languages list function
-   */
-  const getAvailableLanguages = () => getAvailableLocales()
 
   /**
    * Check if current language matches specified language
@@ -66,8 +56,7 @@ export function useLocalization() {
     locale,
     switchLanguage,
     currentLanguage,
-    availableLanguages,
-    getAvailableLanguages,
+    availableLanguages: availableLocales,
     isLanguage,
     formatDate,
     formatNumber

@@ -2,18 +2,23 @@ import { createI18n } from 'vue-i18n'
 import en from './locales/en.json'
 import zh from './locales/zh.json'
 
+// Available languages list
+export const availableLocales = Object.freeze([
+  { code: 'en', name: 'English' },
+  { code: 'zh', name: '简体中文' }
+])
+
 // Get saved language setting from localStorage, default to Chinese
 const getStoredLanguage = (): string => {
-  const stored = localStorage.getItem('echarts-theme-builder-locale')
-  if (stored && ['en', 'zh'].includes(stored)) {
+  const stored = import.meta.env.DEV
+    ? localStorage.getItem('echarts-theme-builder-locale')
+    : ((window as any).EC_WWW_LANG === 'zh' ? 'zh' : 'en')
+  if (stored && availableLocales.some(l => l.code === stored)) {
     return stored
   }
   // Auto-select based on browser language
-  const browserLang = navigator.language.toLowerCase()
-  if (browserLang.startsWith('zh')) {
-    return 'zh'
-  }
-  return 'en'
+  const browserLang: string = document.documentElement.lang || navigator.language || (navigator as any).browserLanguage
+  return browserLang && browserLang.toLowerCase().startsWith('zh') ? 'zh' : 'en'
 }
 
 const i18n = createI18n({
@@ -28,29 +33,17 @@ const i18n = createI18n({
 
 // Save language setting to localStorage
 export const setLocale = (locale: string) => {
-  if (['en', 'zh'].includes(locale)) {
+  if (availableLocales.some(l => l.code === locale)) {
     i18n.global.locale.value = locale as 'en' | 'zh'
-    localStorage.setItem('echarts-theme-builder-locale', locale)
+    if (import.meta.env.DEV) {
+      localStorage.setItem('echarts-theme-builder-locale', locale)
+    }
   }
 }
 
 // Get current language
 export const getCurrentLocale = () => {
   return i18n.global.locale.value
-}
-
-// Get available languages list
-export const getAvailableLocales = () => {
-  // 在 release 模式下不显示语言切换选项
-  if (import.meta.env.VITE_MODE === 'release') {
-    return []
-  }
-
-  // 在开发/预览模式下显示语言切换选项
-  return [
-    { code: 'en', name: 'English' },
-    { code: 'zh', name: '中文' }
-  ]
 }
 
 export default i18n

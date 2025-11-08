@@ -45,14 +45,17 @@
 
           <!-- Theme Name and Series Count -->
           <van-field
-            v-model="themeName"
+            v-model.trim="themeName"
             :label="$t('panel.themeName')"
             :placeholder="$t('panel.themePlaceholder')"
           />
 
           <van-field
-            v-model.number="theme.seriesCnt"
+            v-model="theme.seriesCnt"
             type="number"
+            inputmode="numeric"
+            :min="1"
+            :max="12"
             :label="$t('panel.seriesCount')"
             :placeholder="$t('panel.seriesPlaceholder')"
           />
@@ -63,8 +66,9 @@
             <div class="theme-grid">
               <div
                 v-for="(themeItem, index) in preDefinedThemes"
-                :key="index"
+                :key="themeItem.name"
                 class="theme-item"
+                :class="themeStore.activePreDefinedThemeIndex.value === index ? 'active' : ''"
                 :style="{ backgroundColor: themeItem.background }"
                 :title="themeItem.name"
                 @click="selectPreDefinedTheme(index)"
@@ -463,7 +467,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, useTemplateRef } from 'vue'
 import { useThemeStore } from '../stores/theme'
 import { PRE_DEFINED_THEMES } from '../stores/theme'
 import ColorPicker from './ColorPicker.vue'
@@ -472,6 +476,7 @@ import type ChartPreviewPanel from './ChartPreviewPanel.vue'
 import { downloadJsonFile, downloadJsFile } from '../utils/download'
 import { showToast, showDialog } from 'vant'
 import { useI18n } from 'vue-i18n'
+import * as echarts from 'echarts'
 
 // Initialize i18n and localization
 const { t } = useI18n()
@@ -484,7 +489,7 @@ const props = defineProps<Props>()
 
 // Component state
 const activeNames = ref(['functions'])
-const fileInput = ref<HTMLInputElement>()
+const fileInputRef = useTemplateRef('fileInput')
 
 // Theme store
 const themeStore = useThemeStore()
@@ -679,7 +684,7 @@ const downloadTheme = async () => {
   try {
     const themeConfig = themeStore.getEChartsTheme()
     const jsContent = themeStore.getThemeJsFile()
-    const filename = themeName.value || 'customized'
+    const filename = themeName.value && echarts.format.encodeHTML(themeName.value) || 'customized'
 
     // Show format selection dialog using action sheet style
     try {
@@ -688,7 +693,8 @@ const downloadTheme = async () => {
         message: t('modals.formatSelectionMsg'),
         showCancelButton: true,
         confirmButtonText: t('modals.jsFormat'),
-        cancelButtonText: t('modals.jsonFormat')
+        cancelButtonText: t('modals.jsonFormat'),
+        closeOnClickOverlay: true
       })
 
       // User chose JavaScript
@@ -709,48 +715,48 @@ const downloadTheme = async () => {
 }
 
 const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
-  const themeNameDisplay = themeName.value || 'customized'
-
   if (format === 'js') {
     showDialog({
       title: t('modals.jsUsageTitle'),
       message: `<div style="text-align: left; padding: 5px 0;">
-          <ol style="margin: 0; line-height: 1">
-            <li>${t('modals.jsUsageStep1').replace('{filename}', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.js</code>`)}</li>
+          <ol style="margin: 0; line-height: 1; list-style: inside decimal;">
+            <li>${t('modals.jsUsageStep1').replace('__filename__', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.js</code>`)}</li>
             <li>${t('modals.jsUsageStep2')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">&lt;script src="${filename}.js"&gt;&lt;/script&gt;</code></li>
-            <li>${t('modals.jsUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+            <li>${t('modals.jsUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${filename}')</code></li>
           </ol>
-          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">${t('modals.jsUsageTip')}</p>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid var(--van-primary-color);">${t('modals.jsUsageTip')}</p>
         </div>`,
       allowHtml: true,
-      confirmButtonText: t('common.ok')
+      confirmButtonText: t('common.ok'),
+      closeOnClickOverlay: true
     })
   } else {
     showDialog({
       title: t('modals.jsonUsageTitle'),
       message: `<div style="text-align: left; padding: 5px 0;">
-          <ol style="margin: 0; line-height: 1">
-            <li>${t('modals.jsonUsageStep1').replace('{filename}', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.json</code>`)}</li>
+          <ol style="margin: 0; line-height: 1; list-style: inside decimal;">
+            <li>${t('modals.jsonUsageStep1').replace('__filename__', `<code style="background: #f0f0f0; padding: 2px 6px; border-radius: 3px; font-family: Monaco, monospace;">${filename}.json</code>`)}</li>
             <li>${t('modals.jsonUsageStep2')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">const obj = JSON.parse(data)</code></li>
-            <li>${t('modals.jsonUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.registerTheme('${themeNameDisplay}', obj)</code></li>
-            <li>${t('modals.jsonUsageStep4')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${themeNameDisplay}')</code></li>
+            <li>${t('modals.jsonUsageStep3')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.registerTheme('${filename}', obj)</code></li>
+            <li>${t('modals.jsonUsageStep4')}<br/><code style="background: #f0f0f0; padding: 4px 8px; border-radius: 3px; font-family: Monaco, monospace; display: inline-block; margin-top: 6px;">echarts.init(dom, '${filename}')</code></li>
           </ol>
-          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid #1989fa;">${t('modals.jsonUsageTip')}</p>
+          <p style="margin: 0; color: #666; font-size: 14px; line-height: 1; background: #f8f9fa; padding: 10px; border-radius: 4px; border-left: 3px solid var(--van-primary-color);">${t('modals.jsonUsageTip')}</p>
         </div>`,
       allowHtml: true,
-      confirmButtonText: t('common.ok')
+      confirmButtonText: t('common.ok'),
+      closeOnClickOverlay: true
     })
   }
 }
 
 const importConfig = () => {
-  fileInput.value?.click()
+  fileInputRef.value?.click()
 }
 
 const exportConfig = async () => {
   try {
     const configData = themeStore.getThemeConfigForDownload()
-    const filename = `${themeName.value || 'customized'}.project`
+    const filename = `${themeName.value && echarts.format.encodeHTML(themeName.value) || 'customized'}.project`
 
     downloadJsonFile(configData, filename)
 
@@ -817,6 +823,10 @@ const openSourceCode = () => {
 }
 
 const selectPreDefinedTheme = async (index: number) => {
+  if (themeStore.activePreDefinedThemeIndex.value === index) {
+    // Already selected
+    return
+  }
   try {
     await themeStore.loadPreDefinedTheme(index)
 
@@ -976,9 +986,10 @@ const handleFileImport = async (event: Event) => {
   gap: 2px;
 }
 
-.theme-item:hover {
-  border-color: #1989fa;
-  box-shadow: 0 2px 8px rgba(25, 137, 250, 0.15);
+.theme-item:hover,
+.theme-item.active {
+  border-color: var(--van-primary-color);
+  box-shadow: 0 0 4px var(--van-primary-color);
 }
 
 .color-dot {
@@ -1158,7 +1169,7 @@ const handleFileImport = async (event: Event) => {
 }
 
 :global(.modal-body a) {
-  color: #1989fa;
+  color: var(--van-primary-color);
   text-decoration: none;
 }
 

@@ -1,0 +1,34 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install and Build 🔧
+        run: |
+          npm i
+          npm i @jamesives/github-pages-deploy-action -D
+          npm run build
+
+      - name: Deploy 🚀
+        uses: ./node_modules/@jamesives/github-pages-deploy-action
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: dist
+          target-folder: docs
+          single-commit: true
+          clean: true

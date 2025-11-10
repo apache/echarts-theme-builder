@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig((env) => {
+  const isDev = env.mode === 'development'
   const isBuildForApp = env.mode === 'app'
   const publicDir = 'public'
   const assetsDir = isBuildForApp ? './theme-builder/' : './'
@@ -67,7 +68,8 @@ export default defineConfig((env) => {
       }
     },
     define: {
-      'import.meta.env.VITE_EXTERNAL_ECHARTS_SCRIPT': isBuildForApp
+      'import.meta.env.VITE_SHOW_LANGUAGE_SELECTOR': true,
+      'import.meta.env.VITE_EXTERNAL_ECHARTS_SCRIPT': isDev || isBuildForApp
         ? `""`
         : `"<script src=\\"https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js\\"></script>"`,
       'import.meta.env.VITE_APP_ASSETS_DIR': JSON.stringify(assetsDir)

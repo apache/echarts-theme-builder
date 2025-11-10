@@ -700,7 +700,10 @@ const downloadTheme = async () => {
       // User chose JavaScript
       downloadJsFile(jsContent, filename)
       showUsageInstructions('js', filename)
-    } catch {
+    } catch (e) {
+      if (e !== 'cancel') {
+        throw e
+      }
       // User chose JSON (clicked cancel button)
       downloadJsonFile(themeConfig, filename)
       showUsageInstructions('json', filename)

@@ -11,21 +11,6 @@ function isSafari(): boolean {
 }
 
 /**
- * Check if the browser is Internet Explorer
- */
-function isIE(): boolean {
-  return navigator.userAgent.indexOf('MSIE') > 0 ||
-         navigator.userAgent.indexOf('Trident') > 0
-}
-
-/**
- * Check if the browser is Edge (legacy)
- */
-function isEdge(): boolean {
-  return navigator.userAgent.indexOf('Edge') > 0
-}
-
-/**
  * Save a file with the given content and filename
  * @param data - File content
  * @param filename - Name of the file
@@ -72,13 +57,6 @@ export function downloadJsonFile(data: any, filename: string): void {
  */
 export function downloadJsFile(content: string, filename: string): void {
   saveFile(content, `${filename}.js`, 'application/javascript')
-}
-
-/**
- * Check if the browser supports downloads
- */
-export function isDownloadSupported(): boolean {
-  return !isIE() && !isEdge()
 }
 
 /**

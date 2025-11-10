@@ -68,7 +68,7 @@ export default defineConfig((env) => {
       }
     },
     define: {
-      'import.meta.env.VITE_SHOW_LANGUAGE_SELECTOR': true,
+      'import.meta.env.VITE_SHOW_LANGUAGE_SELECTOR': !isBuildForApp,
       'import.meta.env.VITE_EXTERNAL_ECHARTS_SCRIPT': isDev || isBuildForApp
         ? `""`
         : `"<script src=\\"https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js\\"></script>"`,

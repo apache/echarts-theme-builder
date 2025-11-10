@@ -22,8 +22,9 @@ github:
     - echarts
     - apache
     - theme
+  ghp_branch: gh-pages
 
 notifications:
-    commits: commits@echarts.apache.org
-    pullrequests: commits@echarts.apache.org
-    issues: commits@echarts.apache.org
+  commits: commits@echarts.apache.org
+  pullrequests: commits@echarts.apache.org
+  issues: commits@echarts.apache.org

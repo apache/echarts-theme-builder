@@ -36,7 +36,9 @@
     "seriesCount": "系列数量",
     "seriesPlaceholder": "请输入系列数量",
     "preDefinedThemes": "默认方案",
-    "separateAxisSetting": "为不同类型坐标轴分别设置"
+    "separateAxisSetting": "为不同类型坐标轴分别设置",
+    "extractFromImage": "从图片提取",
+    "extractFromImageTitle": "上传一张图片并从中提取颜色"
   },
   "colors": {
     "background": "背景",
@@ -182,6 +184,8 @@
     "oldVersionPrompt": "导入的主题版本较低，某些属性可能无法正确设置。是否继续导入？",
     "importSuccess": "主题导入成功！",
     "invalidFormat": "配置文件格式错误，请使用从本网站导出的 JSON 文件！",
-    "fileReadFailed": "文件读取失败，请重试"
+    "fileReadFailed": "文件读取失败，请重试",
+    "extractingColors": "正在从图片中提取颜色...",
+    "extractColorFailed": "从图片提取颜色失败"
   }
 }

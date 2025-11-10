@@ -7,7 +7,6 @@
     <div class="charts-grid">
       <div
         v-for="(config, index) in displayedCharts"
-        v-once
         :key="config.type + index"
         class="chart-item"
       >

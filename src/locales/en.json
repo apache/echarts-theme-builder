@@ -36,7 +36,9 @@
     "seriesCount": "Series",
     "seriesPlaceholder": "Please enter series count",
     "preDefinedThemes": "Predefined Themes",
-    "separateAxisSetting": "Configure different axis types separately"
+    "separateAxisSetting": "Configure different axis types separately",
+    "extractFromImage": "From Image",
+    "extractFromImageTitle": "Extract theme colors from an image"
   },
   "colors": {
     "background": "Background",
@@ -182,6 +184,8 @@
     "oldVersionPrompt": "The imported theme is from an older version, some properties may not be correctly set. Continue importing?",
     "importSuccess": "Theme imported successfully!",
     "invalidFormat": "Configuration file format error, please use a JSON file exported from this site!",
-    "fileReadFailed": "File read failed, please try again"
+    "fileReadFailed": "File read failed, please try again",
+    "extractingColors": "Please wait when extracting colors from image...",
+    "extractColorFailed": "Failed to extract colors from image"
   }
 }

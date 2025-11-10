@@ -11,12 +11,14 @@
     "release": "vue-tsc -b && vite build --mode app && node scripts/release.js"
   },
   "dependencies": {
+    "colorthief": "^2.6.0",
     "vant": "^4.9.21",
     "vue": "^3.5.24",
     "vue-i18n": "^9.14.5",
     "vue3-colorpicker": "^2.3.0"
   },
   "devDependencies": {
+    "@types/colorthief": "^2.6.0",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.10.0",
     "@vitejs/plugin-vue": "^6.0.1",

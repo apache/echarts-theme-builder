@@ -80,6 +80,14 @@
                   :style="{ backgroundColor: color }"
                 />
               </div>
+              <div
+                class="theme-item new-theme"
+                :title="$t('panel.extractFromImageTitle')"
+                @click="uploadImageInputRef?.click()"
+              >
+                <van-icon name="plus" />
+                <span>{{ $t('panel.extractFromImage') }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -457,11 +465,19 @@
 
     <!-- Hidden file input for import -->
     <input
-      ref="fileInput"
+      ref="importFileInput"
       type="file"
       accept=".json"
       style="display: none"
       @change="handleFileImport"
+    />
+
+    <input
+      ref="uploadImageInput"
+      type="file"
+      accept="image/jpeg, image/png, image/webp, image/avif, image/apng, image/svg+xml"
+      style="display: none"
+      @change="handleImageUpload"
     />
   </div>
 </template>
@@ -474,9 +490,10 @@ import ColorPicker from './ColorPicker.vue'
 import ColorList from './ColorList.vue'
 import type ChartPreviewPanel from './ChartPreviewPanel.vue'
 import { downloadJsonFile, downloadJsFile } from '../utils/download'
-import { showToast, showDialog } from 'vant'
+import { showToast, showDialog, showLoadingToast } from 'vant'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
+import ColorThief from 'colorthief'
 
 // Initialize i18n and localization
 const { t } = useI18n()
@@ -489,7 +506,8 @@ const props = defineProps<Props>()
 
 // Component state
 const activeNames = ref(['functions'])
-const fileInputRef = useTemplateRef('fileInput')
+const importFileInputRef = useTemplateRef('importFileInput')
+const uploadImageInputRef = useTemplateRef('uploadImageInput')
 
 // Theme store
 const themeStore = useThemeStore()
@@ -750,7 +768,7 @@ const showUsageInstructions = (format: 'js' | 'json', filename: string) => {
 }
 
 const importConfig = () => {
-  fileInputRef.value?.click()
+  importFileInputRef.value?.click()
 }
 
 const exportConfig = async () => {
@@ -799,7 +817,6 @@ const resetTheme = async () => {
     // User cancelled
   }
 }
-
 
 const showHelp = () => {
   showDialog({
@@ -927,6 +944,62 @@ const handleFileImport = async (event: Event) => {
   // Clear input
   target.value = ''
 }
+
+const handleImageUpload = async (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (!file) return
+
+  const loader = showLoadingToast({
+    message: t('modals.extractingColors'),
+    duration: 0,
+    forbidClick: true,
+    loadingType: 'spinner',
+    wordBreak: 'break-word',
+    className: 'ec-loading-toast'
+  })
+
+  let imgURL: string | undefined;
+  try {
+    imgURL = URL.createObjectURL(file)
+
+    const img = new Image()
+    img.src = imgURL
+
+    await new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = (e) => {
+        console.error('Failed to load image')
+        reject(e)
+      }
+    })
+
+    const colorThief = new ColorThief()
+    const colors = colorThief.getPalette(img, 10, 1).map(
+      (rgb) => `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+    )
+
+    loader.close()
+
+    themeName.value = 'image-based'
+    theme.color = colors
+    // PENDING
+    theme.visualMapColor = colors.slice(0, 2)
+
+    props.chartPreviewRef?.updateCharts()
+
+    themeStore.activePreDefinedThemeIndex.value = null
+  } catch (e) {
+    console.error('Failed to extract image color:', e)
+    showToast({
+      message: t('modals.extractColorFailed'),
+      type: 'fail'
+    })
+  } finally {
+    imgURL && URL.revokeObjectURL(imgURL)
+    target.value = ''
+  }
+}
 </script>
 
 <style scoped>
@@ -992,6 +1065,18 @@ const handleFileImport = async (event: Event) => {
   box-shadow: 0 0 4px var(--van-primary-color);
 }
 
+.new-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: auto;
+  font-size: 85%;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
 .color-dot {
   width: 20px;
   height: 20px;
@@ -1012,6 +1097,12 @@ const handleFileImport = async (event: Event) => {
   font-size: 14px;
   font-weight: 500;
   color: rgb(41, 60, 85);
+}
+
+@media (max-width: 1200px) {
+  .new-theme span {
+    display: none;
+  }
 }
 
 /* Custom Vant styles */
@@ -1175,5 +1266,9 @@ const handleFileImport = async (event: Event) => {
 
 :global(.modal-body a:hover) {
   text-decoration: underline;
+}
+
+:global(.ec-loading-toast) {
+  width: 200px;
 }
 </style>

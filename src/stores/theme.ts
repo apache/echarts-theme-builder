@@ -284,9 +284,6 @@ const createThemeStore = () => {
 
         // Update axis settings based on axisSeperateSetting
         updateAxisSetting()
-
-        // Force trigger reactive update by modifying a dummy property
-        ;(theme as any).__forceUpdate = Date.now()
       }
     } catch (error) {
       console.error('Error loading predefined theme:', error)

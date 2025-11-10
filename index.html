@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="https://echarts.apache.org/en/images/favicon.png">
     <title>Apache ECharts Theme Builder</title>
     <style>
-      /* only for dev environment */
+      /* only for non-release environment */
       html, body {
         height: 100%;
         margin: 0;
@@ -14,10 +14,6 @@
     </style>
     <!-- include echarts CDN lib if NOT IN dev environment -->
     %VITE_EXTERNAL_ECHARTS_SCRIPT%
-    <script>
-      // show language selector in dev/preview environment
-      window.SHOW_LANGUAGE_SELECTOR = true;
-    </script>
   </head>
   <body>
     <div id="theme-builder-app"></div>

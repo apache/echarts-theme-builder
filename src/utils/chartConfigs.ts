@@ -557,14 +557,3 @@ export function getChartConfigs(seriesCnt: number = 4): ChartConfig[] {
 
   return configs
 }
-
-// Get specific chart by type
-export function getChartByType(type: string, seriesCnt: number = 4): ChartConfig | undefined {
-  const configs = getChartConfigs(seriesCnt)
-  return configs.find(config => config.type === type)
-}
-
-// Get all available chart types
-export function getAvailableChartTypes(): string[] {
-  return ['line', 'area', 'bar', 'stackedBar', 'scatter', 'pie', 'radar', 'candlestick', 'heatmap', 'treemap', 'graph', 'timeline']
-}

@@ -493,7 +493,7 @@ import { downloadJsonFile, downloadJsFile } from '../utils/download'
 import { showToast, showDialog, showLoadingToast } from 'vant'
 import { useI18n } from 'vue-i18n'
 import * as echarts from 'echarts'
-import ColorThief from 'colorthief'
+import { getPalette } from 'colorthief'
 
 // Initialize i18n and localization
 const { t } = useI18n()
@@ -977,9 +977,12 @@ const handleImageUpload = async (event: Event) => {
       }
     })
 
-    const colorThief = new ColorThief()
-    const colors = colorThief.getPalette(img, 10, 1).map(
-      (rgb) => `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+    const palette = await getPalette(img, { colorCount: 10, quality: 1, worker: true })
+    if (!palette) {
+      throw new Error('No colors extracted from this image')
+    }
+    const colors = palette.map(
+      (rgb) => `rgb(${rgb.array().join(',')})`
     )
 
     loader.close()

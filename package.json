@@ -11,24 +11,23 @@
     "release": "vue-tsc -b && vite build --mode app && node scripts/release.js"
   },
   "dependencies": {
-    "colorthief": "^2.7.0",
-    "vant": "^4.9.21",
-    "vue": "^3.5.24",
+    "colorthief": "^3.3.1",
+    "vant": "^4.9.24",
+    "vue": "^3.5.31",
     "vue-i18n": "^9.14.5",
     "vue3-colorpicker": "^2.3.0"
   },
   "devDependencies": {
-    "@types/colorthief": "^2.6.0",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^24.10.0",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/tsconfig": "^0.8.1",
+    "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/tsconfig": "^0.9.1",
     "copy-dir": "^1.3.0",
     "echarts": "^6.0.0",
-    "fs-extra": "^11.3.2",
+    "fs-extra": "^11.3.4",
     "typescript": "~5.8.3",
-    "vite": "^7.2.2",
-    "vite-plugin-static-copy": "^3.1.4",
-    "vue-tsc": "^3.1.3"
+    "vite": "^7.3.1",
+    "vite-plugin-static-copy": "^3.4.0",
+    "vue-tsc": "^3.2.6"
   }
 }
